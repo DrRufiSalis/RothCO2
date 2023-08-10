@@ -14626,7 +14626,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
 
 
   }
-  if(Scope == "VLC"){
+  else if(Scope == "VLC"){
     #### 7) Model Combinations - Litter; Conventional Tillage, 0-100% (+10%) Clay ####
     #### 7.1 - VLC0) Litter; 0%clay; Conventional tillage ####
     #The effects of climate on decomposition can be calculated now with the functions SoilR::fT.RothC and SoilR::fW.RothC as
@@ -17050,7 +17050,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
 
 
   }
-  if(Scope == "VLR"){
+  else if(Scope == "VLR"){
     #### 8) Model Combinations - Litter; Reduced Tillage, 0-100% (+10%) Clay ####
     #### 8.1 - VLR0) Litter; 0%clay; Reduced tillage ####
     #The effects of climate on decomposition can be calculated now with the functions SoilR::fT.RothC and SoilR::fW.RothC as
@@ -19480,7 +19480,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
 
 
   }
-  if(Scope == "VLN"){
+  else if(Scope == "VLN"){
     #### 9) Model Combinations - Litter; No Tillage, 0-100% (+10%) Clay ####
     #### 9.1 - VLN0) Litter; 0%clay; No tillage ####
     #The effects of climate on decomposition can be calculated now with the functions SoilR::fT.RothC and SoilR::fW.RothC as
@@ -21917,7 +21917,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
 
 
   }
-  if(Scope == "VMC"){
+  else if(Scope == "VMC"){
     #### 10) Model Combinations - Manure; Conventional Tillage, 0-100% (+10%) Clay ####
     #### 10.1 - VMC0) Manure; 0%clay; Conventional tillage ####
     #The effects of climate on decomposition can be calculated now with the functions SoilR::fT.RothC and SoilR::fW.RothC as
@@ -24343,7 +24343,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
 
 
   }
-  if(Scope == "VMR"){
+  else if(Scope == "VMR"){
     #### 11) Model Combinations - Manure; Reduced Tillage, 0-100% (+10%) Clay ####
     #### 11.1 - VMR0) Manure; 0%clay; Reduced tillage ####
     #The effects of climate on decomposition can be calculated now with the functions SoilR::fT.RothC and SoilR::fW.RothC as
@@ -26777,7 +26777,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
 
 
   }
-  if(Scope == "VMN"){
+  else if(Scope == "VMN"){
     #### 12) Model Combinations - Manure; No Tillage, 0-100% (+10%) Clay ####
     #### 12.1 - VMN0) Manure; 0%clay; No tillage ####
     #The effects of climate on decomposition can be calculated now with the functions SoilR::fT.RothC and SoilR::fW.RothC as
