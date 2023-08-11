@@ -10,7 +10,7 @@
 #' @export
 
 #Function to Run and Create the multiple RothC Combinations
-Run_RothC_All_NP <- function(   Scope, #Can be: All, VLC, VLR, VLN, VMC, VMR, VMN.
+Run_RothC_All_NP <- function(Scope = "All", #Can be: All, VLC, VLR, VLN, VMC, VMR, VMN.
                              SL_years = 100,
                              soil.thick = 23,
                              Tem = Temp,
@@ -216,8 +216,8 @@ colnames(ModelDFSL_VLC0P_YCT) <- c("Year", "Months", "AnnualCTail_VLC0")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VLC0P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC0P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VLC0P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC0P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLC0P_YC,"CEmissions_P\\ModelDFSL_R_C_VLC0P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLC0P_YCT,"CTails_P\\ModelDFSL_R_C_VLC0P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLC0P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC0P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLC0P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC0P.xlsx") #Yearly C emissions
 
 
 #### 7.2 - VLC1) Litter; 10%clay; Conventional tillage ####
@@ -393,8 +393,8 @@ colnames(ModelDFSL_VLC1P_YCT) <- c("Year", "Months", "AnnualCTail_VLC1")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VLC1P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC1P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VLC1P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC1P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLC1P_YC,"CEmissions_P\\ModelDFSL_R_C_VLC1P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLC1P_YCT,"CTails_P\\ModelDFSL_R_C_VLC1P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLC1P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC1P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLC1P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC1P.xlsx") #Yearly C emissions
 
 
 
@@ -571,8 +571,8 @@ colnames(ModelDFSL_VLC2P_YCT) <- c("Year", "Months", "AnnualCTail_VLC2")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VLC2P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC2P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VLC2P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC2P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLC2P_YC,"CEmissions_P\\ModelDFSL_R_C_VLC2P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLC2P_YCT,"CTails_P\\ModelDFSL_R_C_VLC2P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLC2P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC2P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLC2P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC2P.xlsx") #Yearly C emissions
 
 
 
@@ -749,8 +749,8 @@ colnames(ModelDFSL_VLC3P_YCT) <- c("Year", "Months", "AnnualCTail_VLC3")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VLC3P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC3P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VLC3P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC3P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLC3P_YC,"CEmissions_P\\ModelDFSL_R_C_VLC3P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLC3P_YCT,"CTails_P\\ModelDFSL_R_C_VLC3P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLC3P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC3P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLC3P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC3P.xlsx") #Yearly C emissions
 
 
 
@@ -927,8 +927,8 @@ colnames(ModelDFSL_VLC4P_YCT) <- c("Year", "Months", "AnnualCTail_VLC4")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VLC4P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC4P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VLC4P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC4P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLC4P_YC,"CEmissions_P\\ModelDFSL_R_C_VLC4P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLC4P_YCT,"CTails_P\\ModelDFSL_R_C_VLC4P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLC4P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC4P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLC4P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC4P.xlsx") #Yearly C emissions
 
 
 
@@ -1108,8 +1108,8 @@ colnames(ModelDFSL_VLC5P_YCT) <- c("Year", "Months", "AnnualCTail_VLC5")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VLC5P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC5P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VLC5P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC5P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLC5P_YC,"CEmissions_P\\ModelDFSL_R_C_VLC5P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLC5P_YCT,"CTails_P\\ModelDFSL_R_C_VLC5P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLC5P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC5P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLC5P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC5P.xlsx") #Yearly C emissions
 
 
 
@@ -1288,8 +1288,8 @@ colnames(ModelDFSL_VLC6P_YCT) <- c("Year", "Months", "AnnualCTail_VLC6")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VLC6P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC6P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VLC6P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC6P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLC6P_YC,"CEmissions_P\\ModelDFSL_R_C_VLC6P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLC6P_YCT,"CTails_P\\ModelDFSL_R_C_VLC6P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLC6P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC6P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLC6P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC6P.xlsx") #Yearly C emissions
 
 
 
@@ -1469,8 +1469,8 @@ colnames(ModelDFSL_VLC7P_YCT) <- c("Year", "Months", "AnnualCTail_VLC7")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VLC7P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC7P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VLC7P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC7P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLC7P_YC,"CEmissions_P\\ModelDFSL_R_C_VLC7P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLC7P_YCT,"CTails_P\\ModelDFSL_R_C_VLC7P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLC7P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC7P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLC7P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC7P.xlsx") #Yearly C emissions
 
 
 
@@ -1649,8 +1649,8 @@ colnames(ModelDFSL_VLC8P_YCT) <- c("Year", "Months", "AnnualCTail_VLC8")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VLC8P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC8P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VLC8P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC8P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLC8P_YC,"CEmissions_P\\ModelDFSL_R_C_VLC8P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLC8P_YCT,"CTails_P\\ModelDFSL_R_C_VLC8P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLC8P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC8P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLC8P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC8P.xlsx") #Yearly C emissions
 
 
 
@@ -1829,8 +1829,8 @@ colnames(ModelDFSL_VLC9P_YCT) <- c("Year", "Months", "AnnualCTail_VLC9")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VLC9P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC9P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VLC9P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC9P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLC9P_YC,"CEmissions_P\\ModelDFSL_R_C_VLC9P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLC9P_YCT,"CTails_P\\ModelDFSL_R_C_VLC9P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLC9P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC9P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLC9P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC9P.xlsx") #Yearly C emissions
 
 
 
@@ -2008,8 +2008,8 @@ colnames(ModelDFSL_VLC10P_YCT) <- c("Year", "Months", "AnnualCTail_VLC10")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VLC10P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC10P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VLC10P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC10P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLC10P_YC,"CEmissions_P\\ModelDFSL_R_C_VLC10P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLC10P_YCT,"CTails_P\\ModelDFSL_R_C_VLC10P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLC10P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC10P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLC10P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC10P.xlsx") #Yearly C emissions
 
 #### - #####
 #### 8) Model Combinations - Litter; Reduced Tillage, 0-100% (+10%) Clay ####
@@ -2180,8 +2180,8 @@ colnames(ModelDFSL_VLR0P_YCT) <- c("Year", "Months", "AnnualCTail_VLR0")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VLR0P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR0P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VLR0P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR0P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLR0P_YC,"CEmissions_P\\ModelDFSL_R_C_VLR0P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLR0P_YCT,"CTails_P\\ModelDFSL_R_C_VLR0P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLR0P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR0P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLR0P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR0P.xlsx") #Yearly C emissions
 
 
 #### 8.2 - VLR1) Litter; 10%clay; Reduced Tillage ####
@@ -2357,8 +2357,8 @@ colnames(ModelDFSL_VLR1P_YCT) <- c("Year", "Months", "AnnualCTail_VLR1")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VLR1P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR1P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VLR1P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR1P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLR1P_YC,"CEmissions_P\\ModelDFSL_R_C_VLR1P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLR1P_YCT,"CTails_P\\ModelDFSL_R_C_VLR1P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLR1P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR1P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLR1P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR1P.xlsx") #Yearly C emissions
 
 
 
@@ -2535,8 +2535,8 @@ colnames(ModelDFSL_VLR2P_YCT) <- c("Year", "Months", "AnnualCTail_VLR2")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VLR2P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR2P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VLR2P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR2P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLR2P_YC,"CEmissions_P\\ModelDFSL_R_C_VLR2P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLR2P_YCT,"CTails_P\\ModelDFSL_R_C_VLR2P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLR2P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR2P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLR2P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR2P.xlsx") #Yearly C emissions
 
 
 
@@ -2713,8 +2713,8 @@ colnames(ModelDFSL_VLR3P_YCT) <- c("Year", "Months", "AnnualCTail_VLR3")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VLR3P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR3P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VLR3P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR3P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLR3P_YC,"CEmissions_P\\ModelDFSL_R_C_VLR3P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLR3P_YCT,"CTails_P\\ModelDFSL_R_C_VLR3P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLR3P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR3P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLR3P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR3P.xlsx") #Yearly C emissions
 
 
 
@@ -2891,8 +2891,8 @@ colnames(ModelDFSL_VLR4P_YCT) <- c("Year", "Months", "AnnualCTail_VLR4")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VLR4P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR4P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VLR4P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR4P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLR4P_YC,"CEmissions_P\\ModelDFSL_R_C_VLR4P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLR4P_YCT,"CTails_P\\ModelDFSL_R_C_VLR4P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLR4P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR4P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLR4P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR4P.xlsx") #Yearly C emissions
 
 
 
@@ -3072,8 +3072,8 @@ colnames(ModelDFSL_VLR5P_YCT) <- c("Year", "Months", "AnnualCTail_VLR5")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VLR5P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR5P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VLR5P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR5P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLR5P_YC,"CEmissions_P\\ModelDFSL_R_C_VLR5P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLR5P_YCT,"CTails_P\\ModelDFSL_R_C_VLR5P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLR5P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR5P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLR5P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR5P.xlsx") #Yearly C emissions
 
 
 
@@ -3252,8 +3252,8 @@ colnames(ModelDFSL_VLR6P_YCT) <- c("Year", "Months", "AnnualCTail_VLR6")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VLR6P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR6P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VLR6P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR6P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLR6P_YC,"CEmissions_P\\ModelDFSL_R_C_VLR6P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLR6P_YCT,"CTails_P\\ModelDFSL_R_C_VLR6P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLR6P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR6P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLR6P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR6P.xlsx") #Yearly C emissions
 
 
 
@@ -3433,8 +3433,8 @@ colnames(ModelDFSL_VLR7P_YCT) <- c("Year", "Months", "AnnualCTail_VLR7")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VLR7P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR7P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VLR7P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR7P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLR7P_YC,"CEmissions_P\\ModelDFSL_R_C_VLR7P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLR7P_YCT,"CTails_P\\ModelDFSL_R_C_VLR7P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLR7P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR7P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLR7P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR7P.xlsx") #Yearly C emissions
 
 
 
@@ -3613,8 +3613,8 @@ colnames(ModelDFSL_VLR8P_YCT) <- c("Year", "Months", "AnnualCTail_VLR8")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VLR8P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR8P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VLR8P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR8P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLR8P_YC,"CEmissions_P\\ModelDFSL_R_C_VLR8P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLR8P_YCT,"CTails_P\\ModelDFSL_R_C_VLR8P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLR8P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR8P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLR8P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR8P.xlsx") #Yearly C emissions
 
 
 
@@ -3793,8 +3793,8 @@ colnames(ModelDFSL_VLR9P_YCT) <- c("Year", "Months", "AnnualCTail_VLR9")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VLR9P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR9P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VLR9P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR9P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLR9P_YC,"CEmissions_P\\ModelDFSL_R_C_VLR9P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLR9P_YCT,"CTails_P\\ModelDFSL_R_C_VLR9P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLR9P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR9P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLR9P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR9P.xlsx") #Yearly C emissions
 
 
 
@@ -3972,8 +3972,8 @@ colnames(ModelDFSL_VLR10P_YCT) <- c("Year", "Months", "AnnualCTail_VLR10")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VLR10P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR10P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VLR10P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR10P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLR10P_YC,"CEmissions_P\\ModelDFSL_R_C_VLR10P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLR10P_YCT,"CTails_P\\ModelDFSL_R_C_VLR10P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLR10P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR10P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLR10P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR10P.xlsx") #Yearly C emissions
 
 
 
@@ -4146,8 +4146,8 @@ colnames(ModelDFSL_VLN0P_YCT) <- c("Year", "Months", "AnnualCTail_VLN0")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VLN0P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN0P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VLN0P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN0P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLN0P_YC,"CEmissions_P\\ModelDFSL_R_C_VLN0P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLN0P_YCT,"CTails_P\\ModelDFSL_R_C_VLN0P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLN0P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN0P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLN0P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN0P.xlsx") #Yearly C emissions
 
 
 #### 9.2 - VLN1) Litter; 10%clay; No Tillage ####
@@ -4323,8 +4323,8 @@ colnames(ModelDFSL_VLN1P_YCT) <- c("Year", "Months", "AnnualCTail_VLN1")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VLN1P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN1P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VLN1P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN1P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLN1P_YC,"CEmissions_P\\ModelDFSL_R_C_VLN1P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLN1P_YCT,"CTails_P\\ModelDFSL_R_C_VLN1P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLN1P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN1P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLN1P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN1P.xlsx") #Yearly C emissions
 
 
 
@@ -4501,8 +4501,8 @@ colnames(ModelDFSL_VLN2P_YCT) <- c("Year", "Months", "AnnualCTail_VLN2")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VLN2P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN2P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VLN2P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN2P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLN2P_YC,"CEmissions_P\\ModelDFSL_R_C_VLN2P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLN2P_YCT,"CTails_P\\ModelDFSL_R_C_VLN2P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLN2P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN2P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLN2P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN2P.xlsx") #Yearly C emissions
 
 
 
@@ -4679,8 +4679,8 @@ colnames(ModelDFSL_VLN3P_YCT) <- c("Year", "Months", "AnnualCTail_VLN3")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VLN3P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN3P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VLN3P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN3P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLN3P_YC,"CEmissions_P\\ModelDFSL_R_C_VLN3P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLN3P_YCT,"CTails_P\\ModelDFSL_R_C_VLN3P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLN3P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN3P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLN3P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN3P.xlsx") #Yearly C emissions
 
 
 
@@ -4857,8 +4857,8 @@ colnames(ModelDFSL_VLN4P_YCT) <- c("Year", "Months", "AnnualCTail_VLN4")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VLN4P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN4P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VLN4P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN4P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLN4P_YC,"CEmissions_P\\ModelDFSL_R_C_VLN4P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLN4P_YCT,"CTails_P\\ModelDFSL_R_C_VLN4P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLN4P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN4P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLN4P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN4P.xlsx") #Yearly C emissions
 
 
 
@@ -5038,8 +5038,8 @@ colnames(ModelDFSL_VLN5P_YCT) <- c("Year", "Months", "AnnualCTail_VLN5")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VLN5P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN5P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VLN5P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN5P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLN5P_YC,"CEmissions_P\\ModelDFSL_R_C_VLN5P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLN5P_YCT,"CTails_P\\ModelDFSL_R_C_VLN5P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLN5P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN5P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLN5P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN5P.xlsx") #Yearly C emissions
 
 
 
@@ -5218,8 +5218,8 @@ colnames(ModelDFSL_VLN6P_YCT) <- c("Year", "Months", "AnnualCTail_VLN6")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VLN6P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN6P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VLN6P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN6P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLN6P_YC,"CEmissions_P\\ModelDFSL_R_C_VLN6P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLN6P_YCT,"CTails_P\\ModelDFSL_R_C_VLN6P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLN6P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN6P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLN6P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN6P.xlsx") #Yearly C emissions
 
 
 
@@ -5399,8 +5399,8 @@ colnames(ModelDFSL_VLN7P_YCT) <- c("Year", "Months", "AnnualCTail_VLN7")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VLN7P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN7P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VLN7P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN7P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLN7P_YC,"CEmissions_P\\ModelDFSL_R_C_VLN7P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLN7P_YCT,"CTails_P\\ModelDFSL_R_C_VLN7P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLN7P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN7P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLN7P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN7P.xlsx") #Yearly C emissions
 
 
 
@@ -5579,8 +5579,8 @@ colnames(ModelDFSL_VLN8P_YCT) <- c("Year", "Months", "AnnualCTail_VLN8")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VLN8P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN8P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VLN8P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN8P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLN8P_YC,"CEmissions_P\\ModelDFSL_R_C_VLN8P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLN8P_YCT,"CTails_P\\ModelDFSL_R_C_VLN8P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLN8P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN8P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLN8P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN8P.xlsx") #Yearly C emissions
 
 
 
@@ -5759,8 +5759,8 @@ colnames(ModelDFSL_VLN9P_YCT) <- c("Year", "Months", "AnnualCTail_VLN9")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VLN9P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN9P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VLN9P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN9P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLN9P_YC,"CEmissions_P\\ModelDFSL_R_C_VLN9P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLN9P_YCT,"CTails_P\\ModelDFSL_R_C_VLN9P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLN9P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN9P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLN9P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN9P.xlsx") #Yearly C emissions
 
 
 
@@ -5938,8 +5938,8 @@ colnames(ModelDFSL_VLN10P_YCT) <- c("Year", "Months", "AnnualCTail_VLN10")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VLN10P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN10P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VLN10P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN10P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLN10P_YC,"CEmissions_P\\ModelDFSL_R_C_VLN10P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLN10P_YCT,"CTails_P\\ModelDFSL_R_C_VLN10P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLN10P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN10P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN10P.xlsx") #Yearly C emissions
 
 #### - ####
 #### 10) Model Combinations - Manure; Conventional Tillage, 0-100% (+10%) Clay ####
@@ -6110,8 +6110,8 @@ colnames(ModelDFSL_VMC0P_YCT) <- c("Year", "Months", "AnnualCTail_VMC0")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VMC0P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC0P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VMC0P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC0P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMC0P_YC,"CEmissions_P\\ModelDFSL_R_C_VMC0P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMC0P_YCT,"CTails_P\\ModelDFSL_R_C_VMC0P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMC0P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC0P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMC0P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC0P.xlsx") #Yearly C emissions
 
 
 #### 10.2 - VMC1) Manure; 10%clay; Conventional tillage ####
@@ -6287,8 +6287,8 @@ colnames(ModelDFSL_VMC1P_YCT) <- c("Year", "Months", "AnnualCTail_VMC1")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VMC1P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC1P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VMC1P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC1P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMC1P_YC,"CEmissions_P\\ModelDFSL_R_C_VMC1P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMC1P_YCT,"CTails_P\\ModelDFSL_R_C_VMC1P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMC1P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC1P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMC1P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC1P.xlsx") #Yearly C emissions
 
 
 
@@ -6465,8 +6465,8 @@ colnames(ModelDFSL_VMC2P_YCT) <- c("Year", "Months", "AnnualCTail_VMC2")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VMC2P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC2P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VMC2P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC2P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMC2P_YC,"CEmissions_P\\ModelDFSL_R_C_VMC2P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMC2P_YCT,"CTails_P\\ModelDFSL_R_C_VMC2P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMC2P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC2P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMC2P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC2P.xlsx") #Yearly C emissions
 
 
 
@@ -6643,8 +6643,8 @@ colnames(ModelDFSL_VMC3P_YCT) <- c("Year", "Months", "AnnualCTail_VMC3")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VMC3P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC3P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VMC3P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC3P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMC3P_YC,"CEmissions_P\\ModelDFSL_R_C_VMC3P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMC3P_YCT,"CTails_P\\ModelDFSL_R_C_VMC3P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMC3P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC3P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMC3P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC3P.xlsx") #Yearly C emissions
 
 
 
@@ -6821,8 +6821,8 @@ colnames(ModelDFSL_VMC4P_YCT) <- c("Year", "Months", "AnnualCTail_VMC4")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VMC4P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC4P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VMC4P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC4P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMC4P_YC,"CEmissions_P\\ModelDFSL_R_C_VMC4P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMC4P_YCT,"CTails_P\\ModelDFSL_R_C_VMC4P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMC4P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC4P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMC4P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC4P.xlsx") #Yearly C emissions
 
 
 
@@ -7002,8 +7002,8 @@ colnames(ModelDFSL_VMC5P_YCT) <- c("Year", "Months", "AnnualCTail_VMC5")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VMC5P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC5P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VMC5P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC5P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMC5P_YC,"CEmissions_P\\ModelDFSL_R_C_VMC5P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMC5P_YCT,"CTails_P\\ModelDFSL_R_C_VMC5P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMC5P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC5P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMC5P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC5P.xlsx") #Yearly C emissions
 
 
 
@@ -7182,8 +7182,8 @@ colnames(ModelDFSL_VMC6P_YCT) <- c("Year", "Months", "AnnualCTail_VMC6")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VMC6P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC6P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VMC6P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC6P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMC6P_YC,"CEmissions_P\\ModelDFSL_R_C_VMC6P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMC6P_YCT,"CTails_P\\ModelDFSL_R_C_VMC6P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMC6P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC6P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMC6P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC6P.xlsx") #Yearly C emissions
 
 
 
@@ -7363,8 +7363,8 @@ colnames(ModelDFSL_VMC7P_YCT) <- c("Year", "Months", "AnnualCTail_VMC7")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VMC7P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC7P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VMC7P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC7P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMC7P_YC,"CEmissions_P\\ModelDFSL_R_C_VMC7P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMC7P_YCT,"CTails_P\\ModelDFSL_R_C_VMC7P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMC7P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC7P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMC7P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC7P.xlsx") #Yearly C emissions
 
 
 
@@ -7543,8 +7543,8 @@ colnames(ModelDFSL_VMC8P_YCT) <- c("Year", "Months", "AnnualCTail_VMC8")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VMC8P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC8P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VMC8P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC8P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMC8P_YC,"CEmissions_P\\ModelDFSL_R_C_VMC8P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMC8P_YCT,"CTails_P\\ModelDFSL_R_C_VMC8P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMC8P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC8P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMC8P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC8P.xlsx") #Yearly C emissions
 
 
 
@@ -7723,8 +7723,8 @@ colnames(ModelDFSL_VMC9P_YCT) <- c("Year", "Months", "AnnualCTail_VMC9")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VMC9P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC9P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VMC9P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC9P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMC9P_YC,"CEmissions_P\\ModelDFSL_R_C_VMC9P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMC9P_YCT,"CTails_P\\ModelDFSL_R_C_VMC9P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMC9P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC9P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMC9P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC9P.xlsx") #Yearly C emissions
 
 
 
@@ -7902,8 +7902,8 @@ colnames(ModelDFSL_VMC10P_YCT) <- c("Year", "Months", "AnnualCTail_VMC10")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VMC10P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC10P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VMC10P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC10P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMC10P_YC,"CEmissions_P\\ModelDFSL_R_C_VMC10P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMC10P_YCT,"CTails_P\\ModelDFSL_R_C_VMC10P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMC10P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC10P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMC10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC10P.xlsx") #Yearly C emissions
 
 #### - ####
 #### 11) Model Combinations - Manure; Reduced Tillage, 0-100% (+10%) Clay ####
@@ -8074,8 +8074,8 @@ colnames(ModelDFSL_VMR0P_YCT) <- c("Year", "Months", "AnnualCTail_VMR0")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VMR0P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR0P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VMR0P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR0P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMR0P_YC,"CEmissions_P\\ModelDFSL_R_C_VMR0P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMR0P_YCT,"CTails_P\\ModelDFSL_R_C_VMR0P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMR0P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR0P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMR0P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR0P.xlsx") #Yearly C emissions
 
 
 #### 11.2 - VMR1) Manure; 10%clay; Reduced Tillage ####
@@ -8251,8 +8251,8 @@ colnames(ModelDFSL_VMR1P_YCT) <- c("Year", "Months", "AnnualCTail_VMR1")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VMR1P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR1P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VMR1P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR1P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMR1P_YC,"CEmissions_P\\ModelDFSL_R_C_VMR1P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMR1P_YCT,"CTails_P\\ModelDFSL_R_C_VMR1P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMR1P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR1P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMR1P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR1P.xlsx") #Yearly C emissions
 
 
 
@@ -8429,8 +8429,8 @@ colnames(ModelDFSL_VMR2P_YCT) <- c("Year", "Months", "AnnualCTail_VMR2")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VMR2P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR2P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VMR2P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR2P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMR2P_YC,"CEmissions_P\\ModelDFSL_R_C_VMR2P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMR2P_YCT,"CTails_P\\ModelDFSL_R_C_VMR2P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMR2P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR2P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMR2P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR2P.xlsx") #Yearly C emissions
 
 
 
@@ -8607,8 +8607,8 @@ colnames(ModelDFSL_VMR3P_YCT) <- c("Year", "Months", "AnnualCTail_VMR3")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VMR3P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR3P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VMR3P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR3P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMR3P_YC,"CEmissions_P\\ModelDFSL_R_C_VMR3P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMR3P_YCT,"CTails_P\\ModelDFSL_R_C_VMR3P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMR3P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR3P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMR3P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR3P.xlsx") #Yearly C emissions
 
 
 
@@ -8785,8 +8785,8 @@ colnames(ModelDFSL_VMR4P_YCT) <- c("Year", "Months", "AnnualCTail_VMR4")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VMR4P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR4P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VMR4P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR4P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMR4P_YC,"CEmissions_P\\ModelDFSL_R_C_VMR4P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMR4P_YCT,"CTails_P\\ModelDFSL_R_C_VMR4P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMR4P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR4P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMR4P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR4P.xlsx") #Yearly C emissions
 
 
 
@@ -8966,8 +8966,8 @@ colnames(ModelDFSL_VMR5P_YCT) <- c("Year", "Months", "AnnualCTail_VMR5")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VMR5P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR5P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VMR5P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR5P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMR5P_YC,"CEmissions_P\\ModelDFSL_R_C_VMR5P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMR5P_YCT,"CTails_P\\ModelDFSL_R_C_VMR5P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMR5P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR5P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMR5P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR5P.xlsx") #Yearly C emissions
 
 
 
@@ -9146,8 +9146,8 @@ colnames(ModelDFSL_VMR6P_YCT) <- c("Year", "Months", "AnnualCTail_VMR6")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VMR6P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR6P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VMR6P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR6P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMR6P_YC,"CEmissions_P\\ModelDFSL_R_C_VMR6P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMR6P_YCT,"CTails_P\\ModelDFSL_R_C_VMR6P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMR6P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR6P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMR6P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR6P.xlsx") #Yearly C emissions
 
 
 
@@ -9327,8 +9327,8 @@ colnames(ModelDFSL_VMR7P_YCT) <- c("Year", "Months", "AnnualCTail_VMR7")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VMR7P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR7P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VMR7P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR7P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMR7P_YC,"CEmissions_P\\ModelDFSL_R_C_VMR7P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMR7P_YCT,"CTails_P\\ModelDFSL_R_C_VMR7P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMR7P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR7P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMR7P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR7P.xlsx") #Yearly C emissions
 
 
 
@@ -9507,8 +9507,8 @@ colnames(ModelDFSL_VMR8P_YCT) <- c("Year", "Months", "AnnualCTail_VMR8")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VMR8P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR8P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VMR8P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR8P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMR8P_YC,"CEmissions_P\\ModelDFSL_R_C_VMR8P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMR8P_YCT,"CTails_P\\ModelDFSL_R_C_VMR8P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMR8P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR8P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMR8P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR8P.xlsx") #Yearly C emissions
 
 
 
@@ -9687,8 +9687,8 @@ colnames(ModelDFSL_VMR9P_YCT) <- c("Year", "Months", "AnnualCTail_VMR9")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VMR9P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR9P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VMR9P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR9P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMR9P_YC,"CEmissions_P\\ModelDFSL_R_C_VMR9P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMR9P_YCT,"CTails_P\\ModelDFSL_R_C_VMR9P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMR9P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR9P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMR9P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR9P.xlsx") #Yearly C emissions
 
 
 
@@ -9866,8 +9866,8 @@ colnames(ModelDFSL_VMR10P_YCT) <- c("Year", "Months", "AnnualCTail_VMR10")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VMR10P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR10P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VMR10P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR10P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMR10P_YC,"CEmissions_P\\ModelDFSL_R_C_VMR10P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMR10P_YCT,"CTails_P\\ModelDFSL_R_C_VMR10P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMR10P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR10P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMR10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR10P.xlsx") #Yearly C emissions
 
 #### - ####
 #### 12) Model Combinations - Manure; No Tillage, 0-100% (+10%) Clay ####
@@ -10038,8 +10038,8 @@ colnames(ModelDFSL_VMN0P_YCT) <- c("Year", "Months", "AnnualCTail_VMN0")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VMN0P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN0P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VMN0P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN0P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMN0P_YC,"CEmissions_P\\ModelDFSL_R_C_VMN0P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMN0P_YCT,"CTails_P\\ModelDFSL_R_C_VMN0P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMN0P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN0P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMN0P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN0P.xlsx") #Yearly C emissions
 
 
 #### 12.2 - VMN1) Manure; 10%clay; No Tillage ####
@@ -10215,8 +10215,8 @@ colnames(ModelDFSL_VMN1P_YCT) <- c("Year", "Months", "AnnualCTail_VMN1")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VMN1P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN1P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VMN1P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN1P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMN1P_YC,"CEmissions_P\\ModelDFSL_R_C_VMN1P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMN1P_YCT,"CTails_P\\ModelDFSL_R_C_VMN1P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMN1P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN1P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMN1P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN1P.xlsx") #Yearly C emissions
 
 
 
@@ -10393,8 +10393,8 @@ colnames(ModelDFSL_VMN2P_YCT) <- c("Year", "Months", "AnnualCTail_VMN2")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VMN2P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN2P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VMN2P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN2P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMN2P_YC,"CEmissions_P\\ModelDFSL_R_C_VMN2P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMN2P_YCT,"CTails_P\\ModelDFSL_R_C_VMN2P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMN2P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN2P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMN2P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN2P.xlsx") #Yearly C emissions
 
 
 
@@ -10571,8 +10571,8 @@ colnames(ModelDFSL_VMN3P_YCT) <- c("Year", "Months", "AnnualCTail_VMN3")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VMN3P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN3P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VMN3P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN3P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMN3P_YC,"CEmissions_P\\ModelDFSL_R_C_VMN3P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMN3P_YCT,"CTails_P\\ModelDFSL_R_C_VMN3P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMN3P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN3P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMN3P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN3P.xlsx") #Yearly C emissions
 
 
 
@@ -10749,8 +10749,8 @@ colnames(ModelDFSL_VMN4P_YCT) <- c("Year", "Months", "AnnualCTail_VMN4")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VMN4P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN4P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VMN4P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN4P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMN4P_YC,"CEmissions_P\\ModelDFSL_R_C_VMN4P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMN4P_YCT,"CTails_P\\ModelDFSL_R_C_VMN4P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMN4P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN4P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMN4P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN4P.xlsx") #Yearly C emissions
 
 
 
@@ -10930,8 +10930,8 @@ colnames(ModelDFSL_VMN5P_YCT) <- c("Year", "Months", "AnnualCTail_VMN5")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VMN5P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN5P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VMN5P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN5P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMN5P_YC,"CEmissions_P\\ModelDFSL_R_C_VMN5P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMN5P_YCT,"CTails_P\\ModelDFSL_R_C_VMN5P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMN5P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN5P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMN5P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN5P.xlsx") #Yearly C emissions
 
 
 
@@ -11110,8 +11110,8 @@ colnames(ModelDFSL_VMN6P_YCT) <- c("Year", "Months", "AnnualCTail_VMN6")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VMN6P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN6P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VMN6P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN6P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMN6P_YC,"CEmissions_P\\ModelDFSL_R_C_VMN6P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMN6P_YCT,"CTails_P\\ModelDFSL_R_C_VMN6P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMN6P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN6P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMN6P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN6P.xlsx") #Yearly C emissions
 
 
 
@@ -11291,8 +11291,8 @@ colnames(ModelDFSL_VMN7P_YCT) <- c("Year", "Months", "AnnualCTail_VMN7")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VMN7P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN7P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VMN7P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN7P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMN7P_YC,"CEmissions_P\\ModelDFSL_R_C_VMN7P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMN7P_YCT,"CTails_P\\ModelDFSL_R_C_VMN7P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMN7P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN7P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMN7P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN7P.xlsx") #Yearly C emissions
 
 
 
@@ -11471,8 +11471,8 @@ colnames(ModelDFSL_VMN8P_YCT) <- c("Year", "Months", "AnnualCTail_VMN8")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VMN8P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN8P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VMN8P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN8P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMN8P_YC,"CEmissions_P\\ModelDFSL_R_C_VMN8P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMN8P_YCT,"CTails_P\\ModelDFSL_R_C_VMN8P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMN8P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN8P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMN8P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN8P.xlsx") #Yearly C emissions
 
 
 
@@ -11651,8 +11651,8 @@ colnames(ModelDFSL_VMN9P_YCT) <- c("Year", "Months", "AnnualCTail_VMN9")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VMN9P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN9P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VMN9P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN9P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMN9P_YC,"CEmissions_P\\ModelDFSL_R_C_VMN9P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMN9P_YCT,"CTails_P\\ModelDFSL_R_C_VMN9P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMN9P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN9P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMN9P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN9P.xlsx") #Yearly C emissions
 
 
 
@@ -11830,8 +11830,8 @@ colnames(ModelDFSL_VMN10P_YCT) <- c("Year", "Months", "AnnualCTail_VMN10")
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
 write_xlsx(ModelDFSL_VMN10P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN10P.xlsx") #Yearly CO2 emissions (no delay)
 write_xlsx(ModelDFSL_VMN10P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN10P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMN10P_YC,"CEmissions_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMN10P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN10P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly C emissions
 
   }
   else if(Scope == "VLC"){
@@ -12003,8 +12003,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VLC0P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC0P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VLC0P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC0P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLC0P_YC,"CEmissions_P\\ModelDFSL_R_C_VLC0P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLC0P_YCT,"CTails_P\\ModelDFSL_R_C_VLC0P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLC0P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC0P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLC0P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC0P.xlsx") #Yearly C emissions
 
 
     #### 7.2 - VLC1) Litter; 10%clay; Conventional tillage ####
@@ -12180,8 +12180,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VLC1P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC1P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VLC1P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC1P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLC1P_YC,"CEmissions_P\\ModelDFSL_R_C_VLC1P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLC1P_YCT,"CTails_P\\ModelDFSL_R_C_VLC1P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLC1P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC1P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLC1P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC1P.xlsx") #Yearly C emissions
 
 
 
@@ -12358,8 +12358,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VLC2P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC2P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VLC2P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC2P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLC2P_YC,"CEmissions_P\\ModelDFSL_R_C_VLC2P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLC2P_YCT,"CTails_P\\ModelDFSL_R_C_VLC2P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLC2P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC2P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLC2P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC2P.xlsx") #Yearly C emissions
 
 
 
@@ -12536,8 +12536,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VLC3P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC3P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VLC3P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC3P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLC3P_YC,"CEmissions_P\\ModelDFSL_R_C_VLC3P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLC3P_YCT,"CTails_P\\ModelDFSL_R_C_VLC3P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLC3P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC3P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLC3P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC3P.xlsx") #Yearly C emissions
 
 
 
@@ -12714,8 +12714,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VLC4P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC4P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VLC4P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC4P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLC4P_YC,"CEmissions_P\\ModelDFSL_R_C_VLC4P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLC4P_YCT,"CTails_P\\ModelDFSL_R_C_VLC4P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLC4P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC4P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLC4P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC4P.xlsx") #Yearly C emissions
 
 
 
@@ -12895,8 +12895,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VLC5P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC5P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VLC5P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC5P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLC5P_YC,"CEmissions_P\\ModelDFSL_R_C_VLC5P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLC5P_YCT,"CTails_P\\ModelDFSL_R_C_VLC5P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLC5P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC5P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLC5P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC5P.xlsx") #Yearly C emissions
 
 
 
@@ -13075,8 +13075,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VLC6P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC6P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VLC6P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC6P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLC6P_YC,"CEmissions_P\\ModelDFSL_R_C_VLC6P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLC6P_YCT,"CTails_P\\ModelDFSL_R_C_VLC6P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLC6P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC6P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLC6P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC6P.xlsx") #Yearly C emissions
 
 
 
@@ -13256,8 +13256,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VLC7P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC7P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VLC7P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC7P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLC7P_YC,"CEmissions_P\\ModelDFSL_R_C_VLC7P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLC7P_YCT,"CTails_P\\ModelDFSL_R_C_VLC7P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLC7P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC7P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLC7P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC7P.xlsx") #Yearly C emissions
 
 
 
@@ -13436,8 +13436,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VLC8P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC8P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VLC8P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC8P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLC8P_YC,"CEmissions_P\\ModelDFSL_R_C_VLC8P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLC8P_YCT,"CTails_P\\ModelDFSL_R_C_VLC8P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLC8P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC8P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLC8P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC8P.xlsx") #Yearly C emissions
 
 
 
@@ -13616,8 +13616,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VLC9P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC9P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VLC9P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC9P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLC9P_YC,"CEmissions_P\\ModelDFSL_R_C_VLC9P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLC9P_YCT,"CTails_P\\ModelDFSL_R_C_VLC9P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLC9P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC9P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLC9P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC9P.xlsx") #Yearly C emissions
 
 
 
@@ -13795,8 +13795,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VLC10P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC10P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VLC10P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC10P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLC10P_YC,"CEmissions_P\\ModelDFSL_R_C_VLC10P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLC10P_YCT,"CTails_P\\ModelDFSL_R_C_VLC10P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLC10P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC10P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLC10P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC10P.xlsx") #Yearly C emissions
 
   }
   else if(Scope == "VLR"){
@@ -13968,8 +13968,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VLR0P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR0P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VLR0P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR0P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLR0P_YC,"CEmissions_P\\ModelDFSL_R_C_VLR0P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLR0P_YCT,"CTails_P\\ModelDFSL_R_C_VLR0P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLR0P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR0P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLR0P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR0P.xlsx") #Yearly C emissions
 
 
 #### 8.2 - VLR1) Litter; 10%clay; Reduced Tillage ####
@@ -14145,8 +14145,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VLR1P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR1P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VLR1P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR1P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLR1P_YC,"CEmissions_P\\ModelDFSL_R_C_VLR1P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLR1P_YCT,"CTails_P\\ModelDFSL_R_C_VLR1P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLR1P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR1P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLR1P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR1P.xlsx") #Yearly C emissions
 
 
 
@@ -14323,8 +14323,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VLR2P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR2P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VLR2P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR2P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLR2P_YC,"CEmissions_P\\ModelDFSL_R_C_VLR2P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLR2P_YCT,"CTails_P\\ModelDFSL_R_C_VLR2P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLR2P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR2P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLR2P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR2P.xlsx") #Yearly C emissions
 
 
 
@@ -14501,8 +14501,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VLR3P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR3P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VLR3P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR3P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLR3P_YC,"CEmissions_P\\ModelDFSL_R_C_VLR3P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLR3P_YCT,"CTails_P\\ModelDFSL_R_C_VLR3P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLR3P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR3P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLR3P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR3P.xlsx") #Yearly C emissions
 
 
 
@@ -14679,8 +14679,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VLR4P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR4P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VLR4P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR4P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLR4P_YC,"CEmissions_P\\ModelDFSL_R_C_VLR4P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLR4P_YCT,"CTails_P\\ModelDFSL_R_C_VLR4P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLR4P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR4P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLR4P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR4P.xlsx") #Yearly C emissions
 
 
 
@@ -14860,8 +14860,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VLR5P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR5P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VLR5P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR5P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLR5P_YC,"CEmissions_P\\ModelDFSL_R_C_VLR5P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLR5P_YCT,"CTails_P\\ModelDFSL_R_C_VLR5P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLR5P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR5P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLR5P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR5P.xlsx") #Yearly C emissions
 
 
 
@@ -15040,8 +15040,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VLR6P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR6P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VLR6P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR6P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLR6P_YC,"CEmissions_P\\ModelDFSL_R_C_VLR6P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLR6P_YCT,"CTails_P\\ModelDFSL_R_C_VLR6P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLR6P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR6P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLR6P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR6P.xlsx") #Yearly C emissions
 
 
 
@@ -15221,8 +15221,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VLR7P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR7P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VLR7P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR7P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLR7P_YC,"CEmissions_P\\ModelDFSL_R_C_VLR7P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLR7P_YCT,"CTails_P\\ModelDFSL_R_C_VLR7P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLR7P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR7P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLR7P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR7P.xlsx") #Yearly C emissions
 
 
 
@@ -15401,8 +15401,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VLR8P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR8P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VLR8P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR8P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLR8P_YC,"CEmissions_P\\ModelDFSL_R_C_VLR8P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLR8P_YCT,"CTails_P\\ModelDFSL_R_C_VLR8P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLR8P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR8P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLR8P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR8P.xlsx") #Yearly C emissions
 
 
 
@@ -15581,8 +15581,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VLR9P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR9P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VLR9P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR9P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLR9P_YC,"CEmissions_P\\ModelDFSL_R_C_VLR9P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLR9P_YCT,"CTails_P\\ModelDFSL_R_C_VLR9P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLR9P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR9P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLR9P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR9P.xlsx") #Yearly C emissions
 
 
 
@@ -15760,8 +15760,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VLR10P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR10P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VLR10P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR10P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLR10P_YC,"CEmissions_P\\ModelDFSL_R_C_VLR10P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLR10P_YCT,"CTails_P\\ModelDFSL_R_C_VLR10P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLR10P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR10P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLR10P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR10P.xlsx") #Yearly C emissions
 
 
 
@@ -15935,8 +15935,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VLN0P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN0P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VLN0P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN0P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLN0P_YC,"CEmissions_P\\ModelDFSL_R_C_VLN0P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLN0P_YCT,"CTails_P\\ModelDFSL_R_C_VLN0P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLN0P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN0P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLN0P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN0P.xlsx") #Yearly C emissions
 
 
     #### 9.2 - VLN1) Litter; 10%clay; No Tillage ####
@@ -16112,8 +16112,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VLN1P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN1P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VLN1P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN1P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLN1P_YC,"CEmissions_P\\ModelDFSL_R_C_VLN1P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLN1P_YCT,"CTails_P\\ModelDFSL_R_C_VLN1P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLN1P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN1P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLN1P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN1P.xlsx") #Yearly C emissions
 
 
 
@@ -16290,8 +16290,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VLN2P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN2P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VLN2P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN2P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLN2P_YC,"CEmissions_P\\ModelDFSL_R_C_VLN2P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLN2P_YCT,"CTails_P\\ModelDFSL_R_C_VLN2P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLN2P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN2P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLN2P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN2P.xlsx") #Yearly C emissions
 
 
 
@@ -16468,8 +16468,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VLN3P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN3P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VLN3P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN3P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLN3P_YC,"CEmissions_P\\ModelDFSL_R_C_VLN3P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLN3P_YCT,"CTails_P\\ModelDFSL_R_C_VLN3P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLN3P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN3P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLN3P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN3P.xlsx") #Yearly C emissions
 
 
 
@@ -16646,8 +16646,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VLN4P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN4P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VLN4P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN4P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLN4P_YC,"CEmissions_P\\ModelDFSL_R_C_VLN4P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLN4P_YCT,"CTails_P\\ModelDFSL_R_C_VLN4P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLN4P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN4P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLN4P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN4P.xlsx") #Yearly C emissions
 
 
 
@@ -16827,8 +16827,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VLN5P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN5P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VLN5P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN5P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLN5P_YC,"CEmissions_P\\ModelDFSL_R_C_VLN5P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLN5P_YCT,"CTails_P\\ModelDFSL_R_C_VLN5P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLN5P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN5P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLN5P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN5P.xlsx") #Yearly C emissions
 
 
 
@@ -17007,8 +17007,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VLN6P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN6P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VLN6P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN6P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLN6P_YC,"CEmissions_P\\ModelDFSL_R_C_VLN6P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLN6P_YCT,"CTails_P\\ModelDFSL_R_C_VLN6P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLN6P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN6P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLN6P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN6P.xlsx") #Yearly C emissions
 
 
 
@@ -17188,8 +17188,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VLN7P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN7P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VLN7P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN7P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLN7P_YC,"CEmissions_P\\ModelDFSL_R_C_VLN7P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLN7P_YCT,"CTails_P\\ModelDFSL_R_C_VLN7P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLN7P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN7P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLN7P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN7P.xlsx") #Yearly C emissions
 
 
 
@@ -17368,8 +17368,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VLN8P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN8P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VLN8P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN8P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLN8P_YC,"CEmissions_P\\ModelDFSL_R_C_VLN8P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLN8P_YCT,"CTails_P\\ModelDFSL_R_C_VLN8P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLN8P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN8P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLN8P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN8P.xlsx") #Yearly C emissions
 
 
 
@@ -17548,8 +17548,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VLN9P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN9P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VLN9P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN9P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLN9P_YC,"CEmissions_P\\ModelDFSL_R_C_VLN9P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLN9P_YCT,"CTails_P\\ModelDFSL_R_C_VLN9P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLN9P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN9P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLN9P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN9P.xlsx") #Yearly C emissions
 
 
 
@@ -17727,8 +17727,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VLN10P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN10P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VLN10P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN10P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLN10P_YC,"CEmissions_P\\ModelDFSL_R_C_VLN10P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLN10P_YCT,"CTails_P\\ModelDFSL_R_C_VLN10P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLN10P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN10P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN10P.xlsx") #Yearly C emissions
 
   }
   else if(Scope == "VMC"){
@@ -17900,8 +17900,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VMC0P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC0P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VMC0P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC0P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMC0P_YC,"CEmissions_P\\ModelDFSL_R_C_VMC0P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMC0P_YCT,"CTails_P\\ModelDFSL_R_C_VMC0P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMC0P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC0P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMC0P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC0P.xlsx") #Yearly C emissions
 
 
     #### 10.2 - VMC1) Manure; 10%clay; Conventional tillage ####
@@ -18077,8 +18077,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VMC1P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC1P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VMC1P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC1P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMC1P_YC,"CEmissions_P\\ModelDFSL_R_C_VMC1P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMC1P_YCT,"CTails_P\\ModelDFSL_R_C_VMC1P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMC1P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC1P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMC1P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC1P.xlsx") #Yearly C emissions
 
 
 
@@ -18255,8 +18255,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VMC2P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC2P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VMC2P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC2P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMC2P_YC,"CEmissions_P\\ModelDFSL_R_C_VMC2P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMC2P_YCT,"CTails_P\\ModelDFSL_R_C_VMC2P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMC2P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC2P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMC2P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC2P.xlsx") #Yearly C emissions
 
 
 
@@ -18433,8 +18433,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VMC3P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC3P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VMC3P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC3P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMC3P_YC,"CEmissions_P\\ModelDFSL_R_C_VMC3P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMC3P_YCT,"CTails_P\\ModelDFSL_R_C_VMC3P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMC3P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC3P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMC3P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC3P.xlsx") #Yearly C emissions
 
 
 
@@ -18611,8 +18611,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VMC4P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC4P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VMC4P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC4P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMC4P_YC,"CEmissions_P\\ModelDFSL_R_C_VMC4P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMC4P_YCT,"CTails_P\\ModelDFSL_R_C_VMC4P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMC4P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC4P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMC4P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC4P.xlsx") #Yearly C emissions
 
 
 
@@ -18792,8 +18792,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VMC5P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC5P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VMC5P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC5P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMC5P_YC,"CEmissions_P\\ModelDFSL_R_C_VMC5P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMC5P_YCT,"CTails_P\\ModelDFSL_R_C_VMC5P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMC5P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC5P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMC5P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC5P.xlsx") #Yearly C emissions
 
 
 
@@ -18972,8 +18972,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VMC6P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC6P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VMC6P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC6P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMC6P_YC,"CEmissions_P\\ModelDFSL_R_C_VMC6P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMC6P_YCT,"CTails_P\\ModelDFSL_R_C_VMC6P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMC6P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC6P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMC6P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC6P.xlsx") #Yearly C emissions
 
 
 
@@ -19153,8 +19153,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VMC7P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC7P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VMC7P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC7P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMC7P_YC,"CEmissions_P\\ModelDFSL_R_C_VMC7P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMC7P_YCT,"CTails_P\\ModelDFSL_R_C_VMC7P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMC7P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC7P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMC7P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC7P.xlsx") #Yearly C emissions
 
 
 
@@ -19333,8 +19333,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VMC8P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC8P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VMC8P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC8P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMC8P_YC,"CEmissions_P\\ModelDFSL_R_C_VMC8P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMC8P_YCT,"CTails_P\\ModelDFSL_R_C_VMC8P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMC8P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC8P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMC8P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC8P.xlsx") #Yearly C emissions
 
 
 
@@ -19513,8 +19513,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VMC9P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC9P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VMC9P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC9P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMC9P_YC,"CEmissions_P\\ModelDFSL_R_C_VMC9P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMC9P_YCT,"CTails_P\\ModelDFSL_R_C_VMC9P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMC9P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC9P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMC9P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC9P.xlsx") #Yearly C emissions
 
 
 
@@ -19692,8 +19692,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VMC10P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC10P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VMC10P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC10P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMC10P_YC,"CEmissions_P\\ModelDFSL_R_C_VMC10P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMC10P_YCT,"CTails_P\\ModelDFSL_R_C_VMC10P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMC10P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC10P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMC10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC10P.xlsx") #Yearly C emissions
 
   }
   else if(Scope == "VMR"){
@@ -19865,8 +19865,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VMR0P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR0P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VMR0P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR0P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMR0P_YC,"CEmissions_P\\ModelDFSL_R_C_VMR0P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMR0P_YCT,"CTails_P\\ModelDFSL_R_C_VMR0P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMR0P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR0P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMR0P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR0P.xlsx") #Yearly C emissions
 
 
     #### 11.2 - VMR1) Manure; 10%clay; Reduced Tillage ####
@@ -20042,8 +20042,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VMR1P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR1P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VMR1P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR1P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMR1P_YC,"CEmissions_P\\ModelDFSL_R_C_VMR1P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMR1P_YCT,"CTails_P\\ModelDFSL_R_C_VMR1P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMR1P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR1P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMR1P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR1P.xlsx") #Yearly C emissions
 
 
 
@@ -20220,8 +20220,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VMR2P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR2P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VMR2P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR2P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMR2P_YC,"CEmissions_P\\ModelDFSL_R_C_VMR2P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMR2P_YCT,"CTails_P\\ModelDFSL_R_C_VMR2P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMR2P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR2P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMR2P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR2P.xlsx") #Yearly C emissions
 
 
 
@@ -20398,8 +20398,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VMR3P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR3P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VMR3P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR3P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMR3P_YC,"CEmissions_P\\ModelDFSL_R_C_VMR3P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMR3P_YCT,"CTails_P\\ModelDFSL_R_C_VMR3P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMR3P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR3P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMR3P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR3P.xlsx") #Yearly C emissions
 
 
 
@@ -20576,8 +20576,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VMR4P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR4P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VMR4P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR4P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMR4P_YC,"CEmissions_P\\ModelDFSL_R_C_VMR4P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMR4P_YCT,"CTails_P\\ModelDFSL_R_C_VMR4P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMR4P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR4P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMR4P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR4P.xlsx") #Yearly C emissions
 
 
 
@@ -20757,8 +20757,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VMR5P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR5P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VMR5P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR5P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMR5P_YC,"CEmissions_P\\ModelDFSL_R_C_VMR5P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMR5P_YCT,"CTails_P\\ModelDFSL_R_C_VMR5P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMR5P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR5P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMR5P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR5P.xlsx") #Yearly C emissions
 
 
 
@@ -20937,8 +20937,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VMR6P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR6P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VMR6P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR6P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMR6P_YC,"CEmissions_P\\ModelDFSL_R_C_VMR6P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMR6P_YCT,"CTails_P\\ModelDFSL_R_C_VMR6P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMR6P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR6P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMR6P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR6P.xlsx") #Yearly C emissions
 
 
 
@@ -21118,8 +21118,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VMR7P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR7P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VMR7P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR7P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMR7P_YC,"CEmissions_P\\ModelDFSL_R_C_VMR7P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMR7P_YCT,"CTails_P\\ModelDFSL_R_C_VMR7P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMR7P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR7P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMR7P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR7P.xlsx") #Yearly C emissions
 
 
 
@@ -21298,8 +21298,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VMR8P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR8P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VMR8P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR8P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMR8P_YC,"CEmissions_P\\ModelDFSL_R_C_VMR8P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMR8P_YCT,"CTails_P\\ModelDFSL_R_C_VMR8P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMR8P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR8P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMR8P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR8P.xlsx") #Yearly C emissions
 
 
 
@@ -21478,8 +21478,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VMR9P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR9P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VMR9P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR9P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMR9P_YC,"CEmissions_P\\ModelDFSL_R_C_VMR9P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMR9P_YCT,"CTails_P\\ModelDFSL_R_C_VMR9P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMR9P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR9P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMR9P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR9P.xlsx") #Yearly C emissions
 
 
 
@@ -21657,8 +21657,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VMR10P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR10P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VMR10P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR10P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMR10P_YC,"CEmissions_P\\ModelDFSL_R_C_VMR10P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMR10P_YCT,"CTails_P\\ModelDFSL_R_C_VMR10P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMR10P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR10P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMR10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR10P.xlsx") #Yearly C emissions
 
   }
   else if(Scope == "VMN"){
@@ -21830,8 +21830,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VMN0P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN0P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VMN0P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN0P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMN0P_YC,"CEmissions_P\\ModelDFSL_R_C_VMN0P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMN0P_YCT,"CTails_P\\ModelDFSL_R_C_VMN0P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMN0P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN0P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMN0P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN0P.xlsx") #Yearly C emissions
 
 
     #### 12.2 - VMN1) Manure; 10%clay; No Tillage ####
@@ -22007,8 +22007,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VMN1P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN1P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VMN1P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN1P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMN1P_YC,"CEmissions_P\\ModelDFSL_R_C_VMN1P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMN1P_YCT,"CTails_P\\ModelDFSL_R_C_VMN1P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMN1P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN1P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMN1P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN1P.xlsx") #Yearly C emissions
 
 
 
@@ -22185,8 +22185,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VMN2P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN2P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VMN2P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN2P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMN2P_YC,"CEmissions_P\\ModelDFSL_R_C_VMN2P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMN2P_YCT,"CTails_P\\ModelDFSL_R_C_VMN2P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMN2P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN2P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMN2P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN2P.xlsx") #Yearly C emissions
 
 
 
@@ -22363,8 +22363,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VMN3P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN3P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VMN3P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN3P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMN3P_YC,"CEmissions_P\\ModelDFSL_R_C_VMN3P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMN3P_YCT,"CTails_P\\ModelDFSL_R_C_VMN3P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMN3P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN3P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMN3P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN3P.xlsx") #Yearly C emissions
 
 
 
@@ -22541,8 +22541,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VMN4P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN4P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VMN4P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN4P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMN4P_YC,"CEmissions_P\\ModelDFSL_R_C_VMN4P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMN4P_YCT,"CTails_P\\ModelDFSL_R_C_VMN4P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMN4P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN4P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMN4P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN4P.xlsx") #Yearly C emissions
 
 
 
@@ -22722,8 +22722,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VMN5P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN5P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VMN5P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN5P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMN5P_YC,"CEmissions_P\\ModelDFSL_R_C_VMN5P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMN5P_YCT,"CTails_P\\ModelDFSL_R_C_VMN5P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMN5P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN5P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMN5P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN5P.xlsx") #Yearly C emissions
 
 
 
@@ -22902,8 +22902,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VMN6P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN6P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VMN6P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN6P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMN6P_YC,"CEmissions_P\\ModelDFSL_R_C_VMN6P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMN6P_YCT,"CTails_P\\ModelDFSL_R_C_VMN6P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMN6P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN6P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMN6P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN6P.xlsx") #Yearly C emissions
 
 
 
@@ -23083,8 +23083,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VMN7P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN7P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VMN7P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN7P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMN7P_YC,"CEmissions_P\\ModelDFSL_R_C_VMN7P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMN7P_YCT,"CTails_P\\ModelDFSL_R_C_VMN7P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMN7P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN7P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMN7P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN7P.xlsx") #Yearly C emissions
 
 
 
@@ -23263,8 +23263,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VMN8P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN8P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VMN8P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN8P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMN8P_YC,"CEmissions_P\\ModelDFSL_R_C_VMN8P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMN8P_YCT,"CTails_P\\ModelDFSL_R_C_VMN8P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMN8P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN8P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMN8P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN8P.xlsx") #Yearly C emissions
 
 
 
@@ -23443,8 +23443,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VMN9P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN9P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VMN9P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN9P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMN9P_YC,"CEmissions_P\\ModelDFSL_R_C_VMN9P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMN9P_YCT,"CTails_P\\ModelDFSL_R_C_VMN9P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMN9P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN9P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMN9P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN9P.xlsx") #Yearly C emissions
 
 
 
@@ -23622,8 +23622,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
     write_xlsx(ModelDFSL_VMN10P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN10P.xlsx") #Yearly CO2 emissions (no delay)
     write_xlsx(ModelDFSL_VMN10P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN10P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMN10P_YC,"CEmissions_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_C_VMN10P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMN10P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN10P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly C emissions
 
   }
 }
