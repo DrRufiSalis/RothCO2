@@ -2,7 +2,7 @@
 % Please edit documentation in R/Set_Temp.R
 \name{Set_Temp}
 \alias{Set_Temp}
-\title{Set Monthly Temperature Vector}
+\title{Set Monthly Mean Temperatures}
 \usage{
 Set_Temp(
   TJan = 6.26,
@@ -19,11 +19,34 @@ Set_Temp(
   TDec = 6.95
 )
 }
+\arguments{
+\item{TJan}{Mean Temperature (celsius degrees) in January. Default uses values from Spain 1990-2020}
+
+\item{TFeb}{Mean Temperature (celsius degrees) in February. Default uses values from Spain 1990-2020}
+
+\item{TMar}{Mean Temperature (celsius degrees) in March. Default uses values from Spain 1990-2020}
+
+\item{TApr}{Mean Temperature (celsius degrees) in April. Default uses values from Spain 1990-2020}
+
+\item{TMay}{Mean Temperature (celsius degrees) in May. Default uses values from Spain 1990-2020}
+
+\item{TJun}{Mean Temperature (celsius degrees) in June. Default uses values from Spain 1990-2020}
+
+\item{TJul}{Mean Temperature (celsius degrees) in July. Default uses values from Spain 1990-2020}
+
+\item{TAug}{Mean Temperature (celsius degrees) in August. Default uses values from Spain 1990-2020}
+
+\item{TSep}{Mean Temperature (celsius degrees) in September. Default uses values from Spain 1990-2020}
+
+\item{TOct}{Mean Temperature (celsius degrees) in October. Default uses values from Spain 1990-2020}
+
+\item{TNov}{Mean Temperature (celsius degrees) in November. Default uses values from Spain 1990-2020}
+
+\item{TDec}{Mean Temperature (celsius degrees) in December. Default uses values from Spain 1990-2020}
+}
 \value{
-A vector with monthly temperature values
+A dataframe with monthly mean temperatures (celsius degrees).
 }
 \description{
-The Set_Temp function create a column with 12 rows and one column. The first
-column indicates the Month (1-12). The second column indicates the mean Temperature,
-either filled by the user or autofilled by default values for Spain 1990-2020.
+The Set_Temp function creates a dataframe with two columns and 12 rows. The first column indicates the Month (1-12). The second column indicates the monthly mean temperatures (celsius degrees), either filled by the user or autofilled by default values for Spain 1990-2020.
 }

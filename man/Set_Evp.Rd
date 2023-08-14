@@ -2,7 +2,7 @@
 % Please edit documentation in R/Set_Evp.R
 \name{Set_Evp}
 \alias{Set_Evp}
-\title{Set Monthly Evapotranspiration Vector}
+\title{Set Monthly Mean Evapotranspirations}
 \usage{
 Set_Evp(
   EvpJan = EvpJan_Default,
@@ -19,12 +19,34 @@ Set_Evp(
   EvpDec = EvpDec_Default
 )
 }
+\arguments{
+\item{EvpJan}{Mean Potential Evapotranspiration (mm) in January. Default uses values from Temp (can be created by Set_Temp) to calculate Potential Evapotranspiration (mm) using the Thornthwaite equation}
+
+\item{EvpFeb}{Mean Potential Evapotranspiration (mm) in February. Default uses values from Temp (can be created by Set_Temp) to calculate Potential Evapotranspiration (mm) using the Thornthwaite equation}
+
+\item{EvpMar}{Mean Potential Evapotranspiration (mm) in March. Default uses values from Temp (can be created by Set_Temp) to calculate Potential Evapotranspiration (mm) using the Thornthwaite equation}
+
+\item{EvpApr}{Mean Potential Evapotranspiration (mm) in April. Default uses values from Temp (can be created by Set_Temp) to calculate Potential Evapotranspiration (mm) using the Thornthwaite equation}
+
+\item{EvpMay}{Mean Potential Evapotranspiration (mm) in May. Default uses values from Temp (can be created by Set_Temp) to calculate Potential Evapotranspiration (mm) using the Thornthwaite equation}
+
+\item{EvpJun}{Mean Potential Evapotranspiration (mm) in June. Default uses values from Temp (can be created by Set_Temp) to calculate Potential Evapotranspiration (mm) using the Thornthwaite equation}
+
+\item{EvpJul}{Mean Potential Evapotranspiration (mm) in July. Default uses values from Temp (can be created by Set_Temp) to calculate Potential Evapotranspiration (mm) using the Thornthwaite equation}
+
+\item{EvpAug}{Mean Potential Evapotranspiration (mm) in August. Default uses values from Temp (can be created by Set_Temp) to calculate Potential Evapotranspiration (mm) using the Thornthwaite equation}
+
+\item{EvpSep}{Mean Potential Evapotranspiration (mm) in September. Default uses values from Temp (can be created by Set_Temp) to calculate Potential Evapotranspiration (mm) using the Thornthwaite equation}
+
+\item{EvpOct}{Mean Potential Evapotranspiration (mm) in October. Default uses values from Temp (can be created by Set_Temp) to calculate Potential Evapotranspiration (mm) using the Thornthwaite equation}
+
+\item{EvpNov}{Mean Potential Evapotranspiration (mm) in November. Default uses values from Temp (can be created by Set_Temp) to calculate Potential Evapotranspiration (mm) using the Thornthwaite equation}
+
+\item{EvpDec}{Mean Potential Evapotranspiration (mm) in December. Default uses values from Temp (can be created by Set_Temp) to calculate Potential Evapotranspiration (mm) using the Thornthwaite equation}
+}
 \value{
-A mvector with monthly evapotranspiration values
+A dataframe with monthly mean evapotranspiration (mm).
 }
 \description{
-The Set_Evp function create a column with 12 rows and one column. The first
-column indicates the Month (1-12). The second column indicates the mean monthly evapotranspiration,
-either filled by the user or autofilled by default values calculated using the
-Thornthwaite equiation using Temperature data from Set_Temp
+The Set_Evp function create a dataframe with two columns and 12 rows. The first column indicates the Month (1-12). The second column indicates the monthly mean evapotranspirations (mm), either filled by the user or autofilled by default values calculated using the Thornthwaite equation using Temperature data from Set_Temp.
 }

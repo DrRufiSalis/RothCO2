@@ -1,13 +1,24 @@
-#' Set Monthly Evapotranspiration Vector
+#' Set Monthly Mean Evapotranspirations
 #'
-#' The Set_Evp function create a column with 12 rows and one column. The first
-#' column indicates the Month (1-12). The second column indicates the mean monthly evapotranspiration,
-#' either filled by the user or autofilled by default values calculated using the
-#' Thornthwaite equiation using Temperature data from Set_Temp
-#' @return A mvector with monthly evapotranspiration values
+#' The Set_Evp function create a dataframe with two columns and 12 rows. The first column indicates the Month (1-12). The second column indicates the monthly mean evapotranspirations (mm), either filled by the user or autofilled by default values calculated using the Thornthwaite equation using Temperature data from Set_Temp.
+#'
+#' @param EvpJan Mean Potential Evapotranspiration (mm) in January. Default uses values from Temp (can be created by Set_Temp) to calculate Potential Evapotranspiration (mm) using the Thornthwaite equation
+#' @param EvpFeb Mean Potential Evapotranspiration (mm) in February. Default uses values from Temp (can be created by Set_Temp) to calculate Potential Evapotranspiration (mm) using the Thornthwaite equation
+#' @param EvpMar Mean Potential Evapotranspiration (mm) in March. Default uses values from Temp (can be created by Set_Temp) to calculate Potential Evapotranspiration (mm) using the Thornthwaite equation
+#' @param EvpApr Mean Potential Evapotranspiration (mm) in April. Default uses values from Temp (can be created by Set_Temp) to calculate Potential Evapotranspiration (mm) using the Thornthwaite equation
+#' @param EvpMay Mean Potential Evapotranspiration (mm) in May. Default uses values from Temp (can be created by Set_Temp) to calculate Potential Evapotranspiration (mm) using the Thornthwaite equation
+#' @param EvpJun Mean Potential Evapotranspiration (mm) in June. Default uses values from Temp (can be created by Set_Temp) to calculate Potential Evapotranspiration (mm) using the Thornthwaite equation
+#' @param EvpJul Mean Potential Evapotranspiration (mm) in July. Default uses values from Temp (can be created by Set_Temp) to calculate Potential Evapotranspiration (mm) using the Thornthwaite equation
+#' @param EvpAug Mean Potential Evapotranspiration (mm) in August. Default uses values from Temp (can be created by Set_Temp) to calculate Potential Evapotranspiration (mm) using the Thornthwaite equation
+#' @param EvpSep Mean Potential Evapotranspiration (mm) in September. Default uses values from Temp (can be created by Set_Temp) to calculate Potential Evapotranspiration (mm) using the Thornthwaite equation
+#' @param EvpOct Mean Potential Evapotranspiration (mm) in October. Default uses values from Temp (can be created by Set_Temp) to calculate Potential Evapotranspiration (mm) using the Thornthwaite equation
+#' @param EvpNov Mean Potential Evapotranspiration (mm) in November. Default uses values from Temp (can be created by Set_Temp) to calculate Potential Evapotranspiration (mm) using the Thornthwaite equation
+#' @param EvpDec Mean Potential Evapotranspiration (mm) in December. Default uses values from Temp (can be created by Set_Temp) to calculate Potential Evapotranspiration (mm) using the Thornthwaite equation
+
+#' @return A dataframe with monthly mean evapotranspiration (mm).
 #' @export
 
-#### Climatic Variables - Evapotranspiration ####
+#### Climatic Variables - Evapotranspiration (mm) ####
 #Default values are for Spain Mean 1990-2020 considering Thornthwaite equation
 Set_Evp <- function(EvpJan = EvpJan_Default, #January
                     EvpFeb = EvpFeb_Default, #February
@@ -57,7 +68,7 @@ Set_Evp <- function(EvpJan = EvpJan_Default, #January
   EvpNov_Default = sign(Temp[11,2])*16*(((10*abs(Temp[11,2]))/I)^a) #November
   EvpDec_Default = sign(Temp[12,2])*16*(((10*abs(Temp[12,2]))/I)^a) #December
 
-  Evp=data.frame(Month=1:12, Evp=c(#Evapotranspiration
+  Evp=data.frame(Month=1:12, Evp=c(#Evapotranspiration (mm)
     EvpJan, #January
     EvpFeb, #February
     EvpMar, #March

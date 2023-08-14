@@ -2,7 +2,7 @@
 % Please edit documentation in R/Set_Precip.R
 \name{Set_Precip}
 \alias{Set_Precip}
-\title{Set Monthly Precipitation Vector}
+\title{Set Monthly Mean Precipitations}
 \usage{
 Set_Precip(
   PJan = 60.59,
@@ -19,11 +19,34 @@ Set_Precip(
   PDec = 70.59
 )
 }
+\arguments{
+\item{PJan}{Mean Potential Precipitation (mm) in January. Default uses values from Spain 1990-2020}
+
+\item{PFeb}{Mean Potential Precipitation (mm) in February. Default uses values from Spain 1990-2020}
+
+\item{PMar}{Mean Potential Precipitation (mm) in March. Default uses values from Spain 1990-2020}
+
+\item{PApr}{Mean Potential Precipitation (mm) in April. Default uses values from Spain 1990-2020}
+
+\item{PMay}{Mean Potential Precipitation (mm) in May. Default uses values from Spain 1990-2020}
+
+\item{PJun}{Mean Potential Precipitation (mm) in June. Default uses values from Spain 1990-2020}
+
+\item{PJul}{Mean Potential Precipitation (mm) in July. Default uses values from Spain 1990-2020}
+
+\item{PAug}{Mean Potential Precipitation (mm) in August. Default uses values from Spain 1990-2020}
+
+\item{PSep}{Mean Potential Precipitation (mm) in September. Default uses values from Spain 1990-2020}
+
+\item{POct}{Mean Potential Precipitation (mm) in October. Default uses values from Spain 1990-2020}
+
+\item{PNov}{Mean Potential Precipitation (mm) in November. Default uses values from Spain 1990-2020}
+
+\item{PDec}{Mean Potential Precipitation (mm) in December. Default uses values from Spain 1990-2020}
+}
 \value{
-A mvector with monthly precipitation values
+A dataframe with monthly mean precipitation (mm).
 }
 \description{
-The Set_Precip function creates a column with 12 rows and one column. The first
-column indicates the Month (1-12). The second column indicates the mean Precipitation,
-either filled by the user or autofilled by default values for Spain 1990-2020.
+The Set_Precip function creates a column with 12 rows and one column. The first column indicates the Month (1-12). The second column indicates the motnhly mean precipitations (mm), either filled by the user or autofilled by default values for Spain 1990-2020.
 }
