@@ -1,4 +1,4 @@
-#' Merge Models create by Run_RothCO2
+#' Merge Models created by Run_RothCO2
 #'
 #' The Merge_Models function merge all chosen models by "Models" parameter created by the functions Run_RothC_[].
 #' @param Models From the various models (folders) created in the function Run_RothCO2, choose the ones to merge. Defaults to "All", but can also be: "VXC", "VXP", "YC", "YCO2D", "YCO2ND", "YCT". "VXC" considers a continuous input of C each year (1tC/year). "VXP": considers a one-off input of C in the first year (1tC/fist-year). "YC": yearly C emissions considering a GWP100 with delay (considering a one-off input of 1tC in the first year). "YCO2D": yearly CO2 emissions considering a GWP100 with delay (considering a one-off input of 1tC in the first year). "YCO2ND": yearly CO2 emissions (considering a one-off input of 1tC in the first year). "YCT": yearly C tails (considering a one-off input of 1tC in the first year) - i.e. what remains on the soil.
@@ -27,7 +27,7 @@ Merge_Models <- function(Models = "All",
     }
 
     #merge all data frames together
-    MergedModels_VXC <- data_frames_VXC %>% reduce(full_join, by='MNumber')
+    MergedModels_VXC <- data_frames_VXC %>% reduce(left_join, by='MNumber')
     MergedModels_VXC <<- MergedModels_VXC
 
     if(Export == "XLSX"){
@@ -58,7 +58,7 @@ Merge_Models <- function(Models = "All",
     }
 
     #merge all data frames together
-    MergedModels_VXP <- data_frames_VXP %>% reduce(full_join, by='MNumber')
+    MergedModels_VXP <- data_frames_VXP %>% reduce(left_join, by='MNumber')
     MergedModels_VXP <<- MergedModels_VXP
 
     if(Export == "XLSX"){
@@ -89,7 +89,7 @@ Merge_Models <- function(Models = "All",
     }
 
     #merge all data frames together
-    MergedModels_VP_YC <- data_frames_YC %>% reduce(full_join, by='Year')
+    MergedModels_VP_YC <- data_frames_YC %>% reduce(left_join, by='Year')
     MergedModels_VP_YC <- MergedModels_VP_YC %>% select(-contains("Month")) #Delete Columns containing the word "Month"
     MergedModels_VP_YC <<- MergedModels_VP_YC
 
@@ -122,8 +122,10 @@ Merge_Models <- function(Models = "All",
     }
 
     #merge all data frames together
-    MergedModels_VP_YCO2D <- data_frames_YCO2D %>% reduce(full_join, by='Year')
+    MergedModels_VP_YCO2D <- data_frames_YCO2D %>% reduce(left_join, by='Year')
     MergedModels_VP_YCO2D <- MergedModels_VP_YCO2D %>% select(-contains("Month")) #Delete Columns containing the word "Month"
+    MergedModels_VP_YCO2D <- MergedModels_VP_YCO2D %>% select(-contains("GWP"))
+    MergedModels_VP_YCO2D <- MergedModels_VP_YCO2D %>% select(-contains("AnnualCO2_"))
     MergedModels_VP_YCO2D <<- MergedModels_VP_YCO2D
 
     if(Export == "XLSX"){
@@ -154,7 +156,7 @@ Merge_Models <- function(Models = "All",
     }
 
     #merge all data frames together
-    MergedModels_VP_YCO2ND <- data_frames_YCO2ND %>% reduce(full_join, by='Year')
+    MergedModels_VP_YCO2ND <- data_frames_YCO2ND %>% reduce(left_join, by='Year')
     MergedModels_VP_YCO2ND <- MergedModels_VP_YCO2ND %>% select(-contains("Month")) #Delete Columns containing the word "Month"
     MergedModels_VP_YCO2ND <<- MergedModels_VP_YCO2ND
 
@@ -186,7 +188,7 @@ Merge_Models <- function(Models = "All",
     }
 
     #merge all data frames together
-    MergedModels_VP_YCT <- data_frames_YCT %>% reduce(full_join, by='Year')
+    MergedModels_VP_YCT <- data_frames_YCT %>% reduce(left_join, by='Year')
     MergedModels_VP_YCT <- MergedModels_VP_YCT %>% select(-contains("Month")) #Delete Columns containing the word "Month"
     MergedModels_VP_YCT <<- MergedModels_VP_YCT
 
@@ -222,7 +224,7 @@ Merge_Models <- function(Models = "All",
           }
 
           #merge all data frames together
-          MergedModels_VXC <- data_frames_VXC %>% reduce(full_join, by='MNumber')
+          MergedModels_VXC <- data_frames_VXC %>% reduce(left_join, by='MNumber')
           MergedModels_VXC <<- MergedModels_VXC
 
           if(Export == "XLSX"){
@@ -255,7 +257,7 @@ Merge_Models <- function(Models = "All",
           }
 
           #merge all data frames together
-          MergedModels_VXP <- data_frames_VXP %>% reduce(full_join, by='MNumber')
+          MergedModels_VXP <- data_frames_VXP %>% reduce(left_join, by='MNumber')
           MergedModels_VXP <<- MergedModels_VXP
 
           if(Export == "XLSX"){
@@ -288,7 +290,7 @@ Merge_Models <- function(Models = "All",
           }
 
           #merge all data frames together
-          MergedModels_VP_YC <- data_frames_YC %>% reduce(full_join, by='Year')
+          MergedModels_VP_YC <- data_frames_YC %>% reduce(left_join, by='Year')
           MergedModels_VP_YC <- MergedModels_VP_YC %>% select(-contains("Month")) #Delete Columns containing the word "Month"
           MergedModels_VP_YC <<- MergedModels_VP_YC
 
@@ -322,8 +324,10 @@ Merge_Models <- function(Models = "All",
           }
 
           #merge all data frames together
-          MergedModels_VP_YCO2D <- data_frames_YCO2D %>% reduce(full_join, by='Year')
+          MergedModels_VP_YCO2D <- data_frames_YCO2D %>% reduce(left_join, by='Year')
           MergedModels_VP_YCO2D <- MergedModels_VP_YCO2D %>% select(-contains("Month")) #Delete Columns containing the word "Month"
+          MergedModels_VP_YCO2D <- MergedModels_VP_YCO2D %>% select(-contains("GWP")) #Delete Columns containing the word "GWP"
+          MergedModels_VP_YCO2D <- MergedModels_VP_YCO2D %>% select(-contains("AnnualCO2_")) #Delete Columns containing the word "AnnualCO_", this keeps only the delayed CO2 and deleted the non-delayed
           MergedModels_VP_YCO2D <<- MergedModels_VP_YCO2D
 
           if(Export == "XLSX"){
@@ -356,7 +360,7 @@ Merge_Models <- function(Models = "All",
           }
 
           #merge all data frames together
-          MergedModels_VP_YCO2ND <- data_frames_YCO2ND %>% reduce(full_join, by='Year')
+          MergedModels_VP_YCO2ND <- data_frames_YCO2ND %>% reduce(left_join, by='Year')
           MergedModels_VP_YCO2ND <- MergedModels_VP_YCO2ND %>% select(-contains("Month")) #Delete Columns containing the word "Month"
           MergedModels_VP_YCO2ND <<- MergedModels_VP_YCO2ND
 
@@ -391,7 +395,7 @@ Merge_Models <- function(Models = "All",
           }
 
           #merge all data frames together
-          MergedModels_VP_YCT <- data_frames_YCT %>% reduce(full_join, by='Year')
+          MergedModels_VP_YCT <- data_frames_YCT %>% reduce(left_join, by='Year')
           MergedModels_VP_YCT <- MergedModels_VP_YCT %>% select(-contains("Month")) #Delete Columns containing the word "Month"
           MergedModels_VP_YCT <<- MergedModels_VP_YCT
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/Merge_Models.R
 \name{Merge_Models}
 \alias{Merge_Models}
-\title{Merge Models create by Run_RothCO2}
+\title{Merge Models created by Run_RothCO2}
 \usage{
 Merge_Models(Models = "All", Export = "Both")
 }
