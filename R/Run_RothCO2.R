@@ -2135,7 +2135,7 @@ xi.frame_VLR0=data.frame(years,rep(fT_VLR0*fW_VLR0,length.out=length(years)))
 #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
 Model_VLR0=SoilR::RothCModel(
   t=years, #Simulation Length
-  ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+  ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
   In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
   FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -2306,7 +2306,7 @@ xi.frame_VLR1=data.frame(years,rep(fT_VLR1*fW_VLR1,length.out=length(years)))
 #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
 Model_VLR1=SoilR::RothCModel(
   t=years, #Simulation Length
-  ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+  ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
   In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
   FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -2484,7 +2484,7 @@ xi.frame_VLR2=data.frame(years,rep(fT_VLR2*fW_VLR2,length.out=length(years)))
 #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
 Model_VLR2=SoilR::RothCModel(
   t=years, #Simulation Length
-  ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+  ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
   In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
   FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -2662,7 +2662,7 @@ xi.frame_VLR3=data.frame(years,rep(fT_VLR3*fW_VLR3,length.out=length(years)))
 #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
 Model_VLR3=SoilR::RothCModel(
   t=years, #Simulation Length
-  ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+  ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
   In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
   FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -2840,7 +2840,7 @@ xi.frame_VLR4=data.frame(years,rep(fT_VLR4*fW_VLR4,length.out=length(years)))
 #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
 Model_VLR4=SoilR::RothCModel(
   t=years, #Simulation Length
-  ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+  ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
   In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
   FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -3018,7 +3018,7 @@ xi.frame_VLR5=data.frame(years,rep(fT_VLR5*fW_VLR5,length.out=length(years)))
 #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
 Model_VLR5=SoilR::RothCModel(
   t=years, #Simulation Length
-  ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+  ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
   In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
   FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -3199,7 +3199,7 @@ xi.frame_VLR6=data.frame(years,rep(fT_VLR6*fW_VLR6,length.out=length(years)))
 #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
 Model_VLR6=SoilR::RothCModel(
   t=years, #Simulation Length
-  ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+  ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
   In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
   FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -3379,7 +3379,7 @@ xi.frame_VLR7=data.frame(years,rep(fT_VLR7*fW_VLR7,length.out=length(years)))
 #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
 Model_VLR7=SoilR::RothCModel(
   t=years, #Simulation Length
-  ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+  ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
   In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
   FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -3560,7 +3560,7 @@ xi.frame_VLR8=data.frame(years,rep(fT_VLR8*fW_VLR8,length.out=length(years)))
 #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
 Model_VLR8=SoilR::RothCModel(
   t=years, #Simulation Length
-  ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+  ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
   In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
   FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -3740,7 +3740,7 @@ xi.frame_VLR9=data.frame(years,rep(fT_VLR9*fW_VLR9,length.out=length(years)))
 #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
 Model_VLR9=SoilR::RothCModel(
   t=years, #Simulation Length
-  ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+  ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
   In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
   FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -3920,7 +3920,7 @@ xi.frame_VLR10=data.frame(years,rep(fT_VLR10*fW_VLR10,length.out=length(years)))
 #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
 Model_VLR10=SoilR::RothCModel(
   t=years, #Simulation Length
-  ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+  ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
   In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
   FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -4101,7 +4101,7 @@ xi.frame_VLN0=data.frame(years,rep(fT_VLN0*fW_VLN0,length.out=length(years)))
 #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
 Model_VLN0=SoilR::RothCModel(
   t=years, #Simulation Length
-  ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+  ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
   In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
   FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -4272,7 +4272,7 @@ xi.frame_VLN1=data.frame(years,rep(fT_VLN1*fW_VLN1,length.out=length(years)))
 #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
 Model_VLN1=SoilR::RothCModel(
   t=years, #Simulation Length
-  ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+  ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
   In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
   FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -4450,7 +4450,7 @@ xi.frame_VLN2=data.frame(years,rep(fT_VLN2*fW_VLN2,length.out=length(years)))
 #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
 Model_VLN2=SoilR::RothCModel(
   t=years, #Simulation Length
-  ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+  ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
   In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
   FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -4628,7 +4628,7 @@ xi.frame_VLN3=data.frame(years,rep(fT_VLN3*fW_VLN3,length.out=length(years)))
 #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
 Model_VLN3=SoilR::RothCModel(
   t=years, #Simulation Length
-  ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+  ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
   In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
   FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -4806,7 +4806,7 @@ xi.frame_VLN4=data.frame(years,rep(fT_VLN4*fW_VLN4,length.out=length(years)))
 #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
 Model_VLN4=SoilR::RothCModel(
   t=years, #Simulation Length
-  ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+  ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
   In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
   FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -4984,7 +4984,7 @@ xi.frame_VLN5=data.frame(years,rep(fT_VLN5*fW_VLN5,length.out=length(years)))
 #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
 Model_VLN5=SoilR::RothCModel(
   t=years, #Simulation Length
-  ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+  ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
   In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
   FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -5165,7 +5165,7 @@ xi.frame_VLN6=data.frame(years,rep(fT_VLN6*fW_VLN6,length.out=length(years)))
 #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
 Model_VLN6=SoilR::RothCModel(
   t=years, #Simulation Length
-  ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+  ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
   In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
   FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -5345,7 +5345,7 @@ xi.frame_VLN7=data.frame(years,rep(fT_VLN7*fW_VLN7,length.out=length(years)))
 #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
 Model_VLN7=SoilR::RothCModel(
   t=years, #Simulation Length
-  ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+  ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
   In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
   FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -5526,7 +5526,7 @@ xi.frame_VLN8=data.frame(years,rep(fT_VLN8*fW_VLN8,length.out=length(years)))
 #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
 Model_VLN8=SoilR::RothCModel(
   t=years, #Simulation Length
-  ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+  ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
   In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
   FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -5706,7 +5706,7 @@ xi.frame_VLN9=data.frame(years,rep(fT_VLN9*fW_VLN9,length.out=length(years)))
 #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
 Model_VLN9=SoilR::RothCModel(
   t=years, #Simulation Length
-  ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+  ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
   In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
   FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -5886,7 +5886,7 @@ xi.frame_VLN10=data.frame(years,rep(fT_VLN10*fW_VLN10,length.out=length(years)))
 #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
 Model_VLN10=SoilR::RothCModel(
   t=years, #Simulation Length
-  ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+  ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
   In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
   FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -8029,7 +8029,7 @@ xi.frame_VMR0=data.frame(years,rep(fT_VMR0*fW_VMR0,length.out=length(years)))
 #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
 Model_VMR0=SoilR::RothCModel(
   t=years, #Simulation Length
-  ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+  ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
   In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
   FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -8200,7 +8200,7 @@ xi.frame_VMR1=data.frame(years,rep(fT_VMR1*fW_VMR1,length.out=length(years)))
 #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
 Model_VMR1=SoilR::RothCModel(
   t=years, #Simulation Length
-  ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+  ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
   In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
   FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -8378,7 +8378,7 @@ xi.frame_VMR2=data.frame(years,rep(fT_VMR2*fW_VMR2,length.out=length(years)))
 #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
 Model_VMR2=SoilR::RothCModel(
   t=years, #Simulation Length
-  ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+  ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
   In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
   FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -8556,7 +8556,7 @@ xi.frame_VMR3=data.frame(years,rep(fT_VMR3*fW_VMR3,length.out=length(years)))
 #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
 Model_VMR3=SoilR::RothCModel(
   t=years, #Simulation Length
-  ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+  ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
   In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
   FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -8734,7 +8734,7 @@ xi.frame_VMR4=data.frame(years,rep(fT_VMR4*fW_VMR4,length.out=length(years)))
 #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
 Model_VMR4=SoilR::RothCModel(
   t=years, #Simulation Length
-  ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+  ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
   In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
   FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -8912,7 +8912,7 @@ xi.frame_VMR5=data.frame(years,rep(fT_VMR5*fW_VMR5,length.out=length(years)))
 #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
 Model_VMR5=SoilR::RothCModel(
   t=years, #Simulation Length
-  ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+  ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
   In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
   FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -9093,7 +9093,7 @@ xi.frame_VMR6=data.frame(years,rep(fT_VMR6*fW_VMR6,length.out=length(years)))
 #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
 Model_VMR6=SoilR::RothCModel(
   t=years, #Simulation Length
-  ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+  ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
   In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
   FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -9273,7 +9273,7 @@ xi.frame_VMR7=data.frame(years,rep(fT_VMR7*fW_VMR7,length.out=length(years)))
 #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
 Model_VMR7=SoilR::RothCModel(
   t=years, #Simulation Length
-  ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+  ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
   In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
   FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -9454,7 +9454,7 @@ xi.frame_VMR8=data.frame(years,rep(fT_VMR8*fW_VMR8,length.out=length(years)))
 #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
 Model_VMR8=SoilR::RothCModel(
   t=years, #Simulation Length
-  ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+  ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
   In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
   FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -9634,7 +9634,7 @@ xi.frame_VMR9=data.frame(years,rep(fT_VMR9*fW_VMR9,length.out=length(years)))
 #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
 Model_VMR9=SoilR::RothCModel(
   t=years, #Simulation Length
-  ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+  ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
   In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
   FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -9814,7 +9814,7 @@ xi.frame_VMR10=data.frame(years,rep(fT_VMR10*fW_VMR10,length.out=length(years)))
 #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
 Model_VMR10=SoilR::RothCModel(
   t=years, #Simulation Length
-  ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+  ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
   In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
   FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -9993,7 +9993,7 @@ xi.frame_VMN0=data.frame(years,rep(fT_VMN0*fW_VMN0,length.out=length(years)))
 #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
 Model_VMN0=SoilR::RothCModel(
   t=years, #Simulation Length
-  ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+  ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
   In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
   FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -10164,7 +10164,7 @@ xi.frame_VMN1=data.frame(years,rep(fT_VMN1*fW_VMN1,length.out=length(years)))
 #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
 Model_VMN1=SoilR::RothCModel(
   t=years, #Simulation Length
-  ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+  ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
   In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
   FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -10342,7 +10342,7 @@ xi.frame_VMN2=data.frame(years,rep(fT_VMN2*fW_VMN2,length.out=length(years)))
 #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
 Model_VMN2=SoilR::RothCModel(
   t=years, #Simulation Length
-  ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+  ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
   In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
   FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -10520,7 +10520,7 @@ xi.frame_VMN3=data.frame(years,rep(fT_VMN3*fW_VMN3,length.out=length(years)))
 #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
 Model_VMN3=SoilR::RothCModel(
   t=years, #Simulation Length
-  ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+  ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
   In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
   FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -10698,7 +10698,7 @@ xi.frame_VMN4=data.frame(years,rep(fT_VMN4*fW_VMN4,length.out=length(years)))
 #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
 Model_VMN4=SoilR::RothCModel(
   t=years, #Simulation Length
-  ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+  ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
   In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
   FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -10876,7 +10876,7 @@ xi.frame_VMN5=data.frame(years,rep(fT_VMN5*fW_VMN5,length.out=length(years)))
 #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
 Model_VMN5=SoilR::RothCModel(
   t=years, #Simulation Length
-  ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+  ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
   In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
   FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -11057,7 +11057,7 @@ xi.frame_VMN6=data.frame(years,rep(fT_VMN6*fW_VMN6,length.out=length(years)))
 #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
 Model_VMN6=SoilR::RothCModel(
   t=years, #Simulation Length
-  ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+  ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
   In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
   FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -11237,7 +11237,7 @@ xi.frame_VMN7=data.frame(years,rep(fT_VMN7*fW_VMN7,length.out=length(years)))
 #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
 Model_VMN7=SoilR::RothCModel(
   t=years, #Simulation Length
-  ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+  ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
   In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
   FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -11418,7 +11418,7 @@ xi.frame_VMN8=data.frame(years,rep(fT_VMN8*fW_VMN8,length.out=length(years)))
 #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
 Model_VMN8=SoilR::RothCModel(
   t=years, #Simulation Length
-  ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+  ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
   In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
   FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -11598,7 +11598,7 @@ xi.frame_VMN9=data.frame(years,rep(fT_VMN9*fW_VMN9,length.out=length(years)))
 #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
 Model_VMN9=SoilR::RothCModel(
   t=years, #Simulation Length
-  ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+  ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
   In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
   FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -11778,7 +11778,7 @@ xi.frame_VMN10=data.frame(years,rep(fT_VMN10*fW_VMN10,length.out=length(years)))
 #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
 Model_VMN10=SoilR::RothCModel(
   t=years, #Simulation Length
-  ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+  ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
   In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
   FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -13923,7 +13923,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
     Model_VLR0=SoilR::RothCModel(
       t=years, #Simulation Length
-      ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+      ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
       In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
       FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -14094,7 +14094,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
     Model_VLR1=SoilR::RothCModel(
       t=years, #Simulation Length
-      ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+      ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
       In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
       FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -14272,7 +14272,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
     Model_VLR2=SoilR::RothCModel(
       t=years, #Simulation Length
-      ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+      ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
       In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
       FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -14450,7 +14450,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
     Model_VLR3=SoilR::RothCModel(
       t=years, #Simulation Length
-      ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+      ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
       In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
       FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -14628,7 +14628,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
     Model_VLR4=SoilR::RothCModel(
       t=years, #Simulation Length
-      ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+      ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
       In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
       FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -14806,7 +14806,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
     Model_VLR5=SoilR::RothCModel(
       t=years, #Simulation Length
-      ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+      ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
       In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
       FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -14987,7 +14987,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
     Model_VLR6=SoilR::RothCModel(
       t=years, #Simulation Length
-      ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+      ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
       In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
       FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -15167,7 +15167,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
     Model_VLR7=SoilR::RothCModel(
       t=years, #Simulation Length
-      ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+      ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
       In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
       FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -15348,7 +15348,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
     Model_VLR8=SoilR::RothCModel(
       t=years, #Simulation Length
-      ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+      ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
       In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
       FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -15528,7 +15528,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
     Model_VLR9=SoilR::RothCModel(
       t=years, #Simulation Length
-      ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+      ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
       In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
       FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -15708,7 +15708,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
     Model_VLR10=SoilR::RothCModel(
       t=years, #Simulation Length
-      ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+      ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
       In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
       FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -15890,7 +15890,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
     Model_VLN0=SoilR::RothCModel(
       t=years, #Simulation Length
-      ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+      ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
       In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
       FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -16061,7 +16061,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
     Model_VLN1=SoilR::RothCModel(
       t=years, #Simulation Length
-      ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+      ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
       In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
       FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -16239,7 +16239,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
     Model_VLN2=SoilR::RothCModel(
       t=years, #Simulation Length
-      ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+      ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
       In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
       FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -16417,7 +16417,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
     Model_VLN3=SoilR::RothCModel(
       t=years, #Simulation Length
-      ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+      ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
       In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
       FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -16595,7 +16595,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
     Model_VLN4=SoilR::RothCModel(
       t=years, #Simulation Length
-      ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+      ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
       In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
       FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -16773,7 +16773,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
     Model_VLN5=SoilR::RothCModel(
       t=years, #Simulation Length
-      ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+      ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
       In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
       FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -16954,7 +16954,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
     Model_VLN6=SoilR::RothCModel(
       t=years, #Simulation Length
-      ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+      ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
       In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
       FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -17134,7 +17134,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
     Model_VLN7=SoilR::RothCModel(
       t=years, #Simulation Length
-      ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+      ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
       In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
       FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -17315,7 +17315,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
     Model_VLN8=SoilR::RothCModel(
       t=years, #Simulation Length
-      ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+      ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
       In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
       FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -17495,7 +17495,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
     Model_VLN9=SoilR::RothCModel(
       t=years, #Simulation Length
-      ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+      ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
       In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
       FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -17675,7 +17675,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
     Model_VLN10=SoilR::RothCModel(
       t=years, #Simulation Length
-      ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+      ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
       In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
       FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -19820,7 +19820,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
     Model_VMR0=SoilR::RothCModel(
       t=years, #Simulation Length
-      ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+      ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
       In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
       FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -19991,7 +19991,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
     Model_VMR1=SoilR::RothCModel(
       t=years, #Simulation Length
-      ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+      ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
       In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
       FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -20169,7 +20169,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
     Model_VMR2=SoilR::RothCModel(
       t=years, #Simulation Length
-      ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+      ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
       In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
       FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -20347,7 +20347,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
     Model_VMR3=SoilR::RothCModel(
       t=years, #Simulation Length
-      ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+      ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
       In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
       FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -20525,7 +20525,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
     Model_VMR4=SoilR::RothCModel(
       t=years, #Simulation Length
-      ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+      ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
       In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
       FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -20703,7 +20703,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
     Model_VMR5=SoilR::RothCModel(
       t=years, #Simulation Length
-      ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+      ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
       In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
       FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -20884,7 +20884,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
     Model_VMR6=SoilR::RothCModel(
       t=years, #Simulation Length
-      ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+      ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
       In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
       FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -21064,7 +21064,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
     Model_VMR7=SoilR::RothCModel(
       t=years, #Simulation Length
-      ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+      ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
       In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
       FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -21245,7 +21245,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
     Model_VMR8=SoilR::RothCModel(
       t=years, #Simulation Length
-      ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+      ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
       In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
       FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -21425,7 +21425,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
     Model_VMR9=SoilR::RothCModel(
       t=years, #Simulation Length
-      ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+      ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
       In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
       FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -21605,7 +21605,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
     Model_VMR10=SoilR::RothCModel(
       t=years, #Simulation Length
-      ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+      ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
       In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
       FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -21785,7 +21785,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
     Model_VMN0=SoilR::RothCModel(
       t=years, #Simulation Length
-      ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+      ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
       In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
       FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -21956,7 +21956,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
     Model_VMN1=SoilR::RothCModel(
       t=years, #Simulation Length
-      ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+      ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
       In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
       FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -22134,7 +22134,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
     Model_VMN2=SoilR::RothCModel(
       t=years, #Simulation Length
-      ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+      ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
       In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
       FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -22312,7 +22312,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
     Model_VMN3=SoilR::RothCModel(
       t=years, #Simulation Length
-      ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+      ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
       In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
       FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -22490,7 +22490,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
     Model_VMN4=SoilR::RothCModel(
       t=years, #Simulation Length
-      ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+      ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
       In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
       FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -22668,7 +22668,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
     Model_VMN5=SoilR::RothCModel(
       t=years, #Simulation Length
-      ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+      ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
       In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
       FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -22849,7 +22849,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
     Model_VMN6=SoilR::RothCModel(
       t=years, #Simulation Length
-      ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+      ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
       In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
       FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -23029,7 +23029,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
     Model_VMN7=SoilR::RothCModel(
       t=years, #Simulation Length
-      ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+      ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
       In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
       FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -23210,7 +23210,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
     Model_VMN8=SoilR::RothCModel(
       t=years, #Simulation Length
-      ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+      ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
       In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
       FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -23390,7 +23390,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
     Model_VMN9=SoilR::RothCModel(
       t=years, #Simulation Length
-      ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+      ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
       In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
       FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
@@ -23570,7 +23570,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #To run the model, we use the function SoilR::RothCModel to initialize the model and create a SoilR Model object to which we will solve to calculate C stocks for each pool as
     Model_VMN10=SoilR::RothCModel(
       t=years, #Simulation Length
-      ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
+      ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
       In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
       FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
