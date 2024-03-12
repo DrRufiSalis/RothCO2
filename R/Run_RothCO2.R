@@ -6067,8 +6067,8 @@ Model_VMC0=SoilR::RothCModel(
   t=years, #Simulation Length
   ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-  In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-  FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+  In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+  FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
   clay=clay0, #Percent clay in mineral soil
   xi=xi.frame_VMC0) #Loads the model
 
@@ -6238,8 +6238,8 @@ Model_VMC1=SoilR::RothCModel(
   t=years, #Simulation Length
   ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-  In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-  FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+  In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+  FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
   clay=clay100*0.1, #Percent clay in mineral soil
   xi=xi.frame_VMC1) #Loads the model
 
@@ -6416,8 +6416,8 @@ Model_VMC2=SoilR::RothCModel(
   t=years, #Simulation Length
   ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-  In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-  FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+  In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+  FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
   clay=clay100*0.2, #Percent clay in mineral soil
   xi=xi.frame_VMC2) #Loads the model
 
@@ -6594,8 +6594,8 @@ Model_VMC3=SoilR::RothCModel(
   t=years, #Simulation Length
   ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-  In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-  FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+  In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+  FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
   clay=clay100*0.3, #Percent clay in mineral soil
   xi=xi.frame_VMC3) #Loads the model
 
@@ -6772,8 +6772,8 @@ Model_VMC4=SoilR::RothCModel(
   t=years, #Simulation Length
   ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-  In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-  FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+  In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+  FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
   clay=clay100*0.4, #Percent clay in mineral soil
   xi=xi.frame_VMC4) #Loads the model
 
@@ -6950,8 +6950,8 @@ Model_VMC5=SoilR::RothCModel(
   t=years, #Simulation Length
   ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-  In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-  FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+  In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+  FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
   clay=clay100*0.5, #Percent clay in mineral soil
   xi=xi.frame_VMC5) #Loads the model
 
@@ -7131,8 +7131,8 @@ Model_VMC6=SoilR::RothCModel(
   t=years, #Simulation Length
   ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-  In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-  FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+  In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+  FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
   clay=clay100*0.6, #Percent clay in mineral soil
   xi=xi.frame_VMC6) #Loads the model
 
@@ -7311,8 +7311,8 @@ Model_VMC7=SoilR::RothCModel(
   t=years, #Simulation Length
   ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-  In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-  FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+  In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+  FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
   clay=clay100*0.7, #Percent clay in mineral soil
   xi=xi.frame_VMC7) #Loads the model
 
@@ -7492,8 +7492,8 @@ Model_VMC8=SoilR::RothCModel(
   t=years, #Simulation Length
   ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-  In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-  FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+  In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+  FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
   clay=clay100*0.8, #Percent clay in mineral soil
   xi=xi.frame_VMC8) #Loads the model
 
@@ -7672,8 +7672,8 @@ Model_VMC9=SoilR::RothCModel(
   t=years, #Simulation Length
   ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-  In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-  FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+  In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+  FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
   clay=clay100*0.9, #Percent clay in mineral soil
   xi=xi.frame_VMC9) #Loads the model
 
@@ -7852,8 +7852,8 @@ Model_VMC10=SoilR::RothCModel(
   t=years, #Simulation Length
   ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-  In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-  FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+  In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+  FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
   clay=clay100, #Percent clay in mineral soil
   xi=xi.frame_VMC10) #Loads the model
 
@@ -8031,8 +8031,8 @@ Model_VMR0=SoilR::RothCModel(
   t=years, #Simulation Length
   ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-  In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-  FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+  In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+  FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
   clay=clay0, #Percent clay in mineral soil
   xi=xi.frame_VMR0) #Loads the model
 
@@ -8202,8 +8202,8 @@ Model_VMR1=SoilR::RothCModel(
   t=years, #Simulation Length
   ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-  In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-  FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+  In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+  FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
   clay=clay100*0.1, #Percent clay in mineral soil
   xi=xi.frame_VMR1) #Loads the model
 
@@ -8380,8 +8380,8 @@ Model_VMR2=SoilR::RothCModel(
   t=years, #Simulation Length
   ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-  In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-  FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+  In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+  FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
   clay=clay100*0.2, #Percent clay in mineral soil
   xi=xi.frame_VMR2) #Loads the model
 
@@ -8558,8 +8558,8 @@ Model_VMR3=SoilR::RothCModel(
   t=years, #Simulation Length
   ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-  In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-  FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+  In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+  FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
   clay=clay100*0.3, #Percent clay in mineral soil
   xi=xi.frame_VMR3) #Loads the model
 
@@ -8736,8 +8736,8 @@ Model_VMR4=SoilR::RothCModel(
   t=years, #Simulation Length
   ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-  In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-  FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+  In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+  FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
   clay=clay100*0.4, #Percent clay in mineral soil
   xi=xi.frame_VMR4) #Loads the model
 
@@ -8914,8 +8914,8 @@ Model_VMR5=SoilR::RothCModel(
   t=years, #Simulation Length
   ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-  In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-  FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+  In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+  FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
   clay=clay100*0.5, #Percent clay in mineral soil
   xi=xi.frame_VMR5) #Loads the model
 
@@ -9095,8 +9095,8 @@ Model_VMR6=SoilR::RothCModel(
   t=years, #Simulation Length
   ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-  In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-  FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+  In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+  FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
   clay=clay100*0.6, #Percent clay in mineral soil
   xi=xi.frame_VMR6) #Loads the model
 
@@ -9275,8 +9275,8 @@ Model_VMR7=SoilR::RothCModel(
   t=years, #Simulation Length
   ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-  In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-  FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+  In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+  FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
   clay=clay100*0.7, #Percent clay in mineral soil
   xi=xi.frame_VMR7) #Loads the model
 
@@ -9456,8 +9456,8 @@ Model_VMR8=SoilR::RothCModel(
   t=years, #Simulation Length
   ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-  In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-  FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+  In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+  FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
   clay=clay100*0.8, #Percent clay in mineral soil
   xi=xi.frame_VMR8) #Loads the model
 
@@ -9636,8 +9636,8 @@ Model_VMR9=SoilR::RothCModel(
   t=years, #Simulation Length
   ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-  In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-  FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+  In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+  FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
   clay=clay100*0.9, #Percent clay in mineral soil
   xi=xi.frame_VMR9) #Loads the model
 
@@ -9816,8 +9816,8 @@ Model_VMR10=SoilR::RothCModel(
   t=years, #Simulation Length
   ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-  In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-  FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+  In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+  FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
   clay=clay100, #Percent clay in mineral soil
   xi=xi.frame_VMR10) #Loads the model
 
@@ -9995,8 +9995,8 @@ Model_VMN0=SoilR::RothCModel(
   t=years, #Simulation Length
   ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-  In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-  FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+  In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+  FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
   clay=clay0, #Percent clay in mineral soil
   xi=xi.frame_VMN0) #Loads the model
 
@@ -10166,8 +10166,8 @@ Model_VMN1=SoilR::RothCModel(
   t=years, #Simulation Length
   ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-  In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-  FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+  In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+  FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
   clay=clay100*0.1, #Percent clay in mineral soil
   xi=xi.frame_VMN1) #Loads the model
 
@@ -10344,8 +10344,8 @@ Model_VMN2=SoilR::RothCModel(
   t=years, #Simulation Length
   ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-  In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-  FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+  In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+  FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
   clay=clay100*0.2, #Percent clay in mineral soil
   xi=xi.frame_VMN2) #Loads the model
 
@@ -10522,8 +10522,8 @@ Model_VMN3=SoilR::RothCModel(
   t=years, #Simulation Length
   ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-  In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-  FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+  In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+  FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
   clay=clay100*0.3, #Percent clay in mineral soil
   xi=xi.frame_VMN3) #Loads the model
 
@@ -10700,8 +10700,8 @@ Model_VMN4=SoilR::RothCModel(
   t=years, #Simulation Length
   ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-  In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-  FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+  In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+  FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
   clay=clay100*0.4, #Percent clay in mineral soil
   xi=xi.frame_VMN4) #Loads the model
 
@@ -10878,8 +10878,8 @@ Model_VMN5=SoilR::RothCModel(
   t=years, #Simulation Length
   ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-  In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-  FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+  In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+  FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
   clay=clay100*0.5, #Percent clay in mineral soil
   xi=xi.frame_VMN5) #Loads the model
 
@@ -11059,8 +11059,8 @@ Model_VMN6=SoilR::RothCModel(
   t=years, #Simulation Length
   ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-  In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-  FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+  In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+  FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
   clay=clay100*0.6, #Percent clay in mineral soil
   xi=xi.frame_VMN6) #Loads the model
 
@@ -11239,8 +11239,8 @@ Model_VMN7=SoilR::RothCModel(
   t=years, #Simulation Length
   ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-  In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-  FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+  In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+  FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
   clay=clay100*0.7, #Percent clay in mineral soil
   xi=xi.frame_VMN7) #Loads the model
 
@@ -11420,8 +11420,8 @@ Model_VMN8=SoilR::RothCModel(
   t=years, #Simulation Length
   ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-  In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-  FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+  In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+  FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
   clay=clay100*0.8, #Percent clay in mineral soil
   xi=xi.frame_VMN8) #Loads the model
 
@@ -11600,8 +11600,8 @@ Model_VMN9=SoilR::RothCModel(
   t=years, #Simulation Length
   ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-  In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-  FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+  In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+  FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
   clay=clay100*0.9, #Percent clay in mineral soil
   xi=xi.frame_VMN9) #Loads the model
 
@@ -11780,8 +11780,8 @@ Model_VMN10=SoilR::RothCModel(
   t=years, #Simulation Length
   ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
   C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-  In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-  FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+  In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+  FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
   clay=clay100, #Percent clay in mineral soil
   xi=xi.frame_VMN10) #Loads the model
 
@@ -17857,8 +17857,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       t=years, #Simulation Length
       ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-      In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-      FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+      In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+      FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
       clay=clay0, #Percent clay in mineral soil
       xi=xi.frame_VMC0) #Loads the model
 
@@ -18028,8 +18028,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       t=years, #Simulation Length
       ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-      In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-      FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+      In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+      FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
       clay=clay100*0.1, #Percent clay in mineral soil
       xi=xi.frame_VMC1) #Loads the model
 
@@ -18206,8 +18206,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       t=years, #Simulation Length
       ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-      In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-      FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+      In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+      FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
       clay=clay100*0.2, #Percent clay in mineral soil
       xi=xi.frame_VMC2) #Loads the model
 
@@ -18384,8 +18384,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       t=years, #Simulation Length
       ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-      In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-      FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+      In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+      FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
       clay=clay100*0.3, #Percent clay in mineral soil
       xi=xi.frame_VMC3) #Loads the model
 
@@ -18562,8 +18562,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       t=years, #Simulation Length
       ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-      In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-      FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+      In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+      FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
       clay=clay100*0.4, #Percent clay in mineral soil
       xi=xi.frame_VMC4) #Loads the model
 
@@ -18740,8 +18740,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       t=years, #Simulation Length
       ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-      In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-      FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+      In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+      FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
       clay=clay100*0.5, #Percent clay in mineral soil
       xi=xi.frame_VMC5) #Loads the model
 
@@ -18921,8 +18921,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       t=years, #Simulation Length
       ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-      In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-      FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+      In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+      FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
       clay=clay100*0.6, #Percent clay in mineral soil
       xi=xi.frame_VMC6) #Loads the model
 
@@ -19101,8 +19101,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       t=years, #Simulation Length
       ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-      In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-      FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+      In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+      FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
       clay=clay100*0.7, #Percent clay in mineral soil
       xi=xi.frame_VMC7) #Loads the model
 
@@ -19282,8 +19282,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       t=years, #Simulation Length
       ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-      In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-      FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+      In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+      FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
       clay=clay100*0.8, #Percent clay in mineral soil
       xi=xi.frame_VMC8) #Loads the model
 
@@ -19462,8 +19462,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       t=years, #Simulation Length
       ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-      In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-      FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+      In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+      FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
       clay=clay100*0.9, #Percent clay in mineral soil
       xi=xi.frame_VMC9) #Loads the model
 
@@ -19642,8 +19642,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       t=years, #Simulation Length
       ks=c(k.DPM = 10*CTRM, k.RPM = 0.3*CTRM, k.BIO = 0.66*CTRM, k.HUM = 0.02*CTRM, k.IOM = 0*CTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-      In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-      FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+      In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+      FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
       clay=clay100, #Percent clay in mineral soil
       xi=xi.frame_VMC10) #Loads the model
 
@@ -19822,8 +19822,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       t=years, #Simulation Length
       ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-      In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-      FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+      In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+      FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
       clay=clay0, #Percent clay in mineral soil
       xi=xi.frame_VMR0) #Loads the model
 
@@ -19993,8 +19993,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       t=years, #Simulation Length
       ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-      In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-      FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+      In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+      FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
       clay=clay100*0.1, #Percent clay in mineral soil
       xi=xi.frame_VMR1) #Loads the model
 
@@ -20171,8 +20171,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       t=years, #Simulation Length
       ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-      In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-      FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+      In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+      FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
       clay=clay100*0.2, #Percent clay in mineral soil
       xi=xi.frame_VMR2) #Loads the model
 
@@ -20349,8 +20349,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       t=years, #Simulation Length
       ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-      In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-      FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+      In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+      FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
       clay=clay100*0.3, #Percent clay in mineral soil
       xi=xi.frame_VMR3) #Loads the model
 
@@ -20527,8 +20527,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       t=years, #Simulation Length
       ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-      In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-      FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+      In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+      FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
       clay=clay100*0.4, #Percent clay in mineral soil
       xi=xi.frame_VMR4) #Loads the model
 
@@ -20705,8 +20705,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       t=years, #Simulation Length
       ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-      In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-      FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+      In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+      FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
       clay=clay100*0.5, #Percent clay in mineral soil
       xi=xi.frame_VMR5) #Loads the model
 
@@ -20886,8 +20886,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       t=years, #Simulation Length
       ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-      In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-      FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+      In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+      FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
       clay=clay100*0.6, #Percent clay in mineral soil
       xi=xi.frame_VMR6) #Loads the model
 
@@ -21066,8 +21066,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       t=years, #Simulation Length
       ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-      In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-      FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+      In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+      FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
       clay=clay100*0.7, #Percent clay in mineral soil
       xi=xi.frame_VMR7) #Loads the model
 
@@ -21247,8 +21247,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       t=years, #Simulation Length
       ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-      In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-      FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+      In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+      FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
       clay=clay100*0.8, #Percent clay in mineral soil
       xi=xi.frame_VMR8) #Loads the model
 
@@ -21427,8 +21427,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       t=years, #Simulation Length
       ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-      In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-      FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+      In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+      FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
       clay=clay100*0.9, #Percent clay in mineral soil
       xi=xi.frame_VMR9) #Loads the model
 
@@ -21607,8 +21607,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       t=years, #Simulation Length
       ks=c(k.DPM = 10*RTRM, k.RPM = 0.3*RTRM, k.BIO = 0.66*RTRM, k.HUM = 0.02*RTRM, k.IOM = 0*RTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-      In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-      FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+      In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+      FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
       clay=clay100, #Percent clay in mineral soil
       xi=xi.frame_VMR10) #Loads the model
 
@@ -21787,8 +21787,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       t=years, #Simulation Length
       ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-      In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-      FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+      In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+      FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
       clay=clay0, #Percent clay in mineral soil
       xi=xi.frame_VMN0) #Loads the model
 
@@ -21958,8 +21958,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       t=years, #Simulation Length
       ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-      In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-      FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+      In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+      FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
       clay=clay100*0.1, #Percent clay in mineral soil
       xi=xi.frame_VMN1) #Loads the model
 
@@ -22136,8 +22136,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       t=years, #Simulation Length
       ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-      In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-      FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+      In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+      FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
       clay=clay100*0.2, #Percent clay in mineral soil
       xi=xi.frame_VMN2) #Loads the model
 
@@ -22314,8 +22314,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       t=years, #Simulation Length
       ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-      In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-      FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+      In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+      FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
       clay=clay100*0.3, #Percent clay in mineral soil
       xi=xi.frame_VMN3) #Loads the model
 
@@ -22492,8 +22492,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       t=years, #Simulation Length
       ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-      In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-      FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+      In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+      FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
       clay=clay100*0.4, #Percent clay in mineral soil
       xi=xi.frame_VMN4) #Loads the model
 
@@ -22670,8 +22670,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       t=years, #Simulation Length
       ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-      In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-      FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+      In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+      FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
       clay=clay100*0.5, #Percent clay in mineral soil
       xi=xi.frame_VMN5) #Loads the model
 
@@ -22851,8 +22851,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       t=years, #Simulation Length
       ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-      In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-      FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+      In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+      FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
       clay=clay100*0.6, #Percent clay in mineral soil
       xi=xi.frame_VMN6) #Loads the model
 
@@ -23031,8 +23031,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       t=years, #Simulation Length
       ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-      In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-      FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+      In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+      FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
       clay=clay100*0.7, #Percent clay in mineral soil
       xi=xi.frame_VMN7) #Loads the model
 
@@ -23212,8 +23212,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       t=years, #Simulation Length
       ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-      In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-      FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+      In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+      FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
       clay=clay100*0.8, #Percent clay in mineral soil
       xi=xi.frame_VMN8) #Loads the model
 
@@ -23392,8 +23392,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       t=years, #Simulation Length
       ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-      In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-      FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+      In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+      FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
       clay=clay100*0.9, #Percent clay in mineral soil
       xi=xi.frame_VMN9) #Loads the model
 
@@ -23572,8 +23572,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       t=years, #Simulation Length
       ks=c(k.DPM = 10*NTRM, k.RPM = 0.3*NTRM, k.BIO = 0.66*NTRM, k.HUM = 0.02*NTRM, k.IOM = 0*NTRM), #Decomposition rates for the different pools
       C0=c(DPM=0, RPM=0, BIO=0, HUM=0, IOM=0), #Initial amount of carbon for the 5 pools
-      In=Scalar_LitterCinputs*1, #Amount of litter inputs by time
-      FYM = Scalar_ManureCinputs*0, #Amount of Farm Yard Manure by time
+      In=Scalar_LitterCinputs*0, #Amount of litter inputs by time
+      FYM = Scalar_ManureCinputs*1, #Amount of Farm Yard Manure by time
       clay=clay100, #Percent clay in mineral soil
       xi=xi.frame_VMN10) #Loads the model
 
