@@ -6074,8 +6074,8 @@ Model_VMC0=SoilR::RothCModel(
 
 Ct_VMC0=getC(Model_VMC0) #Calculates stocks for each pool per month
 
-VEC_Lit_VMC0 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-VEC_Man_VMC0 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+VEC_Lit_VMC0 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+VEC_Man_VMC0 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
 VEC_LitDF_VMC0 <- as.data.frame(VEC_Lit_VMC0) #Converting the Litter vector to a data frame
 VEC_LitDF_VMC0$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -6251,8 +6251,8 @@ matplot(years, Ct_VMC1, type="l", lty=1, col=1:5,
 legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
        lty=1, col=1:5, bty="n")
 
-VEC_Lit_VMC1 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-VEC_Man_VMC1 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+VEC_Lit_VMC1 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+VEC_Man_VMC1 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
 VEC_LitDF_VMC1 <- as.data.frame(VEC_Lit_VMC1) #Converting the Litter vector to a data frame
 VEC_LitDF_VMC1$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -6429,8 +6429,8 @@ matplot(years, Ct_VMC2, type="l", lty=1, col=1:5,
 legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
        lty=1, col=1:5, bty="n")
 
-VEC_Lit_VMC2 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-VEC_Man_VMC2 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+VEC_Lit_VMC2 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+VEC_Man_VMC2 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
 VEC_LitDF_VMC2 <- as.data.frame(VEC_Lit_VMC2) #Converting the Litter vector to a data frame
 VEC_LitDF_VMC2$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -6607,8 +6607,8 @@ matplot(years, Ct_VMC3, type="l", lty=1, col=1:5,
 legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
        lty=1, col=1:5, bty="n")
 
-VEC_Lit_VMC3 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-VEC_Man_VMC3 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+VEC_Lit_VMC3 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+VEC_Man_VMC3 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
 VEC_LitDF_VMC3 <- as.data.frame(VEC_Lit_VMC3) #Converting the Litter vector to a data frame
 VEC_LitDF_VMC3$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -6785,8 +6785,8 @@ matplot(years, Ct_VMC4, type="l", lty=1, col=1:5,
 legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
        lty=1, col=1:5, bty="n")
 
-VEC_Lit_VMC4 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-VEC_Man_VMC4 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+VEC_Lit_VMC4 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+VEC_Man_VMC4 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
 VEC_LitDF_VMC4 <- as.data.frame(VEC_Lit_VMC4) #Converting the Litter vector to a data frame
 VEC_LitDF_VMC4$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -6963,8 +6963,8 @@ matplot(years, Ct_VMC5, type="l", lty=1, col=1:5,
 legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
        lty=1, col=1:5, bty="n")
 
-VEC_Lit_VMC5 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-VEC_Man_VMC5 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+VEC_Lit_VMC5 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+VEC_Man_VMC5 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
 VEC_LitDF_VMC5 <- as.data.frame(VEC_Lit_VMC5) #Converting the Litter vector to a data frame
 VEC_LitDF_VMC5$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -7144,8 +7144,8 @@ matplot(years, Ct_VMC6, type="l", lty=1, col=1:5,
 legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
        lty=1, col=1:5, bty="n")
 
-VEC_Lit_VMC6 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-VEC_Man_VMC6 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+VEC_Lit_VMC6 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+VEC_Man_VMC6 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
 VEC_LitDF_VMC6 <- as.data.frame(VEC_Lit_VMC6) #Converting the Litter vector to a data frame
 VEC_LitDF_VMC6$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -7324,8 +7324,8 @@ matplot(years, Ct_VMC7, type="l", lty=1, col=1:5,
 legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
        lty=1, col=1:5, bty="n")
 
-VEC_Lit_VMC7 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-VEC_Man_VMC7 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+VEC_Lit_VMC7 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+VEC_Man_VMC7 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
 VEC_LitDF_VMC7 <- as.data.frame(VEC_Lit_VMC7) #Converting the Litter vector to a data frame
 VEC_LitDF_VMC7$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -7505,8 +7505,8 @@ matplot(years, Ct_VMC8, type="l", lty=1, col=1:5,
 legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
        lty=1, col=1:5, bty="n")
 
-VEC_Lit_VMC8 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-VEC_Man_VMC8 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+VEC_Lit_VMC8 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+VEC_Man_VMC8 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
 VEC_LitDF_VMC8 <- as.data.frame(VEC_Lit_VMC8) #Converting the Litter vector to a data frame
 VEC_LitDF_VMC8$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -7685,8 +7685,8 @@ matplot(years, Ct_VMC9, type="l", lty=1, col=1:5,
 legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
        lty=1, col=1:5, bty="n")
 
-VEC_Lit_VMC9 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-VEC_Man_VMC9 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+VEC_Lit_VMC9 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+VEC_Man_VMC9 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
 VEC_LitDF_VMC9 <- as.data.frame(VEC_Lit_VMC9) #Converting the Litter vector to a data frame
 VEC_LitDF_VMC9$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -7865,8 +7865,8 @@ matplot(years, Ct_VMC10, type="l", lty=1, col=1:5,
 legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
        lty=1, col=1:5, bty="n")
 
-VEC_Lit_VMC10 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-VEC_Man_VMC10 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+VEC_Lit_VMC10 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+VEC_Man_VMC10 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
 VEC_LitDF_VMC10 <- as.data.frame(VEC_Lit_VMC10) #Converting the Litter vector to a data frame
 VEC_LitDF_VMC10$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -8038,8 +8038,8 @@ Model_VMR0=SoilR::RothCModel(
 
 Ct_VMR0=getC(Model_VMR0) #Calculates stocks for each pool per month
 
-VEC_Lit_VMR0 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-VEC_Man_VMR0 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+VEC_Lit_VMR0 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+VEC_Man_VMR0 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
 VEC_LitDF_VMR0 <- as.data.frame(VEC_Lit_VMR0) #Converting the Litter vector to a data frame
 VEC_LitDF_VMR0$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -8215,8 +8215,8 @@ matplot(years, Ct_VMR1, type="l", lty=1, col=1:5,
 legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
        lty=1, col=1:5, bty="n")
 
-VEC_Lit_VMR1 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-VEC_Man_VMR1 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+VEC_Lit_VMR1 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+VEC_Man_VMR1 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
 VEC_LitDF_VMR1 <- as.data.frame(VEC_Lit_VMR1) #Converting the Litter vector to a data frame
 VEC_LitDF_VMR1$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -8393,8 +8393,8 @@ matplot(years, Ct_VMR2, type="l", lty=1, col=1:5,
 legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
        lty=1, col=1:5, bty="n")
 
-VEC_Lit_VMR2 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-VEC_Man_VMR2 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+VEC_Lit_VMR2 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+VEC_Man_VMR2 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
 VEC_LitDF_VMR2 <- as.data.frame(VEC_Lit_VMR2) #Converting the Litter vector to a data frame
 VEC_LitDF_VMR2$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -8571,8 +8571,8 @@ matplot(years, Ct_VMR3, type="l", lty=1, col=1:5,
 legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
        lty=1, col=1:5, bty="n")
 
-VEC_Lit_VMR3 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-VEC_Man_VMR3 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+VEC_Lit_VMR3 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+VEC_Man_VMR3 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
 VEC_LitDF_VMR3 <- as.data.frame(VEC_Lit_VMR3) #Converting the Litter vector to a data frame
 VEC_LitDF_VMR3$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -8749,8 +8749,8 @@ matplot(years, Ct_VMR4, type="l", lty=1, col=1:5,
 legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
        lty=1, col=1:5, bty="n")
 
-VEC_Lit_VMR4 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-VEC_Man_VMR4 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+VEC_Lit_VMR4 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+VEC_Man_VMR4 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
 VEC_LitDF_VMR4 <- as.data.frame(VEC_Lit_VMR4) #Converting the Litter vector to a data frame
 VEC_LitDF_VMR4$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -8927,8 +8927,8 @@ matplot(years, Ct_VMR5, type="l", lty=1, col=1:5,
 legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
        lty=1, col=1:5, bty="n")
 
-VEC_Lit_VMR5 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-VEC_Man_VMR5 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+VEC_Lit_VMR5 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+VEC_Man_VMR5 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
 VEC_LitDF_VMR5 <- as.data.frame(VEC_Lit_VMR5) #Converting the Litter vector to a data frame
 VEC_LitDF_VMR5$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -9108,8 +9108,8 @@ matplot(years, Ct_VMR6, type="l", lty=1, col=1:5,
 legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
        lty=1, col=1:5, bty="n")
 
-VEC_Lit_VMR6 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-VEC_Man_VMR6 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+VEC_Lit_VMR6 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+VEC_Man_VMR6 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
 VEC_LitDF_VMR6 <- as.data.frame(VEC_Lit_VMR6) #Converting the Litter vector to a data frame
 VEC_LitDF_VMR6$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -9288,8 +9288,8 @@ matplot(years, Ct_VMR7, type="l", lty=1, col=1:5,
 legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
        lty=1, col=1:5, bty="n")
 
-VEC_Lit_VMR7 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-VEC_Man_VMR7 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+VEC_Lit_VMR7 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+VEC_Man_VMR7 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
 VEC_LitDF_VMR7 <- as.data.frame(VEC_Lit_VMR7) #Converting the Litter vector to a data frame
 VEC_LitDF_VMR7$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -9469,8 +9469,8 @@ matplot(years, Ct_VMR8, type="l", lty=1, col=1:5,
 legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
        lty=1, col=1:5, bty="n")
 
-VEC_Lit_VMR8 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-VEC_Man_VMR8 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+VEC_Lit_VMR8 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+VEC_Man_VMR8 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
 VEC_LitDF_VMR8 <- as.data.frame(VEC_Lit_VMR8) #Converting the Litter vector to a data frame
 VEC_LitDF_VMR8$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -9649,8 +9649,8 @@ matplot(years, Ct_VMR9, type="l", lty=1, col=1:5,
 legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
        lty=1, col=1:5, bty="n")
 
-VEC_Lit_VMR9 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-VEC_Man_VMR9 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+VEC_Lit_VMR9 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+VEC_Man_VMR9 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
 VEC_LitDF_VMR9 <- as.data.frame(VEC_Lit_VMR9) #Converting the Litter vector to a data frame
 VEC_LitDF_VMR9$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -9829,8 +9829,8 @@ matplot(years, Ct_VMR10, type="l", lty=1, col=1:5,
 legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
        lty=1, col=1:5, bty="n")
 
-VEC_Lit_VMR10 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-VEC_Man_VMR10 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+VEC_Lit_VMR10 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+VEC_Man_VMR10 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
 VEC_LitDF_VMR10 <- as.data.frame(VEC_Lit_VMR10) #Converting the Litter vector to a data frame
 VEC_LitDF_VMR10$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -10002,8 +10002,8 @@ Model_VMN0=SoilR::RothCModel(
 
 Ct_VMN0=getC(Model_VMN0) #Calculates stocks for each pool per month
 
-VEC_Lit_VMN0 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-VEC_Man_VMN0 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+VEC_Lit_VMN0 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+VEC_Man_VMN0 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
 VEC_LitDF_VMN0 <- as.data.frame(VEC_Lit_VMN0) #Converting the Litter vector to a data frame
 VEC_LitDF_VMN0$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -10179,8 +10179,8 @@ matplot(years, Ct_VMN1, type="l", lty=1, col=1:5,
 legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
        lty=1, col=1:5, bty="n")
 
-VEC_Lit_VMN1 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-VEC_Man_VMN1 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+VEC_Lit_VMN1 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+VEC_Man_VMN1 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
 VEC_LitDF_VMN1 <- as.data.frame(VEC_Lit_VMN1) #Converting the Litter vector to a data frame
 VEC_LitDF_VMN1$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -10357,8 +10357,8 @@ matplot(years, Ct_VMN2, type="l", lty=1, col=1:5,
 legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
        lty=1, col=1:5, bty="n")
 
-VEC_Lit_VMN2 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-VEC_Man_VMN2 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+VEC_Lit_VMN2 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+VEC_Man_VMN2 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
 VEC_LitDF_VMN2 <- as.data.frame(VEC_Lit_VMN2) #Converting the Litter vector to a data frame
 VEC_LitDF_VMN2$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -10535,8 +10535,8 @@ matplot(years, Ct_VMN3, type="l", lty=1, col=1:5,
 legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
        lty=1, col=1:5, bty="n")
 
-VEC_Lit_VMN3 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-VEC_Man_VMN3 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+VEC_Lit_VMN3 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+VEC_Man_VMN3 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
 VEC_LitDF_VMN3 <- as.data.frame(VEC_Lit_VMN3) #Converting the Litter vector to a data frame
 VEC_LitDF_VMN3$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -10713,8 +10713,8 @@ matplot(years, Ct_VMN4, type="l", lty=1, col=1:5,
 legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
        lty=1, col=1:5, bty="n")
 
-VEC_Lit_VMN4 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-VEC_Man_VMN4 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+VEC_Lit_VMN4 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+VEC_Man_VMN4 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
 VEC_LitDF_VMN4 <- as.data.frame(VEC_Lit_VMN4) #Converting the Litter vector to a data frame
 VEC_LitDF_VMN4$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -10891,8 +10891,8 @@ matplot(years, Ct_VMN5, type="l", lty=1, col=1:5,
 legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
        lty=1, col=1:5, bty="n")
 
-VEC_Lit_VMN5 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-VEC_Man_VMN5 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+VEC_Lit_VMN5 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+VEC_Man_VMN5 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
 VEC_LitDF_VMN5 <- as.data.frame(VEC_Lit_VMN5) #Converting the Litter vector to a data frame
 VEC_LitDF_VMN5$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -11072,8 +11072,8 @@ matplot(years, Ct_VMN6, type="l", lty=1, col=1:5,
 legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
        lty=1, col=1:5, bty="n")
 
-VEC_Lit_VMN6 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-VEC_Man_VMN6 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+VEC_Lit_VMN6 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+VEC_Man_VMN6 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
 VEC_LitDF_VMN6 <- as.data.frame(VEC_Lit_VMN6) #Converting the Litter vector to a data frame
 VEC_LitDF_VMN6$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -11252,8 +11252,8 @@ matplot(years, Ct_VMN7, type="l", lty=1, col=1:5,
 legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
        lty=1, col=1:5, bty="n")
 
-VEC_Lit_VMN7 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-VEC_Man_VMN7 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+VEC_Lit_VMN7 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+VEC_Man_VMN7 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
 VEC_LitDF_VMN7 <- as.data.frame(VEC_Lit_VMN7) #Converting the Litter vector to a data frame
 VEC_LitDF_VMN7$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -11433,8 +11433,8 @@ matplot(years, Ct_VMN8, type="l", lty=1, col=1:5,
 legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
        lty=1, col=1:5, bty="n")
 
-VEC_Lit_VMN8 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-VEC_Man_VMN8 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+VEC_Lit_VMN8 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+VEC_Man_VMN8 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
 VEC_LitDF_VMN8 <- as.data.frame(VEC_Lit_VMN8) #Converting the Litter vector to a data frame
 VEC_LitDF_VMN8$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -11613,8 +11613,8 @@ matplot(years, Ct_VMN9, type="l", lty=1, col=1:5,
 legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
        lty=1, col=1:5, bty="n")
 
-VEC_Lit_VMN9 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-VEC_Man_VMN9 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+VEC_Lit_VMN9 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+VEC_Man_VMN9 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
 VEC_LitDF_VMN9 <- as.data.frame(VEC_Lit_VMN9) #Converting the Litter vector to a data frame
 VEC_LitDF_VMN9$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -11793,8 +11793,8 @@ matplot(years, Ct_VMN10, type="l", lty=1, col=1:5,
 legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
        lty=1, col=1:5, bty="n")
 
-VEC_Lit_VMN10 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-VEC_Man_VMN10 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+VEC_Lit_VMN10 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+VEC_Man_VMN10 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
 VEC_LitDF_VMN10 <- as.data.frame(VEC_Lit_VMN10) #Converting the Litter vector to a data frame
 VEC_LitDF_VMN10$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -17864,8 +17864,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
 
     Ct_VMC0=getC(Model_VMC0) #Calculates stocks for each pool per month
 
-    VEC_Lit_VMC0 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-    VEC_Man_VMC0 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+    VEC_Lit_VMC0 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+    VEC_Man_VMC0 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
     VEC_LitDF_VMC0 <- as.data.frame(VEC_Lit_VMC0) #Converting the Litter vector to a data frame
     VEC_LitDF_VMC0$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -18041,8 +18041,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
            lty=1, col=1:5, bty="n")
 
-    VEC_Lit_VMC1 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-    VEC_Man_VMC1 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+    VEC_Lit_VMC1 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+    VEC_Man_VMC1 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
     VEC_LitDF_VMC1 <- as.data.frame(VEC_Lit_VMC1) #Converting the Litter vector to a data frame
     VEC_LitDF_VMC1$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -18219,8 +18219,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
            lty=1, col=1:5, bty="n")
 
-    VEC_Lit_VMC2 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-    VEC_Man_VMC2 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+    VEC_Lit_VMC2 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+    VEC_Man_VMC2 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
     VEC_LitDF_VMC2 <- as.data.frame(VEC_Lit_VMC2) #Converting the Litter vector to a data frame
     VEC_LitDF_VMC2$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -18397,8 +18397,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
            lty=1, col=1:5, bty="n")
 
-    VEC_Lit_VMC3 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-    VEC_Man_VMC3 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+    VEC_Lit_VMC3 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+    VEC_Man_VMC3 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
     VEC_LitDF_VMC3 <- as.data.frame(VEC_Lit_VMC3) #Converting the Litter vector to a data frame
     VEC_LitDF_VMC3$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -18575,8 +18575,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
            lty=1, col=1:5, bty="n")
 
-    VEC_Lit_VMC4 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-    VEC_Man_VMC4 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+    VEC_Lit_VMC4 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+    VEC_Man_VMC4 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
     VEC_LitDF_VMC4 <- as.data.frame(VEC_Lit_VMC4) #Converting the Litter vector to a data frame
     VEC_LitDF_VMC4$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -18753,8 +18753,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
            lty=1, col=1:5, bty="n")
 
-    VEC_Lit_VMC5 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-    VEC_Man_VMC5 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+    VEC_Lit_VMC5 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+    VEC_Man_VMC5 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
     VEC_LitDF_VMC5 <- as.data.frame(VEC_Lit_VMC5) #Converting the Litter vector to a data frame
     VEC_LitDF_VMC5$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -18934,8 +18934,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
            lty=1, col=1:5, bty="n")
 
-    VEC_Lit_VMC6 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-    VEC_Man_VMC6 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+    VEC_Lit_VMC6 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+    VEC_Man_VMC6 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
     VEC_LitDF_VMC6 <- as.data.frame(VEC_Lit_VMC6) #Converting the Litter vector to a data frame
     VEC_LitDF_VMC6$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -19114,8 +19114,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
            lty=1, col=1:5, bty="n")
 
-    VEC_Lit_VMC7 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-    VEC_Man_VMC7 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+    VEC_Lit_VMC7 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+    VEC_Man_VMC7 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
     VEC_LitDF_VMC7 <- as.data.frame(VEC_Lit_VMC7) #Converting the Litter vector to a data frame
     VEC_LitDF_VMC7$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -19295,8 +19295,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
            lty=1, col=1:5, bty="n")
 
-    VEC_Lit_VMC8 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-    VEC_Man_VMC8 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+    VEC_Lit_VMC8 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+    VEC_Man_VMC8 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
     VEC_LitDF_VMC8 <- as.data.frame(VEC_Lit_VMC8) #Converting the Litter vector to a data frame
     VEC_LitDF_VMC8$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -19475,8 +19475,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
            lty=1, col=1:5, bty="n")
 
-    VEC_Lit_VMC9 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-    VEC_Man_VMC9 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+    VEC_Lit_VMC9 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+    VEC_Man_VMC9 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
     VEC_LitDF_VMC9 <- as.data.frame(VEC_Lit_VMC9) #Converting the Litter vector to a data frame
     VEC_LitDF_VMC9$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -19655,8 +19655,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
            lty=1, col=1:5, bty="n")
 
-    VEC_Lit_VMC10 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-    VEC_Man_VMC10 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+    VEC_Lit_VMC10 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+    VEC_Man_VMC10 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
     VEC_LitDF_VMC10 <- as.data.frame(VEC_Lit_VMC10) #Converting the Litter vector to a data frame
     VEC_LitDF_VMC10$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -19829,8 +19829,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
 
     Ct_VMR0=getC(Model_VMR0) #Calculates stocks for each pool per month
 
-    VEC_Lit_VMR0 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-    VEC_Man_VMR0 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+    VEC_Lit_VMR0 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+    VEC_Man_VMR0 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
     VEC_LitDF_VMR0 <- as.data.frame(VEC_Lit_VMR0) #Converting the Litter vector to a data frame
     VEC_LitDF_VMR0$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -20006,8 +20006,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
            lty=1, col=1:5, bty="n")
 
-    VEC_Lit_VMR1 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-    VEC_Man_VMR1 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+    VEC_Lit_VMR1 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+    VEC_Man_VMR1 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
     VEC_LitDF_VMR1 <- as.data.frame(VEC_Lit_VMR1) #Converting the Litter vector to a data frame
     VEC_LitDF_VMR1$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -20184,8 +20184,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
            lty=1, col=1:5, bty="n")
 
-    VEC_Lit_VMR2 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-    VEC_Man_VMR2 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+    VEC_Lit_VMR2 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+    VEC_Man_VMR2 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
     VEC_LitDF_VMR2 <- as.data.frame(VEC_Lit_VMR2) #Converting the Litter vector to a data frame
     VEC_LitDF_VMR2$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -20362,8 +20362,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
            lty=1, col=1:5, bty="n")
 
-    VEC_Lit_VMR3 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-    VEC_Man_VMR3 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+    VEC_Lit_VMR3 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+    VEC_Man_VMR3 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
     VEC_LitDF_VMR3 <- as.data.frame(VEC_Lit_VMR3) #Converting the Litter vector to a data frame
     VEC_LitDF_VMR3$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -20540,8 +20540,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
            lty=1, col=1:5, bty="n")
 
-    VEC_Lit_VMR4 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-    VEC_Man_VMR4 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+    VEC_Lit_VMR4 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+    VEC_Man_VMR4 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
     VEC_LitDF_VMR4 <- as.data.frame(VEC_Lit_VMR4) #Converting the Litter vector to a data frame
     VEC_LitDF_VMR4$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -20718,8 +20718,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
            lty=1, col=1:5, bty="n")
 
-    VEC_Lit_VMR5 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-    VEC_Man_VMR5 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+    VEC_Lit_VMR5 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+    VEC_Man_VMR5 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
     VEC_LitDF_VMR5 <- as.data.frame(VEC_Lit_VMR5) #Converting the Litter vector to a data frame
     VEC_LitDF_VMR5$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -20899,8 +20899,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
            lty=1, col=1:5, bty="n")
 
-    VEC_Lit_VMR6 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-    VEC_Man_VMR6 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+    VEC_Lit_VMR6 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+    VEC_Man_VMR6 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
     VEC_LitDF_VMR6 <- as.data.frame(VEC_Lit_VMR6) #Converting the Litter vector to a data frame
     VEC_LitDF_VMR6$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -21079,8 +21079,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
            lty=1, col=1:5, bty="n")
 
-    VEC_Lit_VMR7 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-    VEC_Man_VMR7 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+    VEC_Lit_VMR7 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+    VEC_Man_VMR7 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
     VEC_LitDF_VMR7 <- as.data.frame(VEC_Lit_VMR7) #Converting the Litter vector to a data frame
     VEC_LitDF_VMR7$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -21260,8 +21260,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
            lty=1, col=1:5, bty="n")
 
-    VEC_Lit_VMR8 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-    VEC_Man_VMR8 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+    VEC_Lit_VMR8 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+    VEC_Man_VMR8 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
     VEC_LitDF_VMR8 <- as.data.frame(VEC_Lit_VMR8) #Converting the Litter vector to a data frame
     VEC_LitDF_VMR8$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -21440,8 +21440,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
            lty=1, col=1:5, bty="n")
 
-    VEC_Lit_VMR9 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-    VEC_Man_VMR9 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+    VEC_Lit_VMR9 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+    VEC_Man_VMR9 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
     VEC_LitDF_VMR9 <- as.data.frame(VEC_Lit_VMR9) #Converting the Litter vector to a data frame
     VEC_LitDF_VMR9$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -21620,8 +21620,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
            lty=1, col=1:5, bty="n")
 
-    VEC_Lit_VMR10 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-    VEC_Man_VMR10 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+    VEC_Lit_VMR10 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+    VEC_Man_VMR10 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
     VEC_LitDF_VMR10 <- as.data.frame(VEC_Lit_VMR10) #Converting the Litter vector to a data frame
     VEC_LitDF_VMR10$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -21794,8 +21794,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
 
     Ct_VMN0=getC(Model_VMN0) #Calculates stocks for each pool per month
 
-    VEC_Lit_VMN0 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-    VEC_Man_VMN0 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+    VEC_Lit_VMN0 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+    VEC_Man_VMN0 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
     VEC_LitDF_VMN0 <- as.data.frame(VEC_Lit_VMN0) #Converting the Litter vector to a data frame
     VEC_LitDF_VMN0$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -21971,8 +21971,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
            lty=1, col=1:5, bty="n")
 
-    VEC_Lit_VMN1 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-    VEC_Man_VMN1 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+    VEC_Lit_VMN1 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+    VEC_Man_VMN1 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
     VEC_LitDF_VMN1 <- as.data.frame(VEC_Lit_VMN1) #Converting the Litter vector to a data frame
     VEC_LitDF_VMN1$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -22149,8 +22149,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
            lty=1, col=1:5, bty="n")
 
-    VEC_Lit_VMN2 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-    VEC_Man_VMN2 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+    VEC_Lit_VMN2 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+    VEC_Man_VMN2 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
     VEC_LitDF_VMN2 <- as.data.frame(VEC_Lit_VMN2) #Converting the Litter vector to a data frame
     VEC_LitDF_VMN2$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -22327,8 +22327,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
            lty=1, col=1:5, bty="n")
 
-    VEC_Lit_VMN3 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-    VEC_Man_VMN3 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+    VEC_Lit_VMN3 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+    VEC_Man_VMN3 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
     VEC_LitDF_VMN3 <- as.data.frame(VEC_Lit_VMN3) #Converting the Litter vector to a data frame
     VEC_LitDF_VMN3$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -22505,8 +22505,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
            lty=1, col=1:5, bty="n")
 
-    VEC_Lit_VMN4 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-    VEC_Man_VMN4 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+    VEC_Lit_VMN4 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+    VEC_Man_VMN4 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
     VEC_LitDF_VMN4 <- as.data.frame(VEC_Lit_VMN4) #Converting the Litter vector to a data frame
     VEC_LitDF_VMN4$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -22683,8 +22683,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
            lty=1, col=1:5, bty="n")
 
-    VEC_Lit_VMN5 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-    VEC_Man_VMN5 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+    VEC_Lit_VMN5 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+    VEC_Man_VMN5 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
     VEC_LitDF_VMN5 <- as.data.frame(VEC_Lit_VMN5) #Converting the Litter vector to a data frame
     VEC_LitDF_VMN5$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -22864,8 +22864,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
            lty=1, col=1:5, bty="n")
 
-    VEC_Lit_VMN6 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-    VEC_Man_VMN6 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+    VEC_Lit_VMN6 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+    VEC_Man_VMN6 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
     VEC_LitDF_VMN6 <- as.data.frame(VEC_Lit_VMN6) #Converting the Litter vector to a data frame
     VEC_LitDF_VMN6$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -23044,8 +23044,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
            lty=1, col=1:5, bty="n")
 
-    VEC_Lit_VMN7 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-    VEC_Man_VMN7 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+    VEC_Lit_VMN7 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+    VEC_Man_VMN7 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
     VEC_LitDF_VMN7 <- as.data.frame(VEC_Lit_VMN7) #Converting the Litter vector to a data frame
     VEC_LitDF_VMN7$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -23225,8 +23225,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
            lty=1, col=1:5, bty="n")
 
-    VEC_Lit_VMN8 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-    VEC_Man_VMN8 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+    VEC_Lit_VMN8 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+    VEC_Man_VMN8 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
     VEC_LitDF_VMN8 <- as.data.frame(VEC_Lit_VMN8) #Converting the Litter vector to a data frame
     VEC_LitDF_VMN8$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -23405,8 +23405,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
            lty=1, col=1:5, bty="n")
 
-    VEC_Lit_VMN9 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-    VEC_Man_VMN9 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+    VEC_Lit_VMN9 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+    VEC_Man_VMN9 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
     VEC_LitDF_VMN9 <- as.data.frame(VEC_Lit_VMN9) #Converting the Litter vector to a data frame
     VEC_LitDF_VMN9$MNumber <- seq(from = 1, to = SimulationLength_months)
@@ -23585,8 +23585,8 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     legend("topleft", c("DPM", "RPM", "BIO", "HUM", "IOM"),
            lty=1, col=1:5, bty="n")
 
-    VEC_Lit_VMN10 <- rep(M_Scalar_LitterCinputs*1, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
-    VEC_Man_VMN10 <- rep(M_Scalar_ManureCinputs*0, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
+    VEC_Lit_VMN10 <- rep(M_Scalar_LitterCinputs*0, SimulationLength_months) #Creating a vector for Litter Inputs of Length equal of Simulation Length (in months)
+    VEC_Man_VMN10 <- rep(M_Scalar_ManureCinputs*1, SimulationLength_months) #Creating a vector for Manure Inputs of Length equal of Simulation Length (in months)
 
     VEC_LitDF_VMN10 <- as.data.frame(VEC_Lit_VMN10) #Converting the Litter vector to a data frame
     VEC_LitDF_VMN10$MNumber <- seq(from = 1, to = SimulationLength_months)
