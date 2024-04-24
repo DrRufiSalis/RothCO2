@@ -293,43 +293,43 @@ ModelDFSL1y_VLC0 <- ModelDFSLt0_VLC0 - ModelDFSLt1_VLC0
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLC0$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLC0P because implies a one-off input of C
-ModelDFSL_VLC0P <- ModelDFSL1y_VLC0
+#This model will be called VLC_0P because implies a one-off input of C
+ModelDFSL_VLC_0P <- ModelDFSL1y_VLC0
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VLC0P,"VXP_Models\\ModelDFSL_R_VLC0P.xlsx")
+write_xlsx(ModelDFSL_VLC_0P,"VXP_Models\\ModelDFSL_R_VLC_0P.xlsx")
 
 #Plot 3.1: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VLC0P_YCO2 <- ModelDFSL_VLC0P %>%
+ModelDFSL_VLC_0P_YCO2 <- ModelDFSL_VLC_0P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLC0)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLC0P_YCO2) <- c("Year", "Months", "AnnualCO2_VLC_0")
+colnames(ModelDFSL_VLC_0P_YCO2) <- c("Year", "Months", "AnnualCO2_VLC_0")
 
 #Plot 3.2: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VLC0P_YCO2D <- merge(ModelDFSL_VLC0P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VLC0P_YCO2D$AnnualCO2D_VLC_0 <- ModelDFSL_VLC0P_YCO2D$AnnualCO2_VLC_0 * ModelDFSL_VLC0P_YCO2D$GWP100
+ModelDFSL_VLC_0P_YCO2D <- merge(ModelDFSL_VLC_0P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VLC_0P_YCO2D$AnnualCO2D_VLC_0 <- ModelDFSL_VLC_0P_YCO2D$AnnualCO2_VLC_0 * ModelDFSL_VLC_0P_YCO2D$GWP100
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VLC0P_YC <- ModelDFSL_VLC0P %>%
+ModelDFSL_VLC_0P_YC <- ModelDFSL_VLC_0P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLC0)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLC0P_YC) <- c("Year", "Months", "CEmissions_VLC_0")
+colnames(ModelDFSL_VLC_0P_YC) <- c("Year", "Months", "CEmissions_VLC_0")
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VLC0P_YCT <- ModelDFSL_VLC0P %>%
+ModelDFSL_VLC_0P_YCT <- ModelDFSL_VLC_0P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLC0)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLC0P_YCT) <- c("Year", "Months", "CTail_VLC_0")
+colnames(ModelDFSL_VLC_0P_YCT) <- c("Year", "Months", "CTail_VLC_0")
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VLC0P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC0P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VLC0P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC0P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLC0P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC0P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLC0P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC0P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLC_0P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC_0P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VLC_0P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC_0P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VLC_0P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC_0P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLC_0P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC_0P.xlsx") #Yearly C emissions
 
 
 #### 7.2 - VLC1) Litter; 10%clay; Conventional tillage ####
@@ -470,43 +470,43 @@ ModelDFSL1y_VLC1 <- ModelDFSLt0_VLC1 - ModelDFSLt1_VLC1
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLC1$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLC1P because implies a one-off input of C
-ModelDFSL_VLC1P <- ModelDFSL1y_VLC1
+#This model will be called VLC_1P because implies a one-off input of C
+ModelDFSL_VLC_1P <- ModelDFSL1y_VLC1
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VLC1P,"VXP_Models\\ModelDFSL_R_VLC1P.xlsx")
+write_xlsx(ModelDFSL_VLC_1P,"VXP_Models\\ModelDFSL_R_VLC_1P.xlsx")
 
 #Plot 3: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VLC1P_YCO2 <- ModelDFSL_VLC1P %>%
+ModelDFSL_VLC_1P_YCO2 <- ModelDFSL_VLC_1P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLC1)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLC1P_YCO2) <- c("Year", "Months", "AnnualCO2_VLC_1")
+colnames(ModelDFSL_VLC_1P_YCO2) <- c("Year", "Months", "AnnualCO2_VLC_1")
 
 #Plot 3: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VLC1P_YCO2D <- merge(ModelDFSL_VLC1P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VLC1P_YCO2D$AnnualCO2D_VLC_1 <- ModelDFSL_VLC1P_YCO2D$AnnualCO2_VLC_1 * ModelDFSL_VLC1P_YCO2D$GWP100
+ModelDFSL_VLC_1P_YCO2D <- merge(ModelDFSL_VLC_1P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VLC_1P_YCO2D$AnnualCO2D_VLC_1 <- ModelDFSL_VLC_1P_YCO2D$AnnualCO2_VLC_1 * ModelDFSL_VLC_1P_YCO2D$GWP100
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VLC1P_YC <- ModelDFSL_VLC1P %>%
+ModelDFSL_VLC_1P_YC <- ModelDFSL_VLC_1P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLC1)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLC1P_YC) <- c("Year", "Months", "CEmissions_VLC_1")
+colnames(ModelDFSL_VLC_1P_YC) <- c("Year", "Months", "CEmissions_VLC_1")
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VLC1P_YCT <- ModelDFSL_VLC1P %>%
+ModelDFSL_VLC_1P_YCT <- ModelDFSL_VLC_1P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLC1)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLC1P_YCT) <- c("Year", "Months", "CTail_VLC_1")
+colnames(ModelDFSL_VLC_1P_YCT) <- c("Year", "Months", "CTail_VLC_1")
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VLC1P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC1P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VLC1P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC1P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLC1P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC1P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLC1P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC1P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLC_1P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC_1P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VLC_1P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC_1P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VLC_1P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC_1P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLC_1P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC_1P.xlsx") #Yearly C emissions
 
 
 
@@ -648,43 +648,43 @@ ModelDFSL1y_VLC2 <- ModelDFSLt0_VLC2 - ModelDFSLt1_VLC2
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLC2$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLC2P because implies a one-off input of C
-ModelDFSL_VLC2P <- ModelDFSL1y_VLC2
+#This model will be called VLC_2P because implies a one-off input of C
+ModelDFSL_VLC_2P <- ModelDFSL1y_VLC2
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VLC2P,"VXP_Models\\ModelDFSL_R_VLC2P.xlsx")
+write_xlsx(ModelDFSL_VLC_2P,"VXP_Models\\ModelDFSL_R_VLC_2P.xlsx")
 
 #Plot 3: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VLC2P_YCO2 <- ModelDFSL_VLC2P %>%
+ModelDFSL_VLC_2P_YCO2 <- ModelDFSL_VLC_2P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLC2)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLC2P_YCO2) <- c("Year", "Months", "AnnualCO2_VLC_2")
+colnames(ModelDFSL_VLC_2P_YCO2) <- c("Year", "Months", "AnnualCO2_VLC_2")
 
 #Plot 3: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VLC2P_YCO2D <- merge(ModelDFSL_VLC2P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VLC2P_YCO2D$AnnualCO2D_VLC_2 <- ModelDFSL_VLC2P_YCO2D$AnnualCO2_VLC_2 * ModelDFSL_VLC2P_YCO2D$GWP100
+ModelDFSL_VLC_2P_YCO2D <- merge(ModelDFSL_VLC_2P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VLC_2P_YCO2D$AnnualCO2D_VLC_2 <- ModelDFSL_VLC_2P_YCO2D$AnnualCO2_VLC_2 * ModelDFSL_VLC_2P_YCO2D$GWP100
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VLC2P_YC <- ModelDFSL_VLC2P %>%
+ModelDFSL_VLC_2P_YC <- ModelDFSL_VLC_2P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLC2)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLC2P_YC) <- c("Year", "Months", "CEmissions_VLC_2")
+colnames(ModelDFSL_VLC_2P_YC) <- c("Year", "Months", "CEmissions_VLC_2")
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VLC2P_YCT <- ModelDFSL_VLC2P %>%
+ModelDFSL_VLC_2P_YCT <- ModelDFSL_VLC_2P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLC2)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLC2P_YCT) <- c("Year", "Months", "CTail_VLC_2")
+colnames(ModelDFSL_VLC_2P_YCT) <- c("Year", "Months", "CTail_VLC_2")
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VLC2P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC2P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VLC2P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC2P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLC2P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC2P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLC2P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC2P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLC_2P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC_2P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VLC_2P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC_2P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VLC_2P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC_2P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLC_2P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC_2P.xlsx") #Yearly C emissions
 
 
 
@@ -826,43 +826,43 @@ ModelDFSL1y_VLC3 <- ModelDFSLt0_VLC3 - ModelDFSLt1_VLC3
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLC3$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLC3P because implies a one-off input of C
-ModelDFSL_VLC3P <- ModelDFSL1y_VLC3
+#This model will be called VLC_3P because implies a one-off input of C
+ModelDFSL_VLC_3P <- ModelDFSL1y_VLC3
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VLC3P,"VXP_Models\\ModelDFSL_R_VLC3P.xlsx")
+write_xlsx(ModelDFSL_VLC_3P,"VXP_Models\\ModelDFSL_R_VLC_3P.xlsx")
 
 #Plot 3: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VLC3P_YCO2 <- ModelDFSL_VLC3P %>%
+ModelDFSL_VLC_3P_YCO2 <- ModelDFSL_VLC_3P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLC3)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLC3P_YCO2) <- c("Year", "Months", "AnnualCO2_VLC_3")
+colnames(ModelDFSL_VLC_3P_YCO2) <- c("Year", "Months", "AnnualCO2_VLC_3")
 
 #Plot 3: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VLC3P_YCO2D <- merge(ModelDFSL_VLC3P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VLC3P_YCO2D$AnnualCO2D_VLC_3 <- ModelDFSL_VLC3P_YCO2D$AnnualCO2_VLC_3 * ModelDFSL_VLC3P_YCO2D$GWP100
+ModelDFSL_VLC_3P_YCO2D <- merge(ModelDFSL_VLC_3P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VLC_3P_YCO2D$AnnualCO2D_VLC_3 <- ModelDFSL_VLC_3P_YCO2D$AnnualCO2_VLC_3 * ModelDFSL_VLC_3P_YCO2D$GWP100
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VLC3P_YC <- ModelDFSL_VLC3P %>%
+ModelDFSL_VLC_3P_YC <- ModelDFSL_VLC_3P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLC3)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLC3P_YC) <- c("Year", "Months", "CEmissions_VLC_3")
+colnames(ModelDFSL_VLC_3P_YC) <- c("Year", "Months", "CEmissions_VLC_3")
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VLC3P_YCT <- ModelDFSL_VLC3P %>%
+ModelDFSL_VLC_3P_YCT <- ModelDFSL_VLC_3P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLC3)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLC3P_YCT) <- c("Year", "Months", "CTail_VLC_3")
+colnames(ModelDFSL_VLC_3P_YCT) <- c("Year", "Months", "CTail_VLC_3")
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VLC3P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC3P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VLC3P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC3P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLC3P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC3P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLC3P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC3P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLC_3P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC_3P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VLC_3P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC_3P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VLC_3P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC_3P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLC_3P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC_3P.xlsx") #Yearly C emissions
 
 
 
@@ -1004,43 +1004,43 @@ ModelDFSL1y_VLC4 <- ModelDFSLt0_VLC4 - ModelDFSLt1_VLC4
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLC4$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLC4P because implies a one-off input of C
-ModelDFSL_VLC4P <- ModelDFSL1y_VLC4
+#This model will be called VLC_4P because implies a one-off input of C
+ModelDFSL_VLC_4P <- ModelDFSL1y_VLC4
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VLC4P,"VXP_Models\\ModelDFSL_R_VLC4P.xlsx")
+write_xlsx(ModelDFSL_VLC_4P,"VXP_Models\\ModelDFSL_R_VLC_4P.xlsx")
 
 #Plot 3: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VLC4P_YCO2 <- ModelDFSL_VLC4P %>%
+ModelDFSL_VLC_4P_YCO2 <- ModelDFSL_VLC_4P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLC4)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLC4P_YCO2) <- c("Year", "Months", "AnnualCO2_VLC_4")
+colnames(ModelDFSL_VLC_4P_YCO2) <- c("Year", "Months", "AnnualCO2_VLC_4")
 
 #Plot 3: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VLC4P_YCO2D <- merge(ModelDFSL_VLC4P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VLC4P_YCO2D$AnnualCO2D_VLC_4 <- ModelDFSL_VLC4P_YCO2D$AnnualCO2_VLC_4 * ModelDFSL_VLC4P_YCO2D$GWP100
+ModelDFSL_VLC_4P_YCO2D <- merge(ModelDFSL_VLC_4P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VLC_4P_YCO2D$AnnualCO2D_VLC_4 <- ModelDFSL_VLC_4P_YCO2D$AnnualCO2_VLC_4 * ModelDFSL_VLC_4P_YCO2D$GWP100
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VLC4P_YC <- ModelDFSL_VLC4P %>%
+ModelDFSL_VLC_4P_YC <- ModelDFSL_VLC_4P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLC4)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLC4P_YC) <- c("Year", "Months", "CEmissions_VLC_4")
+colnames(ModelDFSL_VLC_4P_YC) <- c("Year", "Months", "CEmissions_VLC_4")
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VLC4P_YCT <- ModelDFSL_VLC4P %>%
+ModelDFSL_VLC_4P_YCT <- ModelDFSL_VLC_4P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLC4)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLC4P_YCT) <- c("Year", "Months", "CTail_VLC_4")
+colnames(ModelDFSL_VLC_4P_YCT) <- c("Year", "Months", "CTail_VLC_4")
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VLC4P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC4P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VLC4P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC4P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLC4P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC4P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLC4P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC4P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLC_4P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC_4P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VLC_4P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC_4P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VLC_4P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC_4P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLC_4P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC_4P.xlsx") #Yearly C emissions
 
 
 
@@ -1182,46 +1182,46 @@ ModelDFSL1y_VLC5 <- ModelDFSLt0_VLC5 - ModelDFSLt1_VLC5
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLC5$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLC5P because implies a one-off input of C
-ModelDFSL_VLC5P <- ModelDFSL1y_VLC5
+#This model will be called VLC_5P because implies a one-off input of C
+ModelDFSL_VLC_5P <- ModelDFSL1y_VLC5
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VLC5P,"VXP_Models\\ModelDFSL_R_VLC5P.xlsx")
+write_xlsx(ModelDFSL_VLC_5P,"VXP_Models\\ModelDFSL_R_VLC_5P.xlsx")
 
 
 #Plot 3: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VLC5P_YCO2 <- ModelDFSL_VLC5P %>%
+ModelDFSL_VLC_5P_YCO2 <- ModelDFSL_VLC_5P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLC5)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLC5P_YCO2) <- c("Year", "Months", "AnnualCO2_VLC_5")
+colnames(ModelDFSL_VLC_5P_YCO2) <- c("Year", "Months", "AnnualCO2_VLC_5")
 
 
 #Plot 3: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VLC5P_YCO2D <- merge(ModelDFSL_VLC5P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VLC5P_YCO2D$AnnualCO2D_VLC_5 <- ModelDFSL_VLC5P_YCO2D$AnnualCO2_VLC_5 * ModelDFSL_VLC5P_YCO2D$GWP100
+ModelDFSL_VLC_5P_YCO2D <- merge(ModelDFSL_VLC_5P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VLC_5P_YCO2D$AnnualCO2D_VLC_5 <- ModelDFSL_VLC_5P_YCO2D$AnnualCO2_VLC_5 * ModelDFSL_VLC_5P_YCO2D$GWP100
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VLC5P_YC <- ModelDFSL_VLC5P %>%
+ModelDFSL_VLC_5P_YC <- ModelDFSL_VLC_5P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLC5)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLC5P_YC) <- c("Year", "Months", "CEmissions_VLC_5")
+colnames(ModelDFSL_VLC_5P_YC) <- c("Year", "Months", "CEmissions_VLC_5")
 
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VLC5P_YCT <- ModelDFSL_VLC5P %>%
+ModelDFSL_VLC_5P_YCT <- ModelDFSL_VLC_5P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLC5)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLC5P_YCT) <- c("Year", "Months", "CTail_VLC_5")
+colnames(ModelDFSL_VLC_5P_YCT) <- c("Year", "Months", "CTail_VLC_5")
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VLC5P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC5P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VLC5P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC5P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLC5P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC5P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLC5P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC5P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLC_5P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC_5P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VLC_5P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC_5P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VLC_5P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC_5P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLC_5P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC_5P.xlsx") #Yearly C emissions
 
 
 
@@ -1363,45 +1363,45 @@ ModelDFSL1y_VLC6 <- ModelDFSLt0_VLC6 - ModelDFSLt1_VLC6
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLC6$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLC6P because implies a one-off input of C
-ModelDFSL_VLC6P <- ModelDFSL1y_VLC6
+#This model will be called VLC_6P because implies a one-off input of C
+ModelDFSL_VLC_6P <- ModelDFSL1y_VLC6
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VLC6P,"VXP_Models\\ModelDFSL_R_VLC6P.xlsx")
+write_xlsx(ModelDFSL_VLC_6P,"VXP_Models\\ModelDFSL_R_VLC_6P.xlsx")
 
 #Plot 3: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VLC6P_YCO2 <- ModelDFSL_VLC6P %>%
+ModelDFSL_VLC_6P_YCO2 <- ModelDFSL_VLC_6P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLC6)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLC6P_YCO2) <- c("Year", "Months", "AnnualCO2_VLC_6")
+colnames(ModelDFSL_VLC_6P_YCO2) <- c("Year", "Months", "AnnualCO2_VLC_6")
 
 
 #Plot 3: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VLC6P_YCO2D <- merge(ModelDFSL_VLC6P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VLC6P_YCO2D$AnnualCO2D_VLC_6 <- ModelDFSL_VLC6P_YCO2D$AnnualCO2_VLC_6 * ModelDFSL_VLC6P_YCO2D$GWP100
+ModelDFSL_VLC_6P_YCO2D <- merge(ModelDFSL_VLC_6P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VLC_6P_YCO2D$AnnualCO2D_VLC_6 <- ModelDFSL_VLC_6P_YCO2D$AnnualCO2_VLC_6 * ModelDFSL_VLC_6P_YCO2D$GWP100
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VLC6P_YC <- ModelDFSL_VLC6P %>%
+ModelDFSL_VLC_6P_YC <- ModelDFSL_VLC_6P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLC6)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLC6P_YC) <- c("Year", "Months", "CEmissions_VLC_6")
+colnames(ModelDFSL_VLC_6P_YC) <- c("Year", "Months", "CEmissions_VLC_6")
 
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VLC6P_YCT <- ModelDFSL_VLC6P %>%
+ModelDFSL_VLC_6P_YCT <- ModelDFSL_VLC_6P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLC6)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLC6P_YCT) <- c("Year", "Months", "CTail_VLC_6")
+colnames(ModelDFSL_VLC_6P_YCT) <- c("Year", "Months", "CTail_VLC_6")
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VLC6P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC6P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VLC6P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC6P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLC6P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC6P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLC6P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC6P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLC_6P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC_6P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VLC_6P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC_6P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VLC_6P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC_6P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLC_6P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC_6P.xlsx") #Yearly C emissions
 
 
 
@@ -1543,46 +1543,46 @@ ModelDFSL1y_VLC7 <- ModelDFSLt0_VLC7 - ModelDFSLt1_VLC7
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLC7$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLC7P because implies a one-off input of C
-ModelDFSL_VLC7P <- ModelDFSL1y_VLC7
+#This model will be called VLC_7P because implies a one-off input of C
+ModelDFSL_VLC_7P <- ModelDFSL1y_VLC7
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VLC7P,"VXP_Models\\ModelDFSL_R_VLC7P.xlsx")
+write_xlsx(ModelDFSL_VLC_7P,"VXP_Models\\ModelDFSL_R_VLC_7P.xlsx")
 
 #Plot 3: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VLC7P_YCO2 <- ModelDFSL_VLC7P %>%
+ModelDFSL_VLC_7P_YCO2 <- ModelDFSL_VLC_7P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLC7)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLC7P_YCO2) <- c("Year", "Months", "AnnualCO2_VLC_7")
+colnames(ModelDFSL_VLC_7P_YCO2) <- c("Year", "Months", "AnnualCO2_VLC_7")
 
 
 #Plot 3: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VLC7P_YCO2D <- merge(ModelDFSL_VLC7P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VLC7P_YCO2D$AnnualCO2D_VLC_7 <- ModelDFSL_VLC7P_YCO2D$AnnualCO2_VLC_7 * ModelDFSL_VLC7P_YCO2D$GWP100
+ModelDFSL_VLC_7P_YCO2D <- merge(ModelDFSL_VLC_7P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VLC_7P_YCO2D$AnnualCO2D_VLC_7 <- ModelDFSL_VLC_7P_YCO2D$AnnualCO2_VLC_7 * ModelDFSL_VLC_7P_YCO2D$GWP100
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VLC7P_YC <- ModelDFSL_VLC7P %>%
+ModelDFSL_VLC_7P_YC <- ModelDFSL_VLC_7P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLC7)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLC7P_YC) <- c("Year", "Months", "CEmissions_VLC_7")
+colnames(ModelDFSL_VLC_7P_YC) <- c("Year", "Months", "CEmissions_VLC_7")
 
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VLC7P_YCT <- ModelDFSL_VLC7P %>%
+ModelDFSL_VLC_7P_YCT <- ModelDFSL_VLC_7P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLC7)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLC7P_YCT) <- c("Year", "Months", "CTail_VLC_7")
+colnames(ModelDFSL_VLC_7P_YCT) <- c("Year", "Months", "CTail_VLC_7")
 
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VLC7P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC7P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VLC7P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC7P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLC7P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC7P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLC7P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC7P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLC_7P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC_7P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VLC_7P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC_7P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VLC_7P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC_7P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLC_7P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC_7P.xlsx") #Yearly C emissions
 
 
 
@@ -1724,45 +1724,45 @@ ModelDFSL1y_VLC8 <- ModelDFSLt0_VLC8 - ModelDFSLt1_VLC8
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLC8$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLC8P because implies a one-off input of C
-ModelDFSL_VLC8P <- ModelDFSL1y_VLC8
+#This model will be called VLC_8P because implies a one-off input of C
+ModelDFSL_VLC_8P <- ModelDFSL1y_VLC8
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VLC8P,"VXP_Models\\ModelDFSL_R_VLC8P.xlsx")
+write_xlsx(ModelDFSL_VLC_8P,"VXP_Models\\ModelDFSL_R_VLC_8P.xlsx")
 
 
 #Plot 3: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VLC8P_YCO2 <- ModelDFSL_VLC8P %>%
+ModelDFSL_VLC_8P_YCO2 <- ModelDFSL_VLC_8P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLC8)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLC8P_YCO2) <- c("Year", "Months", "AnnualCO2_VLC_8")
+colnames(ModelDFSL_VLC_8P_YCO2) <- c("Year", "Months", "AnnualCO2_VLC_8")
 
 #Plot 3: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VLC8P_YCO2D <- merge(ModelDFSL_VLC8P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VLC8P_YCO2D$AnnualCO2D_VLC_8 <- ModelDFSL_VLC8P_YCO2D$AnnualCO2_VLC_8 * ModelDFSL_VLC8P_YCO2D$GWP100
+ModelDFSL_VLC_8P_YCO2D <- merge(ModelDFSL_VLC_8P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VLC_8P_YCO2D$AnnualCO2D_VLC_8 <- ModelDFSL_VLC_8P_YCO2D$AnnualCO2_VLC_8 * ModelDFSL_VLC_8P_YCO2D$GWP100
 
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VLC8P_YC <- ModelDFSL_VLC8P %>%
+ModelDFSL_VLC_8P_YC <- ModelDFSL_VLC_8P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLC8)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLC8P_YC) <- c("Year", "Months", "CEmissions_VLC_8")
+colnames(ModelDFSL_VLC_8P_YC) <- c("Year", "Months", "CEmissions_VLC_8")
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VLC8P_YCT <- ModelDFSL_VLC8P %>%
+ModelDFSL_VLC_8P_YCT <- ModelDFSL_VLC_8P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLC8)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLC8P_YCT) <- c("Year", "Months", "CTail_VLC_8")
+colnames(ModelDFSL_VLC_8P_YCT) <- c("Year", "Months", "CTail_VLC_8")
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VLC8P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC8P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VLC8P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC8P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLC8P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC8P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLC8P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC8P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLC_8P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC_8P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VLC_8P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC_8P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VLC_8P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC_8P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLC_8P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC_8P.xlsx") #Yearly C emissions
 
 
 
@@ -1904,45 +1904,45 @@ ModelDFSL1y_VLC9 <- ModelDFSLt0_VLC9 - ModelDFSLt1_VLC9
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLC9$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLC9P because implies a one-off input of C
-ModelDFSL_VLC9P <- ModelDFSL1y_VLC9
+#This model will be called VLC_9P because implies a one-off input of C
+ModelDFSL_VLC_9P <- ModelDFSL1y_VLC9
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VLC9P,"VXP_Models\\ModelDFSL_R_VLC9P.xlsx")
+write_xlsx(ModelDFSL_VLC_9P,"VXP_Models\\ModelDFSL_R_VLC_9P.xlsx")
 
 
 #Plot 3: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VLC9P_YCO2 <- ModelDFSL_VLC9P %>%
+ModelDFSL_VLC_9P_YCO2 <- ModelDFSL_VLC_9P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLC9)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLC9P_YCO2) <- c("Year", "Months", "AnnualCO2_VLC_9")
+colnames(ModelDFSL_VLC_9P_YCO2) <- c("Year", "Months", "AnnualCO2_VLC_9")
 
 #Plot 3: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VLC9P_YCO2D <- merge(ModelDFSL_VLC9P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VLC9P_YCO2D$AnnualCO2D_VLC_9 <- ModelDFSL_VLC9P_YCO2D$AnnualCO2_VLC_9 * ModelDFSL_VLC9P_YCO2D$GWP100
+ModelDFSL_VLC_9P_YCO2D <- merge(ModelDFSL_VLC_9P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VLC_9P_YCO2D$AnnualCO2D_VLC_9 <- ModelDFSL_VLC_9P_YCO2D$AnnualCO2_VLC_9 * ModelDFSL_VLC_9P_YCO2D$GWP100
 
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VLC9P_YC <- ModelDFSL_VLC9P %>%
+ModelDFSL_VLC_9P_YC <- ModelDFSL_VLC_9P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLC9)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLC9P_YC) <- c("Year", "Months", "CEmissions_VLC_9")
+colnames(ModelDFSL_VLC_9P_YC) <- c("Year", "Months", "CEmissions_VLC_9")
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VLC9P_YCT <- ModelDFSL_VLC9P %>%
+ModelDFSL_VLC_9P_YCT <- ModelDFSL_VLC_9P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLC9)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLC9P_YCT) <- c("Year", "Months", "CTail_VLC_9")
+colnames(ModelDFSL_VLC_9P_YCT) <- c("Year", "Months", "CTail_VLC_9")
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VLC9P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC9P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VLC9P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC9P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLC9P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC9P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLC9P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC9P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLC_9P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC_9P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VLC_9P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC_9P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VLC_9P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC_9P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLC_9P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC_9P.xlsx") #Yearly C emissions
 
 
 
@@ -2257,43 +2257,43 @@ ModelDFSL1y_VLR0 <- ModelDFSLt0_VLR0 - ModelDFSLt1_VLR0
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLR0$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLR0P because implies a one-off input of C
-ModelDFSL_VLR0P <- ModelDFSL1y_VLR0
+#This model will be called VLR_0P because implies a one-off input of C
+ModelDFSL_VLR_0P <- ModelDFSL1y_VLR0
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VLR0P,"VXP_Models\\ModelDFSL_R_VLR0P.xlsx")
+write_xlsx(ModelDFSL_VLR_0P,"VXP_Models\\ModelDFSL_R_VLR_0P.xlsx")
 
 #Plot 3.1: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VLR0P_YCO2 <- ModelDFSL_VLR0P %>%
+ModelDFSL_VLR_0P_YCO2 <- ModelDFSL_VLR_0P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLR0)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLR0P_YCO2) <- c("Year", "Months", "AnnualCO2_VLR_0")
+colnames(ModelDFSL_VLR_0P_YCO2) <- c("Year", "Months", "AnnualCO2_VLR_0")
 
 #Plot 3.2: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VLR0P_YCO2D <- merge(ModelDFSL_VLR0P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VLR0P_YCO2D$AnnualCO2D_VLR_0 <- ModelDFSL_VLR0P_YCO2D$AnnualCO2_VLR_0 * ModelDFSL_VLR0P_YCO2D$GWP100
+ModelDFSL_VLR_0P_YCO2D <- merge(ModelDFSL_VLR_0P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VLR_0P_YCO2D$AnnualCO2D_VLR_0 <- ModelDFSL_VLR_0P_YCO2D$AnnualCO2_VLR_0 * ModelDFSL_VLR_0P_YCO2D$GWP100
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VLR0P_YC <- ModelDFSL_VLR0P %>%
+ModelDFSL_VLR_0P_YC <- ModelDFSL_VLR_0P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLR0)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLR0P_YC) <- c("Year", "Months", "CEmissions_VLR_0")
+colnames(ModelDFSL_VLR_0P_YC) <- c("Year", "Months", "CEmissions_VLR_0")
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VLR0P_YCT <- ModelDFSL_VLR0P %>%
+ModelDFSL_VLR_0P_YCT <- ModelDFSL_VLR_0P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLR0)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLR0P_YCT) <- c("Year", "Months", "CTail_VLR_0")
+colnames(ModelDFSL_VLR_0P_YCT) <- c("Year", "Months", "CTail_VLR_0")
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VLR0P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR0P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VLR0P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR0P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLR0P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR0P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLR0P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR0P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLR_0P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR_0P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VLR_0P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR_0P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VLR_0P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR_0P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLR_0P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR_0P.xlsx") #Yearly C emissions
 
 
 #### 8.2 - VLR1) Litter; 10%clay; Reduced Tillage ####
@@ -2434,43 +2434,43 @@ ModelDFSL1y_VLR1 <- ModelDFSLt0_VLR1 - ModelDFSLt1_VLR1
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLR1$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLR1P because implies a one-off input of C
-ModelDFSL_VLR1P <- ModelDFSL1y_VLR1
+#This model will be called VLR_1P because implies a one-off input of C
+ModelDFSL_VLR_1P <- ModelDFSL1y_VLR1
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VLR1P,"VXP_Models\\ModelDFSL_R_VLR1P.xlsx")
+write_xlsx(ModelDFSL_VLR_1P,"VXP_Models\\ModelDFSL_R_VLR_1P.xlsx")
 
 #Plot 3: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VLR1P_YCO2 <- ModelDFSL_VLR1P %>%
+ModelDFSL_VLR_1P_YCO2 <- ModelDFSL_VLR_1P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLR1)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLR1P_YCO2) <- c("Year", "Months", "AnnualCO2_VLR_1")
+colnames(ModelDFSL_VLR_1P_YCO2) <- c("Year", "Months", "AnnualCO2_VLR_1")
 
 #Plot 3: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VLR1P_YCO2D <- merge(ModelDFSL_VLR1P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VLR1P_YCO2D$AnnualCO2D_VLR_1 <- ModelDFSL_VLR1P_YCO2D$AnnualCO2_VLR_1 * ModelDFSL_VLR1P_YCO2D$GWP100
+ModelDFSL_VLR_1P_YCO2D <- merge(ModelDFSL_VLR_1P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VLR_1P_YCO2D$AnnualCO2D_VLR_1 <- ModelDFSL_VLR_1P_YCO2D$AnnualCO2_VLR_1 * ModelDFSL_VLR_1P_YCO2D$GWP100
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VLR1P_YC <- ModelDFSL_VLR1P %>%
+ModelDFSL_VLR_1P_YC <- ModelDFSL_VLR_1P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLR1)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLR1P_YC) <- c("Year", "Months", "CEmissions_VLR_1")
+colnames(ModelDFSL_VLR_1P_YC) <- c("Year", "Months", "CEmissions_VLR_1")
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VLR1P_YCT <- ModelDFSL_VLR1P %>%
+ModelDFSL_VLR_1P_YCT <- ModelDFSL_VLR_1P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLR1)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLR1P_YCT) <- c("Year", "Months", "CTail_VLR_1")
+colnames(ModelDFSL_VLR_1P_YCT) <- c("Year", "Months", "CTail_VLR_1")
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VLR1P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR1P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VLR1P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR1P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLR1P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR1P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLR1P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR1P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLR_1P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR_1P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VLR_1P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR_1P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VLR_1P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR_1P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLR_1P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR_1P.xlsx") #Yearly C emissions
 
 
 
@@ -2612,43 +2612,43 @@ ModelDFSL1y_VLR2 <- ModelDFSLt0_VLR2 - ModelDFSLt1_VLR2
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLR2$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLR2P because implies a one-off input of C
-ModelDFSL_VLR2P <- ModelDFSL1y_VLR2
+#This model will be called VLR_2P because implies a one-off input of C
+ModelDFSL_VLR_2P <- ModelDFSL1y_VLR2
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VLR2P,"VXP_Models\\ModelDFSL_R_VLR2P.xlsx")
+write_xlsx(ModelDFSL_VLR_2P,"VXP_Models\\ModelDFSL_R_VLR_2P.xlsx")
 
 #Plot 3: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VLR2P_YCO2 <- ModelDFSL_VLR2P %>%
+ModelDFSL_VLR_2P_YCO2 <- ModelDFSL_VLR_2P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLR2)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLR2P_YCO2) <- c("Year", "Months", "AnnualCO2_VLR_2")
+colnames(ModelDFSL_VLR_2P_YCO2) <- c("Year", "Months", "AnnualCO2_VLR_2")
 
 #Plot 3: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VLR2P_YCO2D <- merge(ModelDFSL_VLR2P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VLR2P_YCO2D$AnnualCO2D_VLR_2 <- ModelDFSL_VLR2P_YCO2D$AnnualCO2_VLR_2 * ModelDFSL_VLR2P_YCO2D$GWP100
+ModelDFSL_VLR_2P_YCO2D <- merge(ModelDFSL_VLR_2P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VLR_2P_YCO2D$AnnualCO2D_VLR_2 <- ModelDFSL_VLR_2P_YCO2D$AnnualCO2_VLR_2 * ModelDFSL_VLR_2P_YCO2D$GWP100
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VLR2P_YC <- ModelDFSL_VLR2P %>%
+ModelDFSL_VLR_2P_YC <- ModelDFSL_VLR_2P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLR2)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLR2P_YC) <- c("Year", "Months", "CEmissions_VLR_2")
+colnames(ModelDFSL_VLR_2P_YC) <- c("Year", "Months", "CEmissions_VLR_2")
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VLR2P_YCT <- ModelDFSL_VLR2P %>%
+ModelDFSL_VLR_2P_YCT <- ModelDFSL_VLR_2P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLR2)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLR2P_YCT) <- c("Year", "Months", "CTail_VLR_2")
+colnames(ModelDFSL_VLR_2P_YCT) <- c("Year", "Months", "CTail_VLR_2")
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VLR2P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR2P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VLR2P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR2P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLR2P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR2P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLR2P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR2P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLR_2P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR_2P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VLR_2P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR_2P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VLR_2P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR_2P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLR_2P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR_2P.xlsx") #Yearly C emissions
 
 
 
@@ -2790,43 +2790,43 @@ ModelDFSL1y_VLR3 <- ModelDFSLt0_VLR3 - ModelDFSLt1_VLR3
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLR3$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLR3P because implies a one-off input of C
-ModelDFSL_VLR3P <- ModelDFSL1y_VLR3
+#This model will be called VLR_3P because implies a one-off input of C
+ModelDFSL_VLR_3P <- ModelDFSL1y_VLR3
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VLR3P,"VXP_Models\\ModelDFSL_R_VLR3P.xlsx")
+write_xlsx(ModelDFSL_VLR_3P,"VXP_Models\\ModelDFSL_R_VLR_3P.xlsx")
 
 #Plot 3: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VLR3P_YCO2 <- ModelDFSL_VLR3P %>%
+ModelDFSL_VLR_3P_YCO2 <- ModelDFSL_VLR_3P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLR3)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLR3P_YCO2) <- c("Year", "Months", "AnnualCO2_VLR_3")
+colnames(ModelDFSL_VLR_3P_YCO2) <- c("Year", "Months", "AnnualCO2_VLR_3")
 
 #Plot 3: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VLR3P_YCO2D <- merge(ModelDFSL_VLR3P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VLR3P_YCO2D$AnnualCO2D_VLR_3 <- ModelDFSL_VLR3P_YCO2D$AnnualCO2_VLR_3 * ModelDFSL_VLR3P_YCO2D$GWP100
+ModelDFSL_VLR_3P_YCO2D <- merge(ModelDFSL_VLR_3P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VLR_3P_YCO2D$AnnualCO2D_VLR_3 <- ModelDFSL_VLR_3P_YCO2D$AnnualCO2_VLR_3 * ModelDFSL_VLR_3P_YCO2D$GWP100
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VLR3P_YC <- ModelDFSL_VLR3P %>%
+ModelDFSL_VLR_3P_YC <- ModelDFSL_VLR_3P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLR3)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLR3P_YC) <- c("Year", "Months", "CEmissions_VLR_3")
+colnames(ModelDFSL_VLR_3P_YC) <- c("Year", "Months", "CEmissions_VLR_3")
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VLR3P_YCT <- ModelDFSL_VLR3P %>%
+ModelDFSL_VLR_3P_YCT <- ModelDFSL_VLR_3P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLR3)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLR3P_YCT) <- c("Year", "Months", "CTail_VLR_3")
+colnames(ModelDFSL_VLR_3P_YCT) <- c("Year", "Months", "CTail_VLR_3")
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VLR3P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR3P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VLR3P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR3P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLR3P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR3P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLR3P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR3P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLR_3P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR_3P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VLR_3P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR_3P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VLR_3P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR_3P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLR_3P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR_3P.xlsx") #Yearly C emissions
 
 
 
@@ -2968,43 +2968,43 @@ ModelDFSL1y_VLR4 <- ModelDFSLt0_VLR4 - ModelDFSLt1_VLR4
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLR4$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLR4P because implies a one-off input of C
-ModelDFSL_VLR4P <- ModelDFSL1y_VLR4
+#This model will be called VLR_4P because implies a one-off input of C
+ModelDFSL_VLR_4P <- ModelDFSL1y_VLR4
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VLR4P,"VXP_Models\\ModelDFSL_R_VLR4P.xlsx")
+write_xlsx(ModelDFSL_VLR_4P,"VXP_Models\\ModelDFSL_R_VLR_4P.xlsx")
 
 #Plot 3: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VLR4P_YCO2 <- ModelDFSL_VLR4P %>%
+ModelDFSL_VLR_4P_YCO2 <- ModelDFSL_VLR_4P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLR4)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLR4P_YCO2) <- c("Year", "Months", "AnnualCO2_VLR_4")
+colnames(ModelDFSL_VLR_4P_YCO2) <- c("Year", "Months", "AnnualCO2_VLR_4")
 
 #Plot 3: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VLR4P_YCO2D <- merge(ModelDFSL_VLR4P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VLR4P_YCO2D$AnnualCO2D_VLR_4 <- ModelDFSL_VLR4P_YCO2D$AnnualCO2_VLR_4 * ModelDFSL_VLR4P_YCO2D$GWP100
+ModelDFSL_VLR_4P_YCO2D <- merge(ModelDFSL_VLR_4P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VLR_4P_YCO2D$AnnualCO2D_VLR_4 <- ModelDFSL_VLR_4P_YCO2D$AnnualCO2_VLR_4 * ModelDFSL_VLR_4P_YCO2D$GWP100
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VLR4P_YC <- ModelDFSL_VLR4P %>%
+ModelDFSL_VLR_4P_YC <- ModelDFSL_VLR_4P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLR4)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLR4P_YC) <- c("Year", "Months", "CEmissions_VLR_4")
+colnames(ModelDFSL_VLR_4P_YC) <- c("Year", "Months", "CEmissions_VLR_4")
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VLR4P_YCT <- ModelDFSL_VLR4P %>%
+ModelDFSL_VLR_4P_YCT <- ModelDFSL_VLR_4P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLR4)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLR4P_YCT) <- c("Year", "Months", "CTail_VLR_4")
+colnames(ModelDFSL_VLR_4P_YCT) <- c("Year", "Months", "CTail_VLR_4")
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VLR4P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR4P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VLR4P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR4P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLR4P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR4P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLR4P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR4P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLR_4P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR_4P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VLR_4P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR_4P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VLR_4P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR_4P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLR_4P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR_4P.xlsx") #Yearly C emissions
 
 
 
@@ -3146,46 +3146,46 @@ ModelDFSL1y_VLR5 <- ModelDFSLt0_VLR5 - ModelDFSLt1_VLR5
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLR5$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLR5P because implies a one-off input of C
-ModelDFSL_VLR5P <- ModelDFSL1y_VLR5
+#This model will be called VLR_5P because implies a one-off input of C
+ModelDFSL_VLR_5P <- ModelDFSL1y_VLR5
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VLR5P,"VXP_Models\\ModelDFSL_R_VLR5P.xlsx")
+write_xlsx(ModelDFSL_VLR_5P,"VXP_Models\\ModelDFSL_R_VLR_5P.xlsx")
 
 
 #Plot 3: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VLR5P_YCO2 <- ModelDFSL_VLR5P %>%
+ModelDFSL_VLR_5P_YCO2 <- ModelDFSL_VLR_5P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLR5)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLR5P_YCO2) <- c("Year", "Months", "AnnualCO2_VLR_5")
+colnames(ModelDFSL_VLR_5P_YCO2) <- c("Year", "Months", "AnnualCO2_VLR_5")
 
 
 #Plot 3: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VLR5P_YCO2D <- merge(ModelDFSL_VLR5P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VLR5P_YCO2D$AnnualCO2D_VLR_5 <- ModelDFSL_VLR5P_YCO2D$AnnualCO2_VLR_5 * ModelDFSL_VLR5P_YCO2D$GWP100
+ModelDFSL_VLR_5P_YCO2D <- merge(ModelDFSL_VLR_5P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VLR_5P_YCO2D$AnnualCO2D_VLR_5 <- ModelDFSL_VLR_5P_YCO2D$AnnualCO2_VLR_5 * ModelDFSL_VLR_5P_YCO2D$GWP100
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VLR5P_YC <- ModelDFSL_VLR5P %>%
+ModelDFSL_VLR_5P_YC <- ModelDFSL_VLR_5P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLR5)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLR5P_YC) <- c("Year", "Months", "CEmissions_VLR_5")
+colnames(ModelDFSL_VLR_5P_YC) <- c("Year", "Months", "CEmissions_VLR_5")
 
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VLR5P_YCT <- ModelDFSL_VLR5P %>%
+ModelDFSL_VLR_5P_YCT <- ModelDFSL_VLR_5P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLR5)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLR5P_YCT) <- c("Year", "Months", "CTail_VLR_5")
+colnames(ModelDFSL_VLR_5P_YCT) <- c("Year", "Months", "CTail_VLR_5")
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VLR5P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR5P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VLR5P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR5P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLR5P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR5P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLR5P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR5P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLR_5P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR_5P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VLR_5P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR_5P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VLR_5P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR_5P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLR_5P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR_5P.xlsx") #Yearly C emissions
 
 
 
@@ -3327,45 +3327,45 @@ ModelDFSL1y_VLR6 <- ModelDFSLt0_VLR6 - ModelDFSLt1_VLR6
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLR6$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLR6P because implies a one-off input of C
-ModelDFSL_VLR6P <- ModelDFSL1y_VLR6
+#This model will be called VLR_6P because implies a one-off input of C
+ModelDFSL_VLR_6P <- ModelDFSL1y_VLR6
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VLR6P,"VXP_Models\\ModelDFSL_R_VLR6P.xlsx")
+write_xlsx(ModelDFSL_VLR_6P,"VXP_Models\\ModelDFSL_R_VLR_6P.xlsx")
 
 #Plot 3: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VLR6P_YCO2 <- ModelDFSL_VLR6P %>%
+ModelDFSL_VLR_6P_YCO2 <- ModelDFSL_VLR_6P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLR6)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLR6P_YCO2) <- c("Year", "Months", "AnnualCO2_VLR_6")
+colnames(ModelDFSL_VLR_6P_YCO2) <- c("Year", "Months", "AnnualCO2_VLR_6")
 
 
 #Plot 3: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VLR6P_YCO2D <- merge(ModelDFSL_VLR6P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VLR6P_YCO2D$AnnualCO2D_VLR_6 <- ModelDFSL_VLR6P_YCO2D$AnnualCO2_VLR_6 * ModelDFSL_VLR6P_YCO2D$GWP100
+ModelDFSL_VLR_6P_YCO2D <- merge(ModelDFSL_VLR_6P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VLR_6P_YCO2D$AnnualCO2D_VLR_6 <- ModelDFSL_VLR_6P_YCO2D$AnnualCO2_VLR_6 * ModelDFSL_VLR_6P_YCO2D$GWP100
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VLR6P_YC <- ModelDFSL_VLR6P %>%
+ModelDFSL_VLR_6P_YC <- ModelDFSL_VLR_6P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLR6)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLR6P_YC) <- c("Year", "Months", "CEmissions_VLR_6")
+colnames(ModelDFSL_VLR_6P_YC) <- c("Year", "Months", "CEmissions_VLR_6")
 
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VLR6P_YCT <- ModelDFSL_VLR6P %>%
+ModelDFSL_VLR_6P_YCT <- ModelDFSL_VLR_6P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLR6)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLR6P_YCT) <- c("Year", "Months", "CTail_VLR_6")
+colnames(ModelDFSL_VLR_6P_YCT) <- c("Year", "Months", "CTail_VLR_6")
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VLR6P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR6P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VLR6P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR6P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLR6P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR6P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLR6P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR6P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLR_6P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR_6P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VLR_6P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR_6P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VLR_6P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR_6P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLR_6P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR_6P.xlsx") #Yearly C emissions
 
 
 
@@ -3507,46 +3507,46 @@ ModelDFSL1y_VLR7 <- ModelDFSLt0_VLR7 - ModelDFSLt1_VLR7
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLR7$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLR7P because implies a one-off input of C
-ModelDFSL_VLR7P <- ModelDFSL1y_VLR7
+#This model will be called VLR_7P because implies a one-off input of C
+ModelDFSL_VLR_7P <- ModelDFSL1y_VLR7
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VLR7P,"VXP_Models\\ModelDFSL_R_VLR7P.xlsx")
+write_xlsx(ModelDFSL_VLR_7P,"VXP_Models\\ModelDFSL_R_VLR_7P.xlsx")
 
 #Plot 3: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VLR7P_YCO2 <- ModelDFSL_VLR7P %>%
+ModelDFSL_VLR_7P_YCO2 <- ModelDFSL_VLR_7P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLR7)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLR7P_YCO2) <- c("Year", "Months", "AnnualCO2_VLR_7")
+colnames(ModelDFSL_VLR_7P_YCO2) <- c("Year", "Months", "AnnualCO2_VLR_7")
 
 
 #Plot 3: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VLR7P_YCO2D <- merge(ModelDFSL_VLR7P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VLR7P_YCO2D$AnnualCO2D_VLR_7 <- ModelDFSL_VLR7P_YCO2D$AnnualCO2_VLR_7 * ModelDFSL_VLR7P_YCO2D$GWP100
+ModelDFSL_VLR_7P_YCO2D <- merge(ModelDFSL_VLR_7P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VLR_7P_YCO2D$AnnualCO2D_VLR_7 <- ModelDFSL_VLR_7P_YCO2D$AnnualCO2_VLR_7 * ModelDFSL_VLR_7P_YCO2D$GWP100
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VLR7P_YC <- ModelDFSL_VLR7P %>%
+ModelDFSL_VLR_7P_YC <- ModelDFSL_VLR_7P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLR7)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLR7P_YC) <- c("Year", "Months", "CEmissions_VLR_7")
+colnames(ModelDFSL_VLR_7P_YC) <- c("Year", "Months", "CEmissions_VLR_7")
 
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VLR7P_YCT <- ModelDFSL_VLR7P %>%
+ModelDFSL_VLR_7P_YCT <- ModelDFSL_VLR_7P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLR7)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLR7P_YCT) <- c("Year", "Months", "CTail_VLR_7")
+colnames(ModelDFSL_VLR_7P_YCT) <- c("Year", "Months", "CTail_VLR_7")
 
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VLR7P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR7P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VLR7P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR7P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLR7P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR7P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLR7P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR7P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLR_7P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR_7P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VLR_7P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR_7P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VLR_7P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR_7P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLR_7P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR_7P.xlsx") #Yearly C emissions
 
 
 
@@ -3688,45 +3688,45 @@ ModelDFSL1y_VLR8 <- ModelDFSLt0_VLR8 - ModelDFSLt1_VLR8
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLR8$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLR8P because implies a one-off input of C
-ModelDFSL_VLR8P <- ModelDFSL1y_VLR8
+#This model will be called VLR_8P because implies a one-off input of C
+ModelDFSL_VLR_8P <- ModelDFSL1y_VLR8
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VLR8P,"VXP_Models\\ModelDFSL_R_VLR8P.xlsx")
+write_xlsx(ModelDFSL_VLR_8P,"VXP_Models\\ModelDFSL_R_VLR_8P.xlsx")
 
 
 #Plot 3: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VLR8P_YCO2 <- ModelDFSL_VLR8P %>%
+ModelDFSL_VLR_8P_YCO2 <- ModelDFSL_VLR_8P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLR8)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLR8P_YCO2) <- c("Year", "Months", "AnnualCO2_VLR_8")
+colnames(ModelDFSL_VLR_8P_YCO2) <- c("Year", "Months", "AnnualCO2_VLR_8")
 
 #Plot 3: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VLR8P_YCO2D <- merge(ModelDFSL_VLR8P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VLR8P_YCO2D$AnnualCO2D_VLR_8 <- ModelDFSL_VLR8P_YCO2D$AnnualCO2_VLR_8 * ModelDFSL_VLR8P_YCO2D$GWP100
+ModelDFSL_VLR_8P_YCO2D <- merge(ModelDFSL_VLR_8P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VLR_8P_YCO2D$AnnualCO2D_VLR_8 <- ModelDFSL_VLR_8P_YCO2D$AnnualCO2_VLR_8 * ModelDFSL_VLR_8P_YCO2D$GWP100
 
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VLR8P_YC <- ModelDFSL_VLR8P %>%
+ModelDFSL_VLR_8P_YC <- ModelDFSL_VLR_8P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLR8)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLR8P_YC) <- c("Year", "Months", "CEmissions_VLR_8")
+colnames(ModelDFSL_VLR_8P_YC) <- c("Year", "Months", "CEmissions_VLR_8")
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VLR8P_YCT <- ModelDFSL_VLR8P %>%
+ModelDFSL_VLR_8P_YCT <- ModelDFSL_VLR_8P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLR8)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLR8P_YCT) <- c("Year", "Months", "CTail_VLR_8")
+colnames(ModelDFSL_VLR_8P_YCT) <- c("Year", "Months", "CTail_VLR_8")
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VLR8P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR8P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VLR8P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR8P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLR8P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR8P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLR8P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR8P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLR_8P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR_8P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VLR_8P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR_8P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VLR_8P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR_8P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLR_8P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR_8P.xlsx") #Yearly C emissions
 
 
 
@@ -3868,45 +3868,45 @@ ModelDFSL1y_VLR9 <- ModelDFSLt0_VLR9 - ModelDFSLt1_VLR9
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLR9$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLR9P because implies a one-off input of C
-ModelDFSL_VLR9P <- ModelDFSL1y_VLR9
+#This model will be called VLR_9P because implies a one-off input of C
+ModelDFSL_VLR_9P <- ModelDFSL1y_VLR9
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VLR9P,"VXP_Models\\ModelDFSL_R_VLR9P.xlsx")
+write_xlsx(ModelDFSL_VLR_9P,"VXP_Models\\ModelDFSL_R_VLR_9P.xlsx")
 
 
 #Plot 3: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VLR9P_YCO2 <- ModelDFSL_VLR9P %>%
+ModelDFSL_VLR_9P_YCO2 <- ModelDFSL_VLR_9P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLR9)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLR9P_YCO2) <- c("Year", "Months", "AnnualCO2_VLR_9")
+colnames(ModelDFSL_VLR_9P_YCO2) <- c("Year", "Months", "AnnualCO2_VLR_9")
 
 #Plot 3: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VLR9P_YCO2D <- merge(ModelDFSL_VLR9P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VLR9P_YCO2D$AnnualCO2D_VLR_9 <- ModelDFSL_VLR9P_YCO2D$AnnualCO2_VLR_9 * ModelDFSL_VLR9P_YCO2D$GWP100
+ModelDFSL_VLR_9P_YCO2D <- merge(ModelDFSL_VLR_9P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VLR_9P_YCO2D$AnnualCO2D_VLR_9 <- ModelDFSL_VLR_9P_YCO2D$AnnualCO2_VLR_9 * ModelDFSL_VLR_9P_YCO2D$GWP100
 
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VLR9P_YC <- ModelDFSL_VLR9P %>%
+ModelDFSL_VLR_9P_YC <- ModelDFSL_VLR_9P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLR9)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLR9P_YC) <- c("Year", "Months", "CEmissions_VLR_9")
+colnames(ModelDFSL_VLR_9P_YC) <- c("Year", "Months", "CEmissions_VLR_9")
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VLR9P_YCT <- ModelDFSL_VLR9P %>%
+ModelDFSL_VLR_9P_YCT <- ModelDFSL_VLR_9P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLR9)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLR9P_YCT) <- c("Year", "Months", "CTail_VLR_9")
+colnames(ModelDFSL_VLR_9P_YCT) <- c("Year", "Months", "CTail_VLR_9")
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VLR9P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR9P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VLR9P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR9P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLR9P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR9P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLR9P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR9P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLR_9P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR_9P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VLR_9P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR_9P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VLR_9P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR_9P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLR_9P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR_9P.xlsx") #Yearly C emissions
 
 
 
@@ -4223,43 +4223,43 @@ ModelDFSL1y_VLN0 <- ModelDFSLt0_VLN0 - ModelDFSLt1_VLN0
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLN0$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLN0P because implies a one-off input of C
-ModelDFSL_VLN0P <- ModelDFSL1y_VLN0
+#This model will be called VLN_0P because implies a one-off input of C
+ModelDFSL_VLN_0P <- ModelDFSL1y_VLN0
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VLN0P,"VXP_Models\\ModelDFSL_R_VLN0P.xlsx")
+write_xlsx(ModelDFSL_VLN_0P,"VXP_Models\\ModelDFSL_R_VLN_0P.xlsx")
 
 #Plot 3.1: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VLN0P_YCO2 <- ModelDFSL_VLN0P %>%
+ModelDFSL_VLN_0P_YCO2 <- ModelDFSL_VLN_0P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLN0)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLN0P_YCO2) <- c("Year", "Months", "AnnualCO2_VLN_0")
+colnames(ModelDFSL_VLN_0P_YCO2) <- c("Year", "Months", "AnnualCO2_VLN_0")
 
 #Plot 3.2: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VLN0P_YCO2D <- merge(ModelDFSL_VLN0P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VLN0P_YCO2D$AnnualCO2D_VLN_0 <- ModelDFSL_VLN0P_YCO2D$AnnualCO2_VLN_0 * ModelDFSL_VLN0P_YCO2D$GWP100
+ModelDFSL_VLN_0P_YCO2D <- merge(ModelDFSL_VLN_0P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VLN_0P_YCO2D$AnnualCO2D_VLN_0 <- ModelDFSL_VLN_0P_YCO2D$AnnualCO2_VLN_0 * ModelDFSL_VLN_0P_YCO2D$GWP100
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VLN0P_YC <- ModelDFSL_VLN0P %>%
+ModelDFSL_VLN_0P_YC <- ModelDFSL_VLN_0P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLN0)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLN0P_YC) <- c("Year", "Months", "CEmissions_VLN_0")
+colnames(ModelDFSL_VLN_0P_YC) <- c("Year", "Months", "CEmissions_VLN_0")
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VLN0P_YCT <- ModelDFSL_VLN0P %>%
+ModelDFSL_VLN_0P_YCT <- ModelDFSL_VLN_0P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLN0)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLN0P_YCT) <- c("Year", "Months", "CTail_VLN_0")
+colnames(ModelDFSL_VLN_0P_YCT) <- c("Year", "Months", "CTail_VLN_0")
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VLN0P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN0P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VLN0P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN0P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLN0P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN0P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLN0P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN0P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLN_0P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN_0P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VLN_0P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN_0P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VLN_0P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN_0P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLN_0P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN_0P.xlsx") #Yearly C emissions
 
 
 #### 9.2 - VLN1) Litter; 10%clay; No Tillage ####
@@ -4400,43 +4400,43 @@ ModelDFSL1y_VLN1 <- ModelDFSLt0_VLN1 - ModelDFSLt1_VLN1
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLN1$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLN1P because implies a one-off input of C
-ModelDFSL_VLN1P <- ModelDFSL1y_VLN1
+#This model will be called VLN_1P because implies a one-off input of C
+ModelDFSL_VLN_1P <- ModelDFSL1y_VLN1
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VLN1P,"VXP_Models\\ModelDFSL_R_VLN1P.xlsx")
+write_xlsx(ModelDFSL_VLN_1P,"VXP_Models\\ModelDFSL_R_VLN_1P.xlsx")
 
 #Plot 3: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VLN1P_YCO2 <- ModelDFSL_VLN1P %>%
+ModelDFSL_VLN_1P_YCO2 <- ModelDFSL_VLN_1P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLN1)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLN1P_YCO2) <- c("Year", "Months", "AnnualCO2_VLN_1")
+colnames(ModelDFSL_VLN_1P_YCO2) <- c("Year", "Months", "AnnualCO2_VLN_1")
 
 #Plot 3: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VLN1P_YCO2D <- merge(ModelDFSL_VLN1P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VLN1P_YCO2D$AnnualCO2D_VLN_1 <- ModelDFSL_VLN1P_YCO2D$AnnualCO2_VLN_1 * ModelDFSL_VLN1P_YCO2D$GWP100
+ModelDFSL_VLN_1P_YCO2D <- merge(ModelDFSL_VLN_1P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VLN_1P_YCO2D$AnnualCO2D_VLN_1 <- ModelDFSL_VLN_1P_YCO2D$AnnualCO2_VLN_1 * ModelDFSL_VLN_1P_YCO2D$GWP100
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VLN1P_YC <- ModelDFSL_VLN1P %>%
+ModelDFSL_VLN_1P_YC <- ModelDFSL_VLN_1P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLN1)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLN1P_YC) <- c("Year", "Months", "CEmissions_VLN_1")
+colnames(ModelDFSL_VLN_1P_YC) <- c("Year", "Months", "CEmissions_VLN_1")
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VLN1P_YCT <- ModelDFSL_VLN1P %>%
+ModelDFSL_VLN_1P_YCT <- ModelDFSL_VLN_1P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLN1)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLN1P_YCT) <- c("Year", "Months", "CTail_VLN_1")
+colnames(ModelDFSL_VLN_1P_YCT) <- c("Year", "Months", "CTail_VLN_1")
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VLN1P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN1P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VLN1P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN1P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLN1P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN1P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLN1P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN1P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLN_1P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN_1P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VLN_1P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN_1P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VLN_1P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN_1P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLN_1P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN_1P.xlsx") #Yearly C emissions
 
 
 
@@ -4578,43 +4578,43 @@ ModelDFSL1y_VLN2 <- ModelDFSLt0_VLN2 - ModelDFSLt1_VLN2
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLN2$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLN2P because implies a one-off input of C
-ModelDFSL_VLN2P <- ModelDFSL1y_VLN2
+#This model will be called VLN_2P because implies a one-off input of C
+ModelDFSL_VLN_2P <- ModelDFSL1y_VLN2
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VLN2P,"VXP_Models\\ModelDFSL_R_VLN2P.xlsx")
+write_xlsx(ModelDFSL_VLN_2P,"VXP_Models\\ModelDFSL_R_VLN_2P.xlsx")
 
 #Plot 3: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VLN2P_YCO2 <- ModelDFSL_VLN2P %>%
+ModelDFSL_VLN_2P_YCO2 <- ModelDFSL_VLN_2P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLN2)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLN2P_YCO2) <- c("Year", "Months", "AnnualCO2_VLN_2")
+colnames(ModelDFSL_VLN_2P_YCO2) <- c("Year", "Months", "AnnualCO2_VLN_2")
 
 #Plot 3: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VLN2P_YCO2D <- merge(ModelDFSL_VLN2P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VLN2P_YCO2D$AnnualCO2D_VLN_2 <- ModelDFSL_VLN2P_YCO2D$AnnualCO2_VLN_2 * ModelDFSL_VLN2P_YCO2D$GWP100
+ModelDFSL_VLN_2P_YCO2D <- merge(ModelDFSL_VLN_2P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VLN_2P_YCO2D$AnnualCO2D_VLN_2 <- ModelDFSL_VLN_2P_YCO2D$AnnualCO2_VLN_2 * ModelDFSL_VLN_2P_YCO2D$GWP100
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VLN2P_YC <- ModelDFSL_VLN2P %>%
+ModelDFSL_VLN_2P_YC <- ModelDFSL_VLN_2P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLN2)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLN2P_YC) <- c("Year", "Months", "CEmissions_VLN_2")
+colnames(ModelDFSL_VLN_2P_YC) <- c("Year", "Months", "CEmissions_VLN_2")
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VLN2P_YCT <- ModelDFSL_VLN2P %>%
+ModelDFSL_VLN_2P_YCT <- ModelDFSL_VLN_2P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLN2)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLN2P_YCT) <- c("Year", "Months", "CTail_VLN_2")
+colnames(ModelDFSL_VLN_2P_YCT) <- c("Year", "Months", "CTail_VLN_2")
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VLN2P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN2P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VLN2P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN2P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLN2P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN2P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLN2P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN2P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLN_2P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN_2P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VLN_2P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN_2P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VLN_2P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN_2P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLN_2P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN_2P.xlsx") #Yearly C emissions
 
 
 
@@ -4756,43 +4756,43 @@ ModelDFSL1y_VLN3 <- ModelDFSLt0_VLN3 - ModelDFSLt1_VLN3
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLN3$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLN3P because implies a one-off input of C
-ModelDFSL_VLN3P <- ModelDFSL1y_VLN3
+#This model will be called VLN_3P because implies a one-off input of C
+ModelDFSL_VLN_3P <- ModelDFSL1y_VLN3
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VLN3P,"VXP_Models\\ModelDFSL_R_VLN3P.xlsx")
+write_xlsx(ModelDFSL_VLN_3P,"VXP_Models\\ModelDFSL_R_VLN_3P.xlsx")
 
 #Plot 3: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VLN3P_YCO2 <- ModelDFSL_VLN3P %>%
+ModelDFSL_VLN_3P_YCO2 <- ModelDFSL_VLN_3P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLN3)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLN3P_YCO2) <- c("Year", "Months", "AnnualCO2_VLN_3")
+colnames(ModelDFSL_VLN_3P_YCO2) <- c("Year", "Months", "AnnualCO2_VLN_3")
 
 #Plot 3: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VLN3P_YCO2D <- merge(ModelDFSL_VLN3P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VLN3P_YCO2D$AnnualCO2D_VLN_3 <- ModelDFSL_VLN3P_YCO2D$AnnualCO2_VLN_3 * ModelDFSL_VLN3P_YCO2D$GWP100
+ModelDFSL_VLN_3P_YCO2D <- merge(ModelDFSL_VLN_3P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VLN_3P_YCO2D$AnnualCO2D_VLN_3 <- ModelDFSL_VLN_3P_YCO2D$AnnualCO2_VLN_3 * ModelDFSL_VLN_3P_YCO2D$GWP100
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VLN3P_YC <- ModelDFSL_VLN3P %>%
+ModelDFSL_VLN_3P_YC <- ModelDFSL_VLN_3P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLN3)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLN3P_YC) <- c("Year", "Months", "CEmissions_VLN_3")
+colnames(ModelDFSL_VLN_3P_YC) <- c("Year", "Months", "CEmissions_VLN_3")
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VLN3P_YCT <- ModelDFSL_VLN3P %>%
+ModelDFSL_VLN_3P_YCT <- ModelDFSL_VLN_3P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLN3)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLN3P_YCT) <- c("Year", "Months", "CTail_VLN_3")
+colnames(ModelDFSL_VLN_3P_YCT) <- c("Year", "Months", "CTail_VLN_3")
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VLN3P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN3P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VLN3P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN3P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLN3P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN3P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLN3P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN3P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLN_3P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN_3P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VLN_3P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN_3P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VLN_3P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN_3P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLN_3P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN_3P.xlsx") #Yearly C emissions
 
 
 
@@ -4934,43 +4934,43 @@ ModelDFSL1y_VLN4 <- ModelDFSLt0_VLN4 - ModelDFSLt1_VLN4
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLN4$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLN4P because implies a one-off input of C
-ModelDFSL_VLN4P <- ModelDFSL1y_VLN4
+#This model will be called VLN_4P because implies a one-off input of C
+ModelDFSL_VLN_4P <- ModelDFSL1y_VLN4
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VLN4P,"VXP_Models\\ModelDFSL_R_VLN4P.xlsx")
+write_xlsx(ModelDFSL_VLN_4P,"VXP_Models\\ModelDFSL_R_VLN_4P.xlsx")
 
 #Plot 3: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VLN4P_YCO2 <- ModelDFSL_VLN4P %>%
+ModelDFSL_VLN_4P_YCO2 <- ModelDFSL_VLN_4P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLN4)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLN4P_YCO2) <- c("Year", "Months", "AnnualCO2_VLN_4")
+colnames(ModelDFSL_VLN_4P_YCO2) <- c("Year", "Months", "AnnualCO2_VLN_4")
 
 #Plot 3: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VLN4P_YCO2D <- merge(ModelDFSL_VLN4P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VLN4P_YCO2D$AnnualCO2D_VLN_4 <- ModelDFSL_VLN4P_YCO2D$AnnualCO2_VLN_4 * ModelDFSL_VLN4P_YCO2D$GWP100
+ModelDFSL_VLN_4P_YCO2D <- merge(ModelDFSL_VLN_4P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VLN_4P_YCO2D$AnnualCO2D_VLN_4 <- ModelDFSL_VLN_4P_YCO2D$AnnualCO2_VLN_4 * ModelDFSL_VLN_4P_YCO2D$GWP100
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VLN4P_YC <- ModelDFSL_VLN4P %>%
+ModelDFSL_VLN_4P_YC <- ModelDFSL_VLN_4P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLN4)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLN4P_YC) <- c("Year", "Months", "CEmissions_VLN_4")
+colnames(ModelDFSL_VLN_4P_YC) <- c("Year", "Months", "CEmissions_VLN_4")
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VLN4P_YCT <- ModelDFSL_VLN4P %>%
+ModelDFSL_VLN_4P_YCT <- ModelDFSL_VLN_4P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLN4)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLN4P_YCT) <- c("Year", "Months", "CTail_VLN_4")
+colnames(ModelDFSL_VLN_4P_YCT) <- c("Year", "Months", "CTail_VLN_4")
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VLN4P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN4P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VLN4P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN4P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLN4P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN4P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLN4P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN4P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLN_4P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN_4P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VLN_4P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN_4P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VLN_4P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN_4P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLN_4P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN_4P.xlsx") #Yearly C emissions
 
 
 
@@ -5112,46 +5112,46 @@ ModelDFSL1y_VLN5 <- ModelDFSLt0_VLN5 - ModelDFSLt1_VLN5
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLN5$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLN5P because implies a one-off input of C
-ModelDFSL_VLN5P <- ModelDFSL1y_VLN5
+#This model will be called VLN_5P because implies a one-off input of C
+ModelDFSL_VLN_5P <- ModelDFSL1y_VLN5
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VLN5P,"VXP_Models\\ModelDFSL_R_VLN5P.xlsx")
+write_xlsx(ModelDFSL_VLN_5P,"VXP_Models\\ModelDFSL_R_VLN_5P.xlsx")
 
 
 #Plot 3: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VLN5P_YCO2 <- ModelDFSL_VLN5P %>%
+ModelDFSL_VLN_5P_YCO2 <- ModelDFSL_VLN_5P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLN5)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLN5P_YCO2) <- c("Year", "Months", "AnnualCO2_VLN_5")
+colnames(ModelDFSL_VLN_5P_YCO2) <- c("Year", "Months", "AnnualCO2_VLN_5")
 
 
 #Plot 3: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VLN5P_YCO2D <- merge(ModelDFSL_VLN5P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VLN5P_YCO2D$AnnualCO2D_VLN_5 <- ModelDFSL_VLN5P_YCO2D$AnnualCO2_VLN_5 * ModelDFSL_VLN5P_YCO2D$GWP100
+ModelDFSL_VLN_5P_YCO2D <- merge(ModelDFSL_VLN_5P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VLN_5P_YCO2D$AnnualCO2D_VLN_5 <- ModelDFSL_VLN_5P_YCO2D$AnnualCO2_VLN_5 * ModelDFSL_VLN_5P_YCO2D$GWP100
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VLN5P_YC <- ModelDFSL_VLN5P %>%
+ModelDFSL_VLN_5P_YC <- ModelDFSL_VLN_5P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLN5)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLN5P_YC) <- c("Year", "Months", "CEmissions_VLN_5")
+colnames(ModelDFSL_VLN_5P_YC) <- c("Year", "Months", "CEmissions_VLN_5")
 
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VLN5P_YCT <- ModelDFSL_VLN5P %>%
+ModelDFSL_VLN_5P_YCT <- ModelDFSL_VLN_5P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLN5)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLN5P_YCT) <- c("Year", "Months", "CTail_VLN_5")
+colnames(ModelDFSL_VLN_5P_YCT) <- c("Year", "Months", "CTail_VLN_5")
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VLN5P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN5P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VLN5P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN5P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLN5P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN5P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLN5P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN5P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLN_5P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN_5P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VLN_5P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN_5P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VLN_5P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN_5P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLN_5P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN_5P.xlsx") #Yearly C emissions
 
 
 
@@ -5293,45 +5293,45 @@ ModelDFSL1y_VLN6 <- ModelDFSLt0_VLN6 - ModelDFSLt1_VLN6
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLN6$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLN6P because implies a one-off input of C
-ModelDFSL_VLN6P <- ModelDFSL1y_VLN6
+#This model will be called VLN_6P because implies a one-off input of C
+ModelDFSL_VLN_6P <- ModelDFSL1y_VLN6
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VLN6P,"VXP_Models\\ModelDFSL_R_VLN6P.xlsx")
+write_xlsx(ModelDFSL_VLN_6P,"VXP_Models\\ModelDFSL_R_VLN_6P.xlsx")
 
 #Plot 3: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VLN6P_YCO2 <- ModelDFSL_VLN6P %>%
+ModelDFSL_VLN_6P_YCO2 <- ModelDFSL_VLN_6P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLN6)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLN6P_YCO2) <- c("Year", "Months", "AnnualCO2_VLN_6")
+colnames(ModelDFSL_VLN_6P_YCO2) <- c("Year", "Months", "AnnualCO2_VLN_6")
 
 
 #Plot 3: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VLN6P_YCO2D <- merge(ModelDFSL_VLN6P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VLN6P_YCO2D$AnnualCO2D_VLN_6 <- ModelDFSL_VLN6P_YCO2D$AnnualCO2_VLN_6 * ModelDFSL_VLN6P_YCO2D$GWP100
+ModelDFSL_VLN_6P_YCO2D <- merge(ModelDFSL_VLN_6P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VLN_6P_YCO2D$AnnualCO2D_VLN_6 <- ModelDFSL_VLN_6P_YCO2D$AnnualCO2_VLN_6 * ModelDFSL_VLN_6P_YCO2D$GWP100
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VLN6P_YC <- ModelDFSL_VLN6P %>%
+ModelDFSL_VLN_6P_YC <- ModelDFSL_VLN_6P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLN6)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLN6P_YC) <- c("Year", "Months", "CEmissions_VLN_6")
+colnames(ModelDFSL_VLN_6P_YC) <- c("Year", "Months", "CEmissions_VLN_6")
 
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VLN6P_YCT <- ModelDFSL_VLN6P %>%
+ModelDFSL_VLN_6P_YCT <- ModelDFSL_VLN_6P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLN6)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLN6P_YCT) <- c("Year", "Months", "CTail_VLN_6")
+colnames(ModelDFSL_VLN_6P_YCT) <- c("Year", "Months", "CTail_VLN_6")
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VLN6P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN6P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VLN6P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN6P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLN6P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN6P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLN6P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN6P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLN_6P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN_6P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VLN_6P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN_6P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VLN_6P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN_6P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLN_6P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN_6P.xlsx") #Yearly C emissions
 
 
 
@@ -5473,46 +5473,46 @@ ModelDFSL1y_VLN7 <- ModelDFSLt0_VLN7 - ModelDFSLt1_VLN7
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLN7$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLN7P because implies a one-off input of C
-ModelDFSL_VLN7P <- ModelDFSL1y_VLN7
+#This model will be called VLN_7P because implies a one-off input of C
+ModelDFSL_VLN_7P <- ModelDFSL1y_VLN7
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VLN7P,"VXP_Models\\ModelDFSL_R_VLN7P.xlsx")
+write_xlsx(ModelDFSL_VLN_7P,"VXP_Models\\ModelDFSL_R_VLN_7P.xlsx")
 
 #Plot 3: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VLN7P_YCO2 <- ModelDFSL_VLN7P %>%
+ModelDFSL_VLN_7P_YCO2 <- ModelDFSL_VLN_7P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLN7)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLN7P_YCO2) <- c("Year", "Months", "AnnualCO2_VLN_7")
+colnames(ModelDFSL_VLN_7P_YCO2) <- c("Year", "Months", "AnnualCO2_VLN_7")
 
 
 #Plot 3: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VLN7P_YCO2D <- merge(ModelDFSL_VLN7P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VLN7P_YCO2D$AnnualCO2D_VLN_7 <- ModelDFSL_VLN7P_YCO2D$AnnualCO2_VLN_7 * ModelDFSL_VLN7P_YCO2D$GWP100
+ModelDFSL_VLN_7P_YCO2D <- merge(ModelDFSL_VLN_7P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VLN_7P_YCO2D$AnnualCO2D_VLN_7 <- ModelDFSL_VLN_7P_YCO2D$AnnualCO2_VLN_7 * ModelDFSL_VLN_7P_YCO2D$GWP100
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VLN7P_YC <- ModelDFSL_VLN7P %>%
+ModelDFSL_VLN_7P_YC <- ModelDFSL_VLN_7P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLN7)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLN7P_YC) <- c("Year", "Months", "CEmissions_VLN_7")
+colnames(ModelDFSL_VLN_7P_YC) <- c("Year", "Months", "CEmissions_VLN_7")
 
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VLN7P_YCT <- ModelDFSL_VLN7P %>%
+ModelDFSL_VLN_7P_YCT <- ModelDFSL_VLN_7P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLN7)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLN7P_YCT) <- c("Year", "Months", "CTail_VLN_7")
+colnames(ModelDFSL_VLN_7P_YCT) <- c("Year", "Months", "CTail_VLN_7")
 
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VLN7P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN7P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VLN7P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN7P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLN7P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN7P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLN7P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN7P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLN_7P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN_7P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VLN_7P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN_7P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VLN_7P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN_7P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLN_7P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN_7P.xlsx") #Yearly C emissions
 
 
 
@@ -5654,45 +5654,45 @@ ModelDFSL1y_VLN8 <- ModelDFSLt0_VLN8 - ModelDFSLt1_VLN8
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLN8$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLN8P because implies a one-off input of C
-ModelDFSL_VLN8P <- ModelDFSL1y_VLN8
+#This model will be called VLN_8P because implies a one-off input of C
+ModelDFSL_VLN_8P <- ModelDFSL1y_VLN8
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VLN8P,"VXP_Models\\ModelDFSL_R_VLN8P.xlsx")
+write_xlsx(ModelDFSL_VLN_8P,"VXP_Models\\ModelDFSL_R_VLN_8P.xlsx")
 
 
 #Plot 3: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VLN8P_YCO2 <- ModelDFSL_VLN8P %>%
+ModelDFSL_VLN_8P_YCO2 <- ModelDFSL_VLN_8P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLN8)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLN8P_YCO2) <- c("Year", "Months", "AnnualCO2_VLN_8")
+colnames(ModelDFSL_VLN_8P_YCO2) <- c("Year", "Months", "AnnualCO2_VLN_8")
 
 #Plot 3: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VLN8P_YCO2D <- merge(ModelDFSL_VLN8P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VLN8P_YCO2D$AnnualCO2D_VLN_8 <- ModelDFSL_VLN8P_YCO2D$AnnualCO2_VLN_8 * ModelDFSL_VLN8P_YCO2D$GWP100
+ModelDFSL_VLN_8P_YCO2D <- merge(ModelDFSL_VLN_8P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VLN_8P_YCO2D$AnnualCO2D_VLN_8 <- ModelDFSL_VLN_8P_YCO2D$AnnualCO2_VLN_8 * ModelDFSL_VLN_8P_YCO2D$GWP100
 
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VLN8P_YC <- ModelDFSL_VLN8P %>%
+ModelDFSL_VLN_8P_YC <- ModelDFSL_VLN_8P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLN8)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLN8P_YC) <- c("Year", "Months", "CEmissions_VLN_8")
+colnames(ModelDFSL_VLN_8P_YC) <- c("Year", "Months", "CEmissions_VLN_8")
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VLN8P_YCT <- ModelDFSL_VLN8P %>%
+ModelDFSL_VLN_8P_YCT <- ModelDFSL_VLN_8P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLN8)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLN8P_YCT) <- c("Year", "Months", "CTail_VLN_8")
+colnames(ModelDFSL_VLN_8P_YCT) <- c("Year", "Months", "CTail_VLN_8")
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VLN8P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN8P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VLN8P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN8P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLN8P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN8P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLN8P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN8P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLN_8P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN_8P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VLN_8P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN_8P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VLN_8P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN_8P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLN_8P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN_8P.xlsx") #Yearly C emissions
 
 
 
@@ -5834,45 +5834,45 @@ ModelDFSL1y_VLN9 <- ModelDFSLt0_VLN9 - ModelDFSLt1_VLN9
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLN9$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLN9P because implies a one-off input of C
-ModelDFSL_VLN9P <- ModelDFSL1y_VLN9
+#This model will be called VLN_9P because implies a one-off input of C
+ModelDFSL_VLN_9P <- ModelDFSL1y_VLN9
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VLN9P,"VXP_Models\\ModelDFSL_R_VLN9P.xlsx")
+write_xlsx(ModelDFSL_VLN_9P,"VXP_Models\\ModelDFSL_R_VLN_9P.xlsx")
 
 
 #Plot 3: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VLN9P_YCO2 <- ModelDFSL_VLN9P %>%
+ModelDFSL_VLN_9P_YCO2 <- ModelDFSL_VLN_9P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLN9)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLN9P_YCO2) <- c("Year", "Months", "AnnualCO2_VLN_9")
+colnames(ModelDFSL_VLN_9P_YCO2) <- c("Year", "Months", "AnnualCO2_VLN_9")
 
 #Plot 3: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VLN9P_YCO2D <- merge(ModelDFSL_VLN9P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VLN9P_YCO2D$AnnualCO2D_VLN_9 <- ModelDFSL_VLN9P_YCO2D$AnnualCO2_VLN_9 * ModelDFSL_VLN9P_YCO2D$GWP100
+ModelDFSL_VLN_9P_YCO2D <- merge(ModelDFSL_VLN_9P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VLN_9P_YCO2D$AnnualCO2D_VLN_9 <- ModelDFSL_VLN_9P_YCO2D$AnnualCO2_VLN_9 * ModelDFSL_VLN_9P_YCO2D$GWP100
 
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VLN9P_YC <- ModelDFSL_VLN9P %>%
+ModelDFSL_VLN_9P_YC <- ModelDFSL_VLN_9P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLN9)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLN9P_YC) <- c("Year", "Months", "CEmissions_VLN_9")
+colnames(ModelDFSL_VLN_9P_YC) <- c("Year", "Months", "CEmissions_VLN_9")
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VLN9P_YCT <- ModelDFSL_VLN9P %>%
+ModelDFSL_VLN_9P_YCT <- ModelDFSL_VLN_9P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLN9)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VLN9P_YCT) <- c("Year", "Months", "CTail_VLN_9")
+colnames(ModelDFSL_VLN_9P_YCT) <- c("Year", "Months", "CTail_VLN_9")
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VLN9P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN9P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VLN9P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN9P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VLN9P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN9P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VLN9P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN9P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLN_9P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN_9P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VLN_9P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN_9P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VLN_9P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN_9P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VLN_9P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN_9P.xlsx") #Yearly C emissions
 
 
 
@@ -6187,43 +6187,43 @@ ModelDFSL1y_VMC0 <- ModelDFSLt0_VMC0 - ModelDFSLt1_VMC0
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMC0$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMC0P because implies a one-off input of C
-ModelDFSL_VMC0P <- ModelDFSL1y_VMC0
+#This model will be called VMC_0P because implies a one-off input of C
+ModelDFSL_VMC_0P <- ModelDFSL1y_VMC0
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VMC0P,"VXP_Models\\ModelDFSL_R_VMC0P.xlsx")
+write_xlsx(ModelDFSL_VMC_0P,"VXP_Models\\ModelDFSL_R_VMC_0P.xlsx")
 
 #Plot 3.1: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VMC0P_YCO2 <- ModelDFSL_VMC0P %>%
+ModelDFSL_VMC_0P_YCO2 <- ModelDFSL_VMC_0P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMC0)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMC0P_YCO2) <- c("Year", "Months", "AnnualCO2_VMC_0")
+colnames(ModelDFSL_VMC_0P_YCO2) <- c("Year", "Months", "AnnualCO2_VMC_0")
 
 #Plot 3.2: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VMC0P_YCO2D <- merge(ModelDFSL_VMC0P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VMC0P_YCO2D$AnnualCO2D_VMC_0 <- ModelDFSL_VMC0P_YCO2D$AnnualCO2_VMC_0 * ModelDFSL_VMC0P_YCO2D$GWP100
+ModelDFSL_VMC_0P_YCO2D <- merge(ModelDFSL_VMC_0P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VMC_0P_YCO2D$AnnualCO2D_VMC_0 <- ModelDFSL_VMC_0P_YCO2D$AnnualCO2_VMC_0 * ModelDFSL_VMC_0P_YCO2D$GWP100
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VMC0P_YC <- ModelDFSL_VMC0P %>%
+ModelDFSL_VMC_0P_YC <- ModelDFSL_VMC_0P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMC0)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMC0P_YC) <- c("Year", "Months", "CEmissions_VMC_0")
+colnames(ModelDFSL_VMC_0P_YC) <- c("Year", "Months", "CEmissions_VMC_0")
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VMC0P_YCT <- ModelDFSL_VMC0P %>%
+ModelDFSL_VMC_0P_YCT <- ModelDFSL_VMC_0P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMC0)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMC0P_YCT) <- c("Year", "Months", "CTail_VMC_0")
+colnames(ModelDFSL_VMC_0P_YCT) <- c("Year", "Months", "CTail_VMC_0")
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VMC0P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC0P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VMC0P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC0P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMC0P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC0P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMC0P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC0P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMC_0P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC_0P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VMC_0P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC_0P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VMC_0P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC_0P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMC_0P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC_0P.xlsx") #Yearly C emissions
 
 
 #### 10.2 - VMC1) Manure; 10%clay; Conventional tillage ####
@@ -6364,43 +6364,43 @@ ModelDFSL1y_VMC1 <- ModelDFSLt0_VMC1 - ModelDFSLt1_VMC1
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMC1$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMC1P because implies a one-off input of C
-ModelDFSL_VMC1P <- ModelDFSL1y_VMC1
+#This model will be called VMC_1P because implies a one-off input of C
+ModelDFSL_VMC_1P <- ModelDFSL1y_VMC1
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VMC1P,"VXP_Models\\ModelDFSL_R_VMC1P.xlsx")
+write_xlsx(ModelDFSL_VMC_1P,"VXP_Models\\ModelDFSL_R_VMC_1P.xlsx")
 
 #Plot 3: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VMC1P_YCO2 <- ModelDFSL_VMC1P %>%
+ModelDFSL_VMC_1P_YCO2 <- ModelDFSL_VMC_1P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMC1)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMC1P_YCO2) <- c("Year", "Months", "AnnualCO2_VMC_1")
+colnames(ModelDFSL_VMC_1P_YCO2) <- c("Year", "Months", "AnnualCO2_VMC_1")
 
 #Plot 3: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VMC1P_YCO2D <- merge(ModelDFSL_VMC1P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VMC1P_YCO2D$AnnualCO2D_VMC_1 <- ModelDFSL_VMC1P_YCO2D$AnnualCO2_VMC_1 * ModelDFSL_VMC1P_YCO2D$GWP100
+ModelDFSL_VMC_1P_YCO2D <- merge(ModelDFSL_VMC_1P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VMC_1P_YCO2D$AnnualCO2D_VMC_1 <- ModelDFSL_VMC_1P_YCO2D$AnnualCO2_VMC_1 * ModelDFSL_VMC_1P_YCO2D$GWP100
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VMC1P_YC <- ModelDFSL_VMC1P %>%
+ModelDFSL_VMC_1P_YC <- ModelDFSL_VMC_1P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMC1)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMC1P_YC) <- c("Year", "Months", "CEmissions_VMC_1")
+colnames(ModelDFSL_VMC_1P_YC) <- c("Year", "Months", "CEmissions_VMC_1")
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VMC1P_YCT <- ModelDFSL_VMC1P %>%
+ModelDFSL_VMC_1P_YCT <- ModelDFSL_VMC_1P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMC1)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMC1P_YCT) <- c("Year", "Months", "CTail_VMC_1")
+colnames(ModelDFSL_VMC_1P_YCT) <- c("Year", "Months", "CTail_VMC_1")
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VMC1P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC1P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VMC1P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC1P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMC1P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC1P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMC1P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC1P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMC_1P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC_1P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VMC_1P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC_1P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VMC_1P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC_1P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMC_1P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC_1P.xlsx") #Yearly C emissions
 
 
 
@@ -6542,43 +6542,43 @@ ModelDFSL1y_VMC2 <- ModelDFSLt0_VMC2 - ModelDFSLt1_VMC2
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMC2$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMC2P because implies a one-off input of C
-ModelDFSL_VMC2P <- ModelDFSL1y_VMC2
+#This model will be called VMC_2P because implies a one-off input of C
+ModelDFSL_VMC_2P <- ModelDFSL1y_VMC2
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VMC2P,"VXP_Models\\ModelDFSL_R_VMC2P.xlsx")
+write_xlsx(ModelDFSL_VMC_2P,"VXP_Models\\ModelDFSL_R_VMC_2P.xlsx")
 
 #Plot 3: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VMC2P_YCO2 <- ModelDFSL_VMC2P %>%
+ModelDFSL_VMC_2P_YCO2 <- ModelDFSL_VMC_2P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMC2)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMC2P_YCO2) <- c("Year", "Months", "AnnualCO2_VMC_2")
+colnames(ModelDFSL_VMC_2P_YCO2) <- c("Year", "Months", "AnnualCO2_VMC_2")
 
 #Plot 3: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VMC2P_YCO2D <- merge(ModelDFSL_VMC2P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VMC2P_YCO2D$AnnualCO2D_VMC_2 <- ModelDFSL_VMC2P_YCO2D$AnnualCO2_VMC_2 * ModelDFSL_VMC2P_YCO2D$GWP100
+ModelDFSL_VMC_2P_YCO2D <- merge(ModelDFSL_VMC_2P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VMC_2P_YCO2D$AnnualCO2D_VMC_2 <- ModelDFSL_VMC_2P_YCO2D$AnnualCO2_VMC_2 * ModelDFSL_VMC_2P_YCO2D$GWP100
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VMC2P_YC <- ModelDFSL_VMC2P %>%
+ModelDFSL_VMC_2P_YC <- ModelDFSL_VMC_2P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMC2)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMC2P_YC) <- c("Year", "Months", "CEmissions_VMC_2")
+colnames(ModelDFSL_VMC_2P_YC) <- c("Year", "Months", "CEmissions_VMC_2")
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VMC2P_YCT <- ModelDFSL_VMC2P %>%
+ModelDFSL_VMC_2P_YCT <- ModelDFSL_VMC_2P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMC2)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMC2P_YCT) <- c("Year", "Months", "CTail_VMC_2")
+colnames(ModelDFSL_VMC_2P_YCT) <- c("Year", "Months", "CTail_VMC_2")
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VMC2P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC2P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VMC2P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC2P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMC2P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC2P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMC2P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC2P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMC_2P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC_2P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VMC_2P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC_2P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VMC_2P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC_2P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMC_2P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC_2P.xlsx") #Yearly C emissions
 
 
 
@@ -6720,43 +6720,43 @@ ModelDFSL1y_VMC3 <- ModelDFSLt0_VMC3 - ModelDFSLt1_VMC3
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMC3$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMC3P because implies a one-off input of C
-ModelDFSL_VMC3P <- ModelDFSL1y_VMC3
+#This model will be called VMC_3P because implies a one-off input of C
+ModelDFSL_VMC_3P <- ModelDFSL1y_VMC3
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VMC3P,"VXP_Models\\ModelDFSL_R_VMC3P.xlsx")
+write_xlsx(ModelDFSL_VMC_3P,"VXP_Models\\ModelDFSL_R_VMC_3P.xlsx")
 
 #Plot 3: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VMC3P_YCO2 <- ModelDFSL_VMC3P %>%
+ModelDFSL_VMC_3P_YCO2 <- ModelDFSL_VMC_3P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMC3)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMC3P_YCO2) <- c("Year", "Months", "AnnualCO2_VMC_3")
+colnames(ModelDFSL_VMC_3P_YCO2) <- c("Year", "Months", "AnnualCO2_VMC_3")
 
 #Plot 3: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VMC3P_YCO2D <- merge(ModelDFSL_VMC3P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VMC3P_YCO2D$AnnualCO2D_VMC_3 <- ModelDFSL_VMC3P_YCO2D$AnnualCO2_VMC_3 * ModelDFSL_VMC3P_YCO2D$GWP100
+ModelDFSL_VMC_3P_YCO2D <- merge(ModelDFSL_VMC_3P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VMC_3P_YCO2D$AnnualCO2D_VMC_3 <- ModelDFSL_VMC_3P_YCO2D$AnnualCO2_VMC_3 * ModelDFSL_VMC_3P_YCO2D$GWP100
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VMC3P_YC <- ModelDFSL_VMC3P %>%
+ModelDFSL_VMC_3P_YC <- ModelDFSL_VMC_3P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMC3)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMC3P_YC) <- c("Year", "Months", "CEmissions_VMC_3")
+colnames(ModelDFSL_VMC_3P_YC) <- c("Year", "Months", "CEmissions_VMC_3")
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VMC3P_YCT <- ModelDFSL_VMC3P %>%
+ModelDFSL_VMC_3P_YCT <- ModelDFSL_VMC_3P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMC3)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMC3P_YCT) <- c("Year", "Months", "CTail_VMC_3")
+colnames(ModelDFSL_VMC_3P_YCT) <- c("Year", "Months", "CTail_VMC_3")
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VMC3P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC3P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VMC3P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC3P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMC3P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC3P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMC3P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC3P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMC_3P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC_3P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VMC_3P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC_3P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VMC_3P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC_3P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMC_3P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC_3P.xlsx") #Yearly C emissions
 
 
 
@@ -6898,43 +6898,43 @@ ModelDFSL1y_VMC4 <- ModelDFSLt0_VMC4 - ModelDFSLt1_VMC4
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMC4$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMC4P because implies a one-off input of C
-ModelDFSL_VMC4P <- ModelDFSL1y_VMC4
+#This model will be called VMC_4P because implies a one-off input of C
+ModelDFSL_VMC_4P <- ModelDFSL1y_VMC4
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VMC4P,"VXP_Models\\ModelDFSL_R_VMC4P.xlsx")
+write_xlsx(ModelDFSL_VMC_4P,"VXP_Models\\ModelDFSL_R_VMC_4P.xlsx")
 
 #Plot 3: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VMC4P_YCO2 <- ModelDFSL_VMC4P %>%
+ModelDFSL_VMC_4P_YCO2 <- ModelDFSL_VMC_4P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMC4)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMC4P_YCO2) <- c("Year", "Months", "AnnualCO2_VMC_4")
+colnames(ModelDFSL_VMC_4P_YCO2) <- c("Year", "Months", "AnnualCO2_VMC_4")
 
 #Plot 3: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VMC4P_YCO2D <- merge(ModelDFSL_VMC4P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VMC4P_YCO2D$AnnualCO2D_VMC_4 <- ModelDFSL_VMC4P_YCO2D$AnnualCO2_VMC_4 * ModelDFSL_VMC4P_YCO2D$GWP100
+ModelDFSL_VMC_4P_YCO2D <- merge(ModelDFSL_VMC_4P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VMC_4P_YCO2D$AnnualCO2D_VMC_4 <- ModelDFSL_VMC_4P_YCO2D$AnnualCO2_VMC_4 * ModelDFSL_VMC_4P_YCO2D$GWP100
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VMC4P_YC <- ModelDFSL_VMC4P %>%
+ModelDFSL_VMC_4P_YC <- ModelDFSL_VMC_4P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMC4)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMC4P_YC) <- c("Year", "Months", "CEmissions_VMC_4")
+colnames(ModelDFSL_VMC_4P_YC) <- c("Year", "Months", "CEmissions_VMC_4")
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VMC4P_YCT <- ModelDFSL_VMC4P %>%
+ModelDFSL_VMC_4P_YCT <- ModelDFSL_VMC_4P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMC4)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMC4P_YCT) <- c("Year", "Months", "CTail_VMC_4")
+colnames(ModelDFSL_VMC_4P_YCT) <- c("Year", "Months", "CTail_VMC_4")
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VMC4P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC4P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VMC4P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC4P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMC4P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC4P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMC4P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC4P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMC_4P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC_4P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VMC_4P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC_4P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VMC_4P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC_4P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMC_4P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC_4P.xlsx") #Yearly C emissions
 
 
 
@@ -7076,46 +7076,46 @@ ModelDFSL1y_VMC5 <- ModelDFSLt0_VMC5 - ModelDFSLt1_VMC5
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMC5$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMC5P because implies a one-off input of C
-ModelDFSL_VMC5P <- ModelDFSL1y_VMC5
+#This model will be called VMC_5P because implies a one-off input of C
+ModelDFSL_VMC_5P <- ModelDFSL1y_VMC5
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VMC5P,"VXP_Models\\ModelDFSL_R_VMC5P.xlsx")
+write_xlsx(ModelDFSL_VMC_5P,"VXP_Models\\ModelDFSL_R_VMC_5P.xlsx")
 
 
 #Plot 3: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VMC5P_YCO2 <- ModelDFSL_VMC5P %>%
+ModelDFSL_VMC_5P_YCO2 <- ModelDFSL_VMC_5P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMC5)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMC5P_YCO2) <- c("Year", "Months", "AnnualCO2_VMC_5")
+colnames(ModelDFSL_VMC_5P_YCO2) <- c("Year", "Months", "AnnualCO2_VMC_5")
 
 
 #Plot 3: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VMC5P_YCO2D <- merge(ModelDFSL_VMC5P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VMC5P_YCO2D$AnnualCO2D_VMC_5 <- ModelDFSL_VMC5P_YCO2D$AnnualCO2_VMC_5 * ModelDFSL_VMC5P_YCO2D$GWP100
+ModelDFSL_VMC_5P_YCO2D <- merge(ModelDFSL_VMC_5P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VMC_5P_YCO2D$AnnualCO2D_VMC_5 <- ModelDFSL_VMC_5P_YCO2D$AnnualCO2_VMC_5 * ModelDFSL_VMC_5P_YCO2D$GWP100
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VMC5P_YC <- ModelDFSL_VMC5P %>%
+ModelDFSL_VMC_5P_YC <- ModelDFSL_VMC_5P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMC5)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMC5P_YC) <- c("Year", "Months", "CEmissions_VMC_5")
+colnames(ModelDFSL_VMC_5P_YC) <- c("Year", "Months", "CEmissions_VMC_5")
 
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VMC5P_YCT <- ModelDFSL_VMC5P %>%
+ModelDFSL_VMC_5P_YCT <- ModelDFSL_VMC_5P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMC5)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMC5P_YCT) <- c("Year", "Months", "CTail_VMC_5")
+colnames(ModelDFSL_VMC_5P_YCT) <- c("Year", "Months", "CTail_VMC_5")
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VMC5P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC5P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VMC5P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC5P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMC5P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC5P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMC5P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC5P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMC_5P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC_5P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VMC_5P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC_5P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VMC_5P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC_5P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMC_5P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC_5P.xlsx") #Yearly C emissions
 
 
 
@@ -7257,45 +7257,45 @@ ModelDFSL1y_VMC6 <- ModelDFSLt0_VMC6 - ModelDFSLt1_VMC6
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMC6$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMC6P because implies a one-off input of C
-ModelDFSL_VMC6P <- ModelDFSL1y_VMC6
+#This model will be called VMC_6P because implies a one-off input of C
+ModelDFSL_VMC_6P <- ModelDFSL1y_VMC6
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VMC6P,"VXP_Models\\ModelDFSL_R_VMC6P.xlsx")
+write_xlsx(ModelDFSL_VMC_6P,"VXP_Models\\ModelDFSL_R_VMC_6P.xlsx")
 
 #Plot 3: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VMC6P_YCO2 <- ModelDFSL_VMC6P %>%
+ModelDFSL_VMC_6P_YCO2 <- ModelDFSL_VMC_6P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMC6)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMC6P_YCO2) <- c("Year", "Months", "AnnualCO2_VMC_6")
+colnames(ModelDFSL_VMC_6P_YCO2) <- c("Year", "Months", "AnnualCO2_VMC_6")
 
 
 #Plot 3: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VMC6P_YCO2D <- merge(ModelDFSL_VMC6P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VMC6P_YCO2D$AnnualCO2D_VMC_6 <- ModelDFSL_VMC6P_YCO2D$AnnualCO2_VMC_6 * ModelDFSL_VMC6P_YCO2D$GWP100
+ModelDFSL_VMC_6P_YCO2D <- merge(ModelDFSL_VMC_6P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VMC_6P_YCO2D$AnnualCO2D_VMC_6 <- ModelDFSL_VMC_6P_YCO2D$AnnualCO2_VMC_6 * ModelDFSL_VMC_6P_YCO2D$GWP100
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VMC6P_YC <- ModelDFSL_VMC6P %>%
+ModelDFSL_VMC_6P_YC <- ModelDFSL_VMC_6P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMC6)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMC6P_YC) <- c("Year", "Months", "CEmissions_VMC_6")
+colnames(ModelDFSL_VMC_6P_YC) <- c("Year", "Months", "CEmissions_VMC_6")
 
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VMC6P_YCT <- ModelDFSL_VMC6P %>%
+ModelDFSL_VMC_6P_YCT <- ModelDFSL_VMC_6P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMC6)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMC6P_YCT) <- c("Year", "Months", "CTail_VMC_6")
+colnames(ModelDFSL_VMC_6P_YCT) <- c("Year", "Months", "CTail_VMC_6")
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VMC6P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC6P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VMC6P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC6P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMC6P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC6P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMC6P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC6P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMC_6P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC_6P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VMC_6P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC_6P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VMC_6P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC_6P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMC_6P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC_6P.xlsx") #Yearly C emissions
 
 
 
@@ -7437,46 +7437,46 @@ ModelDFSL1y_VMC7 <- ModelDFSLt0_VMC7 - ModelDFSLt1_VMC7
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMC7$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMC7P because implies a one-off input of C
-ModelDFSL_VMC7P <- ModelDFSL1y_VMC7
+#This model will be called VMC_7P because implies a one-off input of C
+ModelDFSL_VMC_7P <- ModelDFSL1y_VMC7
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VMC7P,"VXP_Models\\ModelDFSL_R_VMC7P.xlsx")
+write_xlsx(ModelDFSL_VMC_7P,"VXP_Models\\ModelDFSL_R_VMC_7P.xlsx")
 
 #Plot 3: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VMC7P_YCO2 <- ModelDFSL_VMC7P %>%
+ModelDFSL_VMC_7P_YCO2 <- ModelDFSL_VMC_7P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMC7)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMC7P_YCO2) <- c("Year", "Months", "AnnualCO2_VMC_7")
+colnames(ModelDFSL_VMC_7P_YCO2) <- c("Year", "Months", "AnnualCO2_VMC_7")
 
 
 #Plot 3: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VMC7P_YCO2D <- merge(ModelDFSL_VMC7P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VMC7P_YCO2D$AnnualCO2D_VMC_7 <- ModelDFSL_VMC7P_YCO2D$AnnualCO2_VMC_7 * ModelDFSL_VMC7P_YCO2D$GWP100
+ModelDFSL_VMC_7P_YCO2D <- merge(ModelDFSL_VMC_7P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VMC_7P_YCO2D$AnnualCO2D_VMC_7 <- ModelDFSL_VMC_7P_YCO2D$AnnualCO2_VMC_7 * ModelDFSL_VMC_7P_YCO2D$GWP100
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VMC7P_YC <- ModelDFSL_VMC7P %>%
+ModelDFSL_VMC_7P_YC <- ModelDFSL_VMC_7P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMC7)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMC7P_YC) <- c("Year", "Months", "CEmissions_VMC_7")
+colnames(ModelDFSL_VMC_7P_YC) <- c("Year", "Months", "CEmissions_VMC_7")
 
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VMC7P_YCT <- ModelDFSL_VMC7P %>%
+ModelDFSL_VMC_7P_YCT <- ModelDFSL_VMC_7P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMC7)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMC7P_YCT) <- c("Year", "Months", "CTail_VMC_7")
+colnames(ModelDFSL_VMC_7P_YCT) <- c("Year", "Months", "CTail_VMC_7")
 
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VMC7P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC7P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VMC7P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC7P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMC7P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC7P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMC7P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC7P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMC_7P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC_7P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VMC_7P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC_7P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VMC_7P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC_7P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMC_7P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC_7P.xlsx") #Yearly C emissions
 
 
 
@@ -7618,45 +7618,45 @@ ModelDFSL1y_VMC8 <- ModelDFSLt0_VMC8 - ModelDFSLt1_VMC8
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMC8$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMC8P because implies a one-off input of C
-ModelDFSL_VMC8P <- ModelDFSL1y_VMC8
+#This model will be called VMC_8P because implies a one-off input of C
+ModelDFSL_VMC_8P <- ModelDFSL1y_VMC8
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VMC8P,"VXP_Models\\ModelDFSL_R_VMC8P.xlsx")
+write_xlsx(ModelDFSL_VMC_8P,"VXP_Models\\ModelDFSL_R_VMC_8P.xlsx")
 
 
 #Plot 3: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VMC8P_YCO2 <- ModelDFSL_VMC8P %>%
+ModelDFSL_VMC_8P_YCO2 <- ModelDFSL_VMC_8P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMC8)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMC8P_YCO2) <- c("Year", "Months", "AnnualCO2_VMC_8")
+colnames(ModelDFSL_VMC_8P_YCO2) <- c("Year", "Months", "AnnualCO2_VMC_8")
 
 #Plot 3: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VMC8P_YCO2D <- merge(ModelDFSL_VMC8P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VMC8P_YCO2D$AnnualCO2D_VMC_8 <- ModelDFSL_VMC8P_YCO2D$AnnualCO2_VMC_8 * ModelDFSL_VMC8P_YCO2D$GWP100
+ModelDFSL_VMC_8P_YCO2D <- merge(ModelDFSL_VMC_8P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VMC_8P_YCO2D$AnnualCO2D_VMC_8 <- ModelDFSL_VMC_8P_YCO2D$AnnualCO2_VMC_8 * ModelDFSL_VMC_8P_YCO2D$GWP100
 
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VMC8P_YC <- ModelDFSL_VMC8P %>%
+ModelDFSL_VMC_8P_YC <- ModelDFSL_VMC_8P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMC8)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMC8P_YC) <- c("Year", "Months", "CEmissions_VMC_8")
+colnames(ModelDFSL_VMC_8P_YC) <- c("Year", "Months", "CEmissions_VMC_8")
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VMC8P_YCT <- ModelDFSL_VMC8P %>%
+ModelDFSL_VMC_8P_YCT <- ModelDFSL_VMC_8P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMC8)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMC8P_YCT) <- c("Year", "Months", "CTail_VMC_8")
+colnames(ModelDFSL_VMC_8P_YCT) <- c("Year", "Months", "CTail_VMC_8")
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VMC8P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC8P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VMC8P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC8P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMC8P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC8P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMC8P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC8P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMC_8P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC_8P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VMC_8P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC_8P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VMC_8P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC_8P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMC_8P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC_8P.xlsx") #Yearly C emissions
 
 
 
@@ -7798,45 +7798,45 @@ ModelDFSL1y_VMC9 <- ModelDFSLt0_VMC9 - ModelDFSLt1_VMC9
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMC9$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMC9P because implies a one-off input of C
-ModelDFSL_VMC9P <- ModelDFSL1y_VMC9
+#This model will be called VMC_9P because implies a one-off input of C
+ModelDFSL_VMC_9P <- ModelDFSL1y_VMC9
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VMC9P,"VXP_Models\\ModelDFSL_R_VMC9P.xlsx")
+write_xlsx(ModelDFSL_VMC_9P,"VXP_Models\\ModelDFSL_R_VMC_9P.xlsx")
 
 
 #Plot 3: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VMC9P_YCO2 <- ModelDFSL_VMC9P %>%
+ModelDFSL_VMC_9P_YCO2 <- ModelDFSL_VMC_9P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMC9)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMC9P_YCO2) <- c("Year", "Months", "AnnualCO2_VMC_9")
+colnames(ModelDFSL_VMC_9P_YCO2) <- c("Year", "Months", "AnnualCO2_VMC_9")
 
 #Plot 3: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VMC9P_YCO2D <- merge(ModelDFSL_VMC9P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VMC9P_YCO2D$AnnualCO2D_VMC_9 <- ModelDFSL_VMC9P_YCO2D$AnnualCO2_VMC_9 * ModelDFSL_VMC9P_YCO2D$GWP100
+ModelDFSL_VMC_9P_YCO2D <- merge(ModelDFSL_VMC_9P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VMC_9P_YCO2D$AnnualCO2D_VMC_9 <- ModelDFSL_VMC_9P_YCO2D$AnnualCO2_VMC_9 * ModelDFSL_VMC_9P_YCO2D$GWP100
 
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VMC9P_YC <- ModelDFSL_VMC9P %>%
+ModelDFSL_VMC_9P_YC <- ModelDFSL_VMC_9P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMC9)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMC9P_YC) <- c("Year", "Months", "CEmissions_VMC_9")
+colnames(ModelDFSL_VMC_9P_YC) <- c("Year", "Months", "CEmissions_VMC_9")
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VMC9P_YCT <- ModelDFSL_VMC9P %>%
+ModelDFSL_VMC_9P_YCT <- ModelDFSL_VMC_9P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMC9)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMC9P_YCT) <- c("Year", "Months", "CTail_VMC_9")
+colnames(ModelDFSL_VMC_9P_YCT) <- c("Year", "Months", "CTail_VMC_9")
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VMC9P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC9P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VMC9P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC9P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMC9P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC9P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMC9P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC9P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMC_9P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC_9P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VMC_9P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC_9P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VMC_9P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC_9P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMC_9P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC_9P.xlsx") #Yearly C emissions
 
 
 
@@ -8151,43 +8151,43 @@ ModelDFSL1y_VMR0 <- ModelDFSLt0_VMR0 - ModelDFSLt1_VMR0
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMR0$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMR0P because implies a one-off input of C
-ModelDFSL_VMR0P <- ModelDFSL1y_VMR0
+#This model will be called VMR_0P because implies a one-off input of C
+ModelDFSL_VMR_0P <- ModelDFSL1y_VMR0
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VMR0P,"VXP_Models\\ModelDFSL_R_VMR0P.xlsx")
+write_xlsx(ModelDFSL_VMR_0P,"VXP_Models\\ModelDFSL_R_VMR_0P.xlsx")
 
 #Plot 3.1: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VMR0P_YCO2 <- ModelDFSL_VMR0P %>%
+ModelDFSL_VMR_0P_YCO2 <- ModelDFSL_VMR_0P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMR0)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMR0P_YCO2) <- c("Year", "Months", "AnnualCO2_VMR_0")
+colnames(ModelDFSL_VMR_0P_YCO2) <- c("Year", "Months", "AnnualCO2_VMR_0")
 
 #Plot 3.2: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VMR0P_YCO2D <- merge(ModelDFSL_VMR0P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VMR0P_YCO2D$AnnualCO2D_VMR_0 <- ModelDFSL_VMR0P_YCO2D$AnnualCO2_VMR_0 * ModelDFSL_VMR0P_YCO2D$GWP100
+ModelDFSL_VMR_0P_YCO2D <- merge(ModelDFSL_VMR_0P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VMR_0P_YCO2D$AnnualCO2D_VMR_0 <- ModelDFSL_VMR_0P_YCO2D$AnnualCO2_VMR_0 * ModelDFSL_VMR_0P_YCO2D$GWP100
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VMR0P_YC <- ModelDFSL_VMR0P %>%
+ModelDFSL_VMR_0P_YC <- ModelDFSL_VMR_0P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMR0)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMR0P_YC) <- c("Year", "Months", "CEmissions_VMR_0")
+colnames(ModelDFSL_VMR_0P_YC) <- c("Year", "Months", "CEmissions_VMR_0")
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VMR0P_YCT <- ModelDFSL_VMR0P %>%
+ModelDFSL_VMR_0P_YCT <- ModelDFSL_VMR_0P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMR0)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMR0P_YCT) <- c("Year", "Months", "CTail_VMR_0")
+colnames(ModelDFSL_VMR_0P_YCT) <- c("Year", "Months", "CTail_VMR_0")
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VMR0P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR0P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VMR0P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR0P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMR0P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR0P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMR0P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR0P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMR_0P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR_0P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VMR_0P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR_0P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VMR_0P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR_0P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMR_0P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR_0P.xlsx") #Yearly C emissions
 
 
 #### 11.2 - VMR1) Manure; 10%clay; Reduced Tillage ####
@@ -8328,43 +8328,43 @@ ModelDFSL1y_VMR1 <- ModelDFSLt0_VMR1 - ModelDFSLt1_VMR1
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMR1$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMR1P because implies a one-off input of C
-ModelDFSL_VMR1P <- ModelDFSL1y_VMR1
+#This model will be called VMR_1P because implies a one-off input of C
+ModelDFSL_VMR_1P <- ModelDFSL1y_VMR1
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VMR1P,"VXP_Models\\ModelDFSL_R_VMR1P.xlsx")
+write_xlsx(ModelDFSL_VMR_1P,"VXP_Models\\ModelDFSL_R_VMR_1P.xlsx")
 
 #Plot 3: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VMR1P_YCO2 <- ModelDFSL_VMR1P %>%
+ModelDFSL_VMR_1P_YCO2 <- ModelDFSL_VMR_1P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMR1)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMR1P_YCO2) <- c("Year", "Months", "AnnualCO2_VMR_1")
+colnames(ModelDFSL_VMR_1P_YCO2) <- c("Year", "Months", "AnnualCO2_VMR_1")
 
 #Plot 3: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VMR1P_YCO2D <- merge(ModelDFSL_VMR1P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VMR1P_YCO2D$AnnualCO2D_VMR_1 <- ModelDFSL_VMR1P_YCO2D$AnnualCO2_VMR_1 * ModelDFSL_VMR1P_YCO2D$GWP100
+ModelDFSL_VMR_1P_YCO2D <- merge(ModelDFSL_VMR_1P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VMR_1P_YCO2D$AnnualCO2D_VMR_1 <- ModelDFSL_VMR_1P_YCO2D$AnnualCO2_VMR_1 * ModelDFSL_VMR_1P_YCO2D$GWP100
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VMR1P_YC <- ModelDFSL_VMR1P %>%
+ModelDFSL_VMR_1P_YC <- ModelDFSL_VMR_1P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMR1)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMR1P_YC) <- c("Year", "Months", "CEmissions_VMR_1")
+colnames(ModelDFSL_VMR_1P_YC) <- c("Year", "Months", "CEmissions_VMR_1")
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VMR1P_YCT <- ModelDFSL_VMR1P %>%
+ModelDFSL_VMR_1P_YCT <- ModelDFSL_VMR_1P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMR1)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMR1P_YCT) <- c("Year", "Months", "CTail_VMR_1")
+colnames(ModelDFSL_VMR_1P_YCT) <- c("Year", "Months", "CTail_VMR_1")
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VMR1P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR1P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VMR1P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR1P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMR1P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR1P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMR1P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR1P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMR_1P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR_1P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VMR_1P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR_1P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VMR_1P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR_1P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMR_1P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR_1P.xlsx") #Yearly C emissions
 
 
 
@@ -8506,43 +8506,43 @@ ModelDFSL1y_VMR2 <- ModelDFSLt0_VMR2 - ModelDFSLt1_VMR2
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMR2$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMR2P because implies a one-off input of C
-ModelDFSL_VMR2P <- ModelDFSL1y_VMR2
+#This model will be called VMR_2P because implies a one-off input of C
+ModelDFSL_VMR_2P <- ModelDFSL1y_VMR2
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VMR2P,"VXP_Models\\ModelDFSL_R_VMR2P.xlsx")
+write_xlsx(ModelDFSL_VMR_2P,"VXP_Models\\ModelDFSL_R_VMR_2P.xlsx")
 
 #Plot 3: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VMR2P_YCO2 <- ModelDFSL_VMR2P %>%
+ModelDFSL_VMR_2P_YCO2 <- ModelDFSL_VMR_2P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMR2)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMR2P_YCO2) <- c("Year", "Months", "AnnualCO2_VMR_2")
+colnames(ModelDFSL_VMR_2P_YCO2) <- c("Year", "Months", "AnnualCO2_VMR_2")
 
 #Plot 3: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VMR2P_YCO2D <- merge(ModelDFSL_VMR2P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VMR2P_YCO2D$AnnualCO2D_VMR_2 <- ModelDFSL_VMR2P_YCO2D$AnnualCO2_VMR_2 * ModelDFSL_VMR2P_YCO2D$GWP100
+ModelDFSL_VMR_2P_YCO2D <- merge(ModelDFSL_VMR_2P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VMR_2P_YCO2D$AnnualCO2D_VMR_2 <- ModelDFSL_VMR_2P_YCO2D$AnnualCO2_VMR_2 * ModelDFSL_VMR_2P_YCO2D$GWP100
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VMR2P_YC <- ModelDFSL_VMR2P %>%
+ModelDFSL_VMR_2P_YC <- ModelDFSL_VMR_2P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMR2)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMR2P_YC) <- c("Year", "Months", "CEmissions_VMR_2")
+colnames(ModelDFSL_VMR_2P_YC) <- c("Year", "Months", "CEmissions_VMR_2")
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VMR2P_YCT <- ModelDFSL_VMR2P %>%
+ModelDFSL_VMR_2P_YCT <- ModelDFSL_VMR_2P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMR2)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMR2P_YCT) <- c("Year", "Months", "CTail_VMR_2")
+colnames(ModelDFSL_VMR_2P_YCT) <- c("Year", "Months", "CTail_VMR_2")
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VMR2P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR2P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VMR2P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR2P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMR2P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR2P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMR2P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR2P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMR_2P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR_2P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VMR_2P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR_2P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VMR_2P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR_2P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMR_2P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR_2P.xlsx") #Yearly C emissions
 
 
 
@@ -8684,43 +8684,43 @@ ModelDFSL1y_VMR3 <- ModelDFSLt0_VMR3 - ModelDFSLt1_VMR3
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMR3$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMR3P because implies a one-off input of C
-ModelDFSL_VMR3P <- ModelDFSL1y_VMR3
+#This model will be called VMR_3P because implies a one-off input of C
+ModelDFSL_VMR_3P <- ModelDFSL1y_VMR3
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VMR3P,"VXP_Models\\ModelDFSL_R_VMR3P.xlsx")
+write_xlsx(ModelDFSL_VMR_3P,"VXP_Models\\ModelDFSL_R_VMR_3P.xlsx")
 
 #Plot 3: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VMR3P_YCO2 <- ModelDFSL_VMR3P %>%
+ModelDFSL_VMR_3P_YCO2 <- ModelDFSL_VMR_3P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMR3)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMR3P_YCO2) <- c("Year", "Months", "AnnualCO2_VMR_3")
+colnames(ModelDFSL_VMR_3P_YCO2) <- c("Year", "Months", "AnnualCO2_VMR_3")
 
 #Plot 3: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VMR3P_YCO2D <- merge(ModelDFSL_VMR3P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VMR3P_YCO2D$AnnualCO2D_VMR_3 <- ModelDFSL_VMR3P_YCO2D$AnnualCO2_VMR_3 * ModelDFSL_VMR3P_YCO2D$GWP100
+ModelDFSL_VMR_3P_YCO2D <- merge(ModelDFSL_VMR_3P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VMR_3P_YCO2D$AnnualCO2D_VMR_3 <- ModelDFSL_VMR_3P_YCO2D$AnnualCO2_VMR_3 * ModelDFSL_VMR_3P_YCO2D$GWP100
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VMR3P_YC <- ModelDFSL_VMR3P %>%
+ModelDFSL_VMR_3P_YC <- ModelDFSL_VMR_3P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMR3)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMR3P_YC) <- c("Year", "Months", "CEmissions_VMR_3")
+colnames(ModelDFSL_VMR_3P_YC) <- c("Year", "Months", "CEmissions_VMR_3")
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VMR3P_YCT <- ModelDFSL_VMR3P %>%
+ModelDFSL_VMR_3P_YCT <- ModelDFSL_VMR_3P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMR3)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMR3P_YCT) <- c("Year", "Months", "CTail_VMR_3")
+colnames(ModelDFSL_VMR_3P_YCT) <- c("Year", "Months", "CTail_VMR_3")
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VMR3P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR3P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VMR3P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR3P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMR3P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR3P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMR3P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR3P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMR_3P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR_3P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VMR_3P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR_3P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VMR_3P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR_3P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMR_3P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR_3P.xlsx") #Yearly C emissions
 
 
 
@@ -8862,43 +8862,43 @@ ModelDFSL1y_VMR4 <- ModelDFSLt0_VMR4 - ModelDFSLt1_VMR4
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMR4$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMR4P because implies a one-off input of C
-ModelDFSL_VMR4P <- ModelDFSL1y_VMR4
+#This model will be called VMR_4P because implies a one-off input of C
+ModelDFSL_VMR_4P <- ModelDFSL1y_VMR4
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VMR4P,"VXP_Models\\ModelDFSL_R_VMR4P.xlsx")
+write_xlsx(ModelDFSL_VMR_4P,"VXP_Models\\ModelDFSL_R_VMR_4P.xlsx")
 
 #Plot 3: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VMR4P_YCO2 <- ModelDFSL_VMR4P %>%
+ModelDFSL_VMR_4P_YCO2 <- ModelDFSL_VMR_4P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMR4)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMR4P_YCO2) <- c("Year", "Months", "AnnualCO2_VMR_4")
+colnames(ModelDFSL_VMR_4P_YCO2) <- c("Year", "Months", "AnnualCO2_VMR_4")
 
 #Plot 3: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VMR4P_YCO2D <- merge(ModelDFSL_VMR4P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VMR4P_YCO2D$AnnualCO2D_VMR_4 <- ModelDFSL_VMR4P_YCO2D$AnnualCO2_VMR_4 * ModelDFSL_VMR4P_YCO2D$GWP100
+ModelDFSL_VMR_4P_YCO2D <- merge(ModelDFSL_VMR_4P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VMR_4P_YCO2D$AnnualCO2D_VMR_4 <- ModelDFSL_VMR_4P_YCO2D$AnnualCO2_VMR_4 * ModelDFSL_VMR_4P_YCO2D$GWP100
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VMR4P_YC <- ModelDFSL_VMR4P %>%
+ModelDFSL_VMR_4P_YC <- ModelDFSL_VMR_4P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMR4)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMR4P_YC) <- c("Year", "Months", "CEmissions_VMR_4")
+colnames(ModelDFSL_VMR_4P_YC) <- c("Year", "Months", "CEmissions_VMR_4")
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VMR4P_YCT <- ModelDFSL_VMR4P %>%
+ModelDFSL_VMR_4P_YCT <- ModelDFSL_VMR_4P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMR4)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMR4P_YCT) <- c("Year", "Months", "CTail_VMR_4")
+colnames(ModelDFSL_VMR_4P_YCT) <- c("Year", "Months", "CTail_VMR_4")
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VMR4P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR4P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VMR4P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR4P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMR4P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR4P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMR4P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR4P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMR_4P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR_4P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VMR_4P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR_4P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VMR_4P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR_4P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMR_4P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR_4P.xlsx") #Yearly C emissions
 
 
 
@@ -9040,46 +9040,46 @@ ModelDFSL1y_VMR5 <- ModelDFSLt0_VMR5 - ModelDFSLt1_VMR5
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMR5$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMR5P because implies a one-off input of C
-ModelDFSL_VMR5P <- ModelDFSL1y_VMR5
+#This model will be called VMR_5P because implies a one-off input of C
+ModelDFSL_VMR_5P <- ModelDFSL1y_VMR5
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VMR5P,"VXP_Models\\ModelDFSL_R_VMR5P.xlsx")
+write_xlsx(ModelDFSL_VMR_5P,"VXP_Models\\ModelDFSL_R_VMR_5P.xlsx")
 
 
 #Plot 3: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VMR5P_YCO2 <- ModelDFSL_VMR5P %>%
+ModelDFSL_VMR_5P_YCO2 <- ModelDFSL_VMR_5P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMR5)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMR5P_YCO2) <- c("Year", "Months", "AnnualCO2_VMR_5")
+colnames(ModelDFSL_VMR_5P_YCO2) <- c("Year", "Months", "AnnualCO2_VMR_5")
 
 
 #Plot 3: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VMR5P_YCO2D <- merge(ModelDFSL_VMR5P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VMR5P_YCO2D$AnnualCO2D_VMR_5 <- ModelDFSL_VMR5P_YCO2D$AnnualCO2_VMR_5 * ModelDFSL_VMR5P_YCO2D$GWP100
+ModelDFSL_VMR_5P_YCO2D <- merge(ModelDFSL_VMR_5P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VMR_5P_YCO2D$AnnualCO2D_VMR_5 <- ModelDFSL_VMR_5P_YCO2D$AnnualCO2_VMR_5 * ModelDFSL_VMR_5P_YCO2D$GWP100
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VMR5P_YC <- ModelDFSL_VMR5P %>%
+ModelDFSL_VMR_5P_YC <- ModelDFSL_VMR_5P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMR5)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMR5P_YC) <- c("Year", "Months", "CEmissions_VMR_5")
+colnames(ModelDFSL_VMR_5P_YC) <- c("Year", "Months", "CEmissions_VMR_5")
 
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VMR5P_YCT <- ModelDFSL_VMR5P %>%
+ModelDFSL_VMR_5P_YCT <- ModelDFSL_VMR_5P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMR5)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMR5P_YCT) <- c("Year", "Months", "CTail_VMR_5")
+colnames(ModelDFSL_VMR_5P_YCT) <- c("Year", "Months", "CTail_VMR_5")
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VMR5P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR5P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VMR5P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR5P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMR5P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR5P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMR5P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR5P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMR_5P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR_5P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VMR_5P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR_5P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VMR_5P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR_5P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMR_5P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR_5P.xlsx") #Yearly C emissions
 
 
 
@@ -9221,45 +9221,45 @@ ModelDFSL1y_VMR6 <- ModelDFSLt0_VMR6 - ModelDFSLt1_VMR6
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMR6$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMR6P because implies a one-off input of C
-ModelDFSL_VMR6P <- ModelDFSL1y_VMR6
+#This model will be called VMR_6P because implies a one-off input of C
+ModelDFSL_VMR_6P <- ModelDFSL1y_VMR6
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VMR6P,"VXP_Models\\ModelDFSL_R_VMR6P.xlsx")
+write_xlsx(ModelDFSL_VMR_6P,"VXP_Models\\ModelDFSL_R_VMR_6P.xlsx")
 
 #Plot 3: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VMR6P_YCO2 <- ModelDFSL_VMR6P %>%
+ModelDFSL_VMR_6P_YCO2 <- ModelDFSL_VMR_6P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMR6)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMR6P_YCO2) <- c("Year", "Months", "AnnualCO2_VMR_6")
+colnames(ModelDFSL_VMR_6P_YCO2) <- c("Year", "Months", "AnnualCO2_VMR_6")
 
 
 #Plot 3: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VMR6P_YCO2D <- merge(ModelDFSL_VMR6P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VMR6P_YCO2D$AnnualCO2D_VMR_6 <- ModelDFSL_VMR6P_YCO2D$AnnualCO2_VMR_6 * ModelDFSL_VMR6P_YCO2D$GWP100
+ModelDFSL_VMR_6P_YCO2D <- merge(ModelDFSL_VMR_6P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VMR_6P_YCO2D$AnnualCO2D_VMR_6 <- ModelDFSL_VMR_6P_YCO2D$AnnualCO2_VMR_6 * ModelDFSL_VMR_6P_YCO2D$GWP100
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VMR6P_YC <- ModelDFSL_VMR6P %>%
+ModelDFSL_VMR_6P_YC <- ModelDFSL_VMR_6P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMR6)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMR6P_YC) <- c("Year", "Months", "CEmissions_VMR_6")
+colnames(ModelDFSL_VMR_6P_YC) <- c("Year", "Months", "CEmissions_VMR_6")
 
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VMR6P_YCT <- ModelDFSL_VMR6P %>%
+ModelDFSL_VMR_6P_YCT <- ModelDFSL_VMR_6P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMR6)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMR6P_YCT) <- c("Year", "Months", "CTail_VMR_6")
+colnames(ModelDFSL_VMR_6P_YCT) <- c("Year", "Months", "CTail_VMR_6")
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VMR6P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR6P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VMR6P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR6P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMR6P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR6P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMR6P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR6P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMR_6P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR_6P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VMR_6P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR_6P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VMR_6P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR_6P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMR_6P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR_6P.xlsx") #Yearly C emissions
 
 
 
@@ -9401,46 +9401,46 @@ ModelDFSL1y_VMR7 <- ModelDFSLt0_VMR7 - ModelDFSLt1_VMR7
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMR7$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMR7P because implies a one-off input of C
-ModelDFSL_VMR7P <- ModelDFSL1y_VMR7
+#This model will be called VMR_7P because implies a one-off input of C
+ModelDFSL_VMR_7P <- ModelDFSL1y_VMR7
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VMR7P,"VXP_Models\\ModelDFSL_R_VMR7P.xlsx")
+write_xlsx(ModelDFSL_VMR_7P,"VXP_Models\\ModelDFSL_R_VMR_7P.xlsx")
 
 #Plot 3: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VMR7P_YCO2 <- ModelDFSL_VMR7P %>%
+ModelDFSL_VMR_7P_YCO2 <- ModelDFSL_VMR_7P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMR7)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMR7P_YCO2) <- c("Year", "Months", "AnnualCO2_VMR_7")
+colnames(ModelDFSL_VMR_7P_YCO2) <- c("Year", "Months", "AnnualCO2_VMR_7")
 
 
 #Plot 3: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VMR7P_YCO2D <- merge(ModelDFSL_VMR7P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VMR7P_YCO2D$AnnualCO2D_VMR_7 <- ModelDFSL_VMR7P_YCO2D$AnnualCO2_VMR_7 * ModelDFSL_VMR7P_YCO2D$GWP100
+ModelDFSL_VMR_7P_YCO2D <- merge(ModelDFSL_VMR_7P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VMR_7P_YCO2D$AnnualCO2D_VMR_7 <- ModelDFSL_VMR_7P_YCO2D$AnnualCO2_VMR_7 * ModelDFSL_VMR_7P_YCO2D$GWP100
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VMR7P_YC <- ModelDFSL_VMR7P %>%
+ModelDFSL_VMR_7P_YC <- ModelDFSL_VMR_7P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMR7)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMR7P_YC) <- c("Year", "Months", "CEmissions_VMR_7")
+colnames(ModelDFSL_VMR_7P_YC) <- c("Year", "Months", "CEmissions_VMR_7")
 
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VMR7P_YCT <- ModelDFSL_VMR7P %>%
+ModelDFSL_VMR_7P_YCT <- ModelDFSL_VMR_7P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMR7)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMR7P_YCT) <- c("Year", "Months", "CTail_VMR_7")
+colnames(ModelDFSL_VMR_7P_YCT) <- c("Year", "Months", "CTail_VMR_7")
 
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VMR7P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR7P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VMR7P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR7P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMR7P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR7P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMR7P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR7P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMR_7P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR_7P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VMR_7P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR_7P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VMR_7P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR_7P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMR_7P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR_7P.xlsx") #Yearly C emissions
 
 
 
@@ -9582,45 +9582,45 @@ ModelDFSL1y_VMR8 <- ModelDFSLt0_VMR8 - ModelDFSLt1_VMR8
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMR8$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMR8P because implies a one-off input of C
-ModelDFSL_VMR8P <- ModelDFSL1y_VMR8
+#This model will be called VMR_8P because implies a one-off input of C
+ModelDFSL_VMR_8P <- ModelDFSL1y_VMR8
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VMR8P,"VXP_Models\\ModelDFSL_R_VMR8P.xlsx")
+write_xlsx(ModelDFSL_VMR_8P,"VXP_Models\\ModelDFSL_R_VMR_8P.xlsx")
 
 
 #Plot 3: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VMR8P_YCO2 <- ModelDFSL_VMR8P %>%
+ModelDFSL_VMR_8P_YCO2 <- ModelDFSL_VMR_8P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMR8)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMR8P_YCO2) <- c("Year", "Months", "AnnualCO2_VMR_8")
+colnames(ModelDFSL_VMR_8P_YCO2) <- c("Year", "Months", "AnnualCO2_VMR_8")
 
 #Plot 3: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VMR8P_YCO2D <- merge(ModelDFSL_VMR8P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VMR8P_YCO2D$AnnualCO2D_VMR_8 <- ModelDFSL_VMR8P_YCO2D$AnnualCO2_VMR_8 * ModelDFSL_VMR8P_YCO2D$GWP100
+ModelDFSL_VMR_8P_YCO2D <- merge(ModelDFSL_VMR_8P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VMR_8P_YCO2D$AnnualCO2D_VMR_8 <- ModelDFSL_VMR_8P_YCO2D$AnnualCO2_VMR_8 * ModelDFSL_VMR_8P_YCO2D$GWP100
 
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VMR8P_YC <- ModelDFSL_VMR8P %>%
+ModelDFSL_VMR_8P_YC <- ModelDFSL_VMR_8P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMR8)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMR8P_YC) <- c("Year", "Months", "CEmissions_VMR_8")
+colnames(ModelDFSL_VMR_8P_YC) <- c("Year", "Months", "CEmissions_VMR_8")
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VMR8P_YCT <- ModelDFSL_VMR8P %>%
+ModelDFSL_VMR_8P_YCT <- ModelDFSL_VMR_8P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMR8)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMR8P_YCT) <- c("Year", "Months", "CTail_VMR_8")
+colnames(ModelDFSL_VMR_8P_YCT) <- c("Year", "Months", "CTail_VMR_8")
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VMR8P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR8P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VMR8P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR8P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMR8P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR8P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMR8P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR8P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMR_8P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR_8P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VMR_8P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR_8P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VMR_8P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR_8P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMR_8P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR_8P.xlsx") #Yearly C emissions
 
 
 
@@ -9762,45 +9762,45 @@ ModelDFSL1y_VMR9 <- ModelDFSLt0_VMR9 - ModelDFSLt1_VMR9
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMR9$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMR9P because implies a one-off input of C
-ModelDFSL_VMR9P <- ModelDFSL1y_VMR9
+#This model will be called VMR_9P because implies a one-off input of C
+ModelDFSL_VMR_9P <- ModelDFSL1y_VMR9
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VMR9P,"VXP_Models\\ModelDFSL_R_VMR9P.xlsx")
+write_xlsx(ModelDFSL_VMR_9P,"VXP_Models\\ModelDFSL_R_VMR_9P.xlsx")
 
 
 #Plot 3: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VMR9P_YCO2 <- ModelDFSL_VMR9P %>%
+ModelDFSL_VMR_9P_YCO2 <- ModelDFSL_VMR_9P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMR9)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMR9P_YCO2) <- c("Year", "Months", "AnnualCO2_VMR_9")
+colnames(ModelDFSL_VMR_9P_YCO2) <- c("Year", "Months", "AnnualCO2_VMR_9")
 
 #Plot 3: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VMR9P_YCO2D <- merge(ModelDFSL_VMR9P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VMR9P_YCO2D$AnnualCO2D_VMR_9 <- ModelDFSL_VMR9P_YCO2D$AnnualCO2_VMR_9 * ModelDFSL_VMR9P_YCO2D$GWP100
+ModelDFSL_VMR_9P_YCO2D <- merge(ModelDFSL_VMR_9P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VMR_9P_YCO2D$AnnualCO2D_VMR_9 <- ModelDFSL_VMR_9P_YCO2D$AnnualCO2_VMR_9 * ModelDFSL_VMR_9P_YCO2D$GWP100
 
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VMR9P_YC <- ModelDFSL_VMR9P %>%
+ModelDFSL_VMR_9P_YC <- ModelDFSL_VMR_9P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMR9)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMR9P_YC) <- c("Year", "Months", "CEmissions_VMR_9")
+colnames(ModelDFSL_VMR_9P_YC) <- c("Year", "Months", "CEmissions_VMR_9")
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VMR9P_YCT <- ModelDFSL_VMR9P %>%
+ModelDFSL_VMR_9P_YCT <- ModelDFSL_VMR_9P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMR9)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMR9P_YCT) <- c("Year", "Months", "CTail_VMR_9")
+colnames(ModelDFSL_VMR_9P_YCT) <- c("Year", "Months", "CTail_VMR_9")
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VMR9P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR9P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VMR9P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR9P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMR9P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR9P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMR9P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR9P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMR_9P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR_9P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VMR_9P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR_9P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VMR_9P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR_9P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMR_9P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR_9P.xlsx") #Yearly C emissions
 
 
 
@@ -10115,43 +10115,43 @@ ModelDFSL1y_VMN0 <- ModelDFSLt0_VMN0 - ModelDFSLt1_VMN0
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMN0$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMN0P because implies a one-off input of C
-ModelDFSL_VMN0P <- ModelDFSL1y_VMN0
+#This model will be called VMN_0P because implies a one-off input of C
+ModelDFSL_VMN_0P <- ModelDFSL1y_VMN0
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VMN0P,"VXP_Models\\ModelDFSL_R_VMN0P.xlsx")
+write_xlsx(ModelDFSL_VMN_0P,"VXP_Models\\ModelDFSL_R_VMN_0P.xlsx")
 
 #Plot 3.1: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VMN0P_YCO2 <- ModelDFSL_VMN0P %>%
+ModelDFSL_VMN_0P_YCO2 <- ModelDFSL_VMN_0P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMN0)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMN0P_YCO2) <- c("Year", "Months", "AnnualCO2_VMN_0")
+colnames(ModelDFSL_VMN_0P_YCO2) <- c("Year", "Months", "AnnualCO2_VMN_0")
 
 #Plot 3.2: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VMN0P_YCO2D <- merge(ModelDFSL_VMN0P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VMN0P_YCO2D$AnnualCO2D_VMN_0 <- ModelDFSL_VMN0P_YCO2D$AnnualCO2_VMN_0 * ModelDFSL_VMN0P_YCO2D$GWP100
+ModelDFSL_VMN_0P_YCO2D <- merge(ModelDFSL_VMN_0P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VMN_0P_YCO2D$AnnualCO2D_VMN_0 <- ModelDFSL_VMN_0P_YCO2D$AnnualCO2_VMN_0 * ModelDFSL_VMN_0P_YCO2D$GWP100
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VMN0P_YC <- ModelDFSL_VMN0P %>%
+ModelDFSL_VMN_0P_YC <- ModelDFSL_VMN_0P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMN0)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMN0P_YC) <- c("Year", "Months", "CEmissions_VMN_0")
+colnames(ModelDFSL_VMN_0P_YC) <- c("Year", "Months", "CEmissions_VMN_0")
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VMN0P_YCT <- ModelDFSL_VMN0P %>%
+ModelDFSL_VMN_0P_YCT <- ModelDFSL_VMN_0P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMN0)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMN0P_YCT) <- c("Year", "Months", "CTail_VMN_0")
+colnames(ModelDFSL_VMN_0P_YCT) <- c("Year", "Months", "CTail_VMN_0")
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VMN0P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN0P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VMN0P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN0P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMN0P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN0P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMN0P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN0P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMN_0P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN_0P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VMN_0P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN_0P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VMN_0P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN_0P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMN_0P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN_0P.xlsx") #Yearly C emissions
 
 
 #### 12.2 - VMN1) Manure; 10%clay; No Tillage ####
@@ -10292,43 +10292,43 @@ ModelDFSL1y_VMN1 <- ModelDFSLt0_VMN1 - ModelDFSLt1_VMN1
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMN1$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMN1P because implies a one-off input of C
-ModelDFSL_VMN1P <- ModelDFSL1y_VMN1
+#This model will be called VMN_1P because implies a one-off input of C
+ModelDFSL_VMN_1P <- ModelDFSL1y_VMN1
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VMN1P,"VXP_Models\\ModelDFSL_R_VMN1P.xlsx")
+write_xlsx(ModelDFSL_VMN_1P,"VXP_Models\\ModelDFSL_R_VMN_1P.xlsx")
 
 #Plot 3: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VMN1P_YCO2 <- ModelDFSL_VMN1P %>%
+ModelDFSL_VMN_1P_YCO2 <- ModelDFSL_VMN_1P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMN1)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMN1P_YCO2) <- c("Year", "Months", "AnnualCO2_VMN_1")
+colnames(ModelDFSL_VMN_1P_YCO2) <- c("Year", "Months", "AnnualCO2_VMN_1")
 
 #Plot 3: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VMN1P_YCO2D <- merge(ModelDFSL_VMN1P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VMN1P_YCO2D$AnnualCO2D_VMN_1 <- ModelDFSL_VMN1P_YCO2D$AnnualCO2_VMN_1 * ModelDFSL_VMN1P_YCO2D$GWP100
+ModelDFSL_VMN_1P_YCO2D <- merge(ModelDFSL_VMN_1P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VMN_1P_YCO2D$AnnualCO2D_VMN_1 <- ModelDFSL_VMN_1P_YCO2D$AnnualCO2_VMN_1 * ModelDFSL_VMN_1P_YCO2D$GWP100
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VMN1P_YC <- ModelDFSL_VMN1P %>%
+ModelDFSL_VMN_1P_YC <- ModelDFSL_VMN_1P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMN1)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMN1P_YC) <- c("Year", "Months", "CEmissions_VMN_1")
+colnames(ModelDFSL_VMN_1P_YC) <- c("Year", "Months", "CEmissions_VMN_1")
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VMN1P_YCT <- ModelDFSL_VMN1P %>%
+ModelDFSL_VMN_1P_YCT <- ModelDFSL_VMN_1P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMN1)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMN1P_YCT) <- c("Year", "Months", "CTail_VMN_1")
+colnames(ModelDFSL_VMN_1P_YCT) <- c("Year", "Months", "CTail_VMN_1")
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VMN1P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN1P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VMN1P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN1P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMN1P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN1P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMN1P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN1P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMN_1P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN_1P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VMN_1P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN_1P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VMN_1P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN_1P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMN_1P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN_1P.xlsx") #Yearly C emissions
 
 
 
@@ -10470,43 +10470,43 @@ ModelDFSL1y_VMN2 <- ModelDFSLt0_VMN2 - ModelDFSLt1_VMN2
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMN2$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMN2P because implies a one-off input of C
-ModelDFSL_VMN2P <- ModelDFSL1y_VMN2
+#This model will be called VMN_2P because implies a one-off input of C
+ModelDFSL_VMN_2P <- ModelDFSL1y_VMN2
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VMN2P,"VXP_Models\\ModelDFSL_R_VMN2P.xlsx")
+write_xlsx(ModelDFSL_VMN_2P,"VXP_Models\\ModelDFSL_R_VMN_2P.xlsx")
 
 #Plot 3: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VMN2P_YCO2 <- ModelDFSL_VMN2P %>%
+ModelDFSL_VMN_2P_YCO2 <- ModelDFSL_VMN_2P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMN2)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMN2P_YCO2) <- c("Year", "Months", "AnnualCO2_VMN_2")
+colnames(ModelDFSL_VMN_2P_YCO2) <- c("Year", "Months", "AnnualCO2_VMN_2")
 
 #Plot 3: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VMN2P_YCO2D <- merge(ModelDFSL_VMN2P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VMN2P_YCO2D$AnnualCO2D_VMN_2 <- ModelDFSL_VMN2P_YCO2D$AnnualCO2_VMN_2 * ModelDFSL_VMN2P_YCO2D$GWP100
+ModelDFSL_VMN_2P_YCO2D <- merge(ModelDFSL_VMN_2P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VMN_2P_YCO2D$AnnualCO2D_VMN_2 <- ModelDFSL_VMN_2P_YCO2D$AnnualCO2_VMN_2 * ModelDFSL_VMN_2P_YCO2D$GWP100
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VMN2P_YC <- ModelDFSL_VMN2P %>%
+ModelDFSL_VMN_2P_YC <- ModelDFSL_VMN_2P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMN2)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMN2P_YC) <- c("Year", "Months", "CEmissions_VMN_2")
+colnames(ModelDFSL_VMN_2P_YC) <- c("Year", "Months", "CEmissions_VMN_2")
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VMN2P_YCT <- ModelDFSL_VMN2P %>%
+ModelDFSL_VMN_2P_YCT <- ModelDFSL_VMN_2P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMN2)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMN2P_YCT) <- c("Year", "Months", "CTail_VMN_2")
+colnames(ModelDFSL_VMN_2P_YCT) <- c("Year", "Months", "CTail_VMN_2")
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VMN2P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN2P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VMN2P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN2P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMN2P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN2P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMN2P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN2P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMN_2P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN_2P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VMN_2P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN_2P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VMN_2P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN_2P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMN_2P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN_2P.xlsx") #Yearly C emissions
 
 
 
@@ -10648,43 +10648,43 @@ ModelDFSL1y_VMN3 <- ModelDFSLt0_VMN3 - ModelDFSLt1_VMN3
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMN3$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMN3P because implies a one-off input of C
-ModelDFSL_VMN3P <- ModelDFSL1y_VMN3
+#This model will be called VMN_3P because implies a one-off input of C
+ModelDFSL_VMN_3P <- ModelDFSL1y_VMN3
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VMN3P,"VXP_Models\\ModelDFSL_R_VMN3P.xlsx")
+write_xlsx(ModelDFSL_VMN_3P,"VXP_Models\\ModelDFSL_R_VMN_3P.xlsx")
 
 #Plot 3: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VMN3P_YCO2 <- ModelDFSL_VMN3P %>%
+ModelDFSL_VMN_3P_YCO2 <- ModelDFSL_VMN_3P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMN3)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMN3P_YCO2) <- c("Year", "Months", "AnnualCO2_VMN_3")
+colnames(ModelDFSL_VMN_3P_YCO2) <- c("Year", "Months", "AnnualCO2_VMN_3")
 
 #Plot 3: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VMN3P_YCO2D <- merge(ModelDFSL_VMN3P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VMN3P_YCO2D$AnnualCO2D_VMN_3 <- ModelDFSL_VMN3P_YCO2D$AnnualCO2_VMN_3 * ModelDFSL_VMN3P_YCO2D$GWP100
+ModelDFSL_VMN_3P_YCO2D <- merge(ModelDFSL_VMN_3P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VMN_3P_YCO2D$AnnualCO2D_VMN_3 <- ModelDFSL_VMN_3P_YCO2D$AnnualCO2_VMN_3 * ModelDFSL_VMN_3P_YCO2D$GWP100
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VMN3P_YC <- ModelDFSL_VMN3P %>%
+ModelDFSL_VMN_3P_YC <- ModelDFSL_VMN_3P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMN3)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMN3P_YC) <- c("Year", "Months", "CEmissions_VMN_3")
+colnames(ModelDFSL_VMN_3P_YC) <- c("Year", "Months", "CEmissions_VMN_3")
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VMN3P_YCT <- ModelDFSL_VMN3P %>%
+ModelDFSL_VMN_3P_YCT <- ModelDFSL_VMN_3P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMN3)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMN3P_YCT) <- c("Year", "Months", "CTail_VMN_3")
+colnames(ModelDFSL_VMN_3P_YCT) <- c("Year", "Months", "CTail_VMN_3")
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VMN3P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN3P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VMN3P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN3P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMN3P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN3P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMN3P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN3P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMN_3P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN_3P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VMN_3P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN_3P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VMN_3P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN_3P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMN_3P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN_3P.xlsx") #Yearly C emissions
 
 
 
@@ -10826,43 +10826,43 @@ ModelDFSL1y_VMN4 <- ModelDFSLt0_VMN4 - ModelDFSLt1_VMN4
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMN4$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMN4P because implies a one-off input of C
-ModelDFSL_VMN4P <- ModelDFSL1y_VMN4
+#This model will be called VMN_4P because implies a one-off input of C
+ModelDFSL_VMN_4P <- ModelDFSL1y_VMN4
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VMN4P,"VXP_Models\\ModelDFSL_R_VMN4P.xlsx")
+write_xlsx(ModelDFSL_VMN_4P,"VXP_Models\\ModelDFSL_R_VMN_4P.xlsx")
 
 #Plot 3: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VMN4P_YCO2 <- ModelDFSL_VMN4P %>%
+ModelDFSL_VMN_4P_YCO2 <- ModelDFSL_VMN_4P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMN4)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMN4P_YCO2) <- c("Year", "Months", "AnnualCO2_VMN_4")
+colnames(ModelDFSL_VMN_4P_YCO2) <- c("Year", "Months", "AnnualCO2_VMN_4")
 
 #Plot 3: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VMN4P_YCO2D <- merge(ModelDFSL_VMN4P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VMN4P_YCO2D$AnnualCO2D_VMN_4 <- ModelDFSL_VMN4P_YCO2D$AnnualCO2_VMN_4 * ModelDFSL_VMN4P_YCO2D$GWP100
+ModelDFSL_VMN_4P_YCO2D <- merge(ModelDFSL_VMN_4P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VMN_4P_YCO2D$AnnualCO2D_VMN_4 <- ModelDFSL_VMN_4P_YCO2D$AnnualCO2_VMN_4 * ModelDFSL_VMN_4P_YCO2D$GWP100
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VMN4P_YC <- ModelDFSL_VMN4P %>%
+ModelDFSL_VMN_4P_YC <- ModelDFSL_VMN_4P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMN4)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMN4P_YC) <- c("Year", "Months", "CEmissions_VMN_4")
+colnames(ModelDFSL_VMN_4P_YC) <- c("Year", "Months", "CEmissions_VMN_4")
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VMN4P_YCT <- ModelDFSL_VMN4P %>%
+ModelDFSL_VMN_4P_YCT <- ModelDFSL_VMN_4P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMN4)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMN4P_YCT) <- c("Year", "Months", "CTail_VMN_4")
+colnames(ModelDFSL_VMN_4P_YCT) <- c("Year", "Months", "CTail_VMN_4")
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VMN4P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN4P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VMN4P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN4P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMN4P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN4P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMN4P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN4P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMN_4P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN_4P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VMN_4P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN_4P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VMN_4P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN_4P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMN_4P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN_4P.xlsx") #Yearly C emissions
 
 
 
@@ -11004,46 +11004,46 @@ ModelDFSL1y_VMN5 <- ModelDFSLt0_VMN5 - ModelDFSLt1_VMN5
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMN5$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMN5P because implies a one-off input of C
-ModelDFSL_VMN5P <- ModelDFSL1y_VMN5
+#This model will be called VMN_5P because implies a one-off input of C
+ModelDFSL_VMN_5P <- ModelDFSL1y_VMN5
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VMN5P,"VXP_Models\\ModelDFSL_R_VMN5P.xlsx")
+write_xlsx(ModelDFSL_VMN_5P,"VXP_Models\\ModelDFSL_R_VMN_5P.xlsx")
 
 
 #Plot 3: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VMN5P_YCO2 <- ModelDFSL_VMN5P %>%
+ModelDFSL_VMN_5P_YCO2 <- ModelDFSL_VMN_5P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMN5)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMN5P_YCO2) <- c("Year", "Months", "AnnualCO2_VMN_5")
+colnames(ModelDFSL_VMN_5P_YCO2) <- c("Year", "Months", "AnnualCO2_VMN_5")
 
 
 #Plot 3: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VMN5P_YCO2D <- merge(ModelDFSL_VMN5P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VMN5P_YCO2D$AnnualCO2D_VMN_5 <- ModelDFSL_VMN5P_YCO2D$AnnualCO2_VMN_5 * ModelDFSL_VMN5P_YCO2D$GWP100
+ModelDFSL_VMN_5P_YCO2D <- merge(ModelDFSL_VMN_5P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VMN_5P_YCO2D$AnnualCO2D_VMN_5 <- ModelDFSL_VMN_5P_YCO2D$AnnualCO2_VMN_5 * ModelDFSL_VMN_5P_YCO2D$GWP100
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VMN5P_YC <- ModelDFSL_VMN5P %>%
+ModelDFSL_VMN_5P_YC <- ModelDFSL_VMN_5P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMN5)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMN5P_YC) <- c("Year", "Months", "CEmissions_VMN_5")
+colnames(ModelDFSL_VMN_5P_YC) <- c("Year", "Months", "CEmissions_VMN_5")
 
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VMN5P_YCT <- ModelDFSL_VMN5P %>%
+ModelDFSL_VMN_5P_YCT <- ModelDFSL_VMN_5P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMN5)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMN5P_YCT) <- c("Year", "Months", "CTail_VMN_5")
+colnames(ModelDFSL_VMN_5P_YCT) <- c("Year", "Months", "CTail_VMN_5")
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VMN5P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN5P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VMN5P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN5P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMN5P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN5P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMN5P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN5P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMN_5P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN_5P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VMN_5P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN_5P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VMN_5P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN_5P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMN_5P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN_5P.xlsx") #Yearly C emissions
 
 
 
@@ -11185,45 +11185,45 @@ ModelDFSL1y_VMN6 <- ModelDFSLt0_VMN6 - ModelDFSLt1_VMN6
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMN6$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMN6P because implies a one-off input of C
-ModelDFSL_VMN6P <- ModelDFSL1y_VMN6
+#This model will be called VMN_6P because implies a one-off input of C
+ModelDFSL_VMN_6P <- ModelDFSL1y_VMN6
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VMN6P,"VXP_Models\\ModelDFSL_R_VMN6P.xlsx")
+write_xlsx(ModelDFSL_VMN_6P,"VXP_Models\\ModelDFSL_R_VMN_6P.xlsx")
 
 #Plot 3: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VMN6P_YCO2 <- ModelDFSL_VMN6P %>%
+ModelDFSL_VMN_6P_YCO2 <- ModelDFSL_VMN_6P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMN6)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMN6P_YCO2) <- c("Year", "Months", "AnnualCO2_VMN_6")
+colnames(ModelDFSL_VMN_6P_YCO2) <- c("Year", "Months", "AnnualCO2_VMN_6")
 
 
 #Plot 3: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VMN6P_YCO2D <- merge(ModelDFSL_VMN6P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VMN6P_YCO2D$AnnualCO2D_VMN_6 <- ModelDFSL_VMN6P_YCO2D$AnnualCO2_VMN_6 * ModelDFSL_VMN6P_YCO2D$GWP100
+ModelDFSL_VMN_6P_YCO2D <- merge(ModelDFSL_VMN_6P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VMN_6P_YCO2D$AnnualCO2D_VMN_6 <- ModelDFSL_VMN_6P_YCO2D$AnnualCO2_VMN_6 * ModelDFSL_VMN_6P_YCO2D$GWP100
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VMN6P_YC <- ModelDFSL_VMN6P %>%
+ModelDFSL_VMN_6P_YC <- ModelDFSL_VMN_6P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMN6)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMN6P_YC) <- c("Year", "Months", "CEmissions_VMN_6")
+colnames(ModelDFSL_VMN_6P_YC) <- c("Year", "Months", "CEmissions_VMN_6")
 
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VMN6P_YCT <- ModelDFSL_VMN6P %>%
+ModelDFSL_VMN_6P_YCT <- ModelDFSL_VMN_6P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMN6)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMN6P_YCT) <- c("Year", "Months", "CTail_VMN_6")
+colnames(ModelDFSL_VMN_6P_YCT) <- c("Year", "Months", "CTail_VMN_6")
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VMN6P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN6P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VMN6P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN6P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMN6P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN6P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMN6P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN6P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMN_6P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN_6P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VMN_6P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN_6P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VMN_6P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN_6P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMN_6P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN_6P.xlsx") #Yearly C emissions
 
 
 
@@ -11365,46 +11365,46 @@ ModelDFSL1y_VMN7 <- ModelDFSLt0_VMN7 - ModelDFSLt1_VMN7
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMN7$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMN7P because implies a one-off input of C
-ModelDFSL_VMN7P <- ModelDFSL1y_VMN7
+#This model will be called VMN_7P because implies a one-off input of C
+ModelDFSL_VMN_7P <- ModelDFSL1y_VMN7
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VMN7P,"VXP_Models\\ModelDFSL_R_VMN7P.xlsx")
+write_xlsx(ModelDFSL_VMN_7P,"VXP_Models\\ModelDFSL_R_VMN_7P.xlsx")
 
 #Plot 3: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VMN7P_YCO2 <- ModelDFSL_VMN7P %>%
+ModelDFSL_VMN_7P_YCO2 <- ModelDFSL_VMN_7P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMN7)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMN7P_YCO2) <- c("Year", "Months", "AnnualCO2_VMN_7")
+colnames(ModelDFSL_VMN_7P_YCO2) <- c("Year", "Months", "AnnualCO2_VMN_7")
 
 
 #Plot 3: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VMN7P_YCO2D <- merge(ModelDFSL_VMN7P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VMN7P_YCO2D$AnnualCO2D_VMN_7 <- ModelDFSL_VMN7P_YCO2D$AnnualCO2_VMN_7 * ModelDFSL_VMN7P_YCO2D$GWP100
+ModelDFSL_VMN_7P_YCO2D <- merge(ModelDFSL_VMN_7P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VMN_7P_YCO2D$AnnualCO2D_VMN_7 <- ModelDFSL_VMN_7P_YCO2D$AnnualCO2_VMN_7 * ModelDFSL_VMN_7P_YCO2D$GWP100
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VMN7P_YC <- ModelDFSL_VMN7P %>%
+ModelDFSL_VMN_7P_YC <- ModelDFSL_VMN_7P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMN7)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMN7P_YC) <- c("Year", "Months", "CEmissions_VMN_7")
+colnames(ModelDFSL_VMN_7P_YC) <- c("Year", "Months", "CEmissions_VMN_7")
 
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VMN7P_YCT <- ModelDFSL_VMN7P %>%
+ModelDFSL_VMN_7P_YCT <- ModelDFSL_VMN_7P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMN7)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMN7P_YCT) <- c("Year", "Months", "CTail_VMN_7")
+colnames(ModelDFSL_VMN_7P_YCT) <- c("Year", "Months", "CTail_VMN_7")
 
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VMN7P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN7P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VMN7P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN7P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMN7P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN7P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMN7P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN7P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMN_7P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN_7P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VMN_7P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN_7P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VMN_7P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN_7P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMN_7P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN_7P.xlsx") #Yearly C emissions
 
 
 
@@ -11546,45 +11546,45 @@ ModelDFSL1y_VMN8 <- ModelDFSLt0_VMN8 - ModelDFSLt1_VMN8
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMN8$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMN8P because implies a one-off input of C
-ModelDFSL_VMN8P <- ModelDFSL1y_VMN8
+#This model will be called VMN_8P because implies a one-off input of C
+ModelDFSL_VMN_8P <- ModelDFSL1y_VMN8
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VMN8P,"VXP_Models\\ModelDFSL_R_VMN8P.xlsx")
+write_xlsx(ModelDFSL_VMN_8P,"VXP_Models\\ModelDFSL_R_VMN_8P.xlsx")
 
 
 #Plot 3: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VMN8P_YCO2 <- ModelDFSL_VMN8P %>%
+ModelDFSL_VMN_8P_YCO2 <- ModelDFSL_VMN_8P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMN8)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMN8P_YCO2) <- c("Year", "Months", "AnnualCO2_VMN_8")
+colnames(ModelDFSL_VMN_8P_YCO2) <- c("Year", "Months", "AnnualCO2_VMN_8")
 
 #Plot 3: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VMN8P_YCO2D <- merge(ModelDFSL_VMN8P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VMN8P_YCO2D$AnnualCO2D_VMN_8 <- ModelDFSL_VMN8P_YCO2D$AnnualCO2_VMN_8 * ModelDFSL_VMN8P_YCO2D$GWP100
+ModelDFSL_VMN_8P_YCO2D <- merge(ModelDFSL_VMN_8P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VMN_8P_YCO2D$AnnualCO2D_VMN_8 <- ModelDFSL_VMN_8P_YCO2D$AnnualCO2_VMN_8 * ModelDFSL_VMN_8P_YCO2D$GWP100
 
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VMN8P_YC <- ModelDFSL_VMN8P %>%
+ModelDFSL_VMN_8P_YC <- ModelDFSL_VMN_8P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMN8)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMN8P_YC) <- c("Year", "Months", "CEmissions_VMN_8")
+colnames(ModelDFSL_VMN_8P_YC) <- c("Year", "Months", "CEmissions_VMN_8")
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VMN8P_YCT <- ModelDFSL_VMN8P %>%
+ModelDFSL_VMN_8P_YCT <- ModelDFSL_VMN_8P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMN8)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMN8P_YCT) <- c("Year", "Months", "CTail_VMN_8")
+colnames(ModelDFSL_VMN_8P_YCT) <- c("Year", "Months", "CTail_VMN_8")
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VMN8P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN8P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VMN8P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN8P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMN8P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN8P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMN8P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN8P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMN_8P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN_8P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VMN_8P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN_8P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VMN_8P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN_8P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMN_8P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN_8P.xlsx") #Yearly C emissions
 
 
 
@@ -11726,45 +11726,45 @@ ModelDFSL1y_VMN9 <- ModelDFSLt0_VMN9 - ModelDFSLt1_VMN9
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMN9$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMN9P because implies a one-off input of C
-ModelDFSL_VMN9P <- ModelDFSL1y_VMN9
+#This model will be called VMN_9P because implies a one-off input of C
+ModelDFSL_VMN_9P <- ModelDFSL1y_VMN9
 
 #Export the dataframe
-write_xlsx(ModelDFSL_VMN9P,"VXP_Models\\ModelDFSL_R_VMN9P.xlsx")
+write_xlsx(ModelDFSL_VMN_9P,"VXP_Models\\ModelDFSL_R_VMN_9P.xlsx")
 
 
 #Plot 3: Interactive Yearly CO2 emissions #
 MY <- 12
-ModelDFSL_VMN9P_YCO2 <- ModelDFSL_VMN9P %>%
+ModelDFSL_VMN_9P_YCO2 <- ModelDFSL_VMN_9P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMN9)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMN9P_YCO2) <- c("Year", "Months", "AnnualCO2_VMN_9")
+colnames(ModelDFSL_VMN_9P_YCO2) <- c("Year", "Months", "AnnualCO2_VMN_9")
 
 #Plot 3: Interactive Yearly CO2 emissions considering a delay
 GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-ModelDFSL_VMN9P_YCO2D <- merge(ModelDFSL_VMN9P_YCO2, GWP100delay, by = "Year")
-ModelDFSL_VMN9P_YCO2D$AnnualCO2D_VMN_9 <- ModelDFSL_VMN9P_YCO2D$AnnualCO2_VMN_9 * ModelDFSL_VMN9P_YCO2D$GWP100
+ModelDFSL_VMN_9P_YCO2D <- merge(ModelDFSL_VMN_9P_YCO2, GWP100delay, by = "Year")
+ModelDFSL_VMN_9P_YCO2D$AnnualCO2D_VMN_9 <- ModelDFSL_VMN_9P_YCO2D$AnnualCO2_VMN_9 * ModelDFSL_VMN_9P_YCO2D$GWP100
 
 
 #Plot 4: Interactive Yearly C emissions #
 MY <- 12
-ModelDFSL_VMN9P_YC <- ModelDFSL_VMN9P %>%
+ModelDFSL_VMN_9P_YC <- ModelDFSL_VMN_9P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMN9)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMN9P_YC) <- c("Year", "Months", "CEmissions_VMN_9")
+colnames(ModelDFSL_VMN_9P_YC) <- c("Year", "Months", "CEmissions_VMN_9")
 
 #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
 MY <- 12
-ModelDFSL_VMN9P_YCT <- ModelDFSL_VMN9P %>%
+ModelDFSL_VMN_9P_YCT <- ModelDFSL_VMN_9P %>%
   group_by(grp = as.integer(gl(n(), MY, n()))) %>%
   summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMN9)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-colnames(ModelDFSL_VMN9P_YCT) <- c("Year", "Months", "CTail_VMN_9")
+colnames(ModelDFSL_VMN_9P_YCT) <- c("Year", "Months", "CTail_VMN_9")
 
 #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-write_xlsx(ModelDFSL_VMN9P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN9P.xlsx") #Yearly CO2 emissions (no delay)
-write_xlsx(ModelDFSL_VMN9P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN9P.xlsx") #Yearly CO2 emissions (delay)
-write_xlsx(ModelDFSL_VMN9P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN9P.xlsx") #Yearly C emissions
-write_xlsx(ModelDFSL_VMN9P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN9P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMN_9P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN_9P.xlsx") #Yearly CO2 emissions (no delay)
+write_xlsx(ModelDFSL_VMN_9P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN_9P.xlsx") #Yearly CO2 emissions (delay)
+write_xlsx(ModelDFSL_VMN_9P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN_9P.xlsx") #Yearly C emissions
+write_xlsx(ModelDFSL_VMN_9P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN_9P.xlsx") #Yearly C emissions
 
 
 
@@ -12080,43 +12080,43 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VLC0$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VLC0P because implies a one-off input of C
-    ModelDFSL_VLC0P <- ModelDFSL1y_VLC0
+    #This model will be called VLC_0P because implies a one-off input of C
+    ModelDFSL_VLC_0P <- ModelDFSL1y_VLC0
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VLC0P,"VXP_Models\\ModelDFSL_R_VLC0P.xlsx")
+    write_xlsx(ModelDFSL_VLC_0P,"VXP_Models\\ModelDFSL_R_VLC_0P.xlsx")
 
     #Plot 3.1: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VLC0P_YCO2 <- ModelDFSL_VLC0P %>%
+    ModelDFSL_VLC_0P_YCO2 <- ModelDFSL_VLC_0P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLC0)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLC0P_YCO2) <- c("Year", "Months", "AnnualCO2_VLC_0")
+    colnames(ModelDFSL_VLC_0P_YCO2) <- c("Year", "Months", "AnnualCO2_VLC_0")
 
     #Plot 3.2: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VLC0P_YCO2D <- merge(ModelDFSL_VLC0P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VLC0P_YCO2D$AnnualCO2D_VLC_0 <- ModelDFSL_VLC0P_YCO2D$AnnualCO2_VLC_0 * ModelDFSL_VLC0P_YCO2D$GWP100
+    ModelDFSL_VLC_0P_YCO2D <- merge(ModelDFSL_VLC_0P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VLC_0P_YCO2D$AnnualCO2D_VLC_0 <- ModelDFSL_VLC_0P_YCO2D$AnnualCO2_VLC_0 * ModelDFSL_VLC_0P_YCO2D$GWP100
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VLC0P_YC <- ModelDFSL_VLC0P %>%
+    ModelDFSL_VLC_0P_YC <- ModelDFSL_VLC_0P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLC0)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLC0P_YC) <- c("Year", "Months", "CEmissions_VLC_0")
+    colnames(ModelDFSL_VLC_0P_YC) <- c("Year", "Months", "CEmissions_VLC_0")
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VLC0P_YCT <- ModelDFSL_VLC0P %>%
+    ModelDFSL_VLC_0P_YCT <- ModelDFSL_VLC_0P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLC0)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLC0P_YCT) <- c("Year", "Months", "CTail_VLC_0")
+    colnames(ModelDFSL_VLC_0P_YCT) <- c("Year", "Months", "CTail_VLC_0")
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VLC0P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC0P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VLC0P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC0P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLC0P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC0P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLC0P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC0P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLC_0P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC_0P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VLC_0P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC_0P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VLC_0P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC_0P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLC_0P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC_0P.xlsx") #Yearly C emissions
 
 
     #### 7.2 - VLC1) Litter; 10%clay; Conventional tillage ####
@@ -12257,43 +12257,43 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VLC1$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VLC1P because implies a one-off input of C
-    ModelDFSL_VLC1P <- ModelDFSL1y_VLC1
+    #This model will be called VLC_1P because implies a one-off input of C
+    ModelDFSL_VLC_1P <- ModelDFSL1y_VLC1
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VLC1P,"VXP_Models\\ModelDFSL_R_VLC1P.xlsx")
+    write_xlsx(ModelDFSL_VLC_1P,"VXP_Models\\ModelDFSL_R_VLC_1P.xlsx")
 
     #Plot 3: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VLC1P_YCO2 <- ModelDFSL_VLC1P %>%
+    ModelDFSL_VLC_1P_YCO2 <- ModelDFSL_VLC_1P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLC1)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLC1P_YCO2) <- c("Year", "Months", "AnnualCO2_VLC_1")
+    colnames(ModelDFSL_VLC_1P_YCO2) <- c("Year", "Months", "AnnualCO2_VLC_1")
 
     #Plot 3: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VLC1P_YCO2D <- merge(ModelDFSL_VLC1P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VLC1P_YCO2D$AnnualCO2D_VLC_1 <- ModelDFSL_VLC1P_YCO2D$AnnualCO2_VLC_1 * ModelDFSL_VLC1P_YCO2D$GWP100
+    ModelDFSL_VLC_1P_YCO2D <- merge(ModelDFSL_VLC_1P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VLC_1P_YCO2D$AnnualCO2D_VLC_1 <- ModelDFSL_VLC_1P_YCO2D$AnnualCO2_VLC_1 * ModelDFSL_VLC_1P_YCO2D$GWP100
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VLC1P_YC <- ModelDFSL_VLC1P %>%
+    ModelDFSL_VLC_1P_YC <- ModelDFSL_VLC_1P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLC1)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLC1P_YC) <- c("Year", "Months", "CEmissions_VLC_1")
+    colnames(ModelDFSL_VLC_1P_YC) <- c("Year", "Months", "CEmissions_VLC_1")
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VLC1P_YCT <- ModelDFSL_VLC1P %>%
+    ModelDFSL_VLC_1P_YCT <- ModelDFSL_VLC_1P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLC1)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLC1P_YCT) <- c("Year", "Months", "CTail_VLC_1")
+    colnames(ModelDFSL_VLC_1P_YCT) <- c("Year", "Months", "CTail_VLC_1")
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VLC1P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC1P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VLC1P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC1P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLC1P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC1P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLC1P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC1P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLC_1P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC_1P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VLC_1P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC_1P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VLC_1P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC_1P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLC_1P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC_1P.xlsx") #Yearly C emissions
 
 
 
@@ -12435,43 +12435,43 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VLC2$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VLC2P because implies a one-off input of C
-    ModelDFSL_VLC2P <- ModelDFSL1y_VLC2
+    #This model will be called VLC_2P because implies a one-off input of C
+    ModelDFSL_VLC_2P <- ModelDFSL1y_VLC2
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VLC2P,"VXP_Models\\ModelDFSL_R_VLC2P.xlsx")
+    write_xlsx(ModelDFSL_VLC_2P,"VXP_Models\\ModelDFSL_R_VLC_2P.xlsx")
 
     #Plot 3: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VLC2P_YCO2 <- ModelDFSL_VLC2P %>%
+    ModelDFSL_VLC_2P_YCO2 <- ModelDFSL_VLC_2P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLC2)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLC2P_YCO2) <- c("Year", "Months", "AnnualCO2_VLC_2")
+    colnames(ModelDFSL_VLC_2P_YCO2) <- c("Year", "Months", "AnnualCO2_VLC_2")
 
     #Plot 3: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VLC2P_YCO2D <- merge(ModelDFSL_VLC2P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VLC2P_YCO2D$AnnualCO2D_VLC_2 <- ModelDFSL_VLC2P_YCO2D$AnnualCO2_VLC_2 * ModelDFSL_VLC2P_YCO2D$GWP100
+    ModelDFSL_VLC_2P_YCO2D <- merge(ModelDFSL_VLC_2P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VLC_2P_YCO2D$AnnualCO2D_VLC_2 <- ModelDFSL_VLC_2P_YCO2D$AnnualCO2_VLC_2 * ModelDFSL_VLC_2P_YCO2D$GWP100
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VLC2P_YC <- ModelDFSL_VLC2P %>%
+    ModelDFSL_VLC_2P_YC <- ModelDFSL_VLC_2P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLC2)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLC2P_YC) <- c("Year", "Months", "CEmissions_VLC_2")
+    colnames(ModelDFSL_VLC_2P_YC) <- c("Year", "Months", "CEmissions_VLC_2")
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VLC2P_YCT <- ModelDFSL_VLC2P %>%
+    ModelDFSL_VLC_2P_YCT <- ModelDFSL_VLC_2P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLC2)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLC2P_YCT) <- c("Year", "Months", "CTail_VLC_2")
+    colnames(ModelDFSL_VLC_2P_YCT) <- c("Year", "Months", "CTail_VLC_2")
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VLC2P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC2P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VLC2P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC2P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLC2P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC2P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLC2P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC2P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLC_2P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC_2P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VLC_2P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC_2P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VLC_2P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC_2P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLC_2P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC_2P.xlsx") #Yearly C emissions
 
 
 
@@ -12613,43 +12613,43 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VLC3$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VLC3P because implies a one-off input of C
-    ModelDFSL_VLC3P <- ModelDFSL1y_VLC3
+    #This model will be called VLC_3P because implies a one-off input of C
+    ModelDFSL_VLC_3P <- ModelDFSL1y_VLC3
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VLC3P,"VXP_Models\\ModelDFSL_R_VLC3P.xlsx")
+    write_xlsx(ModelDFSL_VLC_3P,"VXP_Models\\ModelDFSL_R_VLC_3P.xlsx")
 
     #Plot 3: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VLC3P_YCO2 <- ModelDFSL_VLC3P %>%
+    ModelDFSL_VLC_3P_YCO2 <- ModelDFSL_VLC_3P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLC3)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLC3P_YCO2) <- c("Year", "Months", "AnnualCO2_VLC_3")
+    colnames(ModelDFSL_VLC_3P_YCO2) <- c("Year", "Months", "AnnualCO2_VLC_3")
 
     #Plot 3: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VLC3P_YCO2D <- merge(ModelDFSL_VLC3P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VLC3P_YCO2D$AnnualCO2D_VLC_3 <- ModelDFSL_VLC3P_YCO2D$AnnualCO2_VLC_3 * ModelDFSL_VLC3P_YCO2D$GWP100
+    ModelDFSL_VLC_3P_YCO2D <- merge(ModelDFSL_VLC_3P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VLC_3P_YCO2D$AnnualCO2D_VLC_3 <- ModelDFSL_VLC_3P_YCO2D$AnnualCO2_VLC_3 * ModelDFSL_VLC_3P_YCO2D$GWP100
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VLC3P_YC <- ModelDFSL_VLC3P %>%
+    ModelDFSL_VLC_3P_YC <- ModelDFSL_VLC_3P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLC3)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLC3P_YC) <- c("Year", "Months", "CEmissions_VLC_3")
+    colnames(ModelDFSL_VLC_3P_YC) <- c("Year", "Months", "CEmissions_VLC_3")
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VLC3P_YCT <- ModelDFSL_VLC3P %>%
+    ModelDFSL_VLC_3P_YCT <- ModelDFSL_VLC_3P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLC3)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLC3P_YCT) <- c("Year", "Months", "CTail_VLC_3")
+    colnames(ModelDFSL_VLC_3P_YCT) <- c("Year", "Months", "CTail_VLC_3")
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VLC3P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC3P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VLC3P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC3P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLC3P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC3P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLC3P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC3P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLC_3P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC_3P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VLC_3P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC_3P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VLC_3P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC_3P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLC_3P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC_3P.xlsx") #Yearly C emissions
 
 
 
@@ -12791,43 +12791,43 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VLC4$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VLC4P because implies a one-off input of C
-    ModelDFSL_VLC4P <- ModelDFSL1y_VLC4
+    #This model will be called VLC_4P because implies a one-off input of C
+    ModelDFSL_VLC_4P <- ModelDFSL1y_VLC4
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VLC4P,"VXP_Models\\ModelDFSL_R_VLC4P.xlsx")
+    write_xlsx(ModelDFSL_VLC_4P,"VXP_Models\\ModelDFSL_R_VLC_4P.xlsx")
 
     #Plot 3: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VLC4P_YCO2 <- ModelDFSL_VLC4P %>%
+    ModelDFSL_VLC_4P_YCO2 <- ModelDFSL_VLC_4P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLC4)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLC4P_YCO2) <- c("Year", "Months", "AnnualCO2_VLC_4")
+    colnames(ModelDFSL_VLC_4P_YCO2) <- c("Year", "Months", "AnnualCO2_VLC_4")
 
     #Plot 3: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VLC4P_YCO2D <- merge(ModelDFSL_VLC4P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VLC4P_YCO2D$AnnualCO2D_VLC_4 <- ModelDFSL_VLC4P_YCO2D$AnnualCO2_VLC_4 * ModelDFSL_VLC4P_YCO2D$GWP100
+    ModelDFSL_VLC_4P_YCO2D <- merge(ModelDFSL_VLC_4P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VLC_4P_YCO2D$AnnualCO2D_VLC_4 <- ModelDFSL_VLC_4P_YCO2D$AnnualCO2_VLC_4 * ModelDFSL_VLC_4P_YCO2D$GWP100
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VLC4P_YC <- ModelDFSL_VLC4P %>%
+    ModelDFSL_VLC_4P_YC <- ModelDFSL_VLC_4P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLC4)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLC4P_YC) <- c("Year", "Months", "CEmissions_VLC_4")
+    colnames(ModelDFSL_VLC_4P_YC) <- c("Year", "Months", "CEmissions_VLC_4")
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VLC4P_YCT <- ModelDFSL_VLC4P %>%
+    ModelDFSL_VLC_4P_YCT <- ModelDFSL_VLC_4P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLC4)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLC4P_YCT) <- c("Year", "Months", "CTail_VLC_4")
+    colnames(ModelDFSL_VLC_4P_YCT) <- c("Year", "Months", "CTail_VLC_4")
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VLC4P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC4P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VLC4P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC4P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLC4P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC4P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLC4P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC4P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLC_4P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC_4P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VLC_4P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC_4P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VLC_4P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC_4P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLC_4P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC_4P.xlsx") #Yearly C emissions
 
 
 
@@ -12969,46 +12969,46 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VLC5$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VLC5P because implies a one-off input of C
-    ModelDFSL_VLC5P <- ModelDFSL1y_VLC5
+    #This model will be called VLC_5P because implies a one-off input of C
+    ModelDFSL_VLC_5P <- ModelDFSL1y_VLC5
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VLC5P,"VXP_Models\\ModelDFSL_R_VLC5P.xlsx")
+    write_xlsx(ModelDFSL_VLC_5P,"VXP_Models\\ModelDFSL_R_VLC_5P.xlsx")
 
 
     #Plot 3: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VLC5P_YCO2 <- ModelDFSL_VLC5P %>%
+    ModelDFSL_VLC_5P_YCO2 <- ModelDFSL_VLC_5P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLC5)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLC5P_YCO2) <- c("Year", "Months", "AnnualCO2_VLC_5")
+    colnames(ModelDFSL_VLC_5P_YCO2) <- c("Year", "Months", "AnnualCO2_VLC_5")
 
 
     #Plot 3: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VLC5P_YCO2D <- merge(ModelDFSL_VLC5P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VLC5P_YCO2D$AnnualCO2D_VLC_5 <- ModelDFSL_VLC5P_YCO2D$AnnualCO2_VLC_5 * ModelDFSL_VLC5P_YCO2D$GWP100
+    ModelDFSL_VLC_5P_YCO2D <- merge(ModelDFSL_VLC_5P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VLC_5P_YCO2D$AnnualCO2D_VLC_5 <- ModelDFSL_VLC_5P_YCO2D$AnnualCO2_VLC_5 * ModelDFSL_VLC_5P_YCO2D$GWP100
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VLC5P_YC <- ModelDFSL_VLC5P %>%
+    ModelDFSL_VLC_5P_YC <- ModelDFSL_VLC_5P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLC5)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLC5P_YC) <- c("Year", "Months", "CEmissions_VLC_5")
+    colnames(ModelDFSL_VLC_5P_YC) <- c("Year", "Months", "CEmissions_VLC_5")
 
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VLC5P_YCT <- ModelDFSL_VLC5P %>%
+    ModelDFSL_VLC_5P_YCT <- ModelDFSL_VLC_5P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLC5)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLC5P_YCT) <- c("Year", "Months", "CTail_VLC_5")
+    colnames(ModelDFSL_VLC_5P_YCT) <- c("Year", "Months", "CTail_VLC_5")
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VLC5P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC5P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VLC5P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC5P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLC5P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC5P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLC5P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC5P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLC_5P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC_5P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VLC_5P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC_5P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VLC_5P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC_5P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLC_5P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC_5P.xlsx") #Yearly C emissions
 
 
 
@@ -13150,45 +13150,45 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VLC6$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VLC6P because implies a one-off input of C
-    ModelDFSL_VLC6P <- ModelDFSL1y_VLC6
+    #This model will be called VLC_6P because implies a one-off input of C
+    ModelDFSL_VLC_6P <- ModelDFSL1y_VLC6
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VLC6P,"VXP_Models\\ModelDFSL_R_VLC6P.xlsx")
+    write_xlsx(ModelDFSL_VLC_6P,"VXP_Models\\ModelDFSL_R_VLC_6P.xlsx")
 
     #Plot 3: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VLC6P_YCO2 <- ModelDFSL_VLC6P %>%
+    ModelDFSL_VLC_6P_YCO2 <- ModelDFSL_VLC_6P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLC6)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLC6P_YCO2) <- c("Year", "Months", "AnnualCO2_VLC_6")
+    colnames(ModelDFSL_VLC_6P_YCO2) <- c("Year", "Months", "AnnualCO2_VLC_6")
 
 
     #Plot 3: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VLC6P_YCO2D <- merge(ModelDFSL_VLC6P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VLC6P_YCO2D$AnnualCO2D_VLC_6 <- ModelDFSL_VLC6P_YCO2D$AnnualCO2_VLC_6 * ModelDFSL_VLC6P_YCO2D$GWP100
+    ModelDFSL_VLC_6P_YCO2D <- merge(ModelDFSL_VLC_6P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VLC_6P_YCO2D$AnnualCO2D_VLC_6 <- ModelDFSL_VLC_6P_YCO2D$AnnualCO2_VLC_6 * ModelDFSL_VLC_6P_YCO2D$GWP100
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VLC6P_YC <- ModelDFSL_VLC6P %>%
+    ModelDFSL_VLC_6P_YC <- ModelDFSL_VLC_6P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLC6)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLC6P_YC) <- c("Year", "Months", "CEmissions_VLC_6")
+    colnames(ModelDFSL_VLC_6P_YC) <- c("Year", "Months", "CEmissions_VLC_6")
 
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VLC6P_YCT <- ModelDFSL_VLC6P %>%
+    ModelDFSL_VLC_6P_YCT <- ModelDFSL_VLC_6P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLC6)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLC6P_YCT) <- c("Year", "Months", "CTail_VLC_6")
+    colnames(ModelDFSL_VLC_6P_YCT) <- c("Year", "Months", "CTail_VLC_6")
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VLC6P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC6P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VLC6P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC6P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLC6P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC6P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLC6P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC6P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLC_6P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC_6P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VLC_6P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC_6P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VLC_6P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC_6P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLC_6P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC_6P.xlsx") #Yearly C emissions
 
 
 
@@ -13330,46 +13330,46 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VLC7$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VLC7P because implies a one-off input of C
-    ModelDFSL_VLC7P <- ModelDFSL1y_VLC7
+    #This model will be called VLC_7P because implies a one-off input of C
+    ModelDFSL_VLC_7P <- ModelDFSL1y_VLC7
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VLC7P,"VXP_Models\\ModelDFSL_R_VLC7P.xlsx")
+    write_xlsx(ModelDFSL_VLC_7P,"VXP_Models\\ModelDFSL_R_VLC_7P.xlsx")
 
     #Plot 3: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VLC7P_YCO2 <- ModelDFSL_VLC7P %>%
+    ModelDFSL_VLC_7P_YCO2 <- ModelDFSL_VLC_7P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLC7)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLC7P_YCO2) <- c("Year", "Months", "AnnualCO2_VLC_7")
+    colnames(ModelDFSL_VLC_7P_YCO2) <- c("Year", "Months", "AnnualCO2_VLC_7")
 
 
     #Plot 3: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VLC7P_YCO2D <- merge(ModelDFSL_VLC7P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VLC7P_YCO2D$AnnualCO2D_VLC_7 <- ModelDFSL_VLC7P_YCO2D$AnnualCO2_VLC_7 * ModelDFSL_VLC7P_YCO2D$GWP100
+    ModelDFSL_VLC_7P_YCO2D <- merge(ModelDFSL_VLC_7P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VLC_7P_YCO2D$AnnualCO2D_VLC_7 <- ModelDFSL_VLC_7P_YCO2D$AnnualCO2_VLC_7 * ModelDFSL_VLC_7P_YCO2D$GWP100
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VLC7P_YC <- ModelDFSL_VLC7P %>%
+    ModelDFSL_VLC_7P_YC <- ModelDFSL_VLC_7P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLC7)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLC7P_YC) <- c("Year", "Months", "CEmissions_VLC_7")
+    colnames(ModelDFSL_VLC_7P_YC) <- c("Year", "Months", "CEmissions_VLC_7")
 
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VLC7P_YCT <- ModelDFSL_VLC7P %>%
+    ModelDFSL_VLC_7P_YCT <- ModelDFSL_VLC_7P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLC7)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLC7P_YCT) <- c("Year", "Months", "CTail_VLC_7")
+    colnames(ModelDFSL_VLC_7P_YCT) <- c("Year", "Months", "CTail_VLC_7")
 
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VLC7P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC7P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VLC7P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC7P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLC7P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC7P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLC7P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC7P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLC_7P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC_7P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VLC_7P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC_7P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VLC_7P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC_7P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLC_7P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC_7P.xlsx") #Yearly C emissions
 
 
 
@@ -13511,45 +13511,45 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VLC8$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VLC8P because implies a one-off input of C
-    ModelDFSL_VLC8P <- ModelDFSL1y_VLC8
+    #This model will be called VLC_8P because implies a one-off input of C
+    ModelDFSL_VLC_8P <- ModelDFSL1y_VLC8
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VLC8P,"VXP_Models\\ModelDFSL_R_VLC8P.xlsx")
+    write_xlsx(ModelDFSL_VLC_8P,"VXP_Models\\ModelDFSL_R_VLC_8P.xlsx")
 
 
     #Plot 3: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VLC8P_YCO2 <- ModelDFSL_VLC8P %>%
+    ModelDFSL_VLC_8P_YCO2 <- ModelDFSL_VLC_8P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLC8)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLC8P_YCO2) <- c("Year", "Months", "AnnualCO2_VLC_8")
+    colnames(ModelDFSL_VLC_8P_YCO2) <- c("Year", "Months", "AnnualCO2_VLC_8")
 
     #Plot 3: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VLC8P_YCO2D <- merge(ModelDFSL_VLC8P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VLC8P_YCO2D$AnnualCO2D_VLC_8 <- ModelDFSL_VLC8P_YCO2D$AnnualCO2_VLC_8 * ModelDFSL_VLC8P_YCO2D$GWP100
+    ModelDFSL_VLC_8P_YCO2D <- merge(ModelDFSL_VLC_8P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VLC_8P_YCO2D$AnnualCO2D_VLC_8 <- ModelDFSL_VLC_8P_YCO2D$AnnualCO2_VLC_8 * ModelDFSL_VLC_8P_YCO2D$GWP100
 
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VLC8P_YC <- ModelDFSL_VLC8P %>%
+    ModelDFSL_VLC_8P_YC <- ModelDFSL_VLC_8P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLC8)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLC8P_YC) <- c("Year", "Months", "CEmissions_VLC_8")
+    colnames(ModelDFSL_VLC_8P_YC) <- c("Year", "Months", "CEmissions_VLC_8")
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VLC8P_YCT <- ModelDFSL_VLC8P %>%
+    ModelDFSL_VLC_8P_YCT <- ModelDFSL_VLC_8P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLC8)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLC8P_YCT) <- c("Year", "Months", "CTail_VLC_8")
+    colnames(ModelDFSL_VLC_8P_YCT) <- c("Year", "Months", "CTail_VLC_8")
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VLC8P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC8P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VLC8P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC8P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLC8P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC8P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLC8P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC8P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLC_8P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC_8P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VLC_8P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC_8P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VLC_8P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC_8P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLC_8P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC_8P.xlsx") #Yearly C emissions
 
 
 
@@ -13691,45 +13691,45 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VLC9$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VLC9P because implies a one-off input of C
-    ModelDFSL_VLC9P <- ModelDFSL1y_VLC9
+    #This model will be called VLC_9P because implies a one-off input of C
+    ModelDFSL_VLC_9P <- ModelDFSL1y_VLC9
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VLC9P,"VXP_Models\\ModelDFSL_R_VLC9P.xlsx")
+    write_xlsx(ModelDFSL_VLC_9P,"VXP_Models\\ModelDFSL_R_VLC_9P.xlsx")
 
 
     #Plot 3: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VLC9P_YCO2 <- ModelDFSL_VLC9P %>%
+    ModelDFSL_VLC_9P_YCO2 <- ModelDFSL_VLC_9P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLC9)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLC9P_YCO2) <- c("Year", "Months", "AnnualCO2_VLC_9")
+    colnames(ModelDFSL_VLC_9P_YCO2) <- c("Year", "Months", "AnnualCO2_VLC_9")
 
     #Plot 3: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VLC9P_YCO2D <- merge(ModelDFSL_VLC9P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VLC9P_YCO2D$AnnualCO2D_VLC_9 <- ModelDFSL_VLC9P_YCO2D$AnnualCO2_VLC_9 * ModelDFSL_VLC9P_YCO2D$GWP100
+    ModelDFSL_VLC_9P_YCO2D <- merge(ModelDFSL_VLC_9P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VLC_9P_YCO2D$AnnualCO2D_VLC_9 <- ModelDFSL_VLC_9P_YCO2D$AnnualCO2_VLC_9 * ModelDFSL_VLC_9P_YCO2D$GWP100
 
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VLC9P_YC <- ModelDFSL_VLC9P %>%
+    ModelDFSL_VLC_9P_YC <- ModelDFSL_VLC_9P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLC9)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLC9P_YC) <- c("Year", "Months", "CEmissions_VLC_9")
+    colnames(ModelDFSL_VLC_9P_YC) <- c("Year", "Months", "CEmissions_VLC_9")
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VLC9P_YCT <- ModelDFSL_VLC9P %>%
+    ModelDFSL_VLC_9P_YCT <- ModelDFSL_VLC_9P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLC9)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLC9P_YCT) <- c("Year", "Months", "CTail_VLC_9")
+    colnames(ModelDFSL_VLC_9P_YCT) <- c("Year", "Months", "CTail_VLC_9")
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VLC9P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC9P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VLC9P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC9P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLC9P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC9P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLC9P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC9P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLC_9P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLC_9P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VLC_9P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLC_9P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VLC_9P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLC_9P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLC_9P_YCT,"CTails_P\\ModelDFSL_R_CT_VLC_9P.xlsx") #Yearly C emissions
 
 
 
@@ -14045,43 +14045,43 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VLR0$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VLR0P because implies a one-off input of C
-    ModelDFSL_VLR0P <- ModelDFSL1y_VLR0
+    #This model will be called VLR_0P because implies a one-off input of C
+    ModelDFSL_VLR_0P <- ModelDFSL1y_VLR0
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VLR0P,"VXP_Models\\ModelDFSL_R_VLR0P.xlsx")
+    write_xlsx(ModelDFSL_VLR_0P,"VXP_Models\\ModelDFSL_R_VLR_0P.xlsx")
 
     #Plot 3.1: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VLR0P_YCO2 <- ModelDFSL_VLR0P %>%
+    ModelDFSL_VLR_0P_YCO2 <- ModelDFSL_VLR_0P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLR0)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLR0P_YCO2) <- c("Year", "Months", "AnnualCO2_VLR_0")
+    colnames(ModelDFSL_VLR_0P_YCO2) <- c("Year", "Months", "AnnualCO2_VLR_0")
 
     #Plot 3.2: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VLR0P_YCO2D <- merge(ModelDFSL_VLR0P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VLR0P_YCO2D$AnnualCO2D_VLR_0 <- ModelDFSL_VLR0P_YCO2D$AnnualCO2_VLR_0 * ModelDFSL_VLR0P_YCO2D$GWP100
+    ModelDFSL_VLR_0P_YCO2D <- merge(ModelDFSL_VLR_0P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VLR_0P_YCO2D$AnnualCO2D_VLR_0 <- ModelDFSL_VLR_0P_YCO2D$AnnualCO2_VLR_0 * ModelDFSL_VLR_0P_YCO2D$GWP100
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VLR0P_YC <- ModelDFSL_VLR0P %>%
+    ModelDFSL_VLR_0P_YC <- ModelDFSL_VLR_0P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLR0)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLR0P_YC) <- c("Year", "Months", "CEmissions_VLR_0")
+    colnames(ModelDFSL_VLR_0P_YC) <- c("Year", "Months", "CEmissions_VLR_0")
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VLR0P_YCT <- ModelDFSL_VLR0P %>%
+    ModelDFSL_VLR_0P_YCT <- ModelDFSL_VLR_0P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLR0)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLR0P_YCT) <- c("Year", "Months", "CTail_VLR_0")
+    colnames(ModelDFSL_VLR_0P_YCT) <- c("Year", "Months", "CTail_VLR_0")
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VLR0P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR0P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VLR0P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR0P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLR0P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR0P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLR0P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR0P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLR_0P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR_0P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VLR_0P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR_0P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VLR_0P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR_0P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLR_0P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR_0P.xlsx") #Yearly C emissions
 
 
 #### 8.2 - VLR1) Litter; 10%clay; Reduced Tillage ####
@@ -14222,43 +14222,43 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VLR1$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VLR1P because implies a one-off input of C
-    ModelDFSL_VLR1P <- ModelDFSL1y_VLR1
+    #This model will be called VLR_1P because implies a one-off input of C
+    ModelDFSL_VLR_1P <- ModelDFSL1y_VLR1
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VLR1P,"VXP_Models\\ModelDFSL_R_VLR1P.xlsx")
+    write_xlsx(ModelDFSL_VLR_1P,"VXP_Models\\ModelDFSL_R_VLR_1P.xlsx")
 
     #Plot 3: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VLR1P_YCO2 <- ModelDFSL_VLR1P %>%
+    ModelDFSL_VLR_1P_YCO2 <- ModelDFSL_VLR_1P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLR1)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLR1P_YCO2) <- c("Year", "Months", "AnnualCO2_VLR_1")
+    colnames(ModelDFSL_VLR_1P_YCO2) <- c("Year", "Months", "AnnualCO2_VLR_1")
 
     #Plot 3: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VLR1P_YCO2D <- merge(ModelDFSL_VLR1P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VLR1P_YCO2D$AnnualCO2D_VLR_1 <- ModelDFSL_VLR1P_YCO2D$AnnualCO2_VLR_1 * ModelDFSL_VLR1P_YCO2D$GWP100
+    ModelDFSL_VLR_1P_YCO2D <- merge(ModelDFSL_VLR_1P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VLR_1P_YCO2D$AnnualCO2D_VLR_1 <- ModelDFSL_VLR_1P_YCO2D$AnnualCO2_VLR_1 * ModelDFSL_VLR_1P_YCO2D$GWP100
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VLR1P_YC <- ModelDFSL_VLR1P %>%
+    ModelDFSL_VLR_1P_YC <- ModelDFSL_VLR_1P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLR1)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLR1P_YC) <- c("Year", "Months", "CEmissions_VLR_1")
+    colnames(ModelDFSL_VLR_1P_YC) <- c("Year", "Months", "CEmissions_VLR_1")
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VLR1P_YCT <- ModelDFSL_VLR1P %>%
+    ModelDFSL_VLR_1P_YCT <- ModelDFSL_VLR_1P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLR1)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLR1P_YCT) <- c("Year", "Months", "CTail_VLR_1")
+    colnames(ModelDFSL_VLR_1P_YCT) <- c("Year", "Months", "CTail_VLR_1")
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VLR1P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR1P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VLR1P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR1P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLR1P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR1P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLR1P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR1P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLR_1P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR_1P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VLR_1P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR_1P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VLR_1P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR_1P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLR_1P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR_1P.xlsx") #Yearly C emissions
 
 
 
@@ -14400,43 +14400,43 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VLR2$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VLR2P because implies a one-off input of C
-    ModelDFSL_VLR2P <- ModelDFSL1y_VLR2
+    #This model will be called VLR_2P because implies a one-off input of C
+    ModelDFSL_VLR_2P <- ModelDFSL1y_VLR2
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VLR2P,"VXP_Models\\ModelDFSL_R_VLR2P.xlsx")
+    write_xlsx(ModelDFSL_VLR_2P,"VXP_Models\\ModelDFSL_R_VLR_2P.xlsx")
 
     #Plot 3: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VLR2P_YCO2 <- ModelDFSL_VLR2P %>%
+    ModelDFSL_VLR_2P_YCO2 <- ModelDFSL_VLR_2P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLR2)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLR2P_YCO2) <- c("Year", "Months", "AnnualCO2_VLR_2")
+    colnames(ModelDFSL_VLR_2P_YCO2) <- c("Year", "Months", "AnnualCO2_VLR_2")
 
     #Plot 3: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VLR2P_YCO2D <- merge(ModelDFSL_VLR2P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VLR2P_YCO2D$AnnualCO2D_VLR_2 <- ModelDFSL_VLR2P_YCO2D$AnnualCO2_VLR_2 * ModelDFSL_VLR2P_YCO2D$GWP100
+    ModelDFSL_VLR_2P_YCO2D <- merge(ModelDFSL_VLR_2P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VLR_2P_YCO2D$AnnualCO2D_VLR_2 <- ModelDFSL_VLR_2P_YCO2D$AnnualCO2_VLR_2 * ModelDFSL_VLR_2P_YCO2D$GWP100
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VLR2P_YC <- ModelDFSL_VLR2P %>%
+    ModelDFSL_VLR_2P_YC <- ModelDFSL_VLR_2P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLR2)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLR2P_YC) <- c("Year", "Months", "CEmissions_VLR_2")
+    colnames(ModelDFSL_VLR_2P_YC) <- c("Year", "Months", "CEmissions_VLR_2")
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VLR2P_YCT <- ModelDFSL_VLR2P %>%
+    ModelDFSL_VLR_2P_YCT <- ModelDFSL_VLR_2P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLR2)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLR2P_YCT) <- c("Year", "Months", "CTail_VLR_2")
+    colnames(ModelDFSL_VLR_2P_YCT) <- c("Year", "Months", "CTail_VLR_2")
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VLR2P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR2P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VLR2P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR2P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLR2P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR2P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLR2P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR2P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLR_2P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR_2P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VLR_2P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR_2P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VLR_2P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR_2P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLR_2P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR_2P.xlsx") #Yearly C emissions
 
 
 
@@ -14578,43 +14578,43 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VLR3$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VLR3P because implies a one-off input of C
-    ModelDFSL_VLR3P <- ModelDFSL1y_VLR3
+    #This model will be called VLR_3P because implies a one-off input of C
+    ModelDFSL_VLR_3P <- ModelDFSL1y_VLR3
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VLR3P,"VXP_Models\\ModelDFSL_R_VLR3P.xlsx")
+    write_xlsx(ModelDFSL_VLR_3P,"VXP_Models\\ModelDFSL_R_VLR_3P.xlsx")
 
     #Plot 3: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VLR3P_YCO2 <- ModelDFSL_VLR3P %>%
+    ModelDFSL_VLR_3P_YCO2 <- ModelDFSL_VLR_3P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLR3)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLR3P_YCO2) <- c("Year", "Months", "AnnualCO2_VLR_3")
+    colnames(ModelDFSL_VLR_3P_YCO2) <- c("Year", "Months", "AnnualCO2_VLR_3")
 
     #Plot 3: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VLR3P_YCO2D <- merge(ModelDFSL_VLR3P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VLR3P_YCO2D$AnnualCO2D_VLR_3 <- ModelDFSL_VLR3P_YCO2D$AnnualCO2_VLR_3 * ModelDFSL_VLR3P_YCO2D$GWP100
+    ModelDFSL_VLR_3P_YCO2D <- merge(ModelDFSL_VLR_3P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VLR_3P_YCO2D$AnnualCO2D_VLR_3 <- ModelDFSL_VLR_3P_YCO2D$AnnualCO2_VLR_3 * ModelDFSL_VLR_3P_YCO2D$GWP100
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VLR3P_YC <- ModelDFSL_VLR3P %>%
+    ModelDFSL_VLR_3P_YC <- ModelDFSL_VLR_3P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLR3)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLR3P_YC) <- c("Year", "Months", "CEmissions_VLR_3")
+    colnames(ModelDFSL_VLR_3P_YC) <- c("Year", "Months", "CEmissions_VLR_3")
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VLR3P_YCT <- ModelDFSL_VLR3P %>%
+    ModelDFSL_VLR_3P_YCT <- ModelDFSL_VLR_3P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLR3)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLR3P_YCT) <- c("Year", "Months", "CTail_VLR_3")
+    colnames(ModelDFSL_VLR_3P_YCT) <- c("Year", "Months", "CTail_VLR_3")
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VLR3P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR3P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VLR3P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR3P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLR3P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR3P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLR3P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR3P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLR_3P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR_3P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VLR_3P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR_3P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VLR_3P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR_3P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLR_3P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR_3P.xlsx") #Yearly C emissions
 
 
 
@@ -14756,43 +14756,43 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VLR4$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VLR4P because implies a one-off input of C
-    ModelDFSL_VLR4P <- ModelDFSL1y_VLR4
+    #This model will be called VLR_4P because implies a one-off input of C
+    ModelDFSL_VLR_4P <- ModelDFSL1y_VLR4
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VLR4P,"VXP_Models\\ModelDFSL_R_VLR4P.xlsx")
+    write_xlsx(ModelDFSL_VLR_4P,"VXP_Models\\ModelDFSL_R_VLR_4P.xlsx")
 
     #Plot 3: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VLR4P_YCO2 <- ModelDFSL_VLR4P %>%
+    ModelDFSL_VLR_4P_YCO2 <- ModelDFSL_VLR_4P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLR4)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLR4P_YCO2) <- c("Year", "Months", "AnnualCO2_VLR_4")
+    colnames(ModelDFSL_VLR_4P_YCO2) <- c("Year", "Months", "AnnualCO2_VLR_4")
 
     #Plot 3: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VLR4P_YCO2D <- merge(ModelDFSL_VLR4P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VLR4P_YCO2D$AnnualCO2D_VLR_4 <- ModelDFSL_VLR4P_YCO2D$AnnualCO2_VLR_4 * ModelDFSL_VLR4P_YCO2D$GWP100
+    ModelDFSL_VLR_4P_YCO2D <- merge(ModelDFSL_VLR_4P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VLR_4P_YCO2D$AnnualCO2D_VLR_4 <- ModelDFSL_VLR_4P_YCO2D$AnnualCO2_VLR_4 * ModelDFSL_VLR_4P_YCO2D$GWP100
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VLR4P_YC <- ModelDFSL_VLR4P %>%
+    ModelDFSL_VLR_4P_YC <- ModelDFSL_VLR_4P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLR4)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLR4P_YC) <- c("Year", "Months", "CEmissions_VLR_4")
+    colnames(ModelDFSL_VLR_4P_YC) <- c("Year", "Months", "CEmissions_VLR_4")
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VLR4P_YCT <- ModelDFSL_VLR4P %>%
+    ModelDFSL_VLR_4P_YCT <- ModelDFSL_VLR_4P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLR4)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLR4P_YCT) <- c("Year", "Months", "CTail_VLR_4")
+    colnames(ModelDFSL_VLR_4P_YCT) <- c("Year", "Months", "CTail_VLR_4")
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VLR4P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR4P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VLR4P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR4P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLR4P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR4P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLR4P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR4P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLR_4P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR_4P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VLR_4P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR_4P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VLR_4P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR_4P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLR_4P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR_4P.xlsx") #Yearly C emissions
 
 
 
@@ -14934,46 +14934,46 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VLR5$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VLR5P because implies a one-off input of C
-    ModelDFSL_VLR5P <- ModelDFSL1y_VLR5
+    #This model will be called VLR_5P because implies a one-off input of C
+    ModelDFSL_VLR_5P <- ModelDFSL1y_VLR5
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VLR5P,"VXP_Models\\ModelDFSL_R_VLR5P.xlsx")
+    write_xlsx(ModelDFSL_VLR_5P,"VXP_Models\\ModelDFSL_R_VLR_5P.xlsx")
 
 
     #Plot 3: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VLR5P_YCO2 <- ModelDFSL_VLR5P %>%
+    ModelDFSL_VLR_5P_YCO2 <- ModelDFSL_VLR_5P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLR5)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLR5P_YCO2) <- c("Year", "Months", "AnnualCO2_VLR_5")
+    colnames(ModelDFSL_VLR_5P_YCO2) <- c("Year", "Months", "AnnualCO2_VLR_5")
 
 
     #Plot 3: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VLR5P_YCO2D <- merge(ModelDFSL_VLR5P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VLR5P_YCO2D$AnnualCO2D_VLR_5 <- ModelDFSL_VLR5P_YCO2D$AnnualCO2_VLR_5 * ModelDFSL_VLR5P_YCO2D$GWP100
+    ModelDFSL_VLR_5P_YCO2D <- merge(ModelDFSL_VLR_5P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VLR_5P_YCO2D$AnnualCO2D_VLR_5 <- ModelDFSL_VLR_5P_YCO2D$AnnualCO2_VLR_5 * ModelDFSL_VLR_5P_YCO2D$GWP100
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VLR5P_YC <- ModelDFSL_VLR5P %>%
+    ModelDFSL_VLR_5P_YC <- ModelDFSL_VLR_5P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLR5)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLR5P_YC) <- c("Year", "Months", "CEmissions_VLR_5")
+    colnames(ModelDFSL_VLR_5P_YC) <- c("Year", "Months", "CEmissions_VLR_5")
 
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VLR5P_YCT <- ModelDFSL_VLR5P %>%
+    ModelDFSL_VLR_5P_YCT <- ModelDFSL_VLR_5P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLR5)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLR5P_YCT) <- c("Year", "Months", "CTail_VLR_5")
+    colnames(ModelDFSL_VLR_5P_YCT) <- c("Year", "Months", "CTail_VLR_5")
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VLR5P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR5P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VLR5P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR5P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLR5P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR5P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLR5P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR5P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLR_5P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR_5P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VLR_5P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR_5P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VLR_5P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR_5P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLR_5P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR_5P.xlsx") #Yearly C emissions
 
 
 
@@ -15115,45 +15115,45 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VLR6$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VLR6P because implies a one-off input of C
-    ModelDFSL_VLR6P <- ModelDFSL1y_VLR6
+    #This model will be called VLR_6P because implies a one-off input of C
+    ModelDFSL_VLR_6P <- ModelDFSL1y_VLR6
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VLR6P,"VXP_Models\\ModelDFSL_R_VLR6P.xlsx")
+    write_xlsx(ModelDFSL_VLR_6P,"VXP_Models\\ModelDFSL_R_VLR_6P.xlsx")
 
     #Plot 3: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VLR6P_YCO2 <- ModelDFSL_VLR6P %>%
+    ModelDFSL_VLR_6P_YCO2 <- ModelDFSL_VLR_6P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLR6)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLR6P_YCO2) <- c("Year", "Months", "AnnualCO2_VLR_6")
+    colnames(ModelDFSL_VLR_6P_YCO2) <- c("Year", "Months", "AnnualCO2_VLR_6")
 
 
     #Plot 3: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VLR6P_YCO2D <- merge(ModelDFSL_VLR6P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VLR6P_YCO2D$AnnualCO2D_VLR_6 <- ModelDFSL_VLR6P_YCO2D$AnnualCO2_VLR_6 * ModelDFSL_VLR6P_YCO2D$GWP100
+    ModelDFSL_VLR_6P_YCO2D <- merge(ModelDFSL_VLR_6P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VLR_6P_YCO2D$AnnualCO2D_VLR_6 <- ModelDFSL_VLR_6P_YCO2D$AnnualCO2_VLR_6 * ModelDFSL_VLR_6P_YCO2D$GWP100
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VLR6P_YC <- ModelDFSL_VLR6P %>%
+    ModelDFSL_VLR_6P_YC <- ModelDFSL_VLR_6P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLR6)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLR6P_YC) <- c("Year", "Months", "CEmissions_VLR_6")
+    colnames(ModelDFSL_VLR_6P_YC) <- c("Year", "Months", "CEmissions_VLR_6")
 
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VLR6P_YCT <- ModelDFSL_VLR6P %>%
+    ModelDFSL_VLR_6P_YCT <- ModelDFSL_VLR_6P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLR6)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLR6P_YCT) <- c("Year", "Months", "CTail_VLR_6")
+    colnames(ModelDFSL_VLR_6P_YCT) <- c("Year", "Months", "CTail_VLR_6")
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VLR6P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR6P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VLR6P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR6P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLR6P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR6P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLR6P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR6P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLR_6P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR_6P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VLR_6P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR_6P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VLR_6P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR_6P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLR_6P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR_6P.xlsx") #Yearly C emissions
 
 
 
@@ -15295,46 +15295,46 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VLR7$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VLR7P because implies a one-off input of C
-    ModelDFSL_VLR7P <- ModelDFSL1y_VLR7
+    #This model will be called VLR_7P because implies a one-off input of C
+    ModelDFSL_VLR_7P <- ModelDFSL1y_VLR7
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VLR7P,"VXP_Models\\ModelDFSL_R_VLR7P.xlsx")
+    write_xlsx(ModelDFSL_VLR_7P,"VXP_Models\\ModelDFSL_R_VLR_7P.xlsx")
 
     #Plot 3: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VLR7P_YCO2 <- ModelDFSL_VLR7P %>%
+    ModelDFSL_VLR_7P_YCO2 <- ModelDFSL_VLR_7P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLR7)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLR7P_YCO2) <- c("Year", "Months", "AnnualCO2_VLR_7")
+    colnames(ModelDFSL_VLR_7P_YCO2) <- c("Year", "Months", "AnnualCO2_VLR_7")
 
 
     #Plot 3: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VLR7P_YCO2D <- merge(ModelDFSL_VLR7P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VLR7P_YCO2D$AnnualCO2D_VLR_7 <- ModelDFSL_VLR7P_YCO2D$AnnualCO2_VLR_7 * ModelDFSL_VLR7P_YCO2D$GWP100
+    ModelDFSL_VLR_7P_YCO2D <- merge(ModelDFSL_VLR_7P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VLR_7P_YCO2D$AnnualCO2D_VLR_7 <- ModelDFSL_VLR_7P_YCO2D$AnnualCO2_VLR_7 * ModelDFSL_VLR_7P_YCO2D$GWP100
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VLR7P_YC <- ModelDFSL_VLR7P %>%
+    ModelDFSL_VLR_7P_YC <- ModelDFSL_VLR_7P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLR7)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLR7P_YC) <- c("Year", "Months", "CEmissions_VLR_7")
+    colnames(ModelDFSL_VLR_7P_YC) <- c("Year", "Months", "CEmissions_VLR_7")
 
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VLR7P_YCT <- ModelDFSL_VLR7P %>%
+    ModelDFSL_VLR_7P_YCT <- ModelDFSL_VLR_7P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLR7)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLR7P_YCT) <- c("Year", "Months", "CTail_VLR_7")
+    colnames(ModelDFSL_VLR_7P_YCT) <- c("Year", "Months", "CTail_VLR_7")
 
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VLR7P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR7P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VLR7P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR7P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLR7P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR7P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLR7P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR7P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLR_7P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR_7P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VLR_7P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR_7P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VLR_7P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR_7P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLR_7P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR_7P.xlsx") #Yearly C emissions
 
 
 
@@ -15476,45 +15476,45 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VLR8$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VLR8P because implies a one-off input of C
-    ModelDFSL_VLR8P <- ModelDFSL1y_VLR8
+    #This model will be called VLR_8P because implies a one-off input of C
+    ModelDFSL_VLR_8P <- ModelDFSL1y_VLR8
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VLR8P,"VXP_Models\\ModelDFSL_R_VLR8P.xlsx")
+    write_xlsx(ModelDFSL_VLR_8P,"VXP_Models\\ModelDFSL_R_VLR_8P.xlsx")
 
 
     #Plot 3: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VLR8P_YCO2 <- ModelDFSL_VLR8P %>%
+    ModelDFSL_VLR_8P_YCO2 <- ModelDFSL_VLR_8P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLR8)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLR8P_YCO2) <- c("Year", "Months", "AnnualCO2_VLR_8")
+    colnames(ModelDFSL_VLR_8P_YCO2) <- c("Year", "Months", "AnnualCO2_VLR_8")
 
     #Plot 3: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VLR8P_YCO2D <- merge(ModelDFSL_VLR8P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VLR8P_YCO2D$AnnualCO2D_VLR_8 <- ModelDFSL_VLR8P_YCO2D$AnnualCO2_VLR_8 * ModelDFSL_VLR8P_YCO2D$GWP100
+    ModelDFSL_VLR_8P_YCO2D <- merge(ModelDFSL_VLR_8P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VLR_8P_YCO2D$AnnualCO2D_VLR_8 <- ModelDFSL_VLR_8P_YCO2D$AnnualCO2_VLR_8 * ModelDFSL_VLR_8P_YCO2D$GWP100
 
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VLR8P_YC <- ModelDFSL_VLR8P %>%
+    ModelDFSL_VLR_8P_YC <- ModelDFSL_VLR_8P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLR8)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLR8P_YC) <- c("Year", "Months", "CEmissions_VLR_8")
+    colnames(ModelDFSL_VLR_8P_YC) <- c("Year", "Months", "CEmissions_VLR_8")
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VLR8P_YCT <- ModelDFSL_VLR8P %>%
+    ModelDFSL_VLR_8P_YCT <- ModelDFSL_VLR_8P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLR8)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLR8P_YCT) <- c("Year", "Months", "CTail_VLR_8")
+    colnames(ModelDFSL_VLR_8P_YCT) <- c("Year", "Months", "CTail_VLR_8")
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VLR8P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR8P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VLR8P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR8P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLR8P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR8P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLR8P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR8P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLR_8P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR_8P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VLR_8P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR_8P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VLR_8P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR_8P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLR_8P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR_8P.xlsx") #Yearly C emissions
 
 
 
@@ -15656,45 +15656,45 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VLR9$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VLR9P because implies a one-off input of C
-    ModelDFSL_VLR9P <- ModelDFSL1y_VLR9
+    #This model will be called VLR_9P because implies a one-off input of C
+    ModelDFSL_VLR_9P <- ModelDFSL1y_VLR9
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VLR9P,"VXP_Models\\ModelDFSL_R_VLR9P.xlsx")
+    write_xlsx(ModelDFSL_VLR_9P,"VXP_Models\\ModelDFSL_R_VLR_9P.xlsx")
 
 
     #Plot 3: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VLR9P_YCO2 <- ModelDFSL_VLR9P %>%
+    ModelDFSL_VLR_9P_YCO2 <- ModelDFSL_VLR_9P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLR9)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLR9P_YCO2) <- c("Year", "Months", "AnnualCO2_VLR_9")
+    colnames(ModelDFSL_VLR_9P_YCO2) <- c("Year", "Months", "AnnualCO2_VLR_9")
 
     #Plot 3: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VLR9P_YCO2D <- merge(ModelDFSL_VLR9P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VLR9P_YCO2D$AnnualCO2D_VLR_9 <- ModelDFSL_VLR9P_YCO2D$AnnualCO2_VLR_9 * ModelDFSL_VLR9P_YCO2D$GWP100
+    ModelDFSL_VLR_9P_YCO2D <- merge(ModelDFSL_VLR_9P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VLR_9P_YCO2D$AnnualCO2D_VLR_9 <- ModelDFSL_VLR_9P_YCO2D$AnnualCO2_VLR_9 * ModelDFSL_VLR_9P_YCO2D$GWP100
 
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VLR9P_YC <- ModelDFSL_VLR9P %>%
+    ModelDFSL_VLR_9P_YC <- ModelDFSL_VLR_9P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLR9)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLR9P_YC) <- c("Year", "Months", "CEmissions_VLR_9")
+    colnames(ModelDFSL_VLR_9P_YC) <- c("Year", "Months", "CEmissions_VLR_9")
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VLR9P_YCT <- ModelDFSL_VLR9P %>%
+    ModelDFSL_VLR_9P_YCT <- ModelDFSL_VLR_9P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLR9)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLR9P_YCT) <- c("Year", "Months", "CTail_VLR_9")
+    colnames(ModelDFSL_VLR_9P_YCT) <- c("Year", "Months", "CTail_VLR_9")
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VLR9P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR9P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VLR9P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR9P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLR9P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR9P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLR9P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR9P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLR_9P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLR_9P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VLR_9P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLR_9P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VLR_9P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLR_9P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLR_9P_YCT,"CTails_P\\ModelDFSL_R_CT_VLR_9P.xlsx") #Yearly C emissions
 
 
 
@@ -16012,43 +16012,43 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VLN0$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VLN0P because implies a one-off input of C
-    ModelDFSL_VLN0P <- ModelDFSL1y_VLN0
+    #This model will be called VLN_0P because implies a one-off input of C
+    ModelDFSL_VLN_0P <- ModelDFSL1y_VLN0
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VLN0P,"VXP_Models\\ModelDFSL_R_VLN0P.xlsx")
+    write_xlsx(ModelDFSL_VLN_0P,"VXP_Models\\ModelDFSL_R_VLN_0P.xlsx")
 
     #Plot 3.1: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VLN0P_YCO2 <- ModelDFSL_VLN0P %>%
+    ModelDFSL_VLN_0P_YCO2 <- ModelDFSL_VLN_0P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLN0)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLN0P_YCO2) <- c("Year", "Months", "AnnualCO2_VLN_0")
+    colnames(ModelDFSL_VLN_0P_YCO2) <- c("Year", "Months", "AnnualCO2_VLN_0")
 
     #Plot 3.2: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VLN0P_YCO2D <- merge(ModelDFSL_VLN0P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VLN0P_YCO2D$AnnualCO2D_VLN_0 <- ModelDFSL_VLN0P_YCO2D$AnnualCO2_VLN_0 * ModelDFSL_VLN0P_YCO2D$GWP100
+    ModelDFSL_VLN_0P_YCO2D <- merge(ModelDFSL_VLN_0P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VLN_0P_YCO2D$AnnualCO2D_VLN_0 <- ModelDFSL_VLN_0P_YCO2D$AnnualCO2_VLN_0 * ModelDFSL_VLN_0P_YCO2D$GWP100
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VLN0P_YC <- ModelDFSL_VLN0P %>%
+    ModelDFSL_VLN_0P_YC <- ModelDFSL_VLN_0P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLN0)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLN0P_YC) <- c("Year", "Months", "CEmissions_VLN_0")
+    colnames(ModelDFSL_VLN_0P_YC) <- c("Year", "Months", "CEmissions_VLN_0")
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VLN0P_YCT <- ModelDFSL_VLN0P %>%
+    ModelDFSL_VLN_0P_YCT <- ModelDFSL_VLN_0P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLN0)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLN0P_YCT) <- c("Year", "Months", "CTail_VLN_0")
+    colnames(ModelDFSL_VLN_0P_YCT) <- c("Year", "Months", "CTail_VLN_0")
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VLN0P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN0P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VLN0P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN0P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLN0P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN0P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLN0P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN0P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLN_0P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN_0P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VLN_0P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN_0P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VLN_0P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN_0P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLN_0P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN_0P.xlsx") #Yearly C emissions
 
 
     #### 9.2 - VLN1) Litter; 10%clay; No Tillage ####
@@ -16189,43 +16189,43 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VLN1$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VLN1P because implies a one-off input of C
-    ModelDFSL_VLN1P <- ModelDFSL1y_VLN1
+    #This model will be called VLN_1P because implies a one-off input of C
+    ModelDFSL_VLN_1P <- ModelDFSL1y_VLN1
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VLN1P,"VXP_Models\\ModelDFSL_R_VLN1P.xlsx")
+    write_xlsx(ModelDFSL_VLN_1P,"VXP_Models\\ModelDFSL_R_VLN_1P.xlsx")
 
     #Plot 3: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VLN1P_YCO2 <- ModelDFSL_VLN1P %>%
+    ModelDFSL_VLN_1P_YCO2 <- ModelDFSL_VLN_1P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLN1)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLN1P_YCO2) <- c("Year", "Months", "AnnualCO2_VLN_1")
+    colnames(ModelDFSL_VLN_1P_YCO2) <- c("Year", "Months", "AnnualCO2_VLN_1")
 
     #Plot 3: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VLN1P_YCO2D <- merge(ModelDFSL_VLN1P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VLN1P_YCO2D$AnnualCO2D_VLN_1 <- ModelDFSL_VLN1P_YCO2D$AnnualCO2_VLN_1 * ModelDFSL_VLN1P_YCO2D$GWP100
+    ModelDFSL_VLN_1P_YCO2D <- merge(ModelDFSL_VLN_1P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VLN_1P_YCO2D$AnnualCO2D_VLN_1 <- ModelDFSL_VLN_1P_YCO2D$AnnualCO2_VLN_1 * ModelDFSL_VLN_1P_YCO2D$GWP100
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VLN1P_YC <- ModelDFSL_VLN1P %>%
+    ModelDFSL_VLN_1P_YC <- ModelDFSL_VLN_1P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLN1)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLN1P_YC) <- c("Year", "Months", "CEmissions_VLN_1")
+    colnames(ModelDFSL_VLN_1P_YC) <- c("Year", "Months", "CEmissions_VLN_1")
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VLN1P_YCT <- ModelDFSL_VLN1P %>%
+    ModelDFSL_VLN_1P_YCT <- ModelDFSL_VLN_1P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLN1)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLN1P_YCT) <- c("Year", "Months", "CTail_VLN_1")
+    colnames(ModelDFSL_VLN_1P_YCT) <- c("Year", "Months", "CTail_VLN_1")
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VLN1P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN1P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VLN1P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN1P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLN1P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN1P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLN1P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN1P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLN_1P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN_1P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VLN_1P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN_1P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VLN_1P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN_1P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLN_1P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN_1P.xlsx") #Yearly C emissions
 
 
 
@@ -16367,43 +16367,43 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VLN2$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VLN2P because implies a one-off input of C
-    ModelDFSL_VLN2P <- ModelDFSL1y_VLN2
+    #This model will be called VLN_2P because implies a one-off input of C
+    ModelDFSL_VLN_2P <- ModelDFSL1y_VLN2
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VLN2P,"VXP_Models\\ModelDFSL_R_VLN2P.xlsx")
+    write_xlsx(ModelDFSL_VLN_2P,"VXP_Models\\ModelDFSL_R_VLN_2P.xlsx")
 
     #Plot 3: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VLN2P_YCO2 <- ModelDFSL_VLN2P %>%
+    ModelDFSL_VLN_2P_YCO2 <- ModelDFSL_VLN_2P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLN2)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLN2P_YCO2) <- c("Year", "Months", "AnnualCO2_VLN_2")
+    colnames(ModelDFSL_VLN_2P_YCO2) <- c("Year", "Months", "AnnualCO2_VLN_2")
 
     #Plot 3: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VLN2P_YCO2D <- merge(ModelDFSL_VLN2P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VLN2P_YCO2D$AnnualCO2D_VLN_2 <- ModelDFSL_VLN2P_YCO2D$AnnualCO2_VLN_2 * ModelDFSL_VLN2P_YCO2D$GWP100
+    ModelDFSL_VLN_2P_YCO2D <- merge(ModelDFSL_VLN_2P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VLN_2P_YCO2D$AnnualCO2D_VLN_2 <- ModelDFSL_VLN_2P_YCO2D$AnnualCO2_VLN_2 * ModelDFSL_VLN_2P_YCO2D$GWP100
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VLN2P_YC <- ModelDFSL_VLN2P %>%
+    ModelDFSL_VLN_2P_YC <- ModelDFSL_VLN_2P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLN2)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLN2P_YC) <- c("Year", "Months", "CEmissions_VLN_2")
+    colnames(ModelDFSL_VLN_2P_YC) <- c("Year", "Months", "CEmissions_VLN_2")
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VLN2P_YCT <- ModelDFSL_VLN2P %>%
+    ModelDFSL_VLN_2P_YCT <- ModelDFSL_VLN_2P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLN2)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLN2P_YCT) <- c("Year", "Months", "CTail_VLN_2")
+    colnames(ModelDFSL_VLN_2P_YCT) <- c("Year", "Months", "CTail_VLN_2")
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VLN2P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN2P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VLN2P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN2P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLN2P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN2P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLN2P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN2P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLN_2P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN_2P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VLN_2P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN_2P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VLN_2P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN_2P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLN_2P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN_2P.xlsx") #Yearly C emissions
 
 
 
@@ -16545,43 +16545,43 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VLN3$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VLN3P because implies a one-off input of C
-    ModelDFSL_VLN3P <- ModelDFSL1y_VLN3
+    #This model will be called VLN_3P because implies a one-off input of C
+    ModelDFSL_VLN_3P <- ModelDFSL1y_VLN3
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VLN3P,"VXP_Models\\ModelDFSL_R_VLN3P.xlsx")
+    write_xlsx(ModelDFSL_VLN_3P,"VXP_Models\\ModelDFSL_R_VLN_3P.xlsx")
 
     #Plot 3: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VLN3P_YCO2 <- ModelDFSL_VLN3P %>%
+    ModelDFSL_VLN_3P_YCO2 <- ModelDFSL_VLN_3P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLN3)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLN3P_YCO2) <- c("Year", "Months", "AnnualCO2_VLN_3")
+    colnames(ModelDFSL_VLN_3P_YCO2) <- c("Year", "Months", "AnnualCO2_VLN_3")
 
     #Plot 3: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VLN3P_YCO2D <- merge(ModelDFSL_VLN3P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VLN3P_YCO2D$AnnualCO2D_VLN_3 <- ModelDFSL_VLN3P_YCO2D$AnnualCO2_VLN_3 * ModelDFSL_VLN3P_YCO2D$GWP100
+    ModelDFSL_VLN_3P_YCO2D <- merge(ModelDFSL_VLN_3P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VLN_3P_YCO2D$AnnualCO2D_VLN_3 <- ModelDFSL_VLN_3P_YCO2D$AnnualCO2_VLN_3 * ModelDFSL_VLN_3P_YCO2D$GWP100
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VLN3P_YC <- ModelDFSL_VLN3P %>%
+    ModelDFSL_VLN_3P_YC <- ModelDFSL_VLN_3P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLN3)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLN3P_YC) <- c("Year", "Months", "CEmissions_VLN_3")
+    colnames(ModelDFSL_VLN_3P_YC) <- c("Year", "Months", "CEmissions_VLN_3")
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VLN3P_YCT <- ModelDFSL_VLN3P %>%
+    ModelDFSL_VLN_3P_YCT <- ModelDFSL_VLN_3P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLN3)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLN3P_YCT) <- c("Year", "Months", "CTail_VLN_3")
+    colnames(ModelDFSL_VLN_3P_YCT) <- c("Year", "Months", "CTail_VLN_3")
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VLN3P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN3P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VLN3P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN3P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLN3P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN3P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLN3P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN3P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLN_3P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN_3P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VLN_3P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN_3P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VLN_3P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN_3P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLN_3P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN_3P.xlsx") #Yearly C emissions
 
 
 
@@ -16723,43 +16723,43 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VLN4$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VLN4P because implies a one-off input of C
-    ModelDFSL_VLN4P <- ModelDFSL1y_VLN4
+    #This model will be called VLN_4P because implies a one-off input of C
+    ModelDFSL_VLN_4P <- ModelDFSL1y_VLN4
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VLN4P,"VXP_Models\\ModelDFSL_R_VLN4P.xlsx")
+    write_xlsx(ModelDFSL_VLN_4P,"VXP_Models\\ModelDFSL_R_VLN_4P.xlsx")
 
     #Plot 3: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VLN4P_YCO2 <- ModelDFSL_VLN4P %>%
+    ModelDFSL_VLN_4P_YCO2 <- ModelDFSL_VLN_4P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLN4)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLN4P_YCO2) <- c("Year", "Months", "AnnualCO2_VLN_4")
+    colnames(ModelDFSL_VLN_4P_YCO2) <- c("Year", "Months", "AnnualCO2_VLN_4")
 
     #Plot 3: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VLN4P_YCO2D <- merge(ModelDFSL_VLN4P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VLN4P_YCO2D$AnnualCO2D_VLN_4 <- ModelDFSL_VLN4P_YCO2D$AnnualCO2_VLN_4 * ModelDFSL_VLN4P_YCO2D$GWP100
+    ModelDFSL_VLN_4P_YCO2D <- merge(ModelDFSL_VLN_4P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VLN_4P_YCO2D$AnnualCO2D_VLN_4 <- ModelDFSL_VLN_4P_YCO2D$AnnualCO2_VLN_4 * ModelDFSL_VLN_4P_YCO2D$GWP100
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VLN4P_YC <- ModelDFSL_VLN4P %>%
+    ModelDFSL_VLN_4P_YC <- ModelDFSL_VLN_4P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLN4)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLN4P_YC) <- c("Year", "Months", "CEmissions_VLN_4")
+    colnames(ModelDFSL_VLN_4P_YC) <- c("Year", "Months", "CEmissions_VLN_4")
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VLN4P_YCT <- ModelDFSL_VLN4P %>%
+    ModelDFSL_VLN_4P_YCT <- ModelDFSL_VLN_4P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLN4)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLN4P_YCT) <- c("Year", "Months", "CTail_VLN_4")
+    colnames(ModelDFSL_VLN_4P_YCT) <- c("Year", "Months", "CTail_VLN_4")
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VLN4P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN4P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VLN4P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN4P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLN4P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN4P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLN4P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN4P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLN_4P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN_4P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VLN_4P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN_4P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VLN_4P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN_4P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLN_4P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN_4P.xlsx") #Yearly C emissions
 
 
 
@@ -16901,46 +16901,46 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VLN5$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VLN5P because implies a one-off input of C
-    ModelDFSL_VLN5P <- ModelDFSL1y_VLN5
+    #This model will be called VLN_5P because implies a one-off input of C
+    ModelDFSL_VLN_5P <- ModelDFSL1y_VLN5
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VLN5P,"VXP_Models\\ModelDFSL_R_VLN5P.xlsx")
+    write_xlsx(ModelDFSL_VLN_5P,"VXP_Models\\ModelDFSL_R_VLN_5P.xlsx")
 
 
     #Plot 3: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VLN5P_YCO2 <- ModelDFSL_VLN5P %>%
+    ModelDFSL_VLN_5P_YCO2 <- ModelDFSL_VLN_5P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLN5)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLN5P_YCO2) <- c("Year", "Months", "AnnualCO2_VLN_5")
+    colnames(ModelDFSL_VLN_5P_YCO2) <- c("Year", "Months", "AnnualCO2_VLN_5")
 
 
     #Plot 3: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VLN5P_YCO2D <- merge(ModelDFSL_VLN5P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VLN5P_YCO2D$AnnualCO2D_VLN_5 <- ModelDFSL_VLN5P_YCO2D$AnnualCO2_VLN_5 * ModelDFSL_VLN5P_YCO2D$GWP100
+    ModelDFSL_VLN_5P_YCO2D <- merge(ModelDFSL_VLN_5P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VLN_5P_YCO2D$AnnualCO2D_VLN_5 <- ModelDFSL_VLN_5P_YCO2D$AnnualCO2_VLN_5 * ModelDFSL_VLN_5P_YCO2D$GWP100
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VLN5P_YC <- ModelDFSL_VLN5P %>%
+    ModelDFSL_VLN_5P_YC <- ModelDFSL_VLN_5P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLN5)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLN5P_YC) <- c("Year", "Months", "CEmissions_VLN_5")
+    colnames(ModelDFSL_VLN_5P_YC) <- c("Year", "Months", "CEmissions_VLN_5")
 
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VLN5P_YCT <- ModelDFSL_VLN5P %>%
+    ModelDFSL_VLN_5P_YCT <- ModelDFSL_VLN_5P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLN5)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLN5P_YCT) <- c("Year", "Months", "CTail_VLN_5")
+    colnames(ModelDFSL_VLN_5P_YCT) <- c("Year", "Months", "CTail_VLN_5")
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VLN5P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN5P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VLN5P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN5P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLN5P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN5P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLN5P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN5P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLN_5P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN_5P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VLN_5P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN_5P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VLN_5P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN_5P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLN_5P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN_5P.xlsx") #Yearly C emissions
 
 
 
@@ -17082,45 +17082,45 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VLN6$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VLN6P because implies a one-off input of C
-    ModelDFSL_VLN6P <- ModelDFSL1y_VLN6
+    #This model will be called VLN_6P because implies a one-off input of C
+    ModelDFSL_VLN_6P <- ModelDFSL1y_VLN6
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VLN6P,"VXP_Models\\ModelDFSL_R_VLN6P.xlsx")
+    write_xlsx(ModelDFSL_VLN_6P,"VXP_Models\\ModelDFSL_R_VLN_6P.xlsx")
 
     #Plot 3: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VLN6P_YCO2 <- ModelDFSL_VLN6P %>%
+    ModelDFSL_VLN_6P_YCO2 <- ModelDFSL_VLN_6P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLN6)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLN6P_YCO2) <- c("Year", "Months", "AnnualCO2_VLN_6")
+    colnames(ModelDFSL_VLN_6P_YCO2) <- c("Year", "Months", "AnnualCO2_VLN_6")
 
 
     #Plot 3: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VLN6P_YCO2D <- merge(ModelDFSL_VLN6P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VLN6P_YCO2D$AnnualCO2D_VLN_6 <- ModelDFSL_VLN6P_YCO2D$AnnualCO2_VLN_6 * ModelDFSL_VLN6P_YCO2D$GWP100
+    ModelDFSL_VLN_6P_YCO2D <- merge(ModelDFSL_VLN_6P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VLN_6P_YCO2D$AnnualCO2D_VLN_6 <- ModelDFSL_VLN_6P_YCO2D$AnnualCO2_VLN_6 * ModelDFSL_VLN_6P_YCO2D$GWP100
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VLN6P_YC <- ModelDFSL_VLN6P %>%
+    ModelDFSL_VLN_6P_YC <- ModelDFSL_VLN_6P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLN6)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLN6P_YC) <- c("Year", "Months", "CEmissions_VLN_6")
+    colnames(ModelDFSL_VLN_6P_YC) <- c("Year", "Months", "CEmissions_VLN_6")
 
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VLN6P_YCT <- ModelDFSL_VLN6P %>%
+    ModelDFSL_VLN_6P_YCT <- ModelDFSL_VLN_6P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLN6)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLN6P_YCT) <- c("Year", "Months", "CTail_VLN_6")
+    colnames(ModelDFSL_VLN_6P_YCT) <- c("Year", "Months", "CTail_VLN_6")
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VLN6P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN6P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VLN6P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN6P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLN6P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN6P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLN6P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN6P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLN_6P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN_6P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VLN_6P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN_6P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VLN_6P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN_6P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLN_6P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN_6P.xlsx") #Yearly C emissions
 
 
 
@@ -17262,46 +17262,46 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VLN7$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VLN7P because implies a one-off input of C
-    ModelDFSL_VLN7P <- ModelDFSL1y_VLN7
+    #This model will be called VLN_7P because implies a one-off input of C
+    ModelDFSL_VLN_7P <- ModelDFSL1y_VLN7
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VLN7P,"VXP_Models\\ModelDFSL_R_VLN7P.xlsx")
+    write_xlsx(ModelDFSL_VLN_7P,"VXP_Models\\ModelDFSL_R_VLN_7P.xlsx")
 
     #Plot 3: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VLN7P_YCO2 <- ModelDFSL_VLN7P %>%
+    ModelDFSL_VLN_7P_YCO2 <- ModelDFSL_VLN_7P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLN7)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLN7P_YCO2) <- c("Year", "Months", "AnnualCO2_VLN_7")
+    colnames(ModelDFSL_VLN_7P_YCO2) <- c("Year", "Months", "AnnualCO2_VLN_7")
 
 
     #Plot 3: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VLN7P_YCO2D <- merge(ModelDFSL_VLN7P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VLN7P_YCO2D$AnnualCO2D_VLN_7 <- ModelDFSL_VLN7P_YCO2D$AnnualCO2_VLN_7 * ModelDFSL_VLN7P_YCO2D$GWP100
+    ModelDFSL_VLN_7P_YCO2D <- merge(ModelDFSL_VLN_7P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VLN_7P_YCO2D$AnnualCO2D_VLN_7 <- ModelDFSL_VLN_7P_YCO2D$AnnualCO2_VLN_7 * ModelDFSL_VLN_7P_YCO2D$GWP100
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VLN7P_YC <- ModelDFSL_VLN7P %>%
+    ModelDFSL_VLN_7P_YC <- ModelDFSL_VLN_7P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLN7)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLN7P_YC) <- c("Year", "Months", "CEmissions_VLN_7")
+    colnames(ModelDFSL_VLN_7P_YC) <- c("Year", "Months", "CEmissions_VLN_7")
 
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VLN7P_YCT <- ModelDFSL_VLN7P %>%
+    ModelDFSL_VLN_7P_YCT <- ModelDFSL_VLN_7P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLN7)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLN7P_YCT) <- c("Year", "Months", "CTail_VLN_7")
+    colnames(ModelDFSL_VLN_7P_YCT) <- c("Year", "Months", "CTail_VLN_7")
 
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VLN7P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN7P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VLN7P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN7P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLN7P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN7P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLN7P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN7P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLN_7P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN_7P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VLN_7P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN_7P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VLN_7P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN_7P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLN_7P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN_7P.xlsx") #Yearly C emissions
 
 
 
@@ -17443,45 +17443,45 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VLN8$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VLN8P because implies a one-off input of C
-    ModelDFSL_VLN8P <- ModelDFSL1y_VLN8
+    #This model will be called VLN_8P because implies a one-off input of C
+    ModelDFSL_VLN_8P <- ModelDFSL1y_VLN8
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VLN8P,"VXP_Models\\ModelDFSL_R_VLN8P.xlsx")
+    write_xlsx(ModelDFSL_VLN_8P,"VXP_Models\\ModelDFSL_R_VLN_8P.xlsx")
 
 
     #Plot 3: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VLN8P_YCO2 <- ModelDFSL_VLN8P %>%
+    ModelDFSL_VLN_8P_YCO2 <- ModelDFSL_VLN_8P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLN8)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLN8P_YCO2) <- c("Year", "Months", "AnnualCO2_VLN_8")
+    colnames(ModelDFSL_VLN_8P_YCO2) <- c("Year", "Months", "AnnualCO2_VLN_8")
 
     #Plot 3: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VLN8P_YCO2D <- merge(ModelDFSL_VLN8P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VLN8P_YCO2D$AnnualCO2D_VLN_8 <- ModelDFSL_VLN8P_YCO2D$AnnualCO2_VLN_8 * ModelDFSL_VLN8P_YCO2D$GWP100
+    ModelDFSL_VLN_8P_YCO2D <- merge(ModelDFSL_VLN_8P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VLN_8P_YCO2D$AnnualCO2D_VLN_8 <- ModelDFSL_VLN_8P_YCO2D$AnnualCO2_VLN_8 * ModelDFSL_VLN_8P_YCO2D$GWP100
 
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VLN8P_YC <- ModelDFSL_VLN8P %>%
+    ModelDFSL_VLN_8P_YC <- ModelDFSL_VLN_8P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLN8)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLN8P_YC) <- c("Year", "Months", "CEmissions_VLN_8")
+    colnames(ModelDFSL_VLN_8P_YC) <- c("Year", "Months", "CEmissions_VLN_8")
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VLN8P_YCT <- ModelDFSL_VLN8P %>%
+    ModelDFSL_VLN_8P_YCT <- ModelDFSL_VLN_8P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLN8)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLN8P_YCT) <- c("Year", "Months", "CTail_VLN_8")
+    colnames(ModelDFSL_VLN_8P_YCT) <- c("Year", "Months", "CTail_VLN_8")
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VLN8P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN8P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VLN8P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN8P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLN8P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN8P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLN8P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN8P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLN_8P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN_8P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VLN_8P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN_8P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VLN_8P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN_8P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLN_8P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN_8P.xlsx") #Yearly C emissions
 
 
 
@@ -17623,45 +17623,45 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VLN9$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VLN9P because implies a one-off input of C
-    ModelDFSL_VLN9P <- ModelDFSL1y_VLN9
+    #This model will be called VLN_9P because implies a one-off input of C
+    ModelDFSL_VLN_9P <- ModelDFSL1y_VLN9
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VLN9P,"VXP_Models\\ModelDFSL_R_VLN9P.xlsx")
+    write_xlsx(ModelDFSL_VLN_9P,"VXP_Models\\ModelDFSL_R_VLN_9P.xlsx")
 
 
     #Plot 3: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VLN9P_YCO2 <- ModelDFSL_VLN9P %>%
+    ModelDFSL_VLN_9P_YCO2 <- ModelDFSL_VLN_9P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VLN9)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLN9P_YCO2) <- c("Year", "Months", "AnnualCO2_VLN_9")
+    colnames(ModelDFSL_VLN_9P_YCO2) <- c("Year", "Months", "AnnualCO2_VLN_9")
 
     #Plot 3: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VLN9P_YCO2D <- merge(ModelDFSL_VLN9P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VLN9P_YCO2D$AnnualCO2D_VLN_9 <- ModelDFSL_VLN9P_YCO2D$AnnualCO2_VLN_9 * ModelDFSL_VLN9P_YCO2D$GWP100
+    ModelDFSL_VLN_9P_YCO2D <- merge(ModelDFSL_VLN_9P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VLN_9P_YCO2D$AnnualCO2D_VLN_9 <- ModelDFSL_VLN_9P_YCO2D$AnnualCO2_VLN_9 * ModelDFSL_VLN_9P_YCO2D$GWP100
 
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VLN9P_YC <- ModelDFSL_VLN9P %>%
+    ModelDFSL_VLN_9P_YC <- ModelDFSL_VLN_9P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VLN9)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLN9P_YC) <- c("Year", "Months", "CEmissions_VLN_9")
+    colnames(ModelDFSL_VLN_9P_YC) <- c("Year", "Months", "CEmissions_VLN_9")
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VLN9P_YCT <- ModelDFSL_VLN9P %>%
+    ModelDFSL_VLN_9P_YCT <- ModelDFSL_VLN_9P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VLN9)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VLN9P_YCT) <- c("Year", "Months", "CTail_VLN_9")
+    colnames(ModelDFSL_VLN_9P_YCT) <- c("Year", "Months", "CTail_VLN_9")
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VLN9P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN9P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VLN9P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN9P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VLN9P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN9P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VLN9P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN9P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLN_9P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VLN_9P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VLN_9P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VLN_9P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VLN_9P_YC,"CEmissions_P\\ModelDFSL_R_CE_VLN_9P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VLN_9P_YCT,"CTails_P\\ModelDFSL_R_CT_VLN_9P.xlsx") #Yearly C emissions
 
 
 
@@ -17977,43 +17977,43 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VMC0$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VMC0P because implies a one-off input of C
-    ModelDFSL_VMC0P <- ModelDFSL1y_VMC0
+    #This model will be called VMC_0P because implies a one-off input of C
+    ModelDFSL_VMC_0P <- ModelDFSL1y_VMC0
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VMC0P,"VXP_Models\\ModelDFSL_R_VMC0P.xlsx")
+    write_xlsx(ModelDFSL_VMC_0P,"VXP_Models\\ModelDFSL_R_VMC_0P.xlsx")
 
     #Plot 3.1: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VMC0P_YCO2 <- ModelDFSL_VMC0P %>%
+    ModelDFSL_VMC_0P_YCO2 <- ModelDFSL_VMC_0P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMC0)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMC0P_YCO2) <- c("Year", "Months", "AnnualCO2_VMC_0")
+    colnames(ModelDFSL_VMC_0P_YCO2) <- c("Year", "Months", "AnnualCO2_VMC_0")
 
     #Plot 3.2: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VMC0P_YCO2D <- merge(ModelDFSL_VMC0P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VMC0P_YCO2D$AnnualCO2D_VMC_0 <- ModelDFSL_VMC0P_YCO2D$AnnualCO2_VMC_0 * ModelDFSL_VMC0P_YCO2D$GWP100
+    ModelDFSL_VMC_0P_YCO2D <- merge(ModelDFSL_VMC_0P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VMC_0P_YCO2D$AnnualCO2D_VMC_0 <- ModelDFSL_VMC_0P_YCO2D$AnnualCO2_VMC_0 * ModelDFSL_VMC_0P_YCO2D$GWP100
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VMC0P_YC <- ModelDFSL_VMC0P %>%
+    ModelDFSL_VMC_0P_YC <- ModelDFSL_VMC_0P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMC0)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMC0P_YC) <- c("Year", "Months", "CEmissions_VMC_0")
+    colnames(ModelDFSL_VMC_0P_YC) <- c("Year", "Months", "CEmissions_VMC_0")
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VMC0P_YCT <- ModelDFSL_VMC0P %>%
+    ModelDFSL_VMC_0P_YCT <- ModelDFSL_VMC_0P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMC0)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMC0P_YCT) <- c("Year", "Months", "CTail_VMC_0")
+    colnames(ModelDFSL_VMC_0P_YCT) <- c("Year", "Months", "CTail_VMC_0")
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VMC0P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC0P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VMC0P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC0P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMC0P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC0P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMC0P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC0P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMC_0P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC_0P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VMC_0P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC_0P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VMC_0P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC_0P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMC_0P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC_0P.xlsx") #Yearly C emissions
 
 
     #### 10.2 - VMC1) Manure; 10%clay; Conventional tillage ####
@@ -18154,43 +18154,43 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VMC1$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VMC1P because implies a one-off input of C
-    ModelDFSL_VMC1P <- ModelDFSL1y_VMC1
+    #This model will be called VMC_1P because implies a one-off input of C
+    ModelDFSL_VMC_1P <- ModelDFSL1y_VMC1
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VMC1P,"VXP_Models\\ModelDFSL_R_VMC1P.xlsx")
+    write_xlsx(ModelDFSL_VMC_1P,"VXP_Models\\ModelDFSL_R_VMC_1P.xlsx")
 
     #Plot 3: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VMC1P_YCO2 <- ModelDFSL_VMC1P %>%
+    ModelDFSL_VMC_1P_YCO2 <- ModelDFSL_VMC_1P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMC1)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMC1P_YCO2) <- c("Year", "Months", "AnnualCO2_VMC_1")
+    colnames(ModelDFSL_VMC_1P_YCO2) <- c("Year", "Months", "AnnualCO2_VMC_1")
 
     #Plot 3: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VMC1P_YCO2D <- merge(ModelDFSL_VMC1P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VMC1P_YCO2D$AnnualCO2D_VMC_1 <- ModelDFSL_VMC1P_YCO2D$AnnualCO2_VMC_1 * ModelDFSL_VMC1P_YCO2D$GWP100
+    ModelDFSL_VMC_1P_YCO2D <- merge(ModelDFSL_VMC_1P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VMC_1P_YCO2D$AnnualCO2D_VMC_1 <- ModelDFSL_VMC_1P_YCO2D$AnnualCO2_VMC_1 * ModelDFSL_VMC_1P_YCO2D$GWP100
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VMC1P_YC <- ModelDFSL_VMC1P %>%
+    ModelDFSL_VMC_1P_YC <- ModelDFSL_VMC_1P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMC1)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMC1P_YC) <- c("Year", "Months", "CEmissions_VMC_1")
+    colnames(ModelDFSL_VMC_1P_YC) <- c("Year", "Months", "CEmissions_VMC_1")
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VMC1P_YCT <- ModelDFSL_VMC1P %>%
+    ModelDFSL_VMC_1P_YCT <- ModelDFSL_VMC_1P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMC1)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMC1P_YCT) <- c("Year", "Months", "CTail_VMC_1")
+    colnames(ModelDFSL_VMC_1P_YCT) <- c("Year", "Months", "CTail_VMC_1")
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VMC1P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC1P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VMC1P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC1P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMC1P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC1P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMC1P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC1P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMC_1P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC_1P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VMC_1P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC_1P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VMC_1P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC_1P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMC_1P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC_1P.xlsx") #Yearly C emissions
 
 
 
@@ -18332,43 +18332,43 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VMC2$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VMC2P because implies a one-off input of C
-    ModelDFSL_VMC2P <- ModelDFSL1y_VMC2
+    #This model will be called VMC_2P because implies a one-off input of C
+    ModelDFSL_VMC_2P <- ModelDFSL1y_VMC2
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VMC2P,"VXP_Models\\ModelDFSL_R_VMC2P.xlsx")
+    write_xlsx(ModelDFSL_VMC_2P,"VXP_Models\\ModelDFSL_R_VMC_2P.xlsx")
 
     #Plot 3: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VMC2P_YCO2 <- ModelDFSL_VMC2P %>%
+    ModelDFSL_VMC_2P_YCO2 <- ModelDFSL_VMC_2P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMC2)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMC2P_YCO2) <- c("Year", "Months", "AnnualCO2_VMC_2")
+    colnames(ModelDFSL_VMC_2P_YCO2) <- c("Year", "Months", "AnnualCO2_VMC_2")
 
     #Plot 3: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VMC2P_YCO2D <- merge(ModelDFSL_VMC2P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VMC2P_YCO2D$AnnualCO2D_VMC_2 <- ModelDFSL_VMC2P_YCO2D$AnnualCO2_VMC_2 * ModelDFSL_VMC2P_YCO2D$GWP100
+    ModelDFSL_VMC_2P_YCO2D <- merge(ModelDFSL_VMC_2P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VMC_2P_YCO2D$AnnualCO2D_VMC_2 <- ModelDFSL_VMC_2P_YCO2D$AnnualCO2_VMC_2 * ModelDFSL_VMC_2P_YCO2D$GWP100
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VMC2P_YC <- ModelDFSL_VMC2P %>%
+    ModelDFSL_VMC_2P_YC <- ModelDFSL_VMC_2P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMC2)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMC2P_YC) <- c("Year", "Months", "CEmissions_VMC_2")
+    colnames(ModelDFSL_VMC_2P_YC) <- c("Year", "Months", "CEmissions_VMC_2")
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VMC2P_YCT <- ModelDFSL_VMC2P %>%
+    ModelDFSL_VMC_2P_YCT <- ModelDFSL_VMC_2P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMC2)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMC2P_YCT) <- c("Year", "Months", "CTail_VMC_2")
+    colnames(ModelDFSL_VMC_2P_YCT) <- c("Year", "Months", "CTail_VMC_2")
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VMC2P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC2P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VMC2P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC2P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMC2P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC2P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMC2P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC2P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMC_2P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC_2P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VMC_2P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC_2P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VMC_2P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC_2P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMC_2P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC_2P.xlsx") #Yearly C emissions
 
 
 
@@ -18510,43 +18510,43 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VMC3$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VMC3P because implies a one-off input of C
-    ModelDFSL_VMC3P <- ModelDFSL1y_VMC3
+    #This model will be called VMC_3P because implies a one-off input of C
+    ModelDFSL_VMC_3P <- ModelDFSL1y_VMC3
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VMC3P,"VXP_Models\\ModelDFSL_R_VMC3P.xlsx")
+    write_xlsx(ModelDFSL_VMC_3P,"VXP_Models\\ModelDFSL_R_VMC_3P.xlsx")
 
     #Plot 3: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VMC3P_YCO2 <- ModelDFSL_VMC3P %>%
+    ModelDFSL_VMC_3P_YCO2 <- ModelDFSL_VMC_3P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMC3)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMC3P_YCO2) <- c("Year", "Months", "AnnualCO2_VMC_3")
+    colnames(ModelDFSL_VMC_3P_YCO2) <- c("Year", "Months", "AnnualCO2_VMC_3")
 
     #Plot 3: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VMC3P_YCO2D <- merge(ModelDFSL_VMC3P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VMC3P_YCO2D$AnnualCO2D_VMC_3 <- ModelDFSL_VMC3P_YCO2D$AnnualCO2_VMC_3 * ModelDFSL_VMC3P_YCO2D$GWP100
+    ModelDFSL_VMC_3P_YCO2D <- merge(ModelDFSL_VMC_3P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VMC_3P_YCO2D$AnnualCO2D_VMC_3 <- ModelDFSL_VMC_3P_YCO2D$AnnualCO2_VMC_3 * ModelDFSL_VMC_3P_YCO2D$GWP100
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VMC3P_YC <- ModelDFSL_VMC3P %>%
+    ModelDFSL_VMC_3P_YC <- ModelDFSL_VMC_3P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMC3)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMC3P_YC) <- c("Year", "Months", "CEmissions_VMC_3")
+    colnames(ModelDFSL_VMC_3P_YC) <- c("Year", "Months", "CEmissions_VMC_3")
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VMC3P_YCT <- ModelDFSL_VMC3P %>%
+    ModelDFSL_VMC_3P_YCT <- ModelDFSL_VMC_3P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMC3)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMC3P_YCT) <- c("Year", "Months", "CTail_VMC_3")
+    colnames(ModelDFSL_VMC_3P_YCT) <- c("Year", "Months", "CTail_VMC_3")
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VMC3P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC3P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VMC3P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC3P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMC3P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC3P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMC3P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC3P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMC_3P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC_3P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VMC_3P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC_3P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VMC_3P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC_3P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMC_3P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC_3P.xlsx") #Yearly C emissions
 
 
 
@@ -18688,43 +18688,43 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VMC4$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VMC4P because implies a one-off input of C
-    ModelDFSL_VMC4P <- ModelDFSL1y_VMC4
+    #This model will be called VMC_4P because implies a one-off input of C
+    ModelDFSL_VMC_4P <- ModelDFSL1y_VMC4
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VMC4P,"VXP_Models\\ModelDFSL_R_VMC4P.xlsx")
+    write_xlsx(ModelDFSL_VMC_4P,"VXP_Models\\ModelDFSL_R_VMC_4P.xlsx")
 
     #Plot 3: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VMC4P_YCO2 <- ModelDFSL_VMC4P %>%
+    ModelDFSL_VMC_4P_YCO2 <- ModelDFSL_VMC_4P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMC4)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMC4P_YCO2) <- c("Year", "Months", "AnnualCO2_VMC_4")
+    colnames(ModelDFSL_VMC_4P_YCO2) <- c("Year", "Months", "AnnualCO2_VMC_4")
 
     #Plot 3: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VMC4P_YCO2D <- merge(ModelDFSL_VMC4P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VMC4P_YCO2D$AnnualCO2D_VMC_4 <- ModelDFSL_VMC4P_YCO2D$AnnualCO2_VMC_4 * ModelDFSL_VMC4P_YCO2D$GWP100
+    ModelDFSL_VMC_4P_YCO2D <- merge(ModelDFSL_VMC_4P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VMC_4P_YCO2D$AnnualCO2D_VMC_4 <- ModelDFSL_VMC_4P_YCO2D$AnnualCO2_VMC_4 * ModelDFSL_VMC_4P_YCO2D$GWP100
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VMC4P_YC <- ModelDFSL_VMC4P %>%
+    ModelDFSL_VMC_4P_YC <- ModelDFSL_VMC_4P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMC4)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMC4P_YC) <- c("Year", "Months", "CEmissions_VMC_4")
+    colnames(ModelDFSL_VMC_4P_YC) <- c("Year", "Months", "CEmissions_VMC_4")
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VMC4P_YCT <- ModelDFSL_VMC4P %>%
+    ModelDFSL_VMC_4P_YCT <- ModelDFSL_VMC_4P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMC4)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMC4P_YCT) <- c("Year", "Months", "CTail_VMC_4")
+    colnames(ModelDFSL_VMC_4P_YCT) <- c("Year", "Months", "CTail_VMC_4")
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VMC4P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC4P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VMC4P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC4P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMC4P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC4P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMC4P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC4P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMC_4P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC_4P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VMC_4P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC_4P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VMC_4P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC_4P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMC_4P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC_4P.xlsx") #Yearly C emissions
 
 
 
@@ -18866,46 +18866,46 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VMC5$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VMC5P because implies a one-off input of C
-    ModelDFSL_VMC5P <- ModelDFSL1y_VMC5
+    #This model will be called VMC_5P because implies a one-off input of C
+    ModelDFSL_VMC_5P <- ModelDFSL1y_VMC5
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VMC5P,"VXP_Models\\ModelDFSL_R_VMC5P.xlsx")
+    write_xlsx(ModelDFSL_VMC_5P,"VXP_Models\\ModelDFSL_R_VMC_5P.xlsx")
 
 
     #Plot 3: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VMC5P_YCO2 <- ModelDFSL_VMC5P %>%
+    ModelDFSL_VMC_5P_YCO2 <- ModelDFSL_VMC_5P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMC5)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMC5P_YCO2) <- c("Year", "Months", "AnnualCO2_VMC_5")
+    colnames(ModelDFSL_VMC_5P_YCO2) <- c("Year", "Months", "AnnualCO2_VMC_5")
 
 
     #Plot 3: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VMC5P_YCO2D <- merge(ModelDFSL_VMC5P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VMC5P_YCO2D$AnnualCO2D_VMC_5 <- ModelDFSL_VMC5P_YCO2D$AnnualCO2_VMC_5 * ModelDFSL_VMC5P_YCO2D$GWP100
+    ModelDFSL_VMC_5P_YCO2D <- merge(ModelDFSL_VMC_5P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VMC_5P_YCO2D$AnnualCO2D_VMC_5 <- ModelDFSL_VMC_5P_YCO2D$AnnualCO2_VMC_5 * ModelDFSL_VMC_5P_YCO2D$GWP100
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VMC5P_YC <- ModelDFSL_VMC5P %>%
+    ModelDFSL_VMC_5P_YC <- ModelDFSL_VMC_5P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMC5)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMC5P_YC) <- c("Year", "Months", "CEmissions_VMC_5")
+    colnames(ModelDFSL_VMC_5P_YC) <- c("Year", "Months", "CEmissions_VMC_5")
 
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VMC5P_YCT <- ModelDFSL_VMC5P %>%
+    ModelDFSL_VMC_5P_YCT <- ModelDFSL_VMC_5P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMC5)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMC5P_YCT) <- c("Year", "Months", "CTail_VMC_5")
+    colnames(ModelDFSL_VMC_5P_YCT) <- c("Year", "Months", "CTail_VMC_5")
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VMC5P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC5P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VMC5P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC5P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMC5P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC5P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMC5P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC5P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMC_5P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC_5P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VMC_5P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC_5P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VMC_5P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC_5P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMC_5P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC_5P.xlsx") #Yearly C emissions
 
 
 
@@ -19047,45 +19047,45 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VMC6$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VMC6P because implies a one-off input of C
-    ModelDFSL_VMC6P <- ModelDFSL1y_VMC6
+    #This model will be called VMC_6P because implies a one-off input of C
+    ModelDFSL_VMC_6P <- ModelDFSL1y_VMC6
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VMC6P,"VXP_Models\\ModelDFSL_R_VMC6P.xlsx")
+    write_xlsx(ModelDFSL_VMC_6P,"VXP_Models\\ModelDFSL_R_VMC_6P.xlsx")
 
     #Plot 3: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VMC6P_YCO2 <- ModelDFSL_VMC6P %>%
+    ModelDFSL_VMC_6P_YCO2 <- ModelDFSL_VMC_6P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMC6)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMC6P_YCO2) <- c("Year", "Months", "AnnualCO2_VMC_6")
+    colnames(ModelDFSL_VMC_6P_YCO2) <- c("Year", "Months", "AnnualCO2_VMC_6")
 
 
     #Plot 3: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VMC6P_YCO2D <- merge(ModelDFSL_VMC6P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VMC6P_YCO2D$AnnualCO2D_VMC_6 <- ModelDFSL_VMC6P_YCO2D$AnnualCO2_VMC_6 * ModelDFSL_VMC6P_YCO2D$GWP100
+    ModelDFSL_VMC_6P_YCO2D <- merge(ModelDFSL_VMC_6P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VMC_6P_YCO2D$AnnualCO2D_VMC_6 <- ModelDFSL_VMC_6P_YCO2D$AnnualCO2_VMC_6 * ModelDFSL_VMC_6P_YCO2D$GWP100
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VMC6P_YC <- ModelDFSL_VMC6P %>%
+    ModelDFSL_VMC_6P_YC <- ModelDFSL_VMC_6P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMC6)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMC6P_YC) <- c("Year", "Months", "CEmissions_VMC_6")
+    colnames(ModelDFSL_VMC_6P_YC) <- c("Year", "Months", "CEmissions_VMC_6")
 
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VMC6P_YCT <- ModelDFSL_VMC6P %>%
+    ModelDFSL_VMC_6P_YCT <- ModelDFSL_VMC_6P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMC6)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMC6P_YCT) <- c("Year", "Months", "CTail_VMC_6")
+    colnames(ModelDFSL_VMC_6P_YCT) <- c("Year", "Months", "CTail_VMC_6")
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VMC6P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC6P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VMC6P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC6P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMC6P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC6P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMC6P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC6P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMC_6P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC_6P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VMC_6P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC_6P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VMC_6P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC_6P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMC_6P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC_6P.xlsx") #Yearly C emissions
 
 
 
@@ -19227,46 +19227,46 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VMC7$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VMC7P because implies a one-off input of C
-    ModelDFSL_VMC7P <- ModelDFSL1y_VMC7
+    #This model will be called VMC_7P because implies a one-off input of C
+    ModelDFSL_VMC_7P <- ModelDFSL1y_VMC7
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VMC7P,"VXP_Models\\ModelDFSL_R_VMC7P.xlsx")
+    write_xlsx(ModelDFSL_VMC_7P,"VXP_Models\\ModelDFSL_R_VMC_7P.xlsx")
 
     #Plot 3: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VMC7P_YCO2 <- ModelDFSL_VMC7P %>%
+    ModelDFSL_VMC_7P_YCO2 <- ModelDFSL_VMC_7P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMC7)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMC7P_YCO2) <- c("Year", "Months", "AnnualCO2_VMC_7")
+    colnames(ModelDFSL_VMC_7P_YCO2) <- c("Year", "Months", "AnnualCO2_VMC_7")
 
 
     #Plot 3: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VMC7P_YCO2D <- merge(ModelDFSL_VMC7P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VMC7P_YCO2D$AnnualCO2D_VMC_7 <- ModelDFSL_VMC7P_YCO2D$AnnualCO2_VMC_7 * ModelDFSL_VMC7P_YCO2D$GWP100
+    ModelDFSL_VMC_7P_YCO2D <- merge(ModelDFSL_VMC_7P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VMC_7P_YCO2D$AnnualCO2D_VMC_7 <- ModelDFSL_VMC_7P_YCO2D$AnnualCO2_VMC_7 * ModelDFSL_VMC_7P_YCO2D$GWP100
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VMC7P_YC <- ModelDFSL_VMC7P %>%
+    ModelDFSL_VMC_7P_YC <- ModelDFSL_VMC_7P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMC7)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMC7P_YC) <- c("Year", "Months", "CEmissions_VMC_7")
+    colnames(ModelDFSL_VMC_7P_YC) <- c("Year", "Months", "CEmissions_VMC_7")
 
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VMC7P_YCT <- ModelDFSL_VMC7P %>%
+    ModelDFSL_VMC_7P_YCT <- ModelDFSL_VMC_7P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMC7)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMC7P_YCT) <- c("Year", "Months", "CTail_VMC_7")
+    colnames(ModelDFSL_VMC_7P_YCT) <- c("Year", "Months", "CTail_VMC_7")
 
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VMC7P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC7P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VMC7P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC7P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMC7P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC7P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMC7P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC7P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMC_7P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC_7P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VMC_7P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC_7P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VMC_7P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC_7P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMC_7P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC_7P.xlsx") #Yearly C emissions
 
 
 
@@ -19408,45 +19408,45 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VMC8$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VMC8P because implies a one-off input of C
-    ModelDFSL_VMC8P <- ModelDFSL1y_VMC8
+    #This model will be called VMC_8P because implies a one-off input of C
+    ModelDFSL_VMC_8P <- ModelDFSL1y_VMC8
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VMC8P,"VXP_Models\\ModelDFSL_R_VMC8P.xlsx")
+    write_xlsx(ModelDFSL_VMC_8P,"VXP_Models\\ModelDFSL_R_VMC_8P.xlsx")
 
 
     #Plot 3: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VMC8P_YCO2 <- ModelDFSL_VMC8P %>%
+    ModelDFSL_VMC_8P_YCO2 <- ModelDFSL_VMC_8P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMC8)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMC8P_YCO2) <- c("Year", "Months", "AnnualCO2_VMC_8")
+    colnames(ModelDFSL_VMC_8P_YCO2) <- c("Year", "Months", "AnnualCO2_VMC_8")
 
     #Plot 3: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VMC8P_YCO2D <- merge(ModelDFSL_VMC8P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VMC8P_YCO2D$AnnualCO2D_VMC_8 <- ModelDFSL_VMC8P_YCO2D$AnnualCO2_VMC_8 * ModelDFSL_VMC8P_YCO2D$GWP100
+    ModelDFSL_VMC_8P_YCO2D <- merge(ModelDFSL_VMC_8P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VMC_8P_YCO2D$AnnualCO2D_VMC_8 <- ModelDFSL_VMC_8P_YCO2D$AnnualCO2_VMC_8 * ModelDFSL_VMC_8P_YCO2D$GWP100
 
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VMC8P_YC <- ModelDFSL_VMC8P %>%
+    ModelDFSL_VMC_8P_YC <- ModelDFSL_VMC_8P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMC8)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMC8P_YC) <- c("Year", "Months", "CEmissions_VMC_8")
+    colnames(ModelDFSL_VMC_8P_YC) <- c("Year", "Months", "CEmissions_VMC_8")
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VMC8P_YCT <- ModelDFSL_VMC8P %>%
+    ModelDFSL_VMC_8P_YCT <- ModelDFSL_VMC_8P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMC8)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMC8P_YCT) <- c("Year", "Months", "CTail_VMC_8")
+    colnames(ModelDFSL_VMC_8P_YCT) <- c("Year", "Months", "CTail_VMC_8")
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VMC8P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC8P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VMC8P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC8P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMC8P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC8P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMC8P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC8P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMC_8P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC_8P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VMC_8P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC_8P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VMC_8P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC_8P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMC_8P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC_8P.xlsx") #Yearly C emissions
 
 
 
@@ -19588,45 +19588,45 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VMC9$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VMC9P because implies a one-off input of C
-    ModelDFSL_VMC9P <- ModelDFSL1y_VMC9
+    #This model will be called VMC_9P because implies a one-off input of C
+    ModelDFSL_VMC_9P <- ModelDFSL1y_VMC9
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VMC9P,"VXP_Models\\ModelDFSL_R_VMC9P.xlsx")
+    write_xlsx(ModelDFSL_VMC_9P,"VXP_Models\\ModelDFSL_R_VMC_9P.xlsx")
 
 
     #Plot 3: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VMC9P_YCO2 <- ModelDFSL_VMC9P %>%
+    ModelDFSL_VMC_9P_YCO2 <- ModelDFSL_VMC_9P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMC9)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMC9P_YCO2) <- c("Year", "Months", "AnnualCO2_VMC_9")
+    colnames(ModelDFSL_VMC_9P_YCO2) <- c("Year", "Months", "AnnualCO2_VMC_9")
 
     #Plot 3: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VMC9P_YCO2D <- merge(ModelDFSL_VMC9P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VMC9P_YCO2D$AnnualCO2D_VMC_9 <- ModelDFSL_VMC9P_YCO2D$AnnualCO2_VMC_9 * ModelDFSL_VMC9P_YCO2D$GWP100
+    ModelDFSL_VMC_9P_YCO2D <- merge(ModelDFSL_VMC_9P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VMC_9P_YCO2D$AnnualCO2D_VMC_9 <- ModelDFSL_VMC_9P_YCO2D$AnnualCO2_VMC_9 * ModelDFSL_VMC_9P_YCO2D$GWP100
 
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VMC9P_YC <- ModelDFSL_VMC9P %>%
+    ModelDFSL_VMC_9P_YC <- ModelDFSL_VMC_9P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMC9)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMC9P_YC) <- c("Year", "Months", "CEmissions_VMC_9")
+    colnames(ModelDFSL_VMC_9P_YC) <- c("Year", "Months", "CEmissions_VMC_9")
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VMC9P_YCT <- ModelDFSL_VMC9P %>%
+    ModelDFSL_VMC_9P_YCT <- ModelDFSL_VMC_9P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMC9)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMC9P_YCT) <- c("Year", "Months", "CTail_VMC_9")
+    colnames(ModelDFSL_VMC_9P_YCT) <- c("Year", "Months", "CTail_VMC_9")
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VMC9P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC9P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VMC9P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC9P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMC9P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC9P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMC9P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC9P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMC_9P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMC_9P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VMC_9P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMC_9P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VMC_9P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMC_9P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMC_9P_YCT,"CTails_P\\ModelDFSL_R_CT_VMC_9P.xlsx") #Yearly C emissions
 
 
 
@@ -19942,43 +19942,43 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VMR0$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VMR0P because implies a one-off input of C
-    ModelDFSL_VMR0P <- ModelDFSL1y_VMR0
+    #This model will be called VMR_0P because implies a one-off input of C
+    ModelDFSL_VMR_0P <- ModelDFSL1y_VMR0
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VMR0P,"VXP_Models\\ModelDFSL_R_VMR0P.xlsx")
+    write_xlsx(ModelDFSL_VMR_0P,"VXP_Models\\ModelDFSL_R_VMR_0P.xlsx")
 
     #Plot 3.1: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VMR0P_YCO2 <- ModelDFSL_VMR0P %>%
+    ModelDFSL_VMR_0P_YCO2 <- ModelDFSL_VMR_0P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMR0)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMR0P_YCO2) <- c("Year", "Months", "AnnualCO2_VMR_0")
+    colnames(ModelDFSL_VMR_0P_YCO2) <- c("Year", "Months", "AnnualCO2_VMR_0")
 
     #Plot 3.2: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VMR0P_YCO2D <- merge(ModelDFSL_VMR0P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VMR0P_YCO2D$AnnualCO2D_VMR_0 <- ModelDFSL_VMR0P_YCO2D$AnnualCO2_VMR_0 * ModelDFSL_VMR0P_YCO2D$GWP100
+    ModelDFSL_VMR_0P_YCO2D <- merge(ModelDFSL_VMR_0P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VMR_0P_YCO2D$AnnualCO2D_VMR_0 <- ModelDFSL_VMR_0P_YCO2D$AnnualCO2_VMR_0 * ModelDFSL_VMR_0P_YCO2D$GWP100
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VMR0P_YC <- ModelDFSL_VMR0P %>%
+    ModelDFSL_VMR_0P_YC <- ModelDFSL_VMR_0P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMR0)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMR0P_YC) <- c("Year", "Months", "CEmissions_VMR_0")
+    colnames(ModelDFSL_VMR_0P_YC) <- c("Year", "Months", "CEmissions_VMR_0")
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VMR0P_YCT <- ModelDFSL_VMR0P %>%
+    ModelDFSL_VMR_0P_YCT <- ModelDFSL_VMR_0P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMR0)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMR0P_YCT) <- c("Year", "Months", "CTail_VMR_0")
+    colnames(ModelDFSL_VMR_0P_YCT) <- c("Year", "Months", "CTail_VMR_0")
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VMR0P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR0P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VMR0P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR0P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMR0P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR0P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMR0P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR0P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMR_0P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR_0P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VMR_0P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR_0P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VMR_0P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR_0P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMR_0P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR_0P.xlsx") #Yearly C emissions
 
 
     #### 11.2 - VMR1) Manure; 10%clay; Reduced Tillage ####
@@ -20119,43 +20119,43 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VMR1$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VMR1P because implies a one-off input of C
-    ModelDFSL_VMR1P <- ModelDFSL1y_VMR1
+    #This model will be called VMR_1P because implies a one-off input of C
+    ModelDFSL_VMR_1P <- ModelDFSL1y_VMR1
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VMR1P,"VXP_Models\\ModelDFSL_R_VMR1P.xlsx")
+    write_xlsx(ModelDFSL_VMR_1P,"VXP_Models\\ModelDFSL_R_VMR_1P.xlsx")
 
     #Plot 3: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VMR1P_YCO2 <- ModelDFSL_VMR1P %>%
+    ModelDFSL_VMR_1P_YCO2 <- ModelDFSL_VMR_1P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMR1)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMR1P_YCO2) <- c("Year", "Months", "AnnualCO2_VMR_1")
+    colnames(ModelDFSL_VMR_1P_YCO2) <- c("Year", "Months", "AnnualCO2_VMR_1")
 
     #Plot 3: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VMR1P_YCO2D <- merge(ModelDFSL_VMR1P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VMR1P_YCO2D$AnnualCO2D_VMR_1 <- ModelDFSL_VMR1P_YCO2D$AnnualCO2_VMR_1 * ModelDFSL_VMR1P_YCO2D$GWP100
+    ModelDFSL_VMR_1P_YCO2D <- merge(ModelDFSL_VMR_1P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VMR_1P_YCO2D$AnnualCO2D_VMR_1 <- ModelDFSL_VMR_1P_YCO2D$AnnualCO2_VMR_1 * ModelDFSL_VMR_1P_YCO2D$GWP100
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VMR1P_YC <- ModelDFSL_VMR1P %>%
+    ModelDFSL_VMR_1P_YC <- ModelDFSL_VMR_1P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMR1)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMR1P_YC) <- c("Year", "Months", "CEmissions_VMR_1")
+    colnames(ModelDFSL_VMR_1P_YC) <- c("Year", "Months", "CEmissions_VMR_1")
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VMR1P_YCT <- ModelDFSL_VMR1P %>%
+    ModelDFSL_VMR_1P_YCT <- ModelDFSL_VMR_1P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMR1)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMR1P_YCT) <- c("Year", "Months", "CTail_VMR_1")
+    colnames(ModelDFSL_VMR_1P_YCT) <- c("Year", "Months", "CTail_VMR_1")
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VMR1P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR1P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VMR1P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR1P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMR1P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR1P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMR1P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR1P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMR_1P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR_1P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VMR_1P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR_1P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VMR_1P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR_1P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMR_1P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR_1P.xlsx") #Yearly C emissions
 
 
 
@@ -20297,43 +20297,43 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VMR2$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VMR2P because implies a one-off input of C
-    ModelDFSL_VMR2P <- ModelDFSL1y_VMR2
+    #This model will be called VMR_2P because implies a one-off input of C
+    ModelDFSL_VMR_2P <- ModelDFSL1y_VMR2
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VMR2P,"VXP_Models\\ModelDFSL_R_VMR2P.xlsx")
+    write_xlsx(ModelDFSL_VMR_2P,"VXP_Models\\ModelDFSL_R_VMR_2P.xlsx")
 
     #Plot 3: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VMR2P_YCO2 <- ModelDFSL_VMR2P %>%
+    ModelDFSL_VMR_2P_YCO2 <- ModelDFSL_VMR_2P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMR2)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMR2P_YCO2) <- c("Year", "Months", "AnnualCO2_VMR_2")
+    colnames(ModelDFSL_VMR_2P_YCO2) <- c("Year", "Months", "AnnualCO2_VMR_2")
 
     #Plot 3: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VMR2P_YCO2D <- merge(ModelDFSL_VMR2P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VMR2P_YCO2D$AnnualCO2D_VMR_2 <- ModelDFSL_VMR2P_YCO2D$AnnualCO2_VMR_2 * ModelDFSL_VMR2P_YCO2D$GWP100
+    ModelDFSL_VMR_2P_YCO2D <- merge(ModelDFSL_VMR_2P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VMR_2P_YCO2D$AnnualCO2D_VMR_2 <- ModelDFSL_VMR_2P_YCO2D$AnnualCO2_VMR_2 * ModelDFSL_VMR_2P_YCO2D$GWP100
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VMR2P_YC <- ModelDFSL_VMR2P %>%
+    ModelDFSL_VMR_2P_YC <- ModelDFSL_VMR_2P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMR2)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMR2P_YC) <- c("Year", "Months", "CEmissions_VMR_2")
+    colnames(ModelDFSL_VMR_2P_YC) <- c("Year", "Months", "CEmissions_VMR_2")
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VMR2P_YCT <- ModelDFSL_VMR2P %>%
+    ModelDFSL_VMR_2P_YCT <- ModelDFSL_VMR_2P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMR2)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMR2P_YCT) <- c("Year", "Months", "CTail_VMR_2")
+    colnames(ModelDFSL_VMR_2P_YCT) <- c("Year", "Months", "CTail_VMR_2")
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VMR2P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR2P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VMR2P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR2P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMR2P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR2P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMR2P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR2P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMR_2P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR_2P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VMR_2P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR_2P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VMR_2P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR_2P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMR_2P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR_2P.xlsx") #Yearly C emissions
 
 
 
@@ -20475,43 +20475,43 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VMR3$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VMR3P because implies a one-off input of C
-    ModelDFSL_VMR3P <- ModelDFSL1y_VMR3
+    #This model will be called VMR_3P because implies a one-off input of C
+    ModelDFSL_VMR_3P <- ModelDFSL1y_VMR3
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VMR3P,"VXP_Models\\ModelDFSL_R_VMR3P.xlsx")
+    write_xlsx(ModelDFSL_VMR_3P,"VXP_Models\\ModelDFSL_R_VMR_3P.xlsx")
 
     #Plot 3: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VMR3P_YCO2 <- ModelDFSL_VMR3P %>%
+    ModelDFSL_VMR_3P_YCO2 <- ModelDFSL_VMR_3P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMR3)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMR3P_YCO2) <- c("Year", "Months", "AnnualCO2_VMR_3")
+    colnames(ModelDFSL_VMR_3P_YCO2) <- c("Year", "Months", "AnnualCO2_VMR_3")
 
     #Plot 3: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VMR3P_YCO2D <- merge(ModelDFSL_VMR3P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VMR3P_YCO2D$AnnualCO2D_VMR_3 <- ModelDFSL_VMR3P_YCO2D$AnnualCO2_VMR_3 * ModelDFSL_VMR3P_YCO2D$GWP100
+    ModelDFSL_VMR_3P_YCO2D <- merge(ModelDFSL_VMR_3P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VMR_3P_YCO2D$AnnualCO2D_VMR_3 <- ModelDFSL_VMR_3P_YCO2D$AnnualCO2_VMR_3 * ModelDFSL_VMR_3P_YCO2D$GWP100
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VMR3P_YC <- ModelDFSL_VMR3P %>%
+    ModelDFSL_VMR_3P_YC <- ModelDFSL_VMR_3P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMR3)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMR3P_YC) <- c("Year", "Months", "CEmissions_VMR_3")
+    colnames(ModelDFSL_VMR_3P_YC) <- c("Year", "Months", "CEmissions_VMR_3")
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VMR3P_YCT <- ModelDFSL_VMR3P %>%
+    ModelDFSL_VMR_3P_YCT <- ModelDFSL_VMR_3P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMR3)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMR3P_YCT) <- c("Year", "Months", "CTail_VMR_3")
+    colnames(ModelDFSL_VMR_3P_YCT) <- c("Year", "Months", "CTail_VMR_3")
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VMR3P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR3P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VMR3P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR3P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMR3P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR3P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMR3P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR3P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMR_3P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR_3P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VMR_3P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR_3P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VMR_3P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR_3P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMR_3P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR_3P.xlsx") #Yearly C emissions
 
 
 
@@ -20653,43 +20653,43 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VMR4$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VMR4P because implies a one-off input of C
-    ModelDFSL_VMR4P <- ModelDFSL1y_VMR4
+    #This model will be called VMR_4P because implies a one-off input of C
+    ModelDFSL_VMR_4P <- ModelDFSL1y_VMR4
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VMR4P,"VXP_Models\\ModelDFSL_R_VMR4P.xlsx")
+    write_xlsx(ModelDFSL_VMR_4P,"VXP_Models\\ModelDFSL_R_VMR_4P.xlsx")
 
     #Plot 3: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VMR4P_YCO2 <- ModelDFSL_VMR4P %>%
+    ModelDFSL_VMR_4P_YCO2 <- ModelDFSL_VMR_4P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMR4)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMR4P_YCO2) <- c("Year", "Months", "AnnualCO2_VMR_4")
+    colnames(ModelDFSL_VMR_4P_YCO2) <- c("Year", "Months", "AnnualCO2_VMR_4")
 
     #Plot 3: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VMR4P_YCO2D <- merge(ModelDFSL_VMR4P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VMR4P_YCO2D$AnnualCO2D_VMR_4 <- ModelDFSL_VMR4P_YCO2D$AnnualCO2_VMR_4 * ModelDFSL_VMR4P_YCO2D$GWP100
+    ModelDFSL_VMR_4P_YCO2D <- merge(ModelDFSL_VMR_4P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VMR_4P_YCO2D$AnnualCO2D_VMR_4 <- ModelDFSL_VMR_4P_YCO2D$AnnualCO2_VMR_4 * ModelDFSL_VMR_4P_YCO2D$GWP100
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VMR4P_YC <- ModelDFSL_VMR4P %>%
+    ModelDFSL_VMR_4P_YC <- ModelDFSL_VMR_4P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMR4)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMR4P_YC) <- c("Year", "Months", "CEmissions_VMR_4")
+    colnames(ModelDFSL_VMR_4P_YC) <- c("Year", "Months", "CEmissions_VMR_4")
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VMR4P_YCT <- ModelDFSL_VMR4P %>%
+    ModelDFSL_VMR_4P_YCT <- ModelDFSL_VMR_4P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMR4)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMR4P_YCT) <- c("Year", "Months", "CTail_VMR_4")
+    colnames(ModelDFSL_VMR_4P_YCT) <- c("Year", "Months", "CTail_VMR_4")
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VMR4P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR4P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VMR4P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR4P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMR4P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR4P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMR4P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR4P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMR_4P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR_4P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VMR_4P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR_4P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VMR_4P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR_4P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMR_4P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR_4P.xlsx") #Yearly C emissions
 
 
 
@@ -20831,46 +20831,46 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VMR5$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VMR5P because implies a one-off input of C
-    ModelDFSL_VMR5P <- ModelDFSL1y_VMR5
+    #This model will be called VMR_5P because implies a one-off input of C
+    ModelDFSL_VMR_5P <- ModelDFSL1y_VMR5
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VMR5P,"VXP_Models\\ModelDFSL_R_VMR5P.xlsx")
+    write_xlsx(ModelDFSL_VMR_5P,"VXP_Models\\ModelDFSL_R_VMR_5P.xlsx")
 
 
     #Plot 3: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VMR5P_YCO2 <- ModelDFSL_VMR5P %>%
+    ModelDFSL_VMR_5P_YCO2 <- ModelDFSL_VMR_5P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMR5)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMR5P_YCO2) <- c("Year", "Months", "AnnualCO2_VMR_5")
+    colnames(ModelDFSL_VMR_5P_YCO2) <- c("Year", "Months", "AnnualCO2_VMR_5")
 
 
     #Plot 3: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VMR5P_YCO2D <- merge(ModelDFSL_VMR5P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VMR5P_YCO2D$AnnualCO2D_VMR_5 <- ModelDFSL_VMR5P_YCO2D$AnnualCO2_VMR_5 * ModelDFSL_VMR5P_YCO2D$GWP100
+    ModelDFSL_VMR_5P_YCO2D <- merge(ModelDFSL_VMR_5P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VMR_5P_YCO2D$AnnualCO2D_VMR_5 <- ModelDFSL_VMR_5P_YCO2D$AnnualCO2_VMR_5 * ModelDFSL_VMR_5P_YCO2D$GWP100
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VMR5P_YC <- ModelDFSL_VMR5P %>%
+    ModelDFSL_VMR_5P_YC <- ModelDFSL_VMR_5P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMR5)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMR5P_YC) <- c("Year", "Months", "CEmissions_VMR_5")
+    colnames(ModelDFSL_VMR_5P_YC) <- c("Year", "Months", "CEmissions_VMR_5")
 
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VMR5P_YCT <- ModelDFSL_VMR5P %>%
+    ModelDFSL_VMR_5P_YCT <- ModelDFSL_VMR_5P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMR5)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMR5P_YCT) <- c("Year", "Months", "CTail_VMR_5")
+    colnames(ModelDFSL_VMR_5P_YCT) <- c("Year", "Months", "CTail_VMR_5")
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VMR5P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR5P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VMR5P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR5P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMR5P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR5P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMR5P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR5P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMR_5P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR_5P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VMR_5P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR_5P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VMR_5P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR_5P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMR_5P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR_5P.xlsx") #Yearly C emissions
 
 
 
@@ -21012,45 +21012,45 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VMR6$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VMR6P because implies a one-off input of C
-    ModelDFSL_VMR6P <- ModelDFSL1y_VMR6
+    #This model will be called VMR_6P because implies a one-off input of C
+    ModelDFSL_VMR_6P <- ModelDFSL1y_VMR6
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VMR6P,"VXP_Models\\ModelDFSL_R_VMR6P.xlsx")
+    write_xlsx(ModelDFSL_VMR_6P,"VXP_Models\\ModelDFSL_R_VMR_6P.xlsx")
 
     #Plot 3: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VMR6P_YCO2 <- ModelDFSL_VMR6P %>%
+    ModelDFSL_VMR_6P_YCO2 <- ModelDFSL_VMR_6P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMR6)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMR6P_YCO2) <- c("Year", "Months", "AnnualCO2_VMR_6")
+    colnames(ModelDFSL_VMR_6P_YCO2) <- c("Year", "Months", "AnnualCO2_VMR_6")
 
 
     #Plot 3: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VMR6P_YCO2D <- merge(ModelDFSL_VMR6P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VMR6P_YCO2D$AnnualCO2D_VMR_6 <- ModelDFSL_VMR6P_YCO2D$AnnualCO2_VMR_6 * ModelDFSL_VMR6P_YCO2D$GWP100
+    ModelDFSL_VMR_6P_YCO2D <- merge(ModelDFSL_VMR_6P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VMR_6P_YCO2D$AnnualCO2D_VMR_6 <- ModelDFSL_VMR_6P_YCO2D$AnnualCO2_VMR_6 * ModelDFSL_VMR_6P_YCO2D$GWP100
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VMR6P_YC <- ModelDFSL_VMR6P %>%
+    ModelDFSL_VMR_6P_YC <- ModelDFSL_VMR_6P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMR6)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMR6P_YC) <- c("Year", "Months", "CEmissions_VMR_6")
+    colnames(ModelDFSL_VMR_6P_YC) <- c("Year", "Months", "CEmissions_VMR_6")
 
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VMR6P_YCT <- ModelDFSL_VMR6P %>%
+    ModelDFSL_VMR_6P_YCT <- ModelDFSL_VMR_6P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMR6)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMR6P_YCT) <- c("Year", "Months", "CTail_VMR_6")
+    colnames(ModelDFSL_VMR_6P_YCT) <- c("Year", "Months", "CTail_VMR_6")
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VMR6P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR6P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VMR6P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR6P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMR6P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR6P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMR6P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR6P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMR_6P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR_6P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VMR_6P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR_6P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VMR_6P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR_6P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMR_6P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR_6P.xlsx") #Yearly C emissions
 
 
 
@@ -21192,46 +21192,46 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VMR7$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VMR7P because implies a one-off input of C
-    ModelDFSL_VMR7P <- ModelDFSL1y_VMR7
+    #This model will be called VMR_7P because implies a one-off input of C
+    ModelDFSL_VMR_7P <- ModelDFSL1y_VMR7
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VMR7P,"VXP_Models\\ModelDFSL_R_VMR7P.xlsx")
+    write_xlsx(ModelDFSL_VMR_7P,"VXP_Models\\ModelDFSL_R_VMR_7P.xlsx")
 
     #Plot 3: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VMR7P_YCO2 <- ModelDFSL_VMR7P %>%
+    ModelDFSL_VMR_7P_YCO2 <- ModelDFSL_VMR_7P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMR7)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMR7P_YCO2) <- c("Year", "Months", "AnnualCO2_VMR_7")
+    colnames(ModelDFSL_VMR_7P_YCO2) <- c("Year", "Months", "AnnualCO2_VMR_7")
 
 
     #Plot 3: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VMR7P_YCO2D <- merge(ModelDFSL_VMR7P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VMR7P_YCO2D$AnnualCO2D_VMR_7 <- ModelDFSL_VMR7P_YCO2D$AnnualCO2_VMR_7 * ModelDFSL_VMR7P_YCO2D$GWP100
+    ModelDFSL_VMR_7P_YCO2D <- merge(ModelDFSL_VMR_7P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VMR_7P_YCO2D$AnnualCO2D_VMR_7 <- ModelDFSL_VMR_7P_YCO2D$AnnualCO2_VMR_7 * ModelDFSL_VMR_7P_YCO2D$GWP100
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VMR7P_YC <- ModelDFSL_VMR7P %>%
+    ModelDFSL_VMR_7P_YC <- ModelDFSL_VMR_7P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMR7)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMR7P_YC) <- c("Year", "Months", "CEmissions_VMR_7")
+    colnames(ModelDFSL_VMR_7P_YC) <- c("Year", "Months", "CEmissions_VMR_7")
 
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VMR7P_YCT <- ModelDFSL_VMR7P %>%
+    ModelDFSL_VMR_7P_YCT <- ModelDFSL_VMR_7P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMR7)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMR7P_YCT) <- c("Year", "Months", "CTail_VMR_7")
+    colnames(ModelDFSL_VMR_7P_YCT) <- c("Year", "Months", "CTail_VMR_7")
 
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VMR7P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR7P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VMR7P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR7P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMR7P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR7P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMR7P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR7P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMR_7P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR_7P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VMR_7P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR_7P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VMR_7P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR_7P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMR_7P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR_7P.xlsx") #Yearly C emissions
 
 
 
@@ -21373,45 +21373,45 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VMR8$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VMR8P because implies a one-off input of C
-    ModelDFSL_VMR8P <- ModelDFSL1y_VMR8
+    #This model will be called VMR_8P because implies a one-off input of C
+    ModelDFSL_VMR_8P <- ModelDFSL1y_VMR8
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VMR8P,"VXP_Models\\ModelDFSL_R_VMR8P.xlsx")
+    write_xlsx(ModelDFSL_VMR_8P,"VXP_Models\\ModelDFSL_R_VMR_8P.xlsx")
 
 
     #Plot 3: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VMR8P_YCO2 <- ModelDFSL_VMR8P %>%
+    ModelDFSL_VMR_8P_YCO2 <- ModelDFSL_VMR_8P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMR8)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMR8P_YCO2) <- c("Year", "Months", "AnnualCO2_VMR_8")
+    colnames(ModelDFSL_VMR_8P_YCO2) <- c("Year", "Months", "AnnualCO2_VMR_8")
 
     #Plot 3: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VMR8P_YCO2D <- merge(ModelDFSL_VMR8P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VMR8P_YCO2D$AnnualCO2D_VMR_8 <- ModelDFSL_VMR8P_YCO2D$AnnualCO2_VMR_8 * ModelDFSL_VMR8P_YCO2D$GWP100
+    ModelDFSL_VMR_8P_YCO2D <- merge(ModelDFSL_VMR_8P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VMR_8P_YCO2D$AnnualCO2D_VMR_8 <- ModelDFSL_VMR_8P_YCO2D$AnnualCO2_VMR_8 * ModelDFSL_VMR_8P_YCO2D$GWP100
 
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VMR8P_YC <- ModelDFSL_VMR8P %>%
+    ModelDFSL_VMR_8P_YC <- ModelDFSL_VMR_8P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMR8)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMR8P_YC) <- c("Year", "Months", "CEmissions_VMR_8")
+    colnames(ModelDFSL_VMR_8P_YC) <- c("Year", "Months", "CEmissions_VMR_8")
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VMR8P_YCT <- ModelDFSL_VMR8P %>%
+    ModelDFSL_VMR_8P_YCT <- ModelDFSL_VMR_8P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMR8)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMR8P_YCT) <- c("Year", "Months", "CTail_VMR_8")
+    colnames(ModelDFSL_VMR_8P_YCT) <- c("Year", "Months", "CTail_VMR_8")
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VMR8P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR8P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VMR8P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR8P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMR8P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR8P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMR8P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR8P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMR_8P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR_8P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VMR_8P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR_8P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VMR_8P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR_8P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMR_8P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR_8P.xlsx") #Yearly C emissions
 
 
 
@@ -21553,45 +21553,45 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VMR9$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VMR9P because implies a one-off input of C
-    ModelDFSL_VMR9P <- ModelDFSL1y_VMR9
+    #This model will be called VMR_9P because implies a one-off input of C
+    ModelDFSL_VMR_9P <- ModelDFSL1y_VMR9
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VMR9P,"VXP_Models\\ModelDFSL_R_VMR9P.xlsx")
+    write_xlsx(ModelDFSL_VMR_9P,"VXP_Models\\ModelDFSL_R_VMR_9P.xlsx")
 
 
     #Plot 3: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VMR9P_YCO2 <- ModelDFSL_VMR9P %>%
+    ModelDFSL_VMR_9P_YCO2 <- ModelDFSL_VMR_9P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMR9)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMR9P_YCO2) <- c("Year", "Months", "AnnualCO2_VMR_9")
+    colnames(ModelDFSL_VMR_9P_YCO2) <- c("Year", "Months", "AnnualCO2_VMR_9")
 
     #Plot 3: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VMR9P_YCO2D <- merge(ModelDFSL_VMR9P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VMR9P_YCO2D$AnnualCO2D_VMR_9 <- ModelDFSL_VMR9P_YCO2D$AnnualCO2_VMR_9 * ModelDFSL_VMR9P_YCO2D$GWP100
+    ModelDFSL_VMR_9P_YCO2D <- merge(ModelDFSL_VMR_9P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VMR_9P_YCO2D$AnnualCO2D_VMR_9 <- ModelDFSL_VMR_9P_YCO2D$AnnualCO2_VMR_9 * ModelDFSL_VMR_9P_YCO2D$GWP100
 
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VMR9P_YC <- ModelDFSL_VMR9P %>%
+    ModelDFSL_VMR_9P_YC <- ModelDFSL_VMR_9P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMR9)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMR9P_YC) <- c("Year", "Months", "CEmissions_VMR_9")
+    colnames(ModelDFSL_VMR_9P_YC) <- c("Year", "Months", "CEmissions_VMR_9")
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VMR9P_YCT <- ModelDFSL_VMR9P %>%
+    ModelDFSL_VMR_9P_YCT <- ModelDFSL_VMR_9P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMR9)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMR9P_YCT) <- c("Year", "Months", "CTail_VMR_9")
+    colnames(ModelDFSL_VMR_9P_YCT) <- c("Year", "Months", "CTail_VMR_9")
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VMR9P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR9P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VMR9P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR9P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMR9P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR9P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMR9P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR9P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMR_9P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMR_9P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VMR_9P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMR_9P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VMR_9P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMR_9P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMR_9P_YCT,"CTails_P\\ModelDFSL_R_CT_VMR_9P.xlsx") #Yearly C emissions
 
 
 
@@ -21907,43 +21907,43 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VMN0$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VMN0P because implies a one-off input of C
-    ModelDFSL_VMN0P <- ModelDFSL1y_VMN0
+    #This model will be called VMN_0P because implies a one-off input of C
+    ModelDFSL_VMN_0P <- ModelDFSL1y_VMN0
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VMN0P,"VXP_Models\\ModelDFSL_R_VMN0P.xlsx")
+    write_xlsx(ModelDFSL_VMN_0P,"VXP_Models\\ModelDFSL_R_VMN_0P.xlsx")
 
     #Plot 3.1: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VMN0P_YCO2 <- ModelDFSL_VMN0P %>%
+    ModelDFSL_VMN_0P_YCO2 <- ModelDFSL_VMN_0P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMN0)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMN0P_YCO2) <- c("Year", "Months", "AnnualCO2_VMN_0")
+    colnames(ModelDFSL_VMN_0P_YCO2) <- c("Year", "Months", "AnnualCO2_VMN_0")
 
     #Plot 3.2: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VMN0P_YCO2D <- merge(ModelDFSL_VMN0P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VMN0P_YCO2D$AnnualCO2D_VMN_0 <- ModelDFSL_VMN0P_YCO2D$AnnualCO2_VMN_0 * ModelDFSL_VMN0P_YCO2D$GWP100
+    ModelDFSL_VMN_0P_YCO2D <- merge(ModelDFSL_VMN_0P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VMN_0P_YCO2D$AnnualCO2D_VMN_0 <- ModelDFSL_VMN_0P_YCO2D$AnnualCO2_VMN_0 * ModelDFSL_VMN_0P_YCO2D$GWP100
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VMN0P_YC <- ModelDFSL_VMN0P %>%
+    ModelDFSL_VMN_0P_YC <- ModelDFSL_VMN_0P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMN0)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMN0P_YC) <- c("Year", "Months", "CEmissions_VMN_0")
+    colnames(ModelDFSL_VMN_0P_YC) <- c("Year", "Months", "CEmissions_VMN_0")
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VMN0P_YCT <- ModelDFSL_VMN0P %>%
+    ModelDFSL_VMN_0P_YCT <- ModelDFSL_VMN_0P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMN0)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMN0P_YCT) <- c("Year", "Months", "CTail_VMN_0")
+    colnames(ModelDFSL_VMN_0P_YCT) <- c("Year", "Months", "CTail_VMN_0")
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VMN0P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN0P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VMN0P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN0P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMN0P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN0P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMN0P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN0P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMN_0P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN_0P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VMN_0P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN_0P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VMN_0P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN_0P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMN_0P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN_0P.xlsx") #Yearly C emissions
 
 
     #### 12.2 - VMN1) Manure; 10%clay; No Tillage ####
@@ -22084,43 +22084,43 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VMN1$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VMN1P because implies a one-off input of C
-    ModelDFSL_VMN1P <- ModelDFSL1y_VMN1
+    #This model will be called VMN_1P because implies a one-off input of C
+    ModelDFSL_VMN_1P <- ModelDFSL1y_VMN1
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VMN1P,"VXP_Models\\ModelDFSL_R_VMN1P.xlsx")
+    write_xlsx(ModelDFSL_VMN_1P,"VXP_Models\\ModelDFSL_R_VMN_1P.xlsx")
 
     #Plot 3: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VMN1P_YCO2 <- ModelDFSL_VMN1P %>%
+    ModelDFSL_VMN_1P_YCO2 <- ModelDFSL_VMN_1P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMN1)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMN1P_YCO2) <- c("Year", "Months", "AnnualCO2_VMN_1")
+    colnames(ModelDFSL_VMN_1P_YCO2) <- c("Year", "Months", "AnnualCO2_VMN_1")
 
     #Plot 3: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VMN1P_YCO2D <- merge(ModelDFSL_VMN1P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VMN1P_YCO2D$AnnualCO2D_VMN_1 <- ModelDFSL_VMN1P_YCO2D$AnnualCO2_VMN_1 * ModelDFSL_VMN1P_YCO2D$GWP100
+    ModelDFSL_VMN_1P_YCO2D <- merge(ModelDFSL_VMN_1P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VMN_1P_YCO2D$AnnualCO2D_VMN_1 <- ModelDFSL_VMN_1P_YCO2D$AnnualCO2_VMN_1 * ModelDFSL_VMN_1P_YCO2D$GWP100
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VMN1P_YC <- ModelDFSL_VMN1P %>%
+    ModelDFSL_VMN_1P_YC <- ModelDFSL_VMN_1P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMN1)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMN1P_YC) <- c("Year", "Months", "CEmissions_VMN_1")
+    colnames(ModelDFSL_VMN_1P_YC) <- c("Year", "Months", "CEmissions_VMN_1")
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VMN1P_YCT <- ModelDFSL_VMN1P %>%
+    ModelDFSL_VMN_1P_YCT <- ModelDFSL_VMN_1P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMN1)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMN1P_YCT) <- c("Year", "Months", "CTail_VMN_1")
+    colnames(ModelDFSL_VMN_1P_YCT) <- c("Year", "Months", "CTail_VMN_1")
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VMN1P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN1P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VMN1P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN1P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMN1P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN1P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMN1P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN1P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMN_1P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN_1P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VMN_1P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN_1P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VMN_1P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN_1P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMN_1P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN_1P.xlsx") #Yearly C emissions
 
 
 
@@ -22262,43 +22262,43 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VMN2$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VMN2P because implies a one-off input of C
-    ModelDFSL_VMN2P <- ModelDFSL1y_VMN2
+    #This model will be called VMN_2P because implies a one-off input of C
+    ModelDFSL_VMN_2P <- ModelDFSL1y_VMN2
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VMN2P,"VXP_Models\\ModelDFSL_R_VMN2P.xlsx")
+    write_xlsx(ModelDFSL_VMN_2P,"VXP_Models\\ModelDFSL_R_VMN_2P.xlsx")
 
     #Plot 3: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VMN2P_YCO2 <- ModelDFSL_VMN2P %>%
+    ModelDFSL_VMN_2P_YCO2 <- ModelDFSL_VMN_2P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMN2)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMN2P_YCO2) <- c("Year", "Months", "AnnualCO2_VMN_2")
+    colnames(ModelDFSL_VMN_2P_YCO2) <- c("Year", "Months", "AnnualCO2_VMN_2")
 
     #Plot 3: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VMN2P_YCO2D <- merge(ModelDFSL_VMN2P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VMN2P_YCO2D$AnnualCO2D_VMN_2 <- ModelDFSL_VMN2P_YCO2D$AnnualCO2_VMN_2 * ModelDFSL_VMN2P_YCO2D$GWP100
+    ModelDFSL_VMN_2P_YCO2D <- merge(ModelDFSL_VMN_2P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VMN_2P_YCO2D$AnnualCO2D_VMN_2 <- ModelDFSL_VMN_2P_YCO2D$AnnualCO2_VMN_2 * ModelDFSL_VMN_2P_YCO2D$GWP100
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VMN2P_YC <- ModelDFSL_VMN2P %>%
+    ModelDFSL_VMN_2P_YC <- ModelDFSL_VMN_2P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMN2)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMN2P_YC) <- c("Year", "Months", "CEmissions_VMN_2")
+    colnames(ModelDFSL_VMN_2P_YC) <- c("Year", "Months", "CEmissions_VMN_2")
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VMN2P_YCT <- ModelDFSL_VMN2P %>%
+    ModelDFSL_VMN_2P_YCT <- ModelDFSL_VMN_2P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMN2)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMN2P_YCT) <- c("Year", "Months", "CTail_VMN_2")
+    colnames(ModelDFSL_VMN_2P_YCT) <- c("Year", "Months", "CTail_VMN_2")
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VMN2P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN2P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VMN2P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN2P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMN2P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN2P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMN2P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN2P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMN_2P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN_2P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VMN_2P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN_2P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VMN_2P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN_2P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMN_2P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN_2P.xlsx") #Yearly C emissions
 
 
 
@@ -22440,43 +22440,43 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VMN3$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VMN3P because implies a one-off input of C
-    ModelDFSL_VMN3P <- ModelDFSL1y_VMN3
+    #This model will be called VMN_3P because implies a one-off input of C
+    ModelDFSL_VMN_3P <- ModelDFSL1y_VMN3
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VMN3P,"VXP_Models\\ModelDFSL_R_VMN3P.xlsx")
+    write_xlsx(ModelDFSL_VMN_3P,"VXP_Models\\ModelDFSL_R_VMN_3P.xlsx")
 
     #Plot 3: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VMN3P_YCO2 <- ModelDFSL_VMN3P %>%
+    ModelDFSL_VMN_3P_YCO2 <- ModelDFSL_VMN_3P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMN3)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMN3P_YCO2) <- c("Year", "Months", "AnnualCO2_VMN_3")
+    colnames(ModelDFSL_VMN_3P_YCO2) <- c("Year", "Months", "AnnualCO2_VMN_3")
 
     #Plot 3: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VMN3P_YCO2D <- merge(ModelDFSL_VMN3P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VMN3P_YCO2D$AnnualCO2D_VMN_3 <- ModelDFSL_VMN3P_YCO2D$AnnualCO2_VMN_3 * ModelDFSL_VMN3P_YCO2D$GWP100
+    ModelDFSL_VMN_3P_YCO2D <- merge(ModelDFSL_VMN_3P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VMN_3P_YCO2D$AnnualCO2D_VMN_3 <- ModelDFSL_VMN_3P_YCO2D$AnnualCO2_VMN_3 * ModelDFSL_VMN_3P_YCO2D$GWP100
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VMN3P_YC <- ModelDFSL_VMN3P %>%
+    ModelDFSL_VMN_3P_YC <- ModelDFSL_VMN_3P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMN3)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMN3P_YC) <- c("Year", "Months", "CEmissions_VMN_3")
+    colnames(ModelDFSL_VMN_3P_YC) <- c("Year", "Months", "CEmissions_VMN_3")
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VMN3P_YCT <- ModelDFSL_VMN3P %>%
+    ModelDFSL_VMN_3P_YCT <- ModelDFSL_VMN_3P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMN3)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMN3P_YCT) <- c("Year", "Months", "CTail_VMN_3")
+    colnames(ModelDFSL_VMN_3P_YCT) <- c("Year", "Months", "CTail_VMN_3")
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VMN3P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN3P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VMN3P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN3P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMN3P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN3P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMN3P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN3P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMN_3P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN_3P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VMN_3P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN_3P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VMN_3P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN_3P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMN_3P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN_3P.xlsx") #Yearly C emissions
 
 
 
@@ -22618,43 +22618,43 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VMN4$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VMN4P because implies a one-off input of C
-    ModelDFSL_VMN4P <- ModelDFSL1y_VMN4
+    #This model will be called VMN_4P because implies a one-off input of C
+    ModelDFSL_VMN_4P <- ModelDFSL1y_VMN4
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VMN4P,"VXP_Models\\ModelDFSL_R_VMN4P.xlsx")
+    write_xlsx(ModelDFSL_VMN_4P,"VXP_Models\\ModelDFSL_R_VMN_4P.xlsx")
 
     #Plot 3: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VMN4P_YCO2 <- ModelDFSL_VMN4P %>%
+    ModelDFSL_VMN_4P_YCO2 <- ModelDFSL_VMN_4P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMN4)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMN4P_YCO2) <- c("Year", "Months", "AnnualCO2_VMN_4")
+    colnames(ModelDFSL_VMN_4P_YCO2) <- c("Year", "Months", "AnnualCO2_VMN_4")
 
     #Plot 3: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VMN4P_YCO2D <- merge(ModelDFSL_VMN4P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VMN4P_YCO2D$AnnualCO2D_VMN_4 <- ModelDFSL_VMN4P_YCO2D$AnnualCO2_VMN_4 * ModelDFSL_VMN4P_YCO2D$GWP100
+    ModelDFSL_VMN_4P_YCO2D <- merge(ModelDFSL_VMN_4P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VMN_4P_YCO2D$AnnualCO2D_VMN_4 <- ModelDFSL_VMN_4P_YCO2D$AnnualCO2_VMN_4 * ModelDFSL_VMN_4P_YCO2D$GWP100
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VMN4P_YC <- ModelDFSL_VMN4P %>%
+    ModelDFSL_VMN_4P_YC <- ModelDFSL_VMN_4P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMN4)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMN4P_YC) <- c("Year", "Months", "CEmissions_VMN_4")
+    colnames(ModelDFSL_VMN_4P_YC) <- c("Year", "Months", "CEmissions_VMN_4")
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VMN4P_YCT <- ModelDFSL_VMN4P %>%
+    ModelDFSL_VMN_4P_YCT <- ModelDFSL_VMN_4P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMN4)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMN4P_YCT) <- c("Year", "Months", "CTail_VMN_4")
+    colnames(ModelDFSL_VMN_4P_YCT) <- c("Year", "Months", "CTail_VMN_4")
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VMN4P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN4P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VMN4P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN4P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMN4P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN4P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMN4P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN4P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMN_4P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN_4P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VMN_4P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN_4P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VMN_4P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN_4P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMN_4P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN_4P.xlsx") #Yearly C emissions
 
 
 
@@ -22796,46 +22796,46 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VMN5$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VMN5P because implies a one-off input of C
-    ModelDFSL_VMN5P <- ModelDFSL1y_VMN5
+    #This model will be called VMN_5P because implies a one-off input of C
+    ModelDFSL_VMN_5P <- ModelDFSL1y_VMN5
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VMN5P,"VXP_Models\\ModelDFSL_R_VMN5P.xlsx")
+    write_xlsx(ModelDFSL_VMN_5P,"VXP_Models\\ModelDFSL_R_VMN_5P.xlsx")
 
 
     #Plot 3: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VMN5P_YCO2 <- ModelDFSL_VMN5P %>%
+    ModelDFSL_VMN_5P_YCO2 <- ModelDFSL_VMN_5P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMN5)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMN5P_YCO2) <- c("Year", "Months", "AnnualCO2_VMN_5")
+    colnames(ModelDFSL_VMN_5P_YCO2) <- c("Year", "Months", "AnnualCO2_VMN_5")
 
 
     #Plot 3: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VMN5P_YCO2D <- merge(ModelDFSL_VMN5P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VMN5P_YCO2D$AnnualCO2D_VMN_5 <- ModelDFSL_VMN5P_YCO2D$AnnualCO2_VMN_5 * ModelDFSL_VMN5P_YCO2D$GWP100
+    ModelDFSL_VMN_5P_YCO2D <- merge(ModelDFSL_VMN_5P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VMN_5P_YCO2D$AnnualCO2D_VMN_5 <- ModelDFSL_VMN_5P_YCO2D$AnnualCO2_VMN_5 * ModelDFSL_VMN_5P_YCO2D$GWP100
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VMN5P_YC <- ModelDFSL_VMN5P %>%
+    ModelDFSL_VMN_5P_YC <- ModelDFSL_VMN_5P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMN5)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMN5P_YC) <- c("Year", "Months", "CEmissions_VMN_5")
+    colnames(ModelDFSL_VMN_5P_YC) <- c("Year", "Months", "CEmissions_VMN_5")
 
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VMN5P_YCT <- ModelDFSL_VMN5P %>%
+    ModelDFSL_VMN_5P_YCT <- ModelDFSL_VMN_5P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMN5)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMN5P_YCT) <- c("Year", "Months", "CTail_VMN_5")
+    colnames(ModelDFSL_VMN_5P_YCT) <- c("Year", "Months", "CTail_VMN_5")
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VMN5P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN5P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VMN5P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN5P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMN5P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN5P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMN5P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN5P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMN_5P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN_5P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VMN_5P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN_5P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VMN_5P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN_5P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMN_5P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN_5P.xlsx") #Yearly C emissions
 
 
 
@@ -22977,45 +22977,45 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VMN6$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VMN6P because implies a one-off input of C
-    ModelDFSL_VMN6P <- ModelDFSL1y_VMN6
+    #This model will be called VMN_6P because implies a one-off input of C
+    ModelDFSL_VMN_6P <- ModelDFSL1y_VMN6
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VMN6P,"VXP_Models\\ModelDFSL_R_VMN6P.xlsx")
+    write_xlsx(ModelDFSL_VMN_6P,"VXP_Models\\ModelDFSL_R_VMN_6P.xlsx")
 
     #Plot 3: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VMN6P_YCO2 <- ModelDFSL_VMN6P %>%
+    ModelDFSL_VMN_6P_YCO2 <- ModelDFSL_VMN_6P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMN6)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMN6P_YCO2) <- c("Year", "Months", "AnnualCO2_VMN_6")
+    colnames(ModelDFSL_VMN_6P_YCO2) <- c("Year", "Months", "AnnualCO2_VMN_6")
 
 
     #Plot 3: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VMN6P_YCO2D <- merge(ModelDFSL_VMN6P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VMN6P_YCO2D$AnnualCO2D_VMN_6 <- ModelDFSL_VMN6P_YCO2D$AnnualCO2_VMN_6 * ModelDFSL_VMN6P_YCO2D$GWP100
+    ModelDFSL_VMN_6P_YCO2D <- merge(ModelDFSL_VMN_6P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VMN_6P_YCO2D$AnnualCO2D_VMN_6 <- ModelDFSL_VMN_6P_YCO2D$AnnualCO2_VMN_6 * ModelDFSL_VMN_6P_YCO2D$GWP100
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VMN6P_YC <- ModelDFSL_VMN6P %>%
+    ModelDFSL_VMN_6P_YC <- ModelDFSL_VMN_6P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMN6)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMN6P_YC) <- c("Year", "Months", "CEmissions_VMN_6")
+    colnames(ModelDFSL_VMN_6P_YC) <- c("Year", "Months", "CEmissions_VMN_6")
 
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VMN6P_YCT <- ModelDFSL_VMN6P %>%
+    ModelDFSL_VMN_6P_YCT <- ModelDFSL_VMN_6P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMN6)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMN6P_YCT) <- c("Year", "Months", "CTail_VMN_6")
+    colnames(ModelDFSL_VMN_6P_YCT) <- c("Year", "Months", "CTail_VMN_6")
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VMN6P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN6P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VMN6P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN6P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMN6P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN6P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMN6P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN6P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMN_6P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN_6P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VMN_6P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN_6P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VMN_6P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN_6P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMN_6P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN_6P.xlsx") #Yearly C emissions
 
 
 
@@ -23157,46 +23157,46 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VMN7$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VMN7P because implies a one-off input of C
-    ModelDFSL_VMN7P <- ModelDFSL1y_VMN7
+    #This model will be called VMN_7P because implies a one-off input of C
+    ModelDFSL_VMN_7P <- ModelDFSL1y_VMN7
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VMN7P,"VXP_Models\\ModelDFSL_R_VMN7P.xlsx")
+    write_xlsx(ModelDFSL_VMN_7P,"VXP_Models\\ModelDFSL_R_VMN_7P.xlsx")
 
     #Plot 3: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VMN7P_YCO2 <- ModelDFSL_VMN7P %>%
+    ModelDFSL_VMN_7P_YCO2 <- ModelDFSL_VMN_7P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMN7)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMN7P_YCO2) <- c("Year", "Months", "AnnualCO2_VMN_7")
+    colnames(ModelDFSL_VMN_7P_YCO2) <- c("Year", "Months", "AnnualCO2_VMN_7")
 
 
     #Plot 3: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VMN7P_YCO2D <- merge(ModelDFSL_VMN7P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VMN7P_YCO2D$AnnualCO2D_VMN_7 <- ModelDFSL_VMN7P_YCO2D$AnnualCO2_VMN_7 * ModelDFSL_VMN7P_YCO2D$GWP100
+    ModelDFSL_VMN_7P_YCO2D <- merge(ModelDFSL_VMN_7P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VMN_7P_YCO2D$AnnualCO2D_VMN_7 <- ModelDFSL_VMN_7P_YCO2D$AnnualCO2_VMN_7 * ModelDFSL_VMN_7P_YCO2D$GWP100
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VMN7P_YC <- ModelDFSL_VMN7P %>%
+    ModelDFSL_VMN_7P_YC <- ModelDFSL_VMN_7P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMN7)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMN7P_YC) <- c("Year", "Months", "CEmissions_VMN_7")
+    colnames(ModelDFSL_VMN_7P_YC) <- c("Year", "Months", "CEmissions_VMN_7")
 
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VMN7P_YCT <- ModelDFSL_VMN7P %>%
+    ModelDFSL_VMN_7P_YCT <- ModelDFSL_VMN_7P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMN7)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMN7P_YCT) <- c("Year", "Months", "CTail_VMN_7")
+    colnames(ModelDFSL_VMN_7P_YCT) <- c("Year", "Months", "CTail_VMN_7")
 
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VMN7P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN7P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VMN7P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN7P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMN7P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN7P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMN7P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN7P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMN_7P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN_7P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VMN_7P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN_7P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VMN_7P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN_7P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMN_7P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN_7P.xlsx") #Yearly C emissions
 
 
 
@@ -23338,45 +23338,45 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VMN8$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VMN8P because implies a one-off input of C
-    ModelDFSL_VMN8P <- ModelDFSL1y_VMN8
+    #This model will be called VMN_8P because implies a one-off input of C
+    ModelDFSL_VMN_8P <- ModelDFSL1y_VMN8
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VMN8P,"VXP_Models\\ModelDFSL_R_VMN8P.xlsx")
+    write_xlsx(ModelDFSL_VMN_8P,"VXP_Models\\ModelDFSL_R_VMN_8P.xlsx")
 
 
     #Plot 3: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VMN8P_YCO2 <- ModelDFSL_VMN8P %>%
+    ModelDFSL_VMN_8P_YCO2 <- ModelDFSL_VMN_8P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMN8)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMN8P_YCO2) <- c("Year", "Months", "AnnualCO2_VMN_8")
+    colnames(ModelDFSL_VMN_8P_YCO2) <- c("Year", "Months", "AnnualCO2_VMN_8")
 
     #Plot 3: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VMN8P_YCO2D <- merge(ModelDFSL_VMN8P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VMN8P_YCO2D$AnnualCO2D_VMN_8 <- ModelDFSL_VMN8P_YCO2D$AnnualCO2_VMN_8 * ModelDFSL_VMN8P_YCO2D$GWP100
+    ModelDFSL_VMN_8P_YCO2D <- merge(ModelDFSL_VMN_8P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VMN_8P_YCO2D$AnnualCO2D_VMN_8 <- ModelDFSL_VMN_8P_YCO2D$AnnualCO2_VMN_8 * ModelDFSL_VMN_8P_YCO2D$GWP100
 
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VMN8P_YC <- ModelDFSL_VMN8P %>%
+    ModelDFSL_VMN_8P_YC <- ModelDFSL_VMN_8P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMN8)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMN8P_YC) <- c("Year", "Months", "CEmissions_VMN_8")
+    colnames(ModelDFSL_VMN_8P_YC) <- c("Year", "Months", "CEmissions_VMN_8")
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VMN8P_YCT <- ModelDFSL_VMN8P %>%
+    ModelDFSL_VMN_8P_YCT <- ModelDFSL_VMN_8P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMN8)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMN8P_YCT) <- c("Year", "Months", "CTail_VMN_8")
+    colnames(ModelDFSL_VMN_8P_YCT) <- c("Year", "Months", "CTail_VMN_8")
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VMN8P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN8P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VMN8P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN8P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMN8P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN8P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMN8P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN8P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMN_8P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN_8P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VMN_8P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN_8P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VMN_8P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN_8P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMN_8P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN_8P.xlsx") #Yearly C emissions
 
 
 
@@ -23518,45 +23518,45 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     #Re-do Month Number column because the substraction was also applied to it
     ModelDFSL1y_VMN9$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-    #This model will be called VMN9P because implies a one-off input of C
-    ModelDFSL_VMN9P <- ModelDFSL1y_VMN9
+    #This model will be called VMN_9P because implies a one-off input of C
+    ModelDFSL_VMN_9P <- ModelDFSL1y_VMN9
 
     #Export the dataframe
-    write_xlsx(ModelDFSL_VMN9P,"VXP_Models\\ModelDFSL_R_VMN9P.xlsx")
+    write_xlsx(ModelDFSL_VMN_9P,"VXP_Models\\ModelDFSL_R_VMN_9P.xlsx")
 
 
     #Plot 3: Interactive Yearly CO2 emissions #
     MY <- 12
-    ModelDFSL_VMN9P_YCO2 <- ModelDFSL_VMN9P %>%
+    ModelDFSL_VMN_9P_YCO2 <- ModelDFSL_VMN_9P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CO2_VMN9)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMN9P_YCO2) <- c("Year", "Months", "AnnualCO2_VMN_9")
+    colnames(ModelDFSL_VMN_9P_YCO2) <- c("Year", "Months", "AnnualCO2_VMN_9")
 
     #Plot 3: Interactive Yearly CO2 emissions considering a delay
     GWP100delay <- data.frame(   Year = 1:100,   GWP100 = c(     0.9923, 0.9846, 0.9768, 0.9690, 0.9612,     0.9534, 0.9456, 0.9378, 0.9299, 0.9220,     0.9141, 0.9062, 0.8982, 0.8902, 0.8822,     0.8742, 0.8662, 0.8581, 0.8500, 0.8419,     0.8338, 0.8256, 0.8174, 0.8092, 0.8010,     0.7927, 0.7844, 0.7761, 0.7677, 0.7594,     0.7509, 0.7425, 0.7340, 0.7255, 0.7170,     0.7084, 0.6998, 0.6912, 0.6825, 0.6738,     0.6650, 0.6562, 0.6474, 0.6385, 0.6296,     0.6207, 0.6117, 0.6027, 0.5936, 0.5845,     0.5753, 0.5661, 0.5568, 0.5475, 0.5381,     0.5287, 0.5193, 0.5097, 0.5002, 0.4905,     0.4808, 0.4711, 0.4613, 0.4514, 0.4415,     0.4315, 0.4214, 0.4113, 0.4011, 0.3908,     0.3804, 0.3700, 0.3595, 0.3489, 0.3382,     0.3275, 0.3166, 0.3057, 0.2947, 0.2835,     0.2723, 0.2609, 0.2495, 0.2379, 0.2262,     0.2143, 0.2023, 0.1902, 0.1778, 0.1653,     0.1525, 0.1395, 0.1262, 0.1125, 0.0985,     0.0839, 0.0688, 0.0531, 0.0365, 0.0188   ) )
-    ModelDFSL_VMN9P_YCO2D <- merge(ModelDFSL_VMN9P_YCO2, GWP100delay, by = "Year")
-    ModelDFSL_VMN9P_YCO2D$AnnualCO2D_VMN_9 <- ModelDFSL_VMN9P_YCO2D$AnnualCO2_VMN_9 * ModelDFSL_VMN9P_YCO2D$GWP100
+    ModelDFSL_VMN_9P_YCO2D <- merge(ModelDFSL_VMN_9P_YCO2, GWP100delay, by = "Year")
+    ModelDFSL_VMN_9P_YCO2D$AnnualCO2D_VMN_9 <- ModelDFSL_VMN_9P_YCO2D$AnnualCO2_VMN_9 * ModelDFSL_VMN_9P_YCO2D$GWP100
 
 
     #Plot 4: Interactive Yearly C emissions #
     MY <- 12
-    ModelDFSL_VMN9P_YC <- ModelDFSL_VMN9P %>%
+    ModelDFSL_VMN_9P_YC <- ModelDFSL_VMN_9P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), sum = sum(M_CCO2_VMN9)) #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMN9P_YC) <- c("Year", "Months", "CEmissions_VMN_9")
+    colnames(ModelDFSL_VMN_9P_YC) <- c("Year", "Months", "CEmissions_VMN_9")
 
     #Plot 5: Interactive Yearly C tails (remaining C in Soil) #
     MY <- 12
-    ModelDFSL_VMN9P_YCT <- ModelDFSL_VMN9P %>%
+    ModelDFSL_VMN_9P_YCT <- ModelDFSL_VMN_9P %>%
       group_by(grp = as.integer(gl(n(), MY, n()))) %>%
       summarise(range = str_c(first(MNumber), last(MNumber), sep=" -- "), last = last(AllPools_noIOM_VMN9)) #Here is last because AllPools_nIOM is the size of the C pools #https://stackoverflow.com/questions/59505473/sum-every-3-rows
-    colnames(ModelDFSL_VMN9P_YCT) <- c("Year", "Months", "CTail_VMN_9")
+    colnames(ModelDFSL_VMN_9P_YCT) <- c("Year", "Months", "CTail_VMN_9")
 
     #Save Dataframes for Plots 3.1, 3.2, 4 and 5
-    write_xlsx(ModelDFSL_VMN9P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN9P.xlsx") #Yearly CO2 emissions (no delay)
-    write_xlsx(ModelDFSL_VMN9P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN9P.xlsx") #Yearly CO2 emissions (delay)
-    write_xlsx(ModelDFSL_VMN9P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN9P.xlsx") #Yearly C emissions
-    write_xlsx(ModelDFSL_VMN9P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN9P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMN_9P_YCO2,"CO2Emissions_P_NoDelay\\ModelDFSL_R_CO2_VMN_9P.xlsx") #Yearly CO2 emissions (no delay)
+    write_xlsx(ModelDFSL_VMN_9P_YCO2D,"CO2Emissions_P_Delay\\ModelDFSL_R_CO2D_VMN_9P.xlsx") #Yearly CO2 emissions (delay)
+    write_xlsx(ModelDFSL_VMN_9P_YC,"CEmissions_P\\ModelDFSL_R_CE_VMN_9P.xlsx") #Yearly C emissions
+    write_xlsx(ModelDFSL_VMN_9P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN_9P.xlsx") #Yearly C emissions
 
 
 
