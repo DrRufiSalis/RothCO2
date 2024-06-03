@@ -155,8 +155,9 @@ Run_RothCO2 <- function(Scope = "All", #Can be: All, VLC, VLR, VLN, VMC, VMR, VM
   M_Scalar_ManureCinputs=Scalar_ManureCinputs/12 #Manure MONHTLY C inputs to soil in Mg/ha/yr - please note that Mg is megagrams, not milligrams
 
   #Wrangle Simulation Length
-  SimulationLength_months = SL_years*12
-  years = seq(1/12, SL_years, by=1/12) #Writing this instead of just "SimulationLengthYear" increases the resolution of the model
+  SL_years_plus1 = SL_years + 1 #This solves a problem while substrating models, where the last year resulted in negative values. This addition of +1 here is corrected while substracting models by deleting last 12 rows (last 12 months, i.e. last year)
+  SimulationLength_months = SL_years_plus1*12
+  years = seq(1/12, SL_years_plus1, by=1/12) #Writing this instead of just "SimulationLengthYear" increases the resolution of the model
 
   if(Scope == "All"){
 
@@ -260,32 +261,11 @@ write_xlsx(ModelDFSL_VLC0C,"VXC_Models\\ModelDFSL_R_VLC0C.xlsx")
 ModelDFSLt0_VLC0 <- ModelDFSL_VLC0 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VLC0.1 <- rbind(c(0:0), ModelDFSLt0_VLC0)
-ModelDFSLt1_VLC0.2 <- rbind(c(0:0), ModelDFSLt1_VLC0.1)
-ModelDFSLt1_VLC0.3 <- rbind(c(0:0), ModelDFSLt1_VLC0.2)
-ModelDFSLt1_VLC0.4 <- rbind(c(0:0), ModelDFSLt1_VLC0.3)
-ModelDFSLt1_VLC0.5 <- rbind(c(0:0), ModelDFSLt1_VLC0.4)
-ModelDFSLt1_VLC0.6 <- rbind(c(0:0), ModelDFSLt1_VLC0.5)
-ModelDFSLt1_VLC0.7 <- rbind(c(0:0), ModelDFSLt1_VLC0.6)
-ModelDFSLt1_VLC0.8 <- rbind(c(0:0), ModelDFSLt1_VLC0.7)
-ModelDFSLt1_VLC0.9 <- rbind(c(0:0), ModelDFSLt1_VLC0.8)
-ModelDFSLt1_VLC0.10 <- rbind(c(0:0), ModelDFSLt1_VLC0.9)
-ModelDFSLt1_VLC0.11 <- rbind(c(0:0), ModelDFSLt1_VLC0.10)
-ModelDFSLt1_VLC0.12 <- rbind(c(0:0), ModelDFSLt1_VLC0.11)
-ModelDFSLt1_VLC0.13 <- ModelDFSLt1_VLC0.12[-nrow(ModelDFSLt1_VLC0.12),]
-ModelDFSLt1_VLC0.14 <- ModelDFSLt1_VLC0.13[-nrow(ModelDFSLt1_VLC0.13),]
-ModelDFSLt1_VLC0.15 <- ModelDFSLt1_VLC0.14[-nrow(ModelDFSLt1_VLC0.14),]
-ModelDFSLt1_VLC0.16 <- ModelDFSLt1_VLC0.15[-nrow(ModelDFSLt1_VLC0.15),]
-ModelDFSLt1_VLC0.17 <- ModelDFSLt1_VLC0.16[-nrow(ModelDFSLt1_VLC0.16),]
-ModelDFSLt1_VLC0.18 <- ModelDFSLt1_VLC0.17[-nrow(ModelDFSLt1_VLC0.17),]
-ModelDFSLt1_VLC0.19 <- ModelDFSLt1_VLC0.18[-nrow(ModelDFSLt1_VLC0.18),]
-ModelDFSLt1_VLC0.20 <- ModelDFSLt1_VLC0.19[-nrow(ModelDFSLt1_VLC0.19),]
-ModelDFSLt1_VLC0.21 <- ModelDFSLt1_VLC0.20[-nrow(ModelDFSLt1_VLC0.20),]
-ModelDFSLt1_VLC0.22 <- ModelDFSLt1_VLC0.21[-nrow(ModelDFSLt1_VLC0.21),]
-ModelDFSLt1_VLC0.23 <- ModelDFSLt1_VLC0.22[-nrow(ModelDFSLt1_VLC0.22),]
-ModelDFSLt1_VLC0.24 <- ModelDFSLt1_VLC0.23[-nrow(ModelDFSLt1_VLC0.23),]
-
-ModelDFSLt1_VLC0 <- ModelDFSLt1_VLC0.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VLC0 <- rbind(c(0:0), ModelDFSLt1_VLC0)
+  assign(paste0("ModelDFSLt1_VLC0.", i), ModelDFSLt1_VLC0)
+}
+ModelDFSLt1_VLC0 <- head(ModelDFSLt1_VLC0.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLC0 <- ModelDFSLt0_VLC0 - ModelDFSLt1_VLC0
@@ -293,8 +273,11 @@ ModelDFSL1y_VLC0 <- ModelDFSLt0_VLC0 - ModelDFSLt1_VLC0
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLC0$MNumber <- seq(from = 1, to = SimulationLength_months)
 
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VLC0_CorrectingPlus1 <- head(ModelDFSL1y_VLC0, -12) #Create model t=x+1
+
 #This model will be called VLC_0P because implies a one-off input of C
-ModelDFSL_VLC_0P <- ModelDFSL1y_VLC0
+ModelDFSL_VLC_0P <- ModelDFSLt1_VLC0_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VLC_0P,"VXP_Models\\ModelDFSL_R_VLC_0P.xlsx")
@@ -437,32 +420,11 @@ write_xlsx(ModelDFSL_VLC1C,"VXC_Models\\ModelDFSL_R_VLC1C.xlsx")
 ModelDFSLt0_VLC1 <- ModelDFSL_VLC1 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VLC1.1 <- rbind(c(0:0), ModelDFSLt0_VLC1)
-ModelDFSLt1_VLC1.2 <- rbind(c(0:0), ModelDFSLt1_VLC1.1)
-ModelDFSLt1_VLC1.3 <- rbind(c(0:0), ModelDFSLt1_VLC1.2)
-ModelDFSLt1_VLC1.4 <- rbind(c(0:0), ModelDFSLt1_VLC1.3)
-ModelDFSLt1_VLC1.5 <- rbind(c(0:0), ModelDFSLt1_VLC1.4)
-ModelDFSLt1_VLC1.6 <- rbind(c(0:0), ModelDFSLt1_VLC1.5)
-ModelDFSLt1_VLC1.7 <- rbind(c(0:0), ModelDFSLt1_VLC1.6)
-ModelDFSLt1_VLC1.8 <- rbind(c(0:0), ModelDFSLt1_VLC1.7)
-ModelDFSLt1_VLC1.9 <- rbind(c(0:0), ModelDFSLt1_VLC1.8)
-ModelDFSLt1_VLC1.10 <- rbind(c(0:0), ModelDFSLt1_VLC1.9)
-ModelDFSLt1_VLC1.11 <- rbind(c(0:0), ModelDFSLt1_VLC1.10)
-ModelDFSLt1_VLC1.12 <- rbind(c(0:0), ModelDFSLt1_VLC1.11)
-ModelDFSLt1_VLC1.13 <- ModelDFSLt1_VLC1.12[-nrow(ModelDFSLt1_VLC1.12),]
-ModelDFSLt1_VLC1.14 <- ModelDFSLt1_VLC1.13[-nrow(ModelDFSLt1_VLC1.13),]
-ModelDFSLt1_VLC1.15 <- ModelDFSLt1_VLC1.14[-nrow(ModelDFSLt1_VLC1.14),]
-ModelDFSLt1_VLC1.16 <- ModelDFSLt1_VLC1.15[-nrow(ModelDFSLt1_VLC1.15),]
-ModelDFSLt1_VLC1.17 <- ModelDFSLt1_VLC1.16[-nrow(ModelDFSLt1_VLC1.16),]
-ModelDFSLt1_VLC1.18 <- ModelDFSLt1_VLC1.17[-nrow(ModelDFSLt1_VLC1.17),]
-ModelDFSLt1_VLC1.19 <- ModelDFSLt1_VLC1.18[-nrow(ModelDFSLt1_VLC1.18),]
-ModelDFSLt1_VLC1.20 <- ModelDFSLt1_VLC1.19[-nrow(ModelDFSLt1_VLC1.19),]
-ModelDFSLt1_VLC1.21 <- ModelDFSLt1_VLC1.20[-nrow(ModelDFSLt1_VLC1.20),]
-ModelDFSLt1_VLC1.22 <- ModelDFSLt1_VLC1.21[-nrow(ModelDFSLt1_VLC1.21),]
-ModelDFSLt1_VLC1.23 <- ModelDFSLt1_VLC1.22[-nrow(ModelDFSLt1_VLC1.22),]
-ModelDFSLt1_VLC1.24 <- ModelDFSLt1_VLC1.23[-nrow(ModelDFSLt1_VLC1.23),]
-
-ModelDFSLt1_VLC1 <- ModelDFSLt1_VLC1.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VLC1 <- rbind(c(0:0), ModelDFSLt1_VLC1)
+  assign(paste0("ModelDFSLt1_VLC1.", i), ModelDFSLt1_VLC1)
+}
+ModelDFSLt1_VLC1 <- head(ModelDFSLt1_VLC1.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLC1 <- ModelDFSLt0_VLC1 - ModelDFSLt1_VLC1
@@ -470,8 +432,11 @@ ModelDFSL1y_VLC1 <- ModelDFSLt0_VLC1 - ModelDFSLt1_VLC1
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLC1$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLC_1P because implies a one-off input of C
-ModelDFSL_VLC_1P <- ModelDFSL1y_VLC1
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VLC1_CorrectingPlus1 <- head(ModelDFSL1y_VLC1, -12) #Create model t=x+1
+
+#This model will be called VLC_0P because implies a one-off input of C
+ModelDFSL_VLC_1P <- ModelDFSLt1_VLC1_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VLC_1P,"VXP_Models\\ModelDFSL_R_VLC_1P.xlsx")
@@ -615,32 +580,11 @@ write_xlsx(ModelDFSL_VLC2C,"VXC_Models\\ModelDFSL_R_VLC2C.xlsx")
 ModelDFSLt0_VLC2 <- ModelDFSL_VLC2 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VLC2.1 <- rbind(c(0:0), ModelDFSLt0_VLC2)
-ModelDFSLt1_VLC2.2 <- rbind(c(0:0), ModelDFSLt1_VLC2.1)
-ModelDFSLt1_VLC2.3 <- rbind(c(0:0), ModelDFSLt1_VLC2.2)
-ModelDFSLt1_VLC2.4 <- rbind(c(0:0), ModelDFSLt1_VLC2.3)
-ModelDFSLt1_VLC2.5 <- rbind(c(0:0), ModelDFSLt1_VLC2.4)
-ModelDFSLt1_VLC2.6 <- rbind(c(0:0), ModelDFSLt1_VLC2.5)
-ModelDFSLt1_VLC2.7 <- rbind(c(0:0), ModelDFSLt1_VLC2.6)
-ModelDFSLt1_VLC2.8 <- rbind(c(0:0), ModelDFSLt1_VLC2.7)
-ModelDFSLt1_VLC2.9 <- rbind(c(0:0), ModelDFSLt1_VLC2.8)
-ModelDFSLt1_VLC2.10 <- rbind(c(0:0), ModelDFSLt1_VLC2.9)
-ModelDFSLt1_VLC2.11 <- rbind(c(0:0), ModelDFSLt1_VLC2.10)
-ModelDFSLt1_VLC2.12 <- rbind(c(0:0), ModelDFSLt1_VLC2.11)
-ModelDFSLt1_VLC2.13 <- ModelDFSLt1_VLC2.12[-nrow(ModelDFSLt1_VLC2.12),]
-ModelDFSLt1_VLC2.14 <- ModelDFSLt1_VLC2.13[-nrow(ModelDFSLt1_VLC2.13),]
-ModelDFSLt1_VLC2.15 <- ModelDFSLt1_VLC2.14[-nrow(ModelDFSLt1_VLC2.14),]
-ModelDFSLt1_VLC2.16 <- ModelDFSLt1_VLC2.15[-nrow(ModelDFSLt1_VLC2.15),]
-ModelDFSLt1_VLC2.17 <- ModelDFSLt1_VLC2.16[-nrow(ModelDFSLt1_VLC2.16),]
-ModelDFSLt1_VLC2.18 <- ModelDFSLt1_VLC2.17[-nrow(ModelDFSLt1_VLC2.17),]
-ModelDFSLt1_VLC2.19 <- ModelDFSLt1_VLC2.18[-nrow(ModelDFSLt1_VLC2.18),]
-ModelDFSLt1_VLC2.20 <- ModelDFSLt1_VLC2.19[-nrow(ModelDFSLt1_VLC2.19),]
-ModelDFSLt1_VLC2.21 <- ModelDFSLt1_VLC2.20[-nrow(ModelDFSLt1_VLC2.20),]
-ModelDFSLt1_VLC2.22 <- ModelDFSLt1_VLC2.21[-nrow(ModelDFSLt1_VLC2.21),]
-ModelDFSLt1_VLC2.23 <- ModelDFSLt1_VLC2.22[-nrow(ModelDFSLt1_VLC2.22),]
-ModelDFSLt1_VLC2.24 <- ModelDFSLt1_VLC2.23[-nrow(ModelDFSLt1_VLC2.23),]
-
-ModelDFSLt1_VLC2 <- ModelDFSLt1_VLC2.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VLC2 <- rbind(c(0:0), ModelDFSLt1_VLC2)
+  assign(paste0("ModelDFSLt1_VLC2.", i), ModelDFSLt1_VLC2)
+}
+ModelDFSLt1_VLC2 <- head(ModelDFSLt1_VLC2.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLC2 <- ModelDFSLt0_VLC2 - ModelDFSLt1_VLC2
@@ -648,8 +592,11 @@ ModelDFSL1y_VLC2 <- ModelDFSLt0_VLC2 - ModelDFSLt1_VLC2
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLC2$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLC_2P because implies a one-off input of C
-ModelDFSL_VLC_2P <- ModelDFSL1y_VLC2
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VLC2_CorrectingPlus1 <- head(ModelDFSL1y_VLC2, -12) #Create model t=x+1
+
+#This model will be called VLC_0P because implies a one-off input of C
+ModelDFSL_VLC_2P <- ModelDFSLt1_VLC2_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VLC_2P,"VXP_Models\\ModelDFSL_R_VLC_2P.xlsx")
@@ -793,32 +740,11 @@ write_xlsx(ModelDFSL_VLC3C,"VXC_Models\\ModelDFSL_R_VLC3C.xlsx")
 ModelDFSLt0_VLC3 <- ModelDFSL_VLC3 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VLC3.1 <- rbind(c(0:0), ModelDFSLt0_VLC3)
-ModelDFSLt1_VLC3.2 <- rbind(c(0:0), ModelDFSLt1_VLC3.1)
-ModelDFSLt1_VLC3.3 <- rbind(c(0:0), ModelDFSLt1_VLC3.2)
-ModelDFSLt1_VLC3.4 <- rbind(c(0:0), ModelDFSLt1_VLC3.3)
-ModelDFSLt1_VLC3.5 <- rbind(c(0:0), ModelDFSLt1_VLC3.4)
-ModelDFSLt1_VLC3.6 <- rbind(c(0:0), ModelDFSLt1_VLC3.5)
-ModelDFSLt1_VLC3.7 <- rbind(c(0:0), ModelDFSLt1_VLC3.6)
-ModelDFSLt1_VLC3.8 <- rbind(c(0:0), ModelDFSLt1_VLC3.7)
-ModelDFSLt1_VLC3.9 <- rbind(c(0:0), ModelDFSLt1_VLC3.8)
-ModelDFSLt1_VLC3.10 <- rbind(c(0:0), ModelDFSLt1_VLC3.9)
-ModelDFSLt1_VLC3.11 <- rbind(c(0:0), ModelDFSLt1_VLC3.10)
-ModelDFSLt1_VLC3.12 <- rbind(c(0:0), ModelDFSLt1_VLC3.11)
-ModelDFSLt1_VLC3.13 <- ModelDFSLt1_VLC3.12[-nrow(ModelDFSLt1_VLC3.12),]
-ModelDFSLt1_VLC3.14 <- ModelDFSLt1_VLC3.13[-nrow(ModelDFSLt1_VLC3.13),]
-ModelDFSLt1_VLC3.15 <- ModelDFSLt1_VLC3.14[-nrow(ModelDFSLt1_VLC3.14),]
-ModelDFSLt1_VLC3.16 <- ModelDFSLt1_VLC3.15[-nrow(ModelDFSLt1_VLC3.15),]
-ModelDFSLt1_VLC3.17 <- ModelDFSLt1_VLC3.16[-nrow(ModelDFSLt1_VLC3.16),]
-ModelDFSLt1_VLC3.18 <- ModelDFSLt1_VLC3.17[-nrow(ModelDFSLt1_VLC3.17),]
-ModelDFSLt1_VLC3.19 <- ModelDFSLt1_VLC3.18[-nrow(ModelDFSLt1_VLC3.18),]
-ModelDFSLt1_VLC3.20 <- ModelDFSLt1_VLC3.19[-nrow(ModelDFSLt1_VLC3.19),]
-ModelDFSLt1_VLC3.21 <- ModelDFSLt1_VLC3.20[-nrow(ModelDFSLt1_VLC3.20),]
-ModelDFSLt1_VLC3.22 <- ModelDFSLt1_VLC3.21[-nrow(ModelDFSLt1_VLC3.21),]
-ModelDFSLt1_VLC3.23 <- ModelDFSLt1_VLC3.22[-nrow(ModelDFSLt1_VLC3.22),]
-ModelDFSLt1_VLC3.24 <- ModelDFSLt1_VLC3.23[-nrow(ModelDFSLt1_VLC3.23),]
-
-ModelDFSLt1_VLC3 <- ModelDFSLt1_VLC3.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VLC3 <- rbind(c(0:0), ModelDFSLt1_VLC3)
+  assign(paste0("ModelDFSLt1_VLC3.", i), ModelDFSLt1_VLC3)
+}
+ModelDFSLt1_VLC3 <- head(ModelDFSLt1_VLC3.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLC3 <- ModelDFSLt0_VLC3 - ModelDFSLt1_VLC3
@@ -826,8 +752,11 @@ ModelDFSL1y_VLC3 <- ModelDFSLt0_VLC3 - ModelDFSLt1_VLC3
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLC3$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLC_3P because implies a one-off input of C
-ModelDFSL_VLC_3P <- ModelDFSL1y_VLC3
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VLC3_CorrectingPlus1 <- head(ModelDFSL1y_VLC3, -12) #Create model t=x+1
+
+#This model will be called VLC_0P because implies a one-off input of C
+ModelDFSL_VLC_3P <- ModelDFSLt1_VLC3_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VLC_3P,"VXP_Models\\ModelDFSL_R_VLC_3P.xlsx")
@@ -971,32 +900,11 @@ write_xlsx(ModelDFSL_VLC4C,"VXC_Models\\ModelDFSL_R_VLC4C.xlsx")
 ModelDFSLt0_VLC4 <- ModelDFSL_VLC4 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VLC4.1 <- rbind(c(0:0), ModelDFSLt0_VLC4)
-ModelDFSLt1_VLC4.2 <- rbind(c(0:0), ModelDFSLt1_VLC4.1)
-ModelDFSLt1_VLC4.3 <- rbind(c(0:0), ModelDFSLt1_VLC4.2)
-ModelDFSLt1_VLC4.4 <- rbind(c(0:0), ModelDFSLt1_VLC4.3)
-ModelDFSLt1_VLC4.5 <- rbind(c(0:0), ModelDFSLt1_VLC4.4)
-ModelDFSLt1_VLC4.6 <- rbind(c(0:0), ModelDFSLt1_VLC4.5)
-ModelDFSLt1_VLC4.7 <- rbind(c(0:0), ModelDFSLt1_VLC4.6)
-ModelDFSLt1_VLC4.8 <- rbind(c(0:0), ModelDFSLt1_VLC4.7)
-ModelDFSLt1_VLC4.9 <- rbind(c(0:0), ModelDFSLt1_VLC4.8)
-ModelDFSLt1_VLC4.10 <- rbind(c(0:0), ModelDFSLt1_VLC4.9)
-ModelDFSLt1_VLC4.11 <- rbind(c(0:0), ModelDFSLt1_VLC4.10)
-ModelDFSLt1_VLC4.12 <- rbind(c(0:0), ModelDFSLt1_VLC4.11)
-ModelDFSLt1_VLC4.13 <- ModelDFSLt1_VLC4.12[-nrow(ModelDFSLt1_VLC4.12),]
-ModelDFSLt1_VLC4.14 <- ModelDFSLt1_VLC4.13[-nrow(ModelDFSLt1_VLC4.13),]
-ModelDFSLt1_VLC4.15 <- ModelDFSLt1_VLC4.14[-nrow(ModelDFSLt1_VLC4.14),]
-ModelDFSLt1_VLC4.16 <- ModelDFSLt1_VLC4.15[-nrow(ModelDFSLt1_VLC4.15),]
-ModelDFSLt1_VLC4.17 <- ModelDFSLt1_VLC4.16[-nrow(ModelDFSLt1_VLC4.16),]
-ModelDFSLt1_VLC4.18 <- ModelDFSLt1_VLC4.17[-nrow(ModelDFSLt1_VLC4.17),]
-ModelDFSLt1_VLC4.19 <- ModelDFSLt1_VLC4.18[-nrow(ModelDFSLt1_VLC4.18),]
-ModelDFSLt1_VLC4.20 <- ModelDFSLt1_VLC4.19[-nrow(ModelDFSLt1_VLC4.19),]
-ModelDFSLt1_VLC4.21 <- ModelDFSLt1_VLC4.20[-nrow(ModelDFSLt1_VLC4.20),]
-ModelDFSLt1_VLC4.22 <- ModelDFSLt1_VLC4.21[-nrow(ModelDFSLt1_VLC4.21),]
-ModelDFSLt1_VLC4.23 <- ModelDFSLt1_VLC4.22[-nrow(ModelDFSLt1_VLC4.22),]
-ModelDFSLt1_VLC4.24 <- ModelDFSLt1_VLC4.23[-nrow(ModelDFSLt1_VLC4.23),]
-
-ModelDFSLt1_VLC4 <- ModelDFSLt1_VLC4.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VLC4 <- rbind(c(0:0), ModelDFSLt1_VLC4)
+  assign(paste0("ModelDFSLt1_VLC4.", i), ModelDFSLt1_VLC4)
+}
+ModelDFSLt1_VLC4 <- head(ModelDFSLt1_VLC4.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLC4 <- ModelDFSLt0_VLC4 - ModelDFSLt1_VLC4
@@ -1004,8 +912,11 @@ ModelDFSL1y_VLC4 <- ModelDFSLt0_VLC4 - ModelDFSLt1_VLC4
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLC4$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLC_4P because implies a one-off input of C
-ModelDFSL_VLC_4P <- ModelDFSL1y_VLC4
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VLC4_CorrectingPlus1 <- head(ModelDFSL1y_VLC4, -12) #Create model t=x+1
+
+#This model will be called VLC_0P because implies a one-off input of C
+ModelDFSL_VLC_4P <- ModelDFSLt1_VLC4_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VLC_4P,"VXP_Models\\ModelDFSL_R_VLC_4P.xlsx")
@@ -1149,32 +1060,11 @@ write_xlsx(ModelDFSL_VLC5C,"VXC_Models\\ModelDFSL_R_VLC5C.xlsx")
 ModelDFSLt0_VLC5 <- ModelDFSL_VLC5 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VLC5.1 <- rbind(c(0:0), ModelDFSLt0_VLC5)
-ModelDFSLt1_VLC5.2 <- rbind(c(0:0), ModelDFSLt1_VLC5.1)
-ModelDFSLt1_VLC5.3 <- rbind(c(0:0), ModelDFSLt1_VLC5.2)
-ModelDFSLt1_VLC5.4 <- rbind(c(0:0), ModelDFSLt1_VLC5.3)
-ModelDFSLt1_VLC5.5 <- rbind(c(0:0), ModelDFSLt1_VLC5.4)
-ModelDFSLt1_VLC5.6 <- rbind(c(0:0), ModelDFSLt1_VLC5.5)
-ModelDFSLt1_VLC5.7 <- rbind(c(0:0), ModelDFSLt1_VLC5.6)
-ModelDFSLt1_VLC5.8 <- rbind(c(0:0), ModelDFSLt1_VLC5.7)
-ModelDFSLt1_VLC5.9 <- rbind(c(0:0), ModelDFSLt1_VLC5.8)
-ModelDFSLt1_VLC5.10 <- rbind(c(0:0), ModelDFSLt1_VLC5.9)
-ModelDFSLt1_VLC5.11 <- rbind(c(0:0), ModelDFSLt1_VLC5.10)
-ModelDFSLt1_VLC5.12 <- rbind(c(0:0), ModelDFSLt1_VLC5.11)
-ModelDFSLt1_VLC5.13 <- ModelDFSLt1_VLC5.12[-nrow(ModelDFSLt1_VLC5.12),]
-ModelDFSLt1_VLC5.14 <- ModelDFSLt1_VLC5.13[-nrow(ModelDFSLt1_VLC5.13),]
-ModelDFSLt1_VLC5.15 <- ModelDFSLt1_VLC5.14[-nrow(ModelDFSLt1_VLC5.14),]
-ModelDFSLt1_VLC5.16 <- ModelDFSLt1_VLC5.15[-nrow(ModelDFSLt1_VLC5.15),]
-ModelDFSLt1_VLC5.17 <- ModelDFSLt1_VLC5.16[-nrow(ModelDFSLt1_VLC5.16),]
-ModelDFSLt1_VLC5.18 <- ModelDFSLt1_VLC5.17[-nrow(ModelDFSLt1_VLC5.17),]
-ModelDFSLt1_VLC5.19 <- ModelDFSLt1_VLC5.18[-nrow(ModelDFSLt1_VLC5.18),]
-ModelDFSLt1_VLC5.20 <- ModelDFSLt1_VLC5.19[-nrow(ModelDFSLt1_VLC5.19),]
-ModelDFSLt1_VLC5.21 <- ModelDFSLt1_VLC5.20[-nrow(ModelDFSLt1_VLC5.20),]
-ModelDFSLt1_VLC5.22 <- ModelDFSLt1_VLC5.21[-nrow(ModelDFSLt1_VLC5.21),]
-ModelDFSLt1_VLC5.23 <- ModelDFSLt1_VLC5.22[-nrow(ModelDFSLt1_VLC5.22),]
-ModelDFSLt1_VLC5.24 <- ModelDFSLt1_VLC5.23[-nrow(ModelDFSLt1_VLC5.23),]
-
-ModelDFSLt1_VLC5 <- ModelDFSLt1_VLC5.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VLC5 <- rbind(c(0:0), ModelDFSLt1_VLC5)
+  assign(paste0("ModelDFSLt1_VLC5.", i), ModelDFSLt1_VLC5)
+}
+ModelDFSLt1_VLC5 <- head(ModelDFSLt1_VLC5.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLC5 <- ModelDFSLt0_VLC5 - ModelDFSLt1_VLC5
@@ -1182,8 +1072,11 @@ ModelDFSL1y_VLC5 <- ModelDFSLt0_VLC5 - ModelDFSLt1_VLC5
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLC5$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLC_5P because implies a one-off input of C
-ModelDFSL_VLC_5P <- ModelDFSL1y_VLC5
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VLC5_CorrectingPlus1 <- head(ModelDFSL1y_VLC5, -12) #Create model t=x+1
+
+#This model will be called VLC_0P because implies a one-off input of C
+ModelDFSL_VLC_5P <- ModelDFSLt1_VLC5_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VLC_5P,"VXP_Models\\ModelDFSL_R_VLC_5P.xlsx")
@@ -1330,32 +1223,11 @@ write_xlsx(ModelDFSL_VLC6C,"VXC_Models\\ModelDFSL_R_VLC6C.xlsx")
 ModelDFSLt0_VLC6 <- ModelDFSL_VLC6 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VLC6.1 <- rbind(c(0:0), ModelDFSLt0_VLC6)
-ModelDFSLt1_VLC6.2 <- rbind(c(0:0), ModelDFSLt1_VLC6.1)
-ModelDFSLt1_VLC6.3 <- rbind(c(0:0), ModelDFSLt1_VLC6.2)
-ModelDFSLt1_VLC6.4 <- rbind(c(0:0), ModelDFSLt1_VLC6.3)
-ModelDFSLt1_VLC6.5 <- rbind(c(0:0), ModelDFSLt1_VLC6.4)
-ModelDFSLt1_VLC6.6 <- rbind(c(0:0), ModelDFSLt1_VLC6.5)
-ModelDFSLt1_VLC6.7 <- rbind(c(0:0), ModelDFSLt1_VLC6.6)
-ModelDFSLt1_VLC6.8 <- rbind(c(0:0), ModelDFSLt1_VLC6.7)
-ModelDFSLt1_VLC6.9 <- rbind(c(0:0), ModelDFSLt1_VLC6.8)
-ModelDFSLt1_VLC6.10 <- rbind(c(0:0), ModelDFSLt1_VLC6.9)
-ModelDFSLt1_VLC6.11 <- rbind(c(0:0), ModelDFSLt1_VLC6.10)
-ModelDFSLt1_VLC6.12 <- rbind(c(0:0), ModelDFSLt1_VLC6.11)
-ModelDFSLt1_VLC6.13 <- ModelDFSLt1_VLC6.12[-nrow(ModelDFSLt1_VLC6.12),]
-ModelDFSLt1_VLC6.14 <- ModelDFSLt1_VLC6.13[-nrow(ModelDFSLt1_VLC6.13),]
-ModelDFSLt1_VLC6.15 <- ModelDFSLt1_VLC6.14[-nrow(ModelDFSLt1_VLC6.14),]
-ModelDFSLt1_VLC6.16 <- ModelDFSLt1_VLC6.15[-nrow(ModelDFSLt1_VLC6.15),]
-ModelDFSLt1_VLC6.17 <- ModelDFSLt1_VLC6.16[-nrow(ModelDFSLt1_VLC6.16),]
-ModelDFSLt1_VLC6.18 <- ModelDFSLt1_VLC6.17[-nrow(ModelDFSLt1_VLC6.17),]
-ModelDFSLt1_VLC6.19 <- ModelDFSLt1_VLC6.18[-nrow(ModelDFSLt1_VLC6.18),]
-ModelDFSLt1_VLC6.20 <- ModelDFSLt1_VLC6.19[-nrow(ModelDFSLt1_VLC6.19),]
-ModelDFSLt1_VLC6.21 <- ModelDFSLt1_VLC6.20[-nrow(ModelDFSLt1_VLC6.20),]
-ModelDFSLt1_VLC6.22 <- ModelDFSLt1_VLC6.21[-nrow(ModelDFSLt1_VLC6.21),]
-ModelDFSLt1_VLC6.23 <- ModelDFSLt1_VLC6.22[-nrow(ModelDFSLt1_VLC6.22),]
-ModelDFSLt1_VLC6.24 <- ModelDFSLt1_VLC6.23[-nrow(ModelDFSLt1_VLC6.23),]
-
-ModelDFSLt1_VLC6 <- ModelDFSLt1_VLC6.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VLC6 <- rbind(c(0:0), ModelDFSLt1_VLC6)
+  assign(paste0("ModelDFSLt1_VLC6.", i), ModelDFSLt1_VLC6)
+}
+ModelDFSLt1_VLC6 <- head(ModelDFSLt1_VLC6.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLC6 <- ModelDFSLt0_VLC6 - ModelDFSLt1_VLC6
@@ -1363,8 +1235,11 @@ ModelDFSL1y_VLC6 <- ModelDFSLt0_VLC6 - ModelDFSLt1_VLC6
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLC6$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLC_6P because implies a one-off input of C
-ModelDFSL_VLC_6P <- ModelDFSL1y_VLC6
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VLC6_CorrectingPlus1 <- head(ModelDFSL1y_VLC6, -12) #Create model t=x+1
+
+#This model will be called VLC_0P because implies a one-off input of C
+ModelDFSL_VLC_6P <- ModelDFSLt1_VLC6_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VLC_6P,"VXP_Models\\ModelDFSL_R_VLC_6P.xlsx")
@@ -1510,32 +1385,11 @@ write_xlsx(ModelDFSL_VLC7C,"VXC_Models\\ModelDFSL_R_VLC7C.xlsx")
 ModelDFSLt0_VLC7 <- ModelDFSL_VLC7 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VLC7.1 <- rbind(c(0:0), ModelDFSLt0_VLC7)
-ModelDFSLt1_VLC7.2 <- rbind(c(0:0), ModelDFSLt1_VLC7.1)
-ModelDFSLt1_VLC7.3 <- rbind(c(0:0), ModelDFSLt1_VLC7.2)
-ModelDFSLt1_VLC7.4 <- rbind(c(0:0), ModelDFSLt1_VLC7.3)
-ModelDFSLt1_VLC7.5 <- rbind(c(0:0), ModelDFSLt1_VLC7.4)
-ModelDFSLt1_VLC7.6 <- rbind(c(0:0), ModelDFSLt1_VLC7.5)
-ModelDFSLt1_VLC7.7 <- rbind(c(0:0), ModelDFSLt1_VLC7.6)
-ModelDFSLt1_VLC7.8 <- rbind(c(0:0), ModelDFSLt1_VLC7.7)
-ModelDFSLt1_VLC7.9 <- rbind(c(0:0), ModelDFSLt1_VLC7.8)
-ModelDFSLt1_VLC7.10 <- rbind(c(0:0), ModelDFSLt1_VLC7.9)
-ModelDFSLt1_VLC7.11 <- rbind(c(0:0), ModelDFSLt1_VLC7.10)
-ModelDFSLt1_VLC7.12 <- rbind(c(0:0), ModelDFSLt1_VLC7.11)
-ModelDFSLt1_VLC7.13 <- ModelDFSLt1_VLC7.12[-nrow(ModelDFSLt1_VLC7.12),]
-ModelDFSLt1_VLC7.14 <- ModelDFSLt1_VLC7.13[-nrow(ModelDFSLt1_VLC7.13),]
-ModelDFSLt1_VLC7.15 <- ModelDFSLt1_VLC7.14[-nrow(ModelDFSLt1_VLC7.14),]
-ModelDFSLt1_VLC7.16 <- ModelDFSLt1_VLC7.15[-nrow(ModelDFSLt1_VLC7.15),]
-ModelDFSLt1_VLC7.17 <- ModelDFSLt1_VLC7.16[-nrow(ModelDFSLt1_VLC7.16),]
-ModelDFSLt1_VLC7.18 <- ModelDFSLt1_VLC7.17[-nrow(ModelDFSLt1_VLC7.17),]
-ModelDFSLt1_VLC7.19 <- ModelDFSLt1_VLC7.18[-nrow(ModelDFSLt1_VLC7.18),]
-ModelDFSLt1_VLC7.20 <- ModelDFSLt1_VLC7.19[-nrow(ModelDFSLt1_VLC7.19),]
-ModelDFSLt1_VLC7.21 <- ModelDFSLt1_VLC7.20[-nrow(ModelDFSLt1_VLC7.20),]
-ModelDFSLt1_VLC7.22 <- ModelDFSLt1_VLC7.21[-nrow(ModelDFSLt1_VLC7.21),]
-ModelDFSLt1_VLC7.23 <- ModelDFSLt1_VLC7.22[-nrow(ModelDFSLt1_VLC7.22),]
-ModelDFSLt1_VLC7.24 <- ModelDFSLt1_VLC7.23[-nrow(ModelDFSLt1_VLC7.23),]
-
-ModelDFSLt1_VLC7 <- ModelDFSLt1_VLC7.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VLC7 <- rbind(c(0:0), ModelDFSLt1_VLC7)
+  assign(paste0("ModelDFSLt1_VLC7.", i), ModelDFSLt1_VLC7)
+}
+ModelDFSLt1_VLC7 <- head(ModelDFSLt1_VLC7.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLC7 <- ModelDFSLt0_VLC7 - ModelDFSLt1_VLC7
@@ -1543,8 +1397,11 @@ ModelDFSL1y_VLC7 <- ModelDFSLt0_VLC7 - ModelDFSLt1_VLC7
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLC7$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLC_7P because implies a one-off input of C
-ModelDFSL_VLC_7P <- ModelDFSL1y_VLC7
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VLC7_CorrectingPlus1 <- head(ModelDFSL1y_VLC7, -12) #Create model t=x+1
+
+#This model will be called VLC_0P because implies a one-off input of C
+ModelDFSL_VLC_7P <- ModelDFSLt1_VLC7_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VLC_7P,"VXP_Models\\ModelDFSL_R_VLC_7P.xlsx")
@@ -1691,32 +1548,11 @@ write_xlsx(ModelDFSL_VLC8C,"VXC_Models\\ModelDFSL_R_VLC8C.xlsx")
 ModelDFSLt0_VLC8 <- ModelDFSL_VLC8 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VLC8.1 <- rbind(c(0:0), ModelDFSLt0_VLC8)
-ModelDFSLt1_VLC8.2 <- rbind(c(0:0), ModelDFSLt1_VLC8.1)
-ModelDFSLt1_VLC8.3 <- rbind(c(0:0), ModelDFSLt1_VLC8.2)
-ModelDFSLt1_VLC8.4 <- rbind(c(0:0), ModelDFSLt1_VLC8.3)
-ModelDFSLt1_VLC8.5 <- rbind(c(0:0), ModelDFSLt1_VLC8.4)
-ModelDFSLt1_VLC8.6 <- rbind(c(0:0), ModelDFSLt1_VLC8.5)
-ModelDFSLt1_VLC8.7 <- rbind(c(0:0), ModelDFSLt1_VLC8.6)
-ModelDFSLt1_VLC8.8 <- rbind(c(0:0), ModelDFSLt1_VLC8.7)
-ModelDFSLt1_VLC8.9 <- rbind(c(0:0), ModelDFSLt1_VLC8.8)
-ModelDFSLt1_VLC8.10 <- rbind(c(0:0), ModelDFSLt1_VLC8.9)
-ModelDFSLt1_VLC8.11 <- rbind(c(0:0), ModelDFSLt1_VLC8.10)
-ModelDFSLt1_VLC8.12 <- rbind(c(0:0), ModelDFSLt1_VLC8.11)
-ModelDFSLt1_VLC8.13 <- ModelDFSLt1_VLC8.12[-nrow(ModelDFSLt1_VLC8.12),]
-ModelDFSLt1_VLC8.14 <- ModelDFSLt1_VLC8.13[-nrow(ModelDFSLt1_VLC8.13),]
-ModelDFSLt1_VLC8.15 <- ModelDFSLt1_VLC8.14[-nrow(ModelDFSLt1_VLC8.14),]
-ModelDFSLt1_VLC8.16 <- ModelDFSLt1_VLC8.15[-nrow(ModelDFSLt1_VLC8.15),]
-ModelDFSLt1_VLC8.17 <- ModelDFSLt1_VLC8.16[-nrow(ModelDFSLt1_VLC8.16),]
-ModelDFSLt1_VLC8.18 <- ModelDFSLt1_VLC8.17[-nrow(ModelDFSLt1_VLC8.17),]
-ModelDFSLt1_VLC8.19 <- ModelDFSLt1_VLC8.18[-nrow(ModelDFSLt1_VLC8.18),]
-ModelDFSLt1_VLC8.20 <- ModelDFSLt1_VLC8.19[-nrow(ModelDFSLt1_VLC8.19),]
-ModelDFSLt1_VLC8.21 <- ModelDFSLt1_VLC8.20[-nrow(ModelDFSLt1_VLC8.20),]
-ModelDFSLt1_VLC8.22 <- ModelDFSLt1_VLC8.21[-nrow(ModelDFSLt1_VLC8.21),]
-ModelDFSLt1_VLC8.23 <- ModelDFSLt1_VLC8.22[-nrow(ModelDFSLt1_VLC8.22),]
-ModelDFSLt1_VLC8.24 <- ModelDFSLt1_VLC8.23[-nrow(ModelDFSLt1_VLC8.23),]
-
-ModelDFSLt1_VLC8 <- ModelDFSLt1_VLC8.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VLC8 <- rbind(c(0:0), ModelDFSLt1_VLC8)
+  assign(paste0("ModelDFSLt1_VLC8.", i), ModelDFSLt1_VLC8)
+}
+ModelDFSLt1_VLC8 <- head(ModelDFSLt1_VLC8.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLC8 <- ModelDFSLt0_VLC8 - ModelDFSLt1_VLC8
@@ -1724,8 +1560,11 @@ ModelDFSL1y_VLC8 <- ModelDFSLt0_VLC8 - ModelDFSLt1_VLC8
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLC8$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLC_8P because implies a one-off input of C
-ModelDFSL_VLC_8P <- ModelDFSL1y_VLC8
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VLC8_CorrectingPlus1 <- head(ModelDFSL1y_VLC8, -12) #Create model t=x+1
+
+#This model will be called VLC_0P because implies a one-off input of C
+ModelDFSL_VLC_8P <- ModelDFSLt1_VLC8_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VLC_8P,"VXP_Models\\ModelDFSL_R_VLC_8P.xlsx")
@@ -1871,32 +1710,11 @@ write_xlsx(ModelDFSL_VLC9C,"VXC_Models\\ModelDFSL_R_VLC9C.xlsx")
 ModelDFSLt0_VLC9 <- ModelDFSL_VLC9 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VLC9.1 <- rbind(c(0:0), ModelDFSLt0_VLC9)
-ModelDFSLt1_VLC9.2 <- rbind(c(0:0), ModelDFSLt1_VLC9.1)
-ModelDFSLt1_VLC9.3 <- rbind(c(0:0), ModelDFSLt1_VLC9.2)
-ModelDFSLt1_VLC9.4 <- rbind(c(0:0), ModelDFSLt1_VLC9.3)
-ModelDFSLt1_VLC9.5 <- rbind(c(0:0), ModelDFSLt1_VLC9.4)
-ModelDFSLt1_VLC9.6 <- rbind(c(0:0), ModelDFSLt1_VLC9.5)
-ModelDFSLt1_VLC9.7 <- rbind(c(0:0), ModelDFSLt1_VLC9.6)
-ModelDFSLt1_VLC9.8 <- rbind(c(0:0), ModelDFSLt1_VLC9.7)
-ModelDFSLt1_VLC9.9 <- rbind(c(0:0), ModelDFSLt1_VLC9.8)
-ModelDFSLt1_VLC9.10 <- rbind(c(0:0), ModelDFSLt1_VLC9.9)
-ModelDFSLt1_VLC9.11 <- rbind(c(0:0), ModelDFSLt1_VLC9.10)
-ModelDFSLt1_VLC9.12 <- rbind(c(0:0), ModelDFSLt1_VLC9.11)
-ModelDFSLt1_VLC9.13 <- ModelDFSLt1_VLC9.12[-nrow(ModelDFSLt1_VLC9.12),]
-ModelDFSLt1_VLC9.14 <- ModelDFSLt1_VLC9.13[-nrow(ModelDFSLt1_VLC9.13),]
-ModelDFSLt1_VLC9.15 <- ModelDFSLt1_VLC9.14[-nrow(ModelDFSLt1_VLC9.14),]
-ModelDFSLt1_VLC9.16 <- ModelDFSLt1_VLC9.15[-nrow(ModelDFSLt1_VLC9.15),]
-ModelDFSLt1_VLC9.17 <- ModelDFSLt1_VLC9.16[-nrow(ModelDFSLt1_VLC9.16),]
-ModelDFSLt1_VLC9.18 <- ModelDFSLt1_VLC9.17[-nrow(ModelDFSLt1_VLC9.17),]
-ModelDFSLt1_VLC9.19 <- ModelDFSLt1_VLC9.18[-nrow(ModelDFSLt1_VLC9.18),]
-ModelDFSLt1_VLC9.20 <- ModelDFSLt1_VLC9.19[-nrow(ModelDFSLt1_VLC9.19),]
-ModelDFSLt1_VLC9.21 <- ModelDFSLt1_VLC9.20[-nrow(ModelDFSLt1_VLC9.20),]
-ModelDFSLt1_VLC9.22 <- ModelDFSLt1_VLC9.21[-nrow(ModelDFSLt1_VLC9.21),]
-ModelDFSLt1_VLC9.23 <- ModelDFSLt1_VLC9.22[-nrow(ModelDFSLt1_VLC9.22),]
-ModelDFSLt1_VLC9.24 <- ModelDFSLt1_VLC9.23[-nrow(ModelDFSLt1_VLC9.23),]
-
-ModelDFSLt1_VLC9 <- ModelDFSLt1_VLC9.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VLC9 <- rbind(c(0:0), ModelDFSLt1_VLC9)
+  assign(paste0("ModelDFSLt1_VLC9.", i), ModelDFSLt1_VLC9)
+}
+ModelDFSLt1_VLC9 <- head(ModelDFSLt1_VLC9.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLC9 <- ModelDFSLt0_VLC9 - ModelDFSLt1_VLC9
@@ -1904,8 +1722,11 @@ ModelDFSL1y_VLC9 <- ModelDFSLt0_VLC9 - ModelDFSLt1_VLC9
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLC9$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLC_9P because implies a one-off input of C
-ModelDFSL_VLC_9P <- ModelDFSL1y_VLC9
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VLC9_CorrectingPlus1 <- head(ModelDFSL1y_VLC9, -12) #Create model t=x+1
+
+#This model will be called VLC_0P because implies a one-off input of C
+ModelDFSL_VLC_9P <- ModelDFSLt1_VLC9_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VLC_9P,"VXP_Models\\ModelDFSL_R_VLC_9P.xlsx")
@@ -2051,32 +1872,11 @@ write_xlsx(ModelDFSL_VLC10C,"VXC_Models\\ModelDFSL_R_VLC10C.xlsx")
 ModelDFSLt0_VLC10 <- ModelDFSL_VLC10 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VLC10.1 <- rbind(c(0:0), ModelDFSLt0_VLC10)
-ModelDFSLt1_VLC10.2 <- rbind(c(0:0), ModelDFSLt1_VLC10.1)
-ModelDFSLt1_VLC10.3 <- rbind(c(0:0), ModelDFSLt1_VLC10.2)
-ModelDFSLt1_VLC10.4 <- rbind(c(0:0), ModelDFSLt1_VLC10.3)
-ModelDFSLt1_VLC10.5 <- rbind(c(0:0), ModelDFSLt1_VLC10.4)
-ModelDFSLt1_VLC10.6 <- rbind(c(0:0), ModelDFSLt1_VLC10.5)
-ModelDFSLt1_VLC10.7 <- rbind(c(0:0), ModelDFSLt1_VLC10.6)
-ModelDFSLt1_VLC10.8 <- rbind(c(0:0), ModelDFSLt1_VLC10.7)
-ModelDFSLt1_VLC10.9 <- rbind(c(0:0), ModelDFSLt1_VLC10.8)
-ModelDFSLt1_VLC10.10 <- rbind(c(0:0), ModelDFSLt1_VLC10.9)
-ModelDFSLt1_VLC10.11 <- rbind(c(0:0), ModelDFSLt1_VLC10.10)
-ModelDFSLt1_VLC10.12 <- rbind(c(0:0), ModelDFSLt1_VLC10.11)
-ModelDFSLt1_VLC10.13 <- ModelDFSLt1_VLC10.12[-nrow(ModelDFSLt1_VLC10.12),]
-ModelDFSLt1_VLC10.14 <- ModelDFSLt1_VLC10.13[-nrow(ModelDFSLt1_VLC10.13),]
-ModelDFSLt1_VLC10.15 <- ModelDFSLt1_VLC10.14[-nrow(ModelDFSLt1_VLC10.14),]
-ModelDFSLt1_VLC10.16 <- ModelDFSLt1_VLC10.15[-nrow(ModelDFSLt1_VLC10.15),]
-ModelDFSLt1_VLC10.17 <- ModelDFSLt1_VLC10.16[-nrow(ModelDFSLt1_VLC10.16),]
-ModelDFSLt1_VLC10.18 <- ModelDFSLt1_VLC10.17[-nrow(ModelDFSLt1_VLC10.17),]
-ModelDFSLt1_VLC10.19 <- ModelDFSLt1_VLC10.18[-nrow(ModelDFSLt1_VLC10.18),]
-ModelDFSLt1_VLC10.20 <- ModelDFSLt1_VLC10.19[-nrow(ModelDFSLt1_VLC10.19),]
-ModelDFSLt1_VLC10.21 <- ModelDFSLt1_VLC10.20[-nrow(ModelDFSLt1_VLC10.20),]
-ModelDFSLt1_VLC10.22 <- ModelDFSLt1_VLC10.21[-nrow(ModelDFSLt1_VLC10.21),]
-ModelDFSLt1_VLC10.23 <- ModelDFSLt1_VLC10.22[-nrow(ModelDFSLt1_VLC10.22),]
-ModelDFSLt1_VLC10.24 <- ModelDFSLt1_VLC10.23[-nrow(ModelDFSLt1_VLC10.23),]
-
-ModelDFSLt1_VLC10 <- ModelDFSLt1_VLC10.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VLC10 <- rbind(c(0:0), ModelDFSLt1_VLC10)
+  assign(paste0("ModelDFSLt1_VLC10.", i), ModelDFSLt1_VLC10)
+}
+ModelDFSLt1_VLC10 <- head(ModelDFSLt1_VLC10.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLC10 <- ModelDFSLt0_VLC10 - ModelDFSLt1_VLC10
@@ -2084,8 +1884,11 @@ ModelDFSL1y_VLC10 <- ModelDFSLt0_VLC10 - ModelDFSLt1_VLC10
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLC10$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLC10P because implies a one-off input of C
-ModelDFSL_VLC10P <- ModelDFSL1y_VLC10
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VLC10_CorrectingPlus1 <- head(ModelDFSL1y_VLC10, -12) #Create model t=x+1
+
+#This model will be called VLC_0P because implies a one-off input of C
+ModelDFSL_VLC10P <- ModelDFSLt1_VLC10_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VLC10P,"VXP_Models\\ModelDFSL_R_VLC10P.xlsx")
@@ -2224,32 +2027,11 @@ write_xlsx(ModelDFSL_VLR0C,"VXC_Models\\ModelDFSL_R_VLR0C.xlsx")
 ModelDFSLt0_VLR0 <- ModelDFSL_VLR0 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VLR0.1 <- rbind(c(0:0), ModelDFSLt0_VLR0)
-ModelDFSLt1_VLR0.2 <- rbind(c(0:0), ModelDFSLt1_VLR0.1)
-ModelDFSLt1_VLR0.3 <- rbind(c(0:0), ModelDFSLt1_VLR0.2)
-ModelDFSLt1_VLR0.4 <- rbind(c(0:0), ModelDFSLt1_VLR0.3)
-ModelDFSLt1_VLR0.5 <- rbind(c(0:0), ModelDFSLt1_VLR0.4)
-ModelDFSLt1_VLR0.6 <- rbind(c(0:0), ModelDFSLt1_VLR0.5)
-ModelDFSLt1_VLR0.7 <- rbind(c(0:0), ModelDFSLt1_VLR0.6)
-ModelDFSLt1_VLR0.8 <- rbind(c(0:0), ModelDFSLt1_VLR0.7)
-ModelDFSLt1_VLR0.9 <- rbind(c(0:0), ModelDFSLt1_VLR0.8)
-ModelDFSLt1_VLR0.10 <- rbind(c(0:0), ModelDFSLt1_VLR0.9)
-ModelDFSLt1_VLR0.11 <- rbind(c(0:0), ModelDFSLt1_VLR0.10)
-ModelDFSLt1_VLR0.12 <- rbind(c(0:0), ModelDFSLt1_VLR0.11)
-ModelDFSLt1_VLR0.13 <- ModelDFSLt1_VLR0.12[-nrow(ModelDFSLt1_VLR0.12),]
-ModelDFSLt1_VLR0.14 <- ModelDFSLt1_VLR0.13[-nrow(ModelDFSLt1_VLR0.13),]
-ModelDFSLt1_VLR0.15 <- ModelDFSLt1_VLR0.14[-nrow(ModelDFSLt1_VLR0.14),]
-ModelDFSLt1_VLR0.16 <- ModelDFSLt1_VLR0.15[-nrow(ModelDFSLt1_VLR0.15),]
-ModelDFSLt1_VLR0.17 <- ModelDFSLt1_VLR0.16[-nrow(ModelDFSLt1_VLR0.16),]
-ModelDFSLt1_VLR0.18 <- ModelDFSLt1_VLR0.17[-nrow(ModelDFSLt1_VLR0.17),]
-ModelDFSLt1_VLR0.19 <- ModelDFSLt1_VLR0.18[-nrow(ModelDFSLt1_VLR0.18),]
-ModelDFSLt1_VLR0.20 <- ModelDFSLt1_VLR0.19[-nrow(ModelDFSLt1_VLR0.19),]
-ModelDFSLt1_VLR0.21 <- ModelDFSLt1_VLR0.20[-nrow(ModelDFSLt1_VLR0.20),]
-ModelDFSLt1_VLR0.22 <- ModelDFSLt1_VLR0.21[-nrow(ModelDFSLt1_VLR0.21),]
-ModelDFSLt1_VLR0.23 <- ModelDFSLt1_VLR0.22[-nrow(ModelDFSLt1_VLR0.22),]
-ModelDFSLt1_VLR0.24 <- ModelDFSLt1_VLR0.23[-nrow(ModelDFSLt1_VLR0.23),]
-
-ModelDFSLt1_VLR0 <- ModelDFSLt1_VLR0.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VLR0 <- rbind(c(0:0), ModelDFSLt1_VLR0)
+  assign(paste0("ModelDFSLt1_VLR0.", i), ModelDFSLt1_VLR0)
+}
+ModelDFSLt1_VLR0 <- head(ModelDFSLt1_VLR0.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLR0 <- ModelDFSLt0_VLR0 - ModelDFSLt1_VLR0
@@ -2257,8 +2039,11 @@ ModelDFSL1y_VLR0 <- ModelDFSLt0_VLR0 - ModelDFSLt1_VLR0
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLR0$MNumber <- seq(from = 1, to = SimulationLength_months)
 
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VLR0_CorrectingPlus1 <- head(ModelDFSL1y_VLR0, -12) #Create model t=x+1
+
 #This model will be called VLR_0P because implies a one-off input of C
-ModelDFSL_VLR_0P <- ModelDFSL1y_VLR0
+ModelDFSL_VLR_0P <- ModelDFSLt1_VLR0_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VLR_0P,"VXP_Models\\ModelDFSL_R_VLR_0P.xlsx")
@@ -2401,32 +2186,11 @@ write_xlsx(ModelDFSL_VLR1C,"VXC_Models\\ModelDFSL_R_VLR1C.xlsx")
 ModelDFSLt0_VLR1 <- ModelDFSL_VLR1 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VLR1.1 <- rbind(c(0:0), ModelDFSLt0_VLR1)
-ModelDFSLt1_VLR1.2 <- rbind(c(0:0), ModelDFSLt1_VLR1.1)
-ModelDFSLt1_VLR1.3 <- rbind(c(0:0), ModelDFSLt1_VLR1.2)
-ModelDFSLt1_VLR1.4 <- rbind(c(0:0), ModelDFSLt1_VLR1.3)
-ModelDFSLt1_VLR1.5 <- rbind(c(0:0), ModelDFSLt1_VLR1.4)
-ModelDFSLt1_VLR1.6 <- rbind(c(0:0), ModelDFSLt1_VLR1.5)
-ModelDFSLt1_VLR1.7 <- rbind(c(0:0), ModelDFSLt1_VLR1.6)
-ModelDFSLt1_VLR1.8 <- rbind(c(0:0), ModelDFSLt1_VLR1.7)
-ModelDFSLt1_VLR1.9 <- rbind(c(0:0), ModelDFSLt1_VLR1.8)
-ModelDFSLt1_VLR1.10 <- rbind(c(0:0), ModelDFSLt1_VLR1.9)
-ModelDFSLt1_VLR1.11 <- rbind(c(0:0), ModelDFSLt1_VLR1.10)
-ModelDFSLt1_VLR1.12 <- rbind(c(0:0), ModelDFSLt1_VLR1.11)
-ModelDFSLt1_VLR1.13 <- ModelDFSLt1_VLR1.12[-nrow(ModelDFSLt1_VLR1.12),]
-ModelDFSLt1_VLR1.14 <- ModelDFSLt1_VLR1.13[-nrow(ModelDFSLt1_VLR1.13),]
-ModelDFSLt1_VLR1.15 <- ModelDFSLt1_VLR1.14[-nrow(ModelDFSLt1_VLR1.14),]
-ModelDFSLt1_VLR1.16 <- ModelDFSLt1_VLR1.15[-nrow(ModelDFSLt1_VLR1.15),]
-ModelDFSLt1_VLR1.17 <- ModelDFSLt1_VLR1.16[-nrow(ModelDFSLt1_VLR1.16),]
-ModelDFSLt1_VLR1.18 <- ModelDFSLt1_VLR1.17[-nrow(ModelDFSLt1_VLR1.17),]
-ModelDFSLt1_VLR1.19 <- ModelDFSLt1_VLR1.18[-nrow(ModelDFSLt1_VLR1.18),]
-ModelDFSLt1_VLR1.20 <- ModelDFSLt1_VLR1.19[-nrow(ModelDFSLt1_VLR1.19),]
-ModelDFSLt1_VLR1.21 <- ModelDFSLt1_VLR1.20[-nrow(ModelDFSLt1_VLR1.20),]
-ModelDFSLt1_VLR1.22 <- ModelDFSLt1_VLR1.21[-nrow(ModelDFSLt1_VLR1.21),]
-ModelDFSLt1_VLR1.23 <- ModelDFSLt1_VLR1.22[-nrow(ModelDFSLt1_VLR1.22),]
-ModelDFSLt1_VLR1.24 <- ModelDFSLt1_VLR1.23[-nrow(ModelDFSLt1_VLR1.23),]
-
-ModelDFSLt1_VLR1 <- ModelDFSLt1_VLR1.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VLR1 <- rbind(c(0:0), ModelDFSLt1_VLR1)
+  assign(paste0("ModelDFSLt1_VLR1.", i), ModelDFSLt1_VLR1)
+}
+ModelDFSLt1_VLR1 <- head(ModelDFSLt1_VLR1.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLR1 <- ModelDFSLt0_VLR1 - ModelDFSLt1_VLR1
@@ -2434,8 +2198,11 @@ ModelDFSL1y_VLR1 <- ModelDFSLt0_VLR1 - ModelDFSLt1_VLR1
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLR1$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLR_1P because implies a one-off input of C
-ModelDFSL_VLR_1P <- ModelDFSL1y_VLR1
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VLR1_CorrectingPlus1 <- head(ModelDFSL1y_VLR1, -12) #Create model t=x+1
+
+#This model will be called VLR_0P because implies a one-off input of C
+ModelDFSL_VLR_1P <- ModelDFSLt1_VLR1_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VLR_1P,"VXP_Models\\ModelDFSL_R_VLR_1P.xlsx")
@@ -2579,32 +2346,11 @@ write_xlsx(ModelDFSL_VLR2C,"VXC_Models\\ModelDFSL_R_VLR2C.xlsx")
 ModelDFSLt0_VLR2 <- ModelDFSL_VLR2 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VLR2.1 <- rbind(c(0:0), ModelDFSLt0_VLR2)
-ModelDFSLt1_VLR2.2 <- rbind(c(0:0), ModelDFSLt1_VLR2.1)
-ModelDFSLt1_VLR2.3 <- rbind(c(0:0), ModelDFSLt1_VLR2.2)
-ModelDFSLt1_VLR2.4 <- rbind(c(0:0), ModelDFSLt1_VLR2.3)
-ModelDFSLt1_VLR2.5 <- rbind(c(0:0), ModelDFSLt1_VLR2.4)
-ModelDFSLt1_VLR2.6 <- rbind(c(0:0), ModelDFSLt1_VLR2.5)
-ModelDFSLt1_VLR2.7 <- rbind(c(0:0), ModelDFSLt1_VLR2.6)
-ModelDFSLt1_VLR2.8 <- rbind(c(0:0), ModelDFSLt1_VLR2.7)
-ModelDFSLt1_VLR2.9 <- rbind(c(0:0), ModelDFSLt1_VLR2.8)
-ModelDFSLt1_VLR2.10 <- rbind(c(0:0), ModelDFSLt1_VLR2.9)
-ModelDFSLt1_VLR2.11 <- rbind(c(0:0), ModelDFSLt1_VLR2.10)
-ModelDFSLt1_VLR2.12 <- rbind(c(0:0), ModelDFSLt1_VLR2.11)
-ModelDFSLt1_VLR2.13 <- ModelDFSLt1_VLR2.12[-nrow(ModelDFSLt1_VLR2.12),]
-ModelDFSLt1_VLR2.14 <- ModelDFSLt1_VLR2.13[-nrow(ModelDFSLt1_VLR2.13),]
-ModelDFSLt1_VLR2.15 <- ModelDFSLt1_VLR2.14[-nrow(ModelDFSLt1_VLR2.14),]
-ModelDFSLt1_VLR2.16 <- ModelDFSLt1_VLR2.15[-nrow(ModelDFSLt1_VLR2.15),]
-ModelDFSLt1_VLR2.17 <- ModelDFSLt1_VLR2.16[-nrow(ModelDFSLt1_VLR2.16),]
-ModelDFSLt1_VLR2.18 <- ModelDFSLt1_VLR2.17[-nrow(ModelDFSLt1_VLR2.17),]
-ModelDFSLt1_VLR2.19 <- ModelDFSLt1_VLR2.18[-nrow(ModelDFSLt1_VLR2.18),]
-ModelDFSLt1_VLR2.20 <- ModelDFSLt1_VLR2.19[-nrow(ModelDFSLt1_VLR2.19),]
-ModelDFSLt1_VLR2.21 <- ModelDFSLt1_VLR2.20[-nrow(ModelDFSLt1_VLR2.20),]
-ModelDFSLt1_VLR2.22 <- ModelDFSLt1_VLR2.21[-nrow(ModelDFSLt1_VLR2.21),]
-ModelDFSLt1_VLR2.23 <- ModelDFSLt1_VLR2.22[-nrow(ModelDFSLt1_VLR2.22),]
-ModelDFSLt1_VLR2.24 <- ModelDFSLt1_VLR2.23[-nrow(ModelDFSLt1_VLR2.23),]
-
-ModelDFSLt1_VLR2 <- ModelDFSLt1_VLR2.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VLR2 <- rbind(c(0:0), ModelDFSLt1_VLR2)
+  assign(paste0("ModelDFSLt1_VLR2.", i), ModelDFSLt1_VLR2)
+}
+ModelDFSLt1_VLR2 <- head(ModelDFSLt1_VLR2.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLR2 <- ModelDFSLt0_VLR2 - ModelDFSLt1_VLR2
@@ -2612,8 +2358,11 @@ ModelDFSL1y_VLR2 <- ModelDFSLt0_VLR2 - ModelDFSLt1_VLR2
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLR2$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLR_2P because implies a one-off input of C
-ModelDFSL_VLR_2P <- ModelDFSL1y_VLR2
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VLR2_CorrectingPlus1 <- head(ModelDFSL1y_VLR2, -12) #Create model t=x+1
+
+#This model will be called VLR_0P because implies a one-off input of C
+ModelDFSL_VLR_2P <- ModelDFSLt1_VLR2_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VLR_2P,"VXP_Models\\ModelDFSL_R_VLR_2P.xlsx")
@@ -2757,32 +2506,11 @@ write_xlsx(ModelDFSL_VLR3C,"VXC_Models\\ModelDFSL_R_VLR3C.xlsx")
 ModelDFSLt0_VLR3 <- ModelDFSL_VLR3 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VLR3.1 <- rbind(c(0:0), ModelDFSLt0_VLR3)
-ModelDFSLt1_VLR3.2 <- rbind(c(0:0), ModelDFSLt1_VLR3.1)
-ModelDFSLt1_VLR3.3 <- rbind(c(0:0), ModelDFSLt1_VLR3.2)
-ModelDFSLt1_VLR3.4 <- rbind(c(0:0), ModelDFSLt1_VLR3.3)
-ModelDFSLt1_VLR3.5 <- rbind(c(0:0), ModelDFSLt1_VLR3.4)
-ModelDFSLt1_VLR3.6 <- rbind(c(0:0), ModelDFSLt1_VLR3.5)
-ModelDFSLt1_VLR3.7 <- rbind(c(0:0), ModelDFSLt1_VLR3.6)
-ModelDFSLt1_VLR3.8 <- rbind(c(0:0), ModelDFSLt1_VLR3.7)
-ModelDFSLt1_VLR3.9 <- rbind(c(0:0), ModelDFSLt1_VLR3.8)
-ModelDFSLt1_VLR3.10 <- rbind(c(0:0), ModelDFSLt1_VLR3.9)
-ModelDFSLt1_VLR3.11 <- rbind(c(0:0), ModelDFSLt1_VLR3.10)
-ModelDFSLt1_VLR3.12 <- rbind(c(0:0), ModelDFSLt1_VLR3.11)
-ModelDFSLt1_VLR3.13 <- ModelDFSLt1_VLR3.12[-nrow(ModelDFSLt1_VLR3.12),]
-ModelDFSLt1_VLR3.14 <- ModelDFSLt1_VLR3.13[-nrow(ModelDFSLt1_VLR3.13),]
-ModelDFSLt1_VLR3.15 <- ModelDFSLt1_VLR3.14[-nrow(ModelDFSLt1_VLR3.14),]
-ModelDFSLt1_VLR3.16 <- ModelDFSLt1_VLR3.15[-nrow(ModelDFSLt1_VLR3.15),]
-ModelDFSLt1_VLR3.17 <- ModelDFSLt1_VLR3.16[-nrow(ModelDFSLt1_VLR3.16),]
-ModelDFSLt1_VLR3.18 <- ModelDFSLt1_VLR3.17[-nrow(ModelDFSLt1_VLR3.17),]
-ModelDFSLt1_VLR3.19 <- ModelDFSLt1_VLR3.18[-nrow(ModelDFSLt1_VLR3.18),]
-ModelDFSLt1_VLR3.20 <- ModelDFSLt1_VLR3.19[-nrow(ModelDFSLt1_VLR3.19),]
-ModelDFSLt1_VLR3.21 <- ModelDFSLt1_VLR3.20[-nrow(ModelDFSLt1_VLR3.20),]
-ModelDFSLt1_VLR3.22 <- ModelDFSLt1_VLR3.21[-nrow(ModelDFSLt1_VLR3.21),]
-ModelDFSLt1_VLR3.23 <- ModelDFSLt1_VLR3.22[-nrow(ModelDFSLt1_VLR3.22),]
-ModelDFSLt1_VLR3.24 <- ModelDFSLt1_VLR3.23[-nrow(ModelDFSLt1_VLR3.23),]
-
-ModelDFSLt1_VLR3 <- ModelDFSLt1_VLR3.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VLR3 <- rbind(c(0:0), ModelDFSLt1_VLR3)
+  assign(paste0("ModelDFSLt1_VLR3.", i), ModelDFSLt1_VLR3)
+}
+ModelDFSLt1_VLR3 <- head(ModelDFSLt1_VLR3.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLR3 <- ModelDFSLt0_VLR3 - ModelDFSLt1_VLR3
@@ -2790,8 +2518,11 @@ ModelDFSL1y_VLR3 <- ModelDFSLt0_VLR3 - ModelDFSLt1_VLR3
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLR3$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLR_3P because implies a one-off input of C
-ModelDFSL_VLR_3P <- ModelDFSL1y_VLR3
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VLR3_CorrectingPlus1 <- head(ModelDFSL1y_VLR3, -12) #Create model t=x+1
+
+#This model will be called VLR_0P because implies a one-off input of C
+ModelDFSL_VLR_3P <- ModelDFSLt1_VLR3_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VLR_3P,"VXP_Models\\ModelDFSL_R_VLR_3P.xlsx")
@@ -2935,32 +2666,11 @@ write_xlsx(ModelDFSL_VLR4C,"VXC_Models\\ModelDFSL_R_VLR4C.xlsx")
 ModelDFSLt0_VLR4 <- ModelDFSL_VLR4 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VLR4.1 <- rbind(c(0:0), ModelDFSLt0_VLR4)
-ModelDFSLt1_VLR4.2 <- rbind(c(0:0), ModelDFSLt1_VLR4.1)
-ModelDFSLt1_VLR4.3 <- rbind(c(0:0), ModelDFSLt1_VLR4.2)
-ModelDFSLt1_VLR4.4 <- rbind(c(0:0), ModelDFSLt1_VLR4.3)
-ModelDFSLt1_VLR4.5 <- rbind(c(0:0), ModelDFSLt1_VLR4.4)
-ModelDFSLt1_VLR4.6 <- rbind(c(0:0), ModelDFSLt1_VLR4.5)
-ModelDFSLt1_VLR4.7 <- rbind(c(0:0), ModelDFSLt1_VLR4.6)
-ModelDFSLt1_VLR4.8 <- rbind(c(0:0), ModelDFSLt1_VLR4.7)
-ModelDFSLt1_VLR4.9 <- rbind(c(0:0), ModelDFSLt1_VLR4.8)
-ModelDFSLt1_VLR4.10 <- rbind(c(0:0), ModelDFSLt1_VLR4.9)
-ModelDFSLt1_VLR4.11 <- rbind(c(0:0), ModelDFSLt1_VLR4.10)
-ModelDFSLt1_VLR4.12 <- rbind(c(0:0), ModelDFSLt1_VLR4.11)
-ModelDFSLt1_VLR4.13 <- ModelDFSLt1_VLR4.12[-nrow(ModelDFSLt1_VLR4.12),]
-ModelDFSLt1_VLR4.14 <- ModelDFSLt1_VLR4.13[-nrow(ModelDFSLt1_VLR4.13),]
-ModelDFSLt1_VLR4.15 <- ModelDFSLt1_VLR4.14[-nrow(ModelDFSLt1_VLR4.14),]
-ModelDFSLt1_VLR4.16 <- ModelDFSLt1_VLR4.15[-nrow(ModelDFSLt1_VLR4.15),]
-ModelDFSLt1_VLR4.17 <- ModelDFSLt1_VLR4.16[-nrow(ModelDFSLt1_VLR4.16),]
-ModelDFSLt1_VLR4.18 <- ModelDFSLt1_VLR4.17[-nrow(ModelDFSLt1_VLR4.17),]
-ModelDFSLt1_VLR4.19 <- ModelDFSLt1_VLR4.18[-nrow(ModelDFSLt1_VLR4.18),]
-ModelDFSLt1_VLR4.20 <- ModelDFSLt1_VLR4.19[-nrow(ModelDFSLt1_VLR4.19),]
-ModelDFSLt1_VLR4.21 <- ModelDFSLt1_VLR4.20[-nrow(ModelDFSLt1_VLR4.20),]
-ModelDFSLt1_VLR4.22 <- ModelDFSLt1_VLR4.21[-nrow(ModelDFSLt1_VLR4.21),]
-ModelDFSLt1_VLR4.23 <- ModelDFSLt1_VLR4.22[-nrow(ModelDFSLt1_VLR4.22),]
-ModelDFSLt1_VLR4.24 <- ModelDFSLt1_VLR4.23[-nrow(ModelDFSLt1_VLR4.23),]
-
-ModelDFSLt1_VLR4 <- ModelDFSLt1_VLR4.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VLR4 <- rbind(c(0:0), ModelDFSLt1_VLR4)
+  assign(paste0("ModelDFSLt1_VLR4.", i), ModelDFSLt1_VLR4)
+}
+ModelDFSLt1_VLR4 <- head(ModelDFSLt1_VLR4.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLR4 <- ModelDFSLt0_VLR4 - ModelDFSLt1_VLR4
@@ -2968,8 +2678,11 @@ ModelDFSL1y_VLR4 <- ModelDFSLt0_VLR4 - ModelDFSLt1_VLR4
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLR4$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLR_4P because implies a one-off input of C
-ModelDFSL_VLR_4P <- ModelDFSL1y_VLR4
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VLR4_CorrectingPlus1 <- head(ModelDFSL1y_VLR4, -12) #Create model t=x+1
+
+#This model will be called VLR_0P because implies a one-off input of C
+ModelDFSL_VLR_4P <- ModelDFSLt1_VLR4_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VLR_4P,"VXP_Models\\ModelDFSL_R_VLR_4P.xlsx")
@@ -3113,32 +2826,11 @@ write_xlsx(ModelDFSL_VLR5C,"VXC_Models\\ModelDFSL_R_VLR5C.xlsx")
 ModelDFSLt0_VLR5 <- ModelDFSL_VLR5 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VLR5.1 <- rbind(c(0:0), ModelDFSLt0_VLR5)
-ModelDFSLt1_VLR5.2 <- rbind(c(0:0), ModelDFSLt1_VLR5.1)
-ModelDFSLt1_VLR5.3 <- rbind(c(0:0), ModelDFSLt1_VLR5.2)
-ModelDFSLt1_VLR5.4 <- rbind(c(0:0), ModelDFSLt1_VLR5.3)
-ModelDFSLt1_VLR5.5 <- rbind(c(0:0), ModelDFSLt1_VLR5.4)
-ModelDFSLt1_VLR5.6 <- rbind(c(0:0), ModelDFSLt1_VLR5.5)
-ModelDFSLt1_VLR5.7 <- rbind(c(0:0), ModelDFSLt1_VLR5.6)
-ModelDFSLt1_VLR5.8 <- rbind(c(0:0), ModelDFSLt1_VLR5.7)
-ModelDFSLt1_VLR5.9 <- rbind(c(0:0), ModelDFSLt1_VLR5.8)
-ModelDFSLt1_VLR5.10 <- rbind(c(0:0), ModelDFSLt1_VLR5.9)
-ModelDFSLt1_VLR5.11 <- rbind(c(0:0), ModelDFSLt1_VLR5.10)
-ModelDFSLt1_VLR5.12 <- rbind(c(0:0), ModelDFSLt1_VLR5.11)
-ModelDFSLt1_VLR5.13 <- ModelDFSLt1_VLR5.12[-nrow(ModelDFSLt1_VLR5.12),]
-ModelDFSLt1_VLR5.14 <- ModelDFSLt1_VLR5.13[-nrow(ModelDFSLt1_VLR5.13),]
-ModelDFSLt1_VLR5.15 <- ModelDFSLt1_VLR5.14[-nrow(ModelDFSLt1_VLR5.14),]
-ModelDFSLt1_VLR5.16 <- ModelDFSLt1_VLR5.15[-nrow(ModelDFSLt1_VLR5.15),]
-ModelDFSLt1_VLR5.17 <- ModelDFSLt1_VLR5.16[-nrow(ModelDFSLt1_VLR5.16),]
-ModelDFSLt1_VLR5.18 <- ModelDFSLt1_VLR5.17[-nrow(ModelDFSLt1_VLR5.17),]
-ModelDFSLt1_VLR5.19 <- ModelDFSLt1_VLR5.18[-nrow(ModelDFSLt1_VLR5.18),]
-ModelDFSLt1_VLR5.20 <- ModelDFSLt1_VLR5.19[-nrow(ModelDFSLt1_VLR5.19),]
-ModelDFSLt1_VLR5.21 <- ModelDFSLt1_VLR5.20[-nrow(ModelDFSLt1_VLR5.20),]
-ModelDFSLt1_VLR5.22 <- ModelDFSLt1_VLR5.21[-nrow(ModelDFSLt1_VLR5.21),]
-ModelDFSLt1_VLR5.23 <- ModelDFSLt1_VLR5.22[-nrow(ModelDFSLt1_VLR5.22),]
-ModelDFSLt1_VLR5.24 <- ModelDFSLt1_VLR5.23[-nrow(ModelDFSLt1_VLR5.23),]
-
-ModelDFSLt1_VLR5 <- ModelDFSLt1_VLR5.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VLR5 <- rbind(c(0:0), ModelDFSLt1_VLR5)
+  assign(paste0("ModelDFSLt1_VLR5.", i), ModelDFSLt1_VLR5)
+}
+ModelDFSLt1_VLR5 <- head(ModelDFSLt1_VLR5.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLR5 <- ModelDFSLt0_VLR5 - ModelDFSLt1_VLR5
@@ -3146,8 +2838,11 @@ ModelDFSL1y_VLR5 <- ModelDFSLt0_VLR5 - ModelDFSLt1_VLR5
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLR5$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLR_5P because implies a one-off input of C
-ModelDFSL_VLR_5P <- ModelDFSL1y_VLR5
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VLR5_CorrectingPlus1 <- head(ModelDFSL1y_VLR5, -12) #Create model t=x+1
+
+#This model will be called VLR_0P because implies a one-off input of C
+ModelDFSL_VLR_5P <- ModelDFSLt1_VLR5_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VLR_5P,"VXP_Models\\ModelDFSL_R_VLR_5P.xlsx")
@@ -3294,32 +2989,11 @@ write_xlsx(ModelDFSL_VLR6C,"VXC_Models\\ModelDFSL_R_VLR6C.xlsx")
 ModelDFSLt0_VLR6 <- ModelDFSL_VLR6 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VLR6.1 <- rbind(c(0:0), ModelDFSLt0_VLR6)
-ModelDFSLt1_VLR6.2 <- rbind(c(0:0), ModelDFSLt1_VLR6.1)
-ModelDFSLt1_VLR6.3 <- rbind(c(0:0), ModelDFSLt1_VLR6.2)
-ModelDFSLt1_VLR6.4 <- rbind(c(0:0), ModelDFSLt1_VLR6.3)
-ModelDFSLt1_VLR6.5 <- rbind(c(0:0), ModelDFSLt1_VLR6.4)
-ModelDFSLt1_VLR6.6 <- rbind(c(0:0), ModelDFSLt1_VLR6.5)
-ModelDFSLt1_VLR6.7 <- rbind(c(0:0), ModelDFSLt1_VLR6.6)
-ModelDFSLt1_VLR6.8 <- rbind(c(0:0), ModelDFSLt1_VLR6.7)
-ModelDFSLt1_VLR6.9 <- rbind(c(0:0), ModelDFSLt1_VLR6.8)
-ModelDFSLt1_VLR6.10 <- rbind(c(0:0), ModelDFSLt1_VLR6.9)
-ModelDFSLt1_VLR6.11 <- rbind(c(0:0), ModelDFSLt1_VLR6.10)
-ModelDFSLt1_VLR6.12 <- rbind(c(0:0), ModelDFSLt1_VLR6.11)
-ModelDFSLt1_VLR6.13 <- ModelDFSLt1_VLR6.12[-nrow(ModelDFSLt1_VLR6.12),]
-ModelDFSLt1_VLR6.14 <- ModelDFSLt1_VLR6.13[-nrow(ModelDFSLt1_VLR6.13),]
-ModelDFSLt1_VLR6.15 <- ModelDFSLt1_VLR6.14[-nrow(ModelDFSLt1_VLR6.14),]
-ModelDFSLt1_VLR6.16 <- ModelDFSLt1_VLR6.15[-nrow(ModelDFSLt1_VLR6.15),]
-ModelDFSLt1_VLR6.17 <- ModelDFSLt1_VLR6.16[-nrow(ModelDFSLt1_VLR6.16),]
-ModelDFSLt1_VLR6.18 <- ModelDFSLt1_VLR6.17[-nrow(ModelDFSLt1_VLR6.17),]
-ModelDFSLt1_VLR6.19 <- ModelDFSLt1_VLR6.18[-nrow(ModelDFSLt1_VLR6.18),]
-ModelDFSLt1_VLR6.20 <- ModelDFSLt1_VLR6.19[-nrow(ModelDFSLt1_VLR6.19),]
-ModelDFSLt1_VLR6.21 <- ModelDFSLt1_VLR6.20[-nrow(ModelDFSLt1_VLR6.20),]
-ModelDFSLt1_VLR6.22 <- ModelDFSLt1_VLR6.21[-nrow(ModelDFSLt1_VLR6.21),]
-ModelDFSLt1_VLR6.23 <- ModelDFSLt1_VLR6.22[-nrow(ModelDFSLt1_VLR6.22),]
-ModelDFSLt1_VLR6.24 <- ModelDFSLt1_VLR6.23[-nrow(ModelDFSLt1_VLR6.23),]
-
-ModelDFSLt1_VLR6 <- ModelDFSLt1_VLR6.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VLR6 <- rbind(c(0:0), ModelDFSLt1_VLR6)
+  assign(paste0("ModelDFSLt1_VLR6.", i), ModelDFSLt1_VLR6)
+}
+ModelDFSLt1_VLR6 <- head(ModelDFSLt1_VLR6.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLR6 <- ModelDFSLt0_VLR6 - ModelDFSLt1_VLR6
@@ -3327,8 +3001,11 @@ ModelDFSL1y_VLR6 <- ModelDFSLt0_VLR6 - ModelDFSLt1_VLR6
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLR6$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLR_6P because implies a one-off input of C
-ModelDFSL_VLR_6P <- ModelDFSL1y_VLR6
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VLR6_CorrectingPlus1 <- head(ModelDFSL1y_VLR6, -12) #Create model t=x+1
+
+#This model will be called VLR_0P because implies a one-off input of C
+ModelDFSL_VLR_6P <- ModelDFSLt1_VLR6_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VLR_6P,"VXP_Models\\ModelDFSL_R_VLR_6P.xlsx")
@@ -3474,32 +3151,11 @@ write_xlsx(ModelDFSL_VLR7C,"VXC_Models\\ModelDFSL_R_VLR7C.xlsx")
 ModelDFSLt0_VLR7 <- ModelDFSL_VLR7 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VLR7.1 <- rbind(c(0:0), ModelDFSLt0_VLR7)
-ModelDFSLt1_VLR7.2 <- rbind(c(0:0), ModelDFSLt1_VLR7.1)
-ModelDFSLt1_VLR7.3 <- rbind(c(0:0), ModelDFSLt1_VLR7.2)
-ModelDFSLt1_VLR7.4 <- rbind(c(0:0), ModelDFSLt1_VLR7.3)
-ModelDFSLt1_VLR7.5 <- rbind(c(0:0), ModelDFSLt1_VLR7.4)
-ModelDFSLt1_VLR7.6 <- rbind(c(0:0), ModelDFSLt1_VLR7.5)
-ModelDFSLt1_VLR7.7 <- rbind(c(0:0), ModelDFSLt1_VLR7.6)
-ModelDFSLt1_VLR7.8 <- rbind(c(0:0), ModelDFSLt1_VLR7.7)
-ModelDFSLt1_VLR7.9 <- rbind(c(0:0), ModelDFSLt1_VLR7.8)
-ModelDFSLt1_VLR7.10 <- rbind(c(0:0), ModelDFSLt1_VLR7.9)
-ModelDFSLt1_VLR7.11 <- rbind(c(0:0), ModelDFSLt1_VLR7.10)
-ModelDFSLt1_VLR7.12 <- rbind(c(0:0), ModelDFSLt1_VLR7.11)
-ModelDFSLt1_VLR7.13 <- ModelDFSLt1_VLR7.12[-nrow(ModelDFSLt1_VLR7.12),]
-ModelDFSLt1_VLR7.14 <- ModelDFSLt1_VLR7.13[-nrow(ModelDFSLt1_VLR7.13),]
-ModelDFSLt1_VLR7.15 <- ModelDFSLt1_VLR7.14[-nrow(ModelDFSLt1_VLR7.14),]
-ModelDFSLt1_VLR7.16 <- ModelDFSLt1_VLR7.15[-nrow(ModelDFSLt1_VLR7.15),]
-ModelDFSLt1_VLR7.17 <- ModelDFSLt1_VLR7.16[-nrow(ModelDFSLt1_VLR7.16),]
-ModelDFSLt1_VLR7.18 <- ModelDFSLt1_VLR7.17[-nrow(ModelDFSLt1_VLR7.17),]
-ModelDFSLt1_VLR7.19 <- ModelDFSLt1_VLR7.18[-nrow(ModelDFSLt1_VLR7.18),]
-ModelDFSLt1_VLR7.20 <- ModelDFSLt1_VLR7.19[-nrow(ModelDFSLt1_VLR7.19),]
-ModelDFSLt1_VLR7.21 <- ModelDFSLt1_VLR7.20[-nrow(ModelDFSLt1_VLR7.20),]
-ModelDFSLt1_VLR7.22 <- ModelDFSLt1_VLR7.21[-nrow(ModelDFSLt1_VLR7.21),]
-ModelDFSLt1_VLR7.23 <- ModelDFSLt1_VLR7.22[-nrow(ModelDFSLt1_VLR7.22),]
-ModelDFSLt1_VLR7.24 <- ModelDFSLt1_VLR7.23[-nrow(ModelDFSLt1_VLR7.23),]
-
-ModelDFSLt1_VLR7 <- ModelDFSLt1_VLR7.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VLR7 <- rbind(c(0:0), ModelDFSLt1_VLR7)
+  assign(paste0("ModelDFSLt1_VLR7.", i), ModelDFSLt1_VLR7)
+}
+ModelDFSLt1_VLR7 <- head(ModelDFSLt1_VLR7.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLR7 <- ModelDFSLt0_VLR7 - ModelDFSLt1_VLR7
@@ -3507,8 +3163,11 @@ ModelDFSL1y_VLR7 <- ModelDFSLt0_VLR7 - ModelDFSLt1_VLR7
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLR7$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLR_7P because implies a one-off input of C
-ModelDFSL_VLR_7P <- ModelDFSL1y_VLR7
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VLR7_CorrectingPlus1 <- head(ModelDFSL1y_VLR7, -12) #Create model t=x+1
+
+#This model will be called VLR_0P because implies a one-off input of C
+ModelDFSL_VLR_7P <- ModelDFSLt1_VLR7_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VLR_7P,"VXP_Models\\ModelDFSL_R_VLR_7P.xlsx")
@@ -3655,32 +3314,11 @@ write_xlsx(ModelDFSL_VLR8C,"VXC_Models\\ModelDFSL_R_VLR8C.xlsx")
 ModelDFSLt0_VLR8 <- ModelDFSL_VLR8 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VLR8.1 <- rbind(c(0:0), ModelDFSLt0_VLR8)
-ModelDFSLt1_VLR8.2 <- rbind(c(0:0), ModelDFSLt1_VLR8.1)
-ModelDFSLt1_VLR8.3 <- rbind(c(0:0), ModelDFSLt1_VLR8.2)
-ModelDFSLt1_VLR8.4 <- rbind(c(0:0), ModelDFSLt1_VLR8.3)
-ModelDFSLt1_VLR8.5 <- rbind(c(0:0), ModelDFSLt1_VLR8.4)
-ModelDFSLt1_VLR8.6 <- rbind(c(0:0), ModelDFSLt1_VLR8.5)
-ModelDFSLt1_VLR8.7 <- rbind(c(0:0), ModelDFSLt1_VLR8.6)
-ModelDFSLt1_VLR8.8 <- rbind(c(0:0), ModelDFSLt1_VLR8.7)
-ModelDFSLt1_VLR8.9 <- rbind(c(0:0), ModelDFSLt1_VLR8.8)
-ModelDFSLt1_VLR8.10 <- rbind(c(0:0), ModelDFSLt1_VLR8.9)
-ModelDFSLt1_VLR8.11 <- rbind(c(0:0), ModelDFSLt1_VLR8.10)
-ModelDFSLt1_VLR8.12 <- rbind(c(0:0), ModelDFSLt1_VLR8.11)
-ModelDFSLt1_VLR8.13 <- ModelDFSLt1_VLR8.12[-nrow(ModelDFSLt1_VLR8.12),]
-ModelDFSLt1_VLR8.14 <- ModelDFSLt1_VLR8.13[-nrow(ModelDFSLt1_VLR8.13),]
-ModelDFSLt1_VLR8.15 <- ModelDFSLt1_VLR8.14[-nrow(ModelDFSLt1_VLR8.14),]
-ModelDFSLt1_VLR8.16 <- ModelDFSLt1_VLR8.15[-nrow(ModelDFSLt1_VLR8.15),]
-ModelDFSLt1_VLR8.17 <- ModelDFSLt1_VLR8.16[-nrow(ModelDFSLt1_VLR8.16),]
-ModelDFSLt1_VLR8.18 <- ModelDFSLt1_VLR8.17[-nrow(ModelDFSLt1_VLR8.17),]
-ModelDFSLt1_VLR8.19 <- ModelDFSLt1_VLR8.18[-nrow(ModelDFSLt1_VLR8.18),]
-ModelDFSLt1_VLR8.20 <- ModelDFSLt1_VLR8.19[-nrow(ModelDFSLt1_VLR8.19),]
-ModelDFSLt1_VLR8.21 <- ModelDFSLt1_VLR8.20[-nrow(ModelDFSLt1_VLR8.20),]
-ModelDFSLt1_VLR8.22 <- ModelDFSLt1_VLR8.21[-nrow(ModelDFSLt1_VLR8.21),]
-ModelDFSLt1_VLR8.23 <- ModelDFSLt1_VLR8.22[-nrow(ModelDFSLt1_VLR8.22),]
-ModelDFSLt1_VLR8.24 <- ModelDFSLt1_VLR8.23[-nrow(ModelDFSLt1_VLR8.23),]
-
-ModelDFSLt1_VLR8 <- ModelDFSLt1_VLR8.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VLR8 <- rbind(c(0:0), ModelDFSLt1_VLR8)
+  assign(paste0("ModelDFSLt1_VLR8.", i), ModelDFSLt1_VLR8)
+}
+ModelDFSLt1_VLR8 <- head(ModelDFSLt1_VLR8.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLR8 <- ModelDFSLt0_VLR8 - ModelDFSLt1_VLR8
@@ -3688,8 +3326,11 @@ ModelDFSL1y_VLR8 <- ModelDFSLt0_VLR8 - ModelDFSLt1_VLR8
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLR8$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLR_8P because implies a one-off input of C
-ModelDFSL_VLR_8P <- ModelDFSL1y_VLR8
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VLR8_CorrectingPlus1 <- head(ModelDFSL1y_VLR8, -12) #Create model t=x+1
+
+#This model will be called VLR_0P because implies a one-off input of C
+ModelDFSL_VLR_8P <- ModelDFSLt1_VLR8_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VLR_8P,"VXP_Models\\ModelDFSL_R_VLR_8P.xlsx")
@@ -3835,32 +3476,11 @@ write_xlsx(ModelDFSL_VLR9C,"VXC_Models\\ModelDFSL_R_VLR9C.xlsx")
 ModelDFSLt0_VLR9 <- ModelDFSL_VLR9 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VLR9.1 <- rbind(c(0:0), ModelDFSLt0_VLR9)
-ModelDFSLt1_VLR9.2 <- rbind(c(0:0), ModelDFSLt1_VLR9.1)
-ModelDFSLt1_VLR9.3 <- rbind(c(0:0), ModelDFSLt1_VLR9.2)
-ModelDFSLt1_VLR9.4 <- rbind(c(0:0), ModelDFSLt1_VLR9.3)
-ModelDFSLt1_VLR9.5 <- rbind(c(0:0), ModelDFSLt1_VLR9.4)
-ModelDFSLt1_VLR9.6 <- rbind(c(0:0), ModelDFSLt1_VLR9.5)
-ModelDFSLt1_VLR9.7 <- rbind(c(0:0), ModelDFSLt1_VLR9.6)
-ModelDFSLt1_VLR9.8 <- rbind(c(0:0), ModelDFSLt1_VLR9.7)
-ModelDFSLt1_VLR9.9 <- rbind(c(0:0), ModelDFSLt1_VLR9.8)
-ModelDFSLt1_VLR9.10 <- rbind(c(0:0), ModelDFSLt1_VLR9.9)
-ModelDFSLt1_VLR9.11 <- rbind(c(0:0), ModelDFSLt1_VLR9.10)
-ModelDFSLt1_VLR9.12 <- rbind(c(0:0), ModelDFSLt1_VLR9.11)
-ModelDFSLt1_VLR9.13 <- ModelDFSLt1_VLR9.12[-nrow(ModelDFSLt1_VLR9.12),]
-ModelDFSLt1_VLR9.14 <- ModelDFSLt1_VLR9.13[-nrow(ModelDFSLt1_VLR9.13),]
-ModelDFSLt1_VLR9.15 <- ModelDFSLt1_VLR9.14[-nrow(ModelDFSLt1_VLR9.14),]
-ModelDFSLt1_VLR9.16 <- ModelDFSLt1_VLR9.15[-nrow(ModelDFSLt1_VLR9.15),]
-ModelDFSLt1_VLR9.17 <- ModelDFSLt1_VLR9.16[-nrow(ModelDFSLt1_VLR9.16),]
-ModelDFSLt1_VLR9.18 <- ModelDFSLt1_VLR9.17[-nrow(ModelDFSLt1_VLR9.17),]
-ModelDFSLt1_VLR9.19 <- ModelDFSLt1_VLR9.18[-nrow(ModelDFSLt1_VLR9.18),]
-ModelDFSLt1_VLR9.20 <- ModelDFSLt1_VLR9.19[-nrow(ModelDFSLt1_VLR9.19),]
-ModelDFSLt1_VLR9.21 <- ModelDFSLt1_VLR9.20[-nrow(ModelDFSLt1_VLR9.20),]
-ModelDFSLt1_VLR9.22 <- ModelDFSLt1_VLR9.21[-nrow(ModelDFSLt1_VLR9.21),]
-ModelDFSLt1_VLR9.23 <- ModelDFSLt1_VLR9.22[-nrow(ModelDFSLt1_VLR9.22),]
-ModelDFSLt1_VLR9.24 <- ModelDFSLt1_VLR9.23[-nrow(ModelDFSLt1_VLR9.23),]
-
-ModelDFSLt1_VLR9 <- ModelDFSLt1_VLR9.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VLR9 <- rbind(c(0:0), ModelDFSLt1_VLR9)
+  assign(paste0("ModelDFSLt1_VLR9.", i), ModelDFSLt1_VLR9)
+}
+ModelDFSLt1_VLR9 <- head(ModelDFSLt1_VLR9.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLR9 <- ModelDFSLt0_VLR9 - ModelDFSLt1_VLR9
@@ -3868,8 +3488,11 @@ ModelDFSL1y_VLR9 <- ModelDFSLt0_VLR9 - ModelDFSLt1_VLR9
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLR9$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLR_9P because implies a one-off input of C
-ModelDFSL_VLR_9P <- ModelDFSL1y_VLR9
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VLR9_CorrectingPlus1 <- head(ModelDFSL1y_VLR9, -12) #Create model t=x+1
+
+#This model will be called VLR_0P because implies a one-off input of C
+ModelDFSL_VLR_9P <- ModelDFSLt1_VLR9_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VLR_9P,"VXP_Models\\ModelDFSL_R_VLR_9P.xlsx")
@@ -4015,32 +3638,11 @@ write_xlsx(ModelDFSL_VLR10C,"VXC_Models\\ModelDFSL_R_VLR10C.xlsx")
 ModelDFSLt0_VLR10 <- ModelDFSL_VLR10 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VLR10.1 <- rbind(c(0:0), ModelDFSLt0_VLR10)
-ModelDFSLt1_VLR10.2 <- rbind(c(0:0), ModelDFSLt1_VLR10.1)
-ModelDFSLt1_VLR10.3 <- rbind(c(0:0), ModelDFSLt1_VLR10.2)
-ModelDFSLt1_VLR10.4 <- rbind(c(0:0), ModelDFSLt1_VLR10.3)
-ModelDFSLt1_VLR10.5 <- rbind(c(0:0), ModelDFSLt1_VLR10.4)
-ModelDFSLt1_VLR10.6 <- rbind(c(0:0), ModelDFSLt1_VLR10.5)
-ModelDFSLt1_VLR10.7 <- rbind(c(0:0), ModelDFSLt1_VLR10.6)
-ModelDFSLt1_VLR10.8 <- rbind(c(0:0), ModelDFSLt1_VLR10.7)
-ModelDFSLt1_VLR10.9 <- rbind(c(0:0), ModelDFSLt1_VLR10.8)
-ModelDFSLt1_VLR10.10 <- rbind(c(0:0), ModelDFSLt1_VLR10.9)
-ModelDFSLt1_VLR10.11 <- rbind(c(0:0), ModelDFSLt1_VLR10.10)
-ModelDFSLt1_VLR10.12 <- rbind(c(0:0), ModelDFSLt1_VLR10.11)
-ModelDFSLt1_VLR10.13 <- ModelDFSLt1_VLR10.12[-nrow(ModelDFSLt1_VLR10.12),]
-ModelDFSLt1_VLR10.14 <- ModelDFSLt1_VLR10.13[-nrow(ModelDFSLt1_VLR10.13),]
-ModelDFSLt1_VLR10.15 <- ModelDFSLt1_VLR10.14[-nrow(ModelDFSLt1_VLR10.14),]
-ModelDFSLt1_VLR10.16 <- ModelDFSLt1_VLR10.15[-nrow(ModelDFSLt1_VLR10.15),]
-ModelDFSLt1_VLR10.17 <- ModelDFSLt1_VLR10.16[-nrow(ModelDFSLt1_VLR10.16),]
-ModelDFSLt1_VLR10.18 <- ModelDFSLt1_VLR10.17[-nrow(ModelDFSLt1_VLR10.17),]
-ModelDFSLt1_VLR10.19 <- ModelDFSLt1_VLR10.18[-nrow(ModelDFSLt1_VLR10.18),]
-ModelDFSLt1_VLR10.20 <- ModelDFSLt1_VLR10.19[-nrow(ModelDFSLt1_VLR10.19),]
-ModelDFSLt1_VLR10.21 <- ModelDFSLt1_VLR10.20[-nrow(ModelDFSLt1_VLR10.20),]
-ModelDFSLt1_VLR10.22 <- ModelDFSLt1_VLR10.21[-nrow(ModelDFSLt1_VLR10.21),]
-ModelDFSLt1_VLR10.23 <- ModelDFSLt1_VLR10.22[-nrow(ModelDFSLt1_VLR10.22),]
-ModelDFSLt1_VLR10.24 <- ModelDFSLt1_VLR10.23[-nrow(ModelDFSLt1_VLR10.23),]
-
-ModelDFSLt1_VLR10 <- ModelDFSLt1_VLR10.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VLR10 <- rbind(c(0:0), ModelDFSLt1_VLR10)
+  assign(paste0("ModelDFSLt1_VLR10.", i), ModelDFSLt1_VLR10)
+}
+ModelDFSLt1_VLR10 <- head(ModelDFSLt1_VLR10.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLR10 <- ModelDFSLt0_VLR10 - ModelDFSLt1_VLR10
@@ -4048,8 +3650,11 @@ ModelDFSL1y_VLR10 <- ModelDFSLt0_VLR10 - ModelDFSLt1_VLR10
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLR10$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLR10P because implies a one-off input of C
-ModelDFSL_VLR10P <- ModelDFSL1y_VLR10
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VLR10_CorrectingPlus1 <- head(ModelDFSL1y_VLR10, -12) #Create model t=x+1
+
+#This model will be called VLR_0P because implies a one-off input of C
+ModelDFSL_VLR_10P <- ModelDFSLt1_VLR10_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VLR10P,"VXP_Models\\ModelDFSL_R_VLR10P.xlsx")
@@ -4190,32 +3795,11 @@ write_xlsx(ModelDFSL_VLN0C,"VXC_Models\\ModelDFSL_R_VLN0C.xlsx")
 ModelDFSLt0_VLN0 <- ModelDFSL_VLN0 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VLN0.1 <- rbind(c(0:0), ModelDFSLt0_VLN0)
-ModelDFSLt1_VLN0.2 <- rbind(c(0:0), ModelDFSLt1_VLN0.1)
-ModelDFSLt1_VLN0.3 <- rbind(c(0:0), ModelDFSLt1_VLN0.2)
-ModelDFSLt1_VLN0.4 <- rbind(c(0:0), ModelDFSLt1_VLN0.3)
-ModelDFSLt1_VLN0.5 <- rbind(c(0:0), ModelDFSLt1_VLN0.4)
-ModelDFSLt1_VLN0.6 <- rbind(c(0:0), ModelDFSLt1_VLN0.5)
-ModelDFSLt1_VLN0.7 <- rbind(c(0:0), ModelDFSLt1_VLN0.6)
-ModelDFSLt1_VLN0.8 <- rbind(c(0:0), ModelDFSLt1_VLN0.7)
-ModelDFSLt1_VLN0.9 <- rbind(c(0:0), ModelDFSLt1_VLN0.8)
-ModelDFSLt1_VLN0.10 <- rbind(c(0:0), ModelDFSLt1_VLN0.9)
-ModelDFSLt1_VLN0.11 <- rbind(c(0:0), ModelDFSLt1_VLN0.10)
-ModelDFSLt1_VLN0.12 <- rbind(c(0:0), ModelDFSLt1_VLN0.11)
-ModelDFSLt1_VLN0.13 <- ModelDFSLt1_VLN0.12[-nrow(ModelDFSLt1_VLN0.12),]
-ModelDFSLt1_VLN0.14 <- ModelDFSLt1_VLN0.13[-nrow(ModelDFSLt1_VLN0.13),]
-ModelDFSLt1_VLN0.15 <- ModelDFSLt1_VLN0.14[-nrow(ModelDFSLt1_VLN0.14),]
-ModelDFSLt1_VLN0.16 <- ModelDFSLt1_VLN0.15[-nrow(ModelDFSLt1_VLN0.15),]
-ModelDFSLt1_VLN0.17 <- ModelDFSLt1_VLN0.16[-nrow(ModelDFSLt1_VLN0.16),]
-ModelDFSLt1_VLN0.18 <- ModelDFSLt1_VLN0.17[-nrow(ModelDFSLt1_VLN0.17),]
-ModelDFSLt1_VLN0.19 <- ModelDFSLt1_VLN0.18[-nrow(ModelDFSLt1_VLN0.18),]
-ModelDFSLt1_VLN0.20 <- ModelDFSLt1_VLN0.19[-nrow(ModelDFSLt1_VLN0.19),]
-ModelDFSLt1_VLN0.21 <- ModelDFSLt1_VLN0.20[-nrow(ModelDFSLt1_VLN0.20),]
-ModelDFSLt1_VLN0.22 <- ModelDFSLt1_VLN0.21[-nrow(ModelDFSLt1_VLN0.21),]
-ModelDFSLt1_VLN0.23 <- ModelDFSLt1_VLN0.22[-nrow(ModelDFSLt1_VLN0.22),]
-ModelDFSLt1_VLN0.24 <- ModelDFSLt1_VLN0.23[-nrow(ModelDFSLt1_VLN0.23),]
-
-ModelDFSLt1_VLN0 <- ModelDFSLt1_VLN0.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VLN0 <- rbind(c(0:0), ModelDFSLt1_VLN0)
+  assign(paste0("ModelDFSLt1_VLN0.", i), ModelDFSLt1_VLN0)
+}
+ModelDFSLt1_VLN0 <- head(ModelDFSLt1_VLN0.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLN0 <- ModelDFSLt0_VLN0 - ModelDFSLt1_VLN0
@@ -4223,8 +3807,11 @@ ModelDFSL1y_VLN0 <- ModelDFSLt0_VLN0 - ModelDFSLt1_VLN0
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLN0$MNumber <- seq(from = 1, to = SimulationLength_months)
 
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VLN0_CorrectingPlus1 <- head(ModelDFSL1y_VLN0, -12) #Create model t=x+1
+
 #This model will be called VLN_0P because implies a one-off input of C
-ModelDFSL_VLN_0P <- ModelDFSL1y_VLN0
+ModelDFSL_VLN_0P <- ModelDFSLt1_VLN0_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VLN_0P,"VXP_Models\\ModelDFSL_R_VLN_0P.xlsx")
@@ -4367,32 +3954,11 @@ write_xlsx(ModelDFSL_VLN1C,"VXC_Models\\ModelDFSL_R_VLN1C.xlsx")
 ModelDFSLt0_VLN1 <- ModelDFSL_VLN1 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VLN1.1 <- rbind(c(0:0), ModelDFSLt0_VLN1)
-ModelDFSLt1_VLN1.2 <- rbind(c(0:0), ModelDFSLt1_VLN1.1)
-ModelDFSLt1_VLN1.3 <- rbind(c(0:0), ModelDFSLt1_VLN1.2)
-ModelDFSLt1_VLN1.4 <- rbind(c(0:0), ModelDFSLt1_VLN1.3)
-ModelDFSLt1_VLN1.5 <- rbind(c(0:0), ModelDFSLt1_VLN1.4)
-ModelDFSLt1_VLN1.6 <- rbind(c(0:0), ModelDFSLt1_VLN1.5)
-ModelDFSLt1_VLN1.7 <- rbind(c(0:0), ModelDFSLt1_VLN1.6)
-ModelDFSLt1_VLN1.8 <- rbind(c(0:0), ModelDFSLt1_VLN1.7)
-ModelDFSLt1_VLN1.9 <- rbind(c(0:0), ModelDFSLt1_VLN1.8)
-ModelDFSLt1_VLN1.10 <- rbind(c(0:0), ModelDFSLt1_VLN1.9)
-ModelDFSLt1_VLN1.11 <- rbind(c(0:0), ModelDFSLt1_VLN1.10)
-ModelDFSLt1_VLN1.12 <- rbind(c(0:0), ModelDFSLt1_VLN1.11)
-ModelDFSLt1_VLN1.13 <- ModelDFSLt1_VLN1.12[-nrow(ModelDFSLt1_VLN1.12),]
-ModelDFSLt1_VLN1.14 <- ModelDFSLt1_VLN1.13[-nrow(ModelDFSLt1_VLN1.13),]
-ModelDFSLt1_VLN1.15 <- ModelDFSLt1_VLN1.14[-nrow(ModelDFSLt1_VLN1.14),]
-ModelDFSLt1_VLN1.16 <- ModelDFSLt1_VLN1.15[-nrow(ModelDFSLt1_VLN1.15),]
-ModelDFSLt1_VLN1.17 <- ModelDFSLt1_VLN1.16[-nrow(ModelDFSLt1_VLN1.16),]
-ModelDFSLt1_VLN1.18 <- ModelDFSLt1_VLN1.17[-nrow(ModelDFSLt1_VLN1.17),]
-ModelDFSLt1_VLN1.19 <- ModelDFSLt1_VLN1.18[-nrow(ModelDFSLt1_VLN1.18),]
-ModelDFSLt1_VLN1.20 <- ModelDFSLt1_VLN1.19[-nrow(ModelDFSLt1_VLN1.19),]
-ModelDFSLt1_VLN1.21 <- ModelDFSLt1_VLN1.20[-nrow(ModelDFSLt1_VLN1.20),]
-ModelDFSLt1_VLN1.22 <- ModelDFSLt1_VLN1.21[-nrow(ModelDFSLt1_VLN1.21),]
-ModelDFSLt1_VLN1.23 <- ModelDFSLt1_VLN1.22[-nrow(ModelDFSLt1_VLN1.22),]
-ModelDFSLt1_VLN1.24 <- ModelDFSLt1_VLN1.23[-nrow(ModelDFSLt1_VLN1.23),]
-
-ModelDFSLt1_VLN1 <- ModelDFSLt1_VLN1.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VLN1 <- rbind(c(0:0), ModelDFSLt1_VLN1)
+  assign(paste0("ModelDFSLt1_VLN1.", i), ModelDFSLt1_VLN1)
+}
+ModelDFSLt1_VLN1 <- head(ModelDFSLt1_VLN1.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLN1 <- ModelDFSLt0_VLN1 - ModelDFSLt1_VLN1
@@ -4400,8 +3966,11 @@ ModelDFSL1y_VLN1 <- ModelDFSLt0_VLN1 - ModelDFSLt1_VLN1
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLN1$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLN_1P because implies a one-off input of C
-ModelDFSL_VLN_1P <- ModelDFSL1y_VLN1
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VLN1_CorrectingPlus1 <- head(ModelDFSL1y_VLN1, -12) #Create model t=x+1
+
+#This model will be called VLN_0P because implies a one-off input of C
+ModelDFSL_VLN_1P <- ModelDFSLt1_VLN1_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VLN_1P,"VXP_Models\\ModelDFSL_R_VLN_1P.xlsx")
@@ -4545,32 +4114,11 @@ write_xlsx(ModelDFSL_VLN2C,"VXC_Models\\ModelDFSL_R_VLN2C.xlsx")
 ModelDFSLt0_VLN2 <- ModelDFSL_VLN2 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VLN2.1 <- rbind(c(0:0), ModelDFSLt0_VLN2)
-ModelDFSLt1_VLN2.2 <- rbind(c(0:0), ModelDFSLt1_VLN2.1)
-ModelDFSLt1_VLN2.3 <- rbind(c(0:0), ModelDFSLt1_VLN2.2)
-ModelDFSLt1_VLN2.4 <- rbind(c(0:0), ModelDFSLt1_VLN2.3)
-ModelDFSLt1_VLN2.5 <- rbind(c(0:0), ModelDFSLt1_VLN2.4)
-ModelDFSLt1_VLN2.6 <- rbind(c(0:0), ModelDFSLt1_VLN2.5)
-ModelDFSLt1_VLN2.7 <- rbind(c(0:0), ModelDFSLt1_VLN2.6)
-ModelDFSLt1_VLN2.8 <- rbind(c(0:0), ModelDFSLt1_VLN2.7)
-ModelDFSLt1_VLN2.9 <- rbind(c(0:0), ModelDFSLt1_VLN2.8)
-ModelDFSLt1_VLN2.10 <- rbind(c(0:0), ModelDFSLt1_VLN2.9)
-ModelDFSLt1_VLN2.11 <- rbind(c(0:0), ModelDFSLt1_VLN2.10)
-ModelDFSLt1_VLN2.12 <- rbind(c(0:0), ModelDFSLt1_VLN2.11)
-ModelDFSLt1_VLN2.13 <- ModelDFSLt1_VLN2.12[-nrow(ModelDFSLt1_VLN2.12),]
-ModelDFSLt1_VLN2.14 <- ModelDFSLt1_VLN2.13[-nrow(ModelDFSLt1_VLN2.13),]
-ModelDFSLt1_VLN2.15 <- ModelDFSLt1_VLN2.14[-nrow(ModelDFSLt1_VLN2.14),]
-ModelDFSLt1_VLN2.16 <- ModelDFSLt1_VLN2.15[-nrow(ModelDFSLt1_VLN2.15),]
-ModelDFSLt1_VLN2.17 <- ModelDFSLt1_VLN2.16[-nrow(ModelDFSLt1_VLN2.16),]
-ModelDFSLt1_VLN2.18 <- ModelDFSLt1_VLN2.17[-nrow(ModelDFSLt1_VLN2.17),]
-ModelDFSLt1_VLN2.19 <- ModelDFSLt1_VLN2.18[-nrow(ModelDFSLt1_VLN2.18),]
-ModelDFSLt1_VLN2.20 <- ModelDFSLt1_VLN2.19[-nrow(ModelDFSLt1_VLN2.19),]
-ModelDFSLt1_VLN2.21 <- ModelDFSLt1_VLN2.20[-nrow(ModelDFSLt1_VLN2.20),]
-ModelDFSLt1_VLN2.22 <- ModelDFSLt1_VLN2.21[-nrow(ModelDFSLt1_VLN2.21),]
-ModelDFSLt1_VLN2.23 <- ModelDFSLt1_VLN2.22[-nrow(ModelDFSLt1_VLN2.22),]
-ModelDFSLt1_VLN2.24 <- ModelDFSLt1_VLN2.23[-nrow(ModelDFSLt1_VLN2.23),]
-
-ModelDFSLt1_VLN2 <- ModelDFSLt1_VLN2.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VLN2 <- rbind(c(0:0), ModelDFSLt1_VLN2)
+  assign(paste0("ModelDFSLt1_VLN2.", i), ModelDFSLt1_VLN2)
+}
+ModelDFSLt1_VLN2 <- head(ModelDFSLt1_VLN2.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLN2 <- ModelDFSLt0_VLN2 - ModelDFSLt1_VLN2
@@ -4578,8 +4126,11 @@ ModelDFSL1y_VLN2 <- ModelDFSLt0_VLN2 - ModelDFSLt1_VLN2
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLN2$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLN_2P because implies a one-off input of C
-ModelDFSL_VLN_2P <- ModelDFSL1y_VLN2
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VLN2_CorrectingPlus1 <- head(ModelDFSL1y_VLN2, -12) #Create model t=x+1
+
+#This model will be called VLN_0P because implies a one-off input of C
+ModelDFSL_VLN_2P <- ModelDFSLt1_VLN2_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VLN_2P,"VXP_Models\\ModelDFSL_R_VLN_2P.xlsx")
@@ -4723,32 +4274,11 @@ write_xlsx(ModelDFSL_VLN3C,"VXC_Models\\ModelDFSL_R_VLN3C.xlsx")
 ModelDFSLt0_VLN3 <- ModelDFSL_VLN3 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VLN3.1 <- rbind(c(0:0), ModelDFSLt0_VLN3)
-ModelDFSLt1_VLN3.2 <- rbind(c(0:0), ModelDFSLt1_VLN3.1)
-ModelDFSLt1_VLN3.3 <- rbind(c(0:0), ModelDFSLt1_VLN3.2)
-ModelDFSLt1_VLN3.4 <- rbind(c(0:0), ModelDFSLt1_VLN3.3)
-ModelDFSLt1_VLN3.5 <- rbind(c(0:0), ModelDFSLt1_VLN3.4)
-ModelDFSLt1_VLN3.6 <- rbind(c(0:0), ModelDFSLt1_VLN3.5)
-ModelDFSLt1_VLN3.7 <- rbind(c(0:0), ModelDFSLt1_VLN3.6)
-ModelDFSLt1_VLN3.8 <- rbind(c(0:0), ModelDFSLt1_VLN3.7)
-ModelDFSLt1_VLN3.9 <- rbind(c(0:0), ModelDFSLt1_VLN3.8)
-ModelDFSLt1_VLN3.10 <- rbind(c(0:0), ModelDFSLt1_VLN3.9)
-ModelDFSLt1_VLN3.11 <- rbind(c(0:0), ModelDFSLt1_VLN3.10)
-ModelDFSLt1_VLN3.12 <- rbind(c(0:0), ModelDFSLt1_VLN3.11)
-ModelDFSLt1_VLN3.13 <- ModelDFSLt1_VLN3.12[-nrow(ModelDFSLt1_VLN3.12),]
-ModelDFSLt1_VLN3.14 <- ModelDFSLt1_VLN3.13[-nrow(ModelDFSLt1_VLN3.13),]
-ModelDFSLt1_VLN3.15 <- ModelDFSLt1_VLN3.14[-nrow(ModelDFSLt1_VLN3.14),]
-ModelDFSLt1_VLN3.16 <- ModelDFSLt1_VLN3.15[-nrow(ModelDFSLt1_VLN3.15),]
-ModelDFSLt1_VLN3.17 <- ModelDFSLt1_VLN3.16[-nrow(ModelDFSLt1_VLN3.16),]
-ModelDFSLt1_VLN3.18 <- ModelDFSLt1_VLN3.17[-nrow(ModelDFSLt1_VLN3.17),]
-ModelDFSLt1_VLN3.19 <- ModelDFSLt1_VLN3.18[-nrow(ModelDFSLt1_VLN3.18),]
-ModelDFSLt1_VLN3.20 <- ModelDFSLt1_VLN3.19[-nrow(ModelDFSLt1_VLN3.19),]
-ModelDFSLt1_VLN3.21 <- ModelDFSLt1_VLN3.20[-nrow(ModelDFSLt1_VLN3.20),]
-ModelDFSLt1_VLN3.22 <- ModelDFSLt1_VLN3.21[-nrow(ModelDFSLt1_VLN3.21),]
-ModelDFSLt1_VLN3.23 <- ModelDFSLt1_VLN3.22[-nrow(ModelDFSLt1_VLN3.22),]
-ModelDFSLt1_VLN3.24 <- ModelDFSLt1_VLN3.23[-nrow(ModelDFSLt1_VLN3.23),]
-
-ModelDFSLt1_VLN3 <- ModelDFSLt1_VLN3.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VLN3 <- rbind(c(0:0), ModelDFSLt1_VLN3)
+  assign(paste0("ModelDFSLt1_VLN3.", i), ModelDFSLt1_VLN3)
+}
+ModelDFSLt1_VLN3 <- head(ModelDFSLt1_VLN3.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLN3 <- ModelDFSLt0_VLN3 - ModelDFSLt1_VLN3
@@ -4756,8 +4286,11 @@ ModelDFSL1y_VLN3 <- ModelDFSLt0_VLN3 - ModelDFSLt1_VLN3
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLN3$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLN_3P because implies a one-off input of C
-ModelDFSL_VLN_3P <- ModelDFSL1y_VLN3
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VLN3_CorrectingPlus1 <- head(ModelDFSL1y_VLN3, -12) #Create model t=x+1
+
+#This model will be called VLN_0P because implies a one-off input of C
+ModelDFSL_VLN_3P <- ModelDFSLt1_VLN3_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VLN_3P,"VXP_Models\\ModelDFSL_R_VLN_3P.xlsx")
@@ -4901,32 +4434,11 @@ write_xlsx(ModelDFSL_VLN4C,"VXC_Models\\ModelDFSL_R_VLN4C.xlsx")
 ModelDFSLt0_VLN4 <- ModelDFSL_VLN4 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VLN4.1 <- rbind(c(0:0), ModelDFSLt0_VLN4)
-ModelDFSLt1_VLN4.2 <- rbind(c(0:0), ModelDFSLt1_VLN4.1)
-ModelDFSLt1_VLN4.3 <- rbind(c(0:0), ModelDFSLt1_VLN4.2)
-ModelDFSLt1_VLN4.4 <- rbind(c(0:0), ModelDFSLt1_VLN4.3)
-ModelDFSLt1_VLN4.5 <- rbind(c(0:0), ModelDFSLt1_VLN4.4)
-ModelDFSLt1_VLN4.6 <- rbind(c(0:0), ModelDFSLt1_VLN4.5)
-ModelDFSLt1_VLN4.7 <- rbind(c(0:0), ModelDFSLt1_VLN4.6)
-ModelDFSLt1_VLN4.8 <- rbind(c(0:0), ModelDFSLt1_VLN4.7)
-ModelDFSLt1_VLN4.9 <- rbind(c(0:0), ModelDFSLt1_VLN4.8)
-ModelDFSLt1_VLN4.10 <- rbind(c(0:0), ModelDFSLt1_VLN4.9)
-ModelDFSLt1_VLN4.11 <- rbind(c(0:0), ModelDFSLt1_VLN4.10)
-ModelDFSLt1_VLN4.12 <- rbind(c(0:0), ModelDFSLt1_VLN4.11)
-ModelDFSLt1_VLN4.13 <- ModelDFSLt1_VLN4.12[-nrow(ModelDFSLt1_VLN4.12),]
-ModelDFSLt1_VLN4.14 <- ModelDFSLt1_VLN4.13[-nrow(ModelDFSLt1_VLN4.13),]
-ModelDFSLt1_VLN4.15 <- ModelDFSLt1_VLN4.14[-nrow(ModelDFSLt1_VLN4.14),]
-ModelDFSLt1_VLN4.16 <- ModelDFSLt1_VLN4.15[-nrow(ModelDFSLt1_VLN4.15),]
-ModelDFSLt1_VLN4.17 <- ModelDFSLt1_VLN4.16[-nrow(ModelDFSLt1_VLN4.16),]
-ModelDFSLt1_VLN4.18 <- ModelDFSLt1_VLN4.17[-nrow(ModelDFSLt1_VLN4.17),]
-ModelDFSLt1_VLN4.19 <- ModelDFSLt1_VLN4.18[-nrow(ModelDFSLt1_VLN4.18),]
-ModelDFSLt1_VLN4.20 <- ModelDFSLt1_VLN4.19[-nrow(ModelDFSLt1_VLN4.19),]
-ModelDFSLt1_VLN4.21 <- ModelDFSLt1_VLN4.20[-nrow(ModelDFSLt1_VLN4.20),]
-ModelDFSLt1_VLN4.22 <- ModelDFSLt1_VLN4.21[-nrow(ModelDFSLt1_VLN4.21),]
-ModelDFSLt1_VLN4.23 <- ModelDFSLt1_VLN4.22[-nrow(ModelDFSLt1_VLN4.22),]
-ModelDFSLt1_VLN4.24 <- ModelDFSLt1_VLN4.23[-nrow(ModelDFSLt1_VLN4.23),]
-
-ModelDFSLt1_VLN4 <- ModelDFSLt1_VLN4.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VLN4 <- rbind(c(0:0), ModelDFSLt1_VLN4)
+  assign(paste0("ModelDFSLt1_VLN4.", i), ModelDFSLt1_VLN4)
+}
+ModelDFSLt1_VLN4 <- head(ModelDFSLt1_VLN4.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLN4 <- ModelDFSLt0_VLN4 - ModelDFSLt1_VLN4
@@ -4934,8 +4446,11 @@ ModelDFSL1y_VLN4 <- ModelDFSLt0_VLN4 - ModelDFSLt1_VLN4
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLN4$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLN_4P because implies a one-off input of C
-ModelDFSL_VLN_4P <- ModelDFSL1y_VLN4
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VLN4_CorrectingPlus1 <- head(ModelDFSL1y_VLN4, -12) #Create model t=x+1
+
+#This model will be called VLN_0P because implies a one-off input of C
+ModelDFSL_VLN_4P <- ModelDFSLt1_VLN4_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VLN_4P,"VXP_Models\\ModelDFSL_R_VLN_4P.xlsx")
@@ -5079,32 +4594,11 @@ write_xlsx(ModelDFSL_VLN5C,"VXC_Models\\ModelDFSL_R_VLN5C.xlsx")
 ModelDFSLt0_VLN5 <- ModelDFSL_VLN5 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VLN5.1 <- rbind(c(0:0), ModelDFSLt0_VLN5)
-ModelDFSLt1_VLN5.2 <- rbind(c(0:0), ModelDFSLt1_VLN5.1)
-ModelDFSLt1_VLN5.3 <- rbind(c(0:0), ModelDFSLt1_VLN5.2)
-ModelDFSLt1_VLN5.4 <- rbind(c(0:0), ModelDFSLt1_VLN5.3)
-ModelDFSLt1_VLN5.5 <- rbind(c(0:0), ModelDFSLt1_VLN5.4)
-ModelDFSLt1_VLN5.6 <- rbind(c(0:0), ModelDFSLt1_VLN5.5)
-ModelDFSLt1_VLN5.7 <- rbind(c(0:0), ModelDFSLt1_VLN5.6)
-ModelDFSLt1_VLN5.8 <- rbind(c(0:0), ModelDFSLt1_VLN5.7)
-ModelDFSLt1_VLN5.9 <- rbind(c(0:0), ModelDFSLt1_VLN5.8)
-ModelDFSLt1_VLN5.10 <- rbind(c(0:0), ModelDFSLt1_VLN5.9)
-ModelDFSLt1_VLN5.11 <- rbind(c(0:0), ModelDFSLt1_VLN5.10)
-ModelDFSLt1_VLN5.12 <- rbind(c(0:0), ModelDFSLt1_VLN5.11)
-ModelDFSLt1_VLN5.13 <- ModelDFSLt1_VLN5.12[-nrow(ModelDFSLt1_VLN5.12),]
-ModelDFSLt1_VLN5.14 <- ModelDFSLt1_VLN5.13[-nrow(ModelDFSLt1_VLN5.13),]
-ModelDFSLt1_VLN5.15 <- ModelDFSLt1_VLN5.14[-nrow(ModelDFSLt1_VLN5.14),]
-ModelDFSLt1_VLN5.16 <- ModelDFSLt1_VLN5.15[-nrow(ModelDFSLt1_VLN5.15),]
-ModelDFSLt1_VLN5.17 <- ModelDFSLt1_VLN5.16[-nrow(ModelDFSLt1_VLN5.16),]
-ModelDFSLt1_VLN5.18 <- ModelDFSLt1_VLN5.17[-nrow(ModelDFSLt1_VLN5.17),]
-ModelDFSLt1_VLN5.19 <- ModelDFSLt1_VLN5.18[-nrow(ModelDFSLt1_VLN5.18),]
-ModelDFSLt1_VLN5.20 <- ModelDFSLt1_VLN5.19[-nrow(ModelDFSLt1_VLN5.19),]
-ModelDFSLt1_VLN5.21 <- ModelDFSLt1_VLN5.20[-nrow(ModelDFSLt1_VLN5.20),]
-ModelDFSLt1_VLN5.22 <- ModelDFSLt1_VLN5.21[-nrow(ModelDFSLt1_VLN5.21),]
-ModelDFSLt1_VLN5.23 <- ModelDFSLt1_VLN5.22[-nrow(ModelDFSLt1_VLN5.22),]
-ModelDFSLt1_VLN5.24 <- ModelDFSLt1_VLN5.23[-nrow(ModelDFSLt1_VLN5.23),]
-
-ModelDFSLt1_VLN5 <- ModelDFSLt1_VLN5.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VLN5 <- rbind(c(0:0), ModelDFSLt1_VLN5)
+  assign(paste0("ModelDFSLt1_VLN5.", i), ModelDFSLt1_VLN5)
+}
+ModelDFSLt1_VLN5 <- head(ModelDFSLt1_VLN5.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLN5 <- ModelDFSLt0_VLN5 - ModelDFSLt1_VLN5
@@ -5112,8 +4606,11 @@ ModelDFSL1y_VLN5 <- ModelDFSLt0_VLN5 - ModelDFSLt1_VLN5
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLN5$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLN_5P because implies a one-off input of C
-ModelDFSL_VLN_5P <- ModelDFSL1y_VLN5
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VLN5_CorrectingPlus1 <- head(ModelDFSL1y_VLN5, -12) #Create model t=x+1
+
+#This model will be called VLN_0P because implies a one-off input of C
+ModelDFSL_VLN_5P <- ModelDFSLt1_VLN5_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VLN_5P,"VXP_Models\\ModelDFSL_R_VLN_5P.xlsx")
@@ -5260,32 +4757,11 @@ write_xlsx(ModelDFSL_VLN6C,"VXC_Models\\ModelDFSL_R_VLN6C.xlsx")
 ModelDFSLt0_VLN6 <- ModelDFSL_VLN6 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VLN6.1 <- rbind(c(0:0), ModelDFSLt0_VLN6)
-ModelDFSLt1_VLN6.2 <- rbind(c(0:0), ModelDFSLt1_VLN6.1)
-ModelDFSLt1_VLN6.3 <- rbind(c(0:0), ModelDFSLt1_VLN6.2)
-ModelDFSLt1_VLN6.4 <- rbind(c(0:0), ModelDFSLt1_VLN6.3)
-ModelDFSLt1_VLN6.5 <- rbind(c(0:0), ModelDFSLt1_VLN6.4)
-ModelDFSLt1_VLN6.6 <- rbind(c(0:0), ModelDFSLt1_VLN6.5)
-ModelDFSLt1_VLN6.7 <- rbind(c(0:0), ModelDFSLt1_VLN6.6)
-ModelDFSLt1_VLN6.8 <- rbind(c(0:0), ModelDFSLt1_VLN6.7)
-ModelDFSLt1_VLN6.9 <- rbind(c(0:0), ModelDFSLt1_VLN6.8)
-ModelDFSLt1_VLN6.10 <- rbind(c(0:0), ModelDFSLt1_VLN6.9)
-ModelDFSLt1_VLN6.11 <- rbind(c(0:0), ModelDFSLt1_VLN6.10)
-ModelDFSLt1_VLN6.12 <- rbind(c(0:0), ModelDFSLt1_VLN6.11)
-ModelDFSLt1_VLN6.13 <- ModelDFSLt1_VLN6.12[-nrow(ModelDFSLt1_VLN6.12),]
-ModelDFSLt1_VLN6.14 <- ModelDFSLt1_VLN6.13[-nrow(ModelDFSLt1_VLN6.13),]
-ModelDFSLt1_VLN6.15 <- ModelDFSLt1_VLN6.14[-nrow(ModelDFSLt1_VLN6.14),]
-ModelDFSLt1_VLN6.16 <- ModelDFSLt1_VLN6.15[-nrow(ModelDFSLt1_VLN6.15),]
-ModelDFSLt1_VLN6.17 <- ModelDFSLt1_VLN6.16[-nrow(ModelDFSLt1_VLN6.16),]
-ModelDFSLt1_VLN6.18 <- ModelDFSLt1_VLN6.17[-nrow(ModelDFSLt1_VLN6.17),]
-ModelDFSLt1_VLN6.19 <- ModelDFSLt1_VLN6.18[-nrow(ModelDFSLt1_VLN6.18),]
-ModelDFSLt1_VLN6.20 <- ModelDFSLt1_VLN6.19[-nrow(ModelDFSLt1_VLN6.19),]
-ModelDFSLt1_VLN6.21 <- ModelDFSLt1_VLN6.20[-nrow(ModelDFSLt1_VLN6.20),]
-ModelDFSLt1_VLN6.22 <- ModelDFSLt1_VLN6.21[-nrow(ModelDFSLt1_VLN6.21),]
-ModelDFSLt1_VLN6.23 <- ModelDFSLt1_VLN6.22[-nrow(ModelDFSLt1_VLN6.22),]
-ModelDFSLt1_VLN6.24 <- ModelDFSLt1_VLN6.23[-nrow(ModelDFSLt1_VLN6.23),]
-
-ModelDFSLt1_VLN6 <- ModelDFSLt1_VLN6.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VLN6 <- rbind(c(0:0), ModelDFSLt1_VLN6)
+  assign(paste0("ModelDFSLt1_VLN6.", i), ModelDFSLt1_VLN6)
+}
+ModelDFSLt1_VLN6 <- head(ModelDFSLt1_VLN6.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLN6 <- ModelDFSLt0_VLN6 - ModelDFSLt1_VLN6
@@ -5293,8 +4769,11 @@ ModelDFSL1y_VLN6 <- ModelDFSLt0_VLN6 - ModelDFSLt1_VLN6
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLN6$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLN_6P because implies a one-off input of C
-ModelDFSL_VLN_6P <- ModelDFSL1y_VLN6
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VLN6_CorrectingPlus1 <- head(ModelDFSL1y_VLN6, -12) #Create model t=x+1
+
+#This model will be called VLN_0P because implies a one-off input of C
+ModelDFSL_VLN_6P <- ModelDFSLt1_VLN6_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VLN_6P,"VXP_Models\\ModelDFSL_R_VLN_6P.xlsx")
@@ -5440,32 +4919,11 @@ write_xlsx(ModelDFSL_VLN7C,"VXC_Models\\ModelDFSL_R_VLN7C.xlsx")
 ModelDFSLt0_VLN7 <- ModelDFSL_VLN7 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VLN7.1 <- rbind(c(0:0), ModelDFSLt0_VLN7)
-ModelDFSLt1_VLN7.2 <- rbind(c(0:0), ModelDFSLt1_VLN7.1)
-ModelDFSLt1_VLN7.3 <- rbind(c(0:0), ModelDFSLt1_VLN7.2)
-ModelDFSLt1_VLN7.4 <- rbind(c(0:0), ModelDFSLt1_VLN7.3)
-ModelDFSLt1_VLN7.5 <- rbind(c(0:0), ModelDFSLt1_VLN7.4)
-ModelDFSLt1_VLN7.6 <- rbind(c(0:0), ModelDFSLt1_VLN7.5)
-ModelDFSLt1_VLN7.7 <- rbind(c(0:0), ModelDFSLt1_VLN7.6)
-ModelDFSLt1_VLN7.8 <- rbind(c(0:0), ModelDFSLt1_VLN7.7)
-ModelDFSLt1_VLN7.9 <- rbind(c(0:0), ModelDFSLt1_VLN7.8)
-ModelDFSLt1_VLN7.10 <- rbind(c(0:0), ModelDFSLt1_VLN7.9)
-ModelDFSLt1_VLN7.11 <- rbind(c(0:0), ModelDFSLt1_VLN7.10)
-ModelDFSLt1_VLN7.12 <- rbind(c(0:0), ModelDFSLt1_VLN7.11)
-ModelDFSLt1_VLN7.13 <- ModelDFSLt1_VLN7.12[-nrow(ModelDFSLt1_VLN7.12),]
-ModelDFSLt1_VLN7.14 <- ModelDFSLt1_VLN7.13[-nrow(ModelDFSLt1_VLN7.13),]
-ModelDFSLt1_VLN7.15 <- ModelDFSLt1_VLN7.14[-nrow(ModelDFSLt1_VLN7.14),]
-ModelDFSLt1_VLN7.16 <- ModelDFSLt1_VLN7.15[-nrow(ModelDFSLt1_VLN7.15),]
-ModelDFSLt1_VLN7.17 <- ModelDFSLt1_VLN7.16[-nrow(ModelDFSLt1_VLN7.16),]
-ModelDFSLt1_VLN7.18 <- ModelDFSLt1_VLN7.17[-nrow(ModelDFSLt1_VLN7.17),]
-ModelDFSLt1_VLN7.19 <- ModelDFSLt1_VLN7.18[-nrow(ModelDFSLt1_VLN7.18),]
-ModelDFSLt1_VLN7.20 <- ModelDFSLt1_VLN7.19[-nrow(ModelDFSLt1_VLN7.19),]
-ModelDFSLt1_VLN7.21 <- ModelDFSLt1_VLN7.20[-nrow(ModelDFSLt1_VLN7.20),]
-ModelDFSLt1_VLN7.22 <- ModelDFSLt1_VLN7.21[-nrow(ModelDFSLt1_VLN7.21),]
-ModelDFSLt1_VLN7.23 <- ModelDFSLt1_VLN7.22[-nrow(ModelDFSLt1_VLN7.22),]
-ModelDFSLt1_VLN7.24 <- ModelDFSLt1_VLN7.23[-nrow(ModelDFSLt1_VLN7.23),]
-
-ModelDFSLt1_VLN7 <- ModelDFSLt1_VLN7.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VLN7 <- rbind(c(0:0), ModelDFSLt1_VLN7)
+  assign(paste0("ModelDFSLt1_VLN7.", i), ModelDFSLt1_VLN7)
+}
+ModelDFSLt1_VLN7 <- head(ModelDFSLt1_VLN7.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLN7 <- ModelDFSLt0_VLN7 - ModelDFSLt1_VLN7
@@ -5473,8 +4931,11 @@ ModelDFSL1y_VLN7 <- ModelDFSLt0_VLN7 - ModelDFSLt1_VLN7
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLN7$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLN_7P because implies a one-off input of C
-ModelDFSL_VLN_7P <- ModelDFSL1y_VLN7
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VLN7_CorrectingPlus1 <- head(ModelDFSL1y_VLN7, -12) #Create model t=x+1
+
+#This model will be called VLN_0P because implies a one-off input of C
+ModelDFSL_VLN_7P <- ModelDFSLt1_VLN7_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VLN_7P,"VXP_Models\\ModelDFSL_R_VLN_7P.xlsx")
@@ -5621,32 +5082,11 @@ write_xlsx(ModelDFSL_VLN8C,"VXC_Models\\ModelDFSL_R_VLN8C.xlsx")
 ModelDFSLt0_VLN8 <- ModelDFSL_VLN8 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VLN8.1 <- rbind(c(0:0), ModelDFSLt0_VLN8)
-ModelDFSLt1_VLN8.2 <- rbind(c(0:0), ModelDFSLt1_VLN8.1)
-ModelDFSLt1_VLN8.3 <- rbind(c(0:0), ModelDFSLt1_VLN8.2)
-ModelDFSLt1_VLN8.4 <- rbind(c(0:0), ModelDFSLt1_VLN8.3)
-ModelDFSLt1_VLN8.5 <- rbind(c(0:0), ModelDFSLt1_VLN8.4)
-ModelDFSLt1_VLN8.6 <- rbind(c(0:0), ModelDFSLt1_VLN8.5)
-ModelDFSLt1_VLN8.7 <- rbind(c(0:0), ModelDFSLt1_VLN8.6)
-ModelDFSLt1_VLN8.8 <- rbind(c(0:0), ModelDFSLt1_VLN8.7)
-ModelDFSLt1_VLN8.9 <- rbind(c(0:0), ModelDFSLt1_VLN8.8)
-ModelDFSLt1_VLN8.10 <- rbind(c(0:0), ModelDFSLt1_VLN8.9)
-ModelDFSLt1_VLN8.11 <- rbind(c(0:0), ModelDFSLt1_VLN8.10)
-ModelDFSLt1_VLN8.12 <- rbind(c(0:0), ModelDFSLt1_VLN8.11)
-ModelDFSLt1_VLN8.13 <- ModelDFSLt1_VLN8.12[-nrow(ModelDFSLt1_VLN8.12),]
-ModelDFSLt1_VLN8.14 <- ModelDFSLt1_VLN8.13[-nrow(ModelDFSLt1_VLN8.13),]
-ModelDFSLt1_VLN8.15 <- ModelDFSLt1_VLN8.14[-nrow(ModelDFSLt1_VLN8.14),]
-ModelDFSLt1_VLN8.16 <- ModelDFSLt1_VLN8.15[-nrow(ModelDFSLt1_VLN8.15),]
-ModelDFSLt1_VLN8.17 <- ModelDFSLt1_VLN8.16[-nrow(ModelDFSLt1_VLN8.16),]
-ModelDFSLt1_VLN8.18 <- ModelDFSLt1_VLN8.17[-nrow(ModelDFSLt1_VLN8.17),]
-ModelDFSLt1_VLN8.19 <- ModelDFSLt1_VLN8.18[-nrow(ModelDFSLt1_VLN8.18),]
-ModelDFSLt1_VLN8.20 <- ModelDFSLt1_VLN8.19[-nrow(ModelDFSLt1_VLN8.19),]
-ModelDFSLt1_VLN8.21 <- ModelDFSLt1_VLN8.20[-nrow(ModelDFSLt1_VLN8.20),]
-ModelDFSLt1_VLN8.22 <- ModelDFSLt1_VLN8.21[-nrow(ModelDFSLt1_VLN8.21),]
-ModelDFSLt1_VLN8.23 <- ModelDFSLt1_VLN8.22[-nrow(ModelDFSLt1_VLN8.22),]
-ModelDFSLt1_VLN8.24 <- ModelDFSLt1_VLN8.23[-nrow(ModelDFSLt1_VLN8.23),]
-
-ModelDFSLt1_VLN8 <- ModelDFSLt1_VLN8.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VLN8 <- rbind(c(0:0), ModelDFSLt1_VLN8)
+  assign(paste0("ModelDFSLt1_VLN8.", i), ModelDFSLt1_VLN8)
+}
+ModelDFSLt1_VLN8 <- head(ModelDFSLt1_VLN8.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLN8 <- ModelDFSLt0_VLN8 - ModelDFSLt1_VLN8
@@ -5654,8 +5094,11 @@ ModelDFSL1y_VLN8 <- ModelDFSLt0_VLN8 - ModelDFSLt1_VLN8
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLN8$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLN_8P because implies a one-off input of C
-ModelDFSL_VLN_8P <- ModelDFSL1y_VLN8
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VLN8_CorrectingPlus1 <- head(ModelDFSL1y_VLN8, -12) #Create model t=x+1
+
+#This model will be called VLN_0P because implies a one-off input of C
+ModelDFSL_VLN_8P <- ModelDFSLt1_VLN8_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VLN_8P,"VXP_Models\\ModelDFSL_R_VLN_8P.xlsx")
@@ -5801,32 +5244,11 @@ write_xlsx(ModelDFSL_VLN9C,"VXC_Models\\ModelDFSL_R_VLN9C.xlsx")
 ModelDFSLt0_VLN9 <- ModelDFSL_VLN9 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VLN9.1 <- rbind(c(0:0), ModelDFSLt0_VLN9)
-ModelDFSLt1_VLN9.2 <- rbind(c(0:0), ModelDFSLt1_VLN9.1)
-ModelDFSLt1_VLN9.3 <- rbind(c(0:0), ModelDFSLt1_VLN9.2)
-ModelDFSLt1_VLN9.4 <- rbind(c(0:0), ModelDFSLt1_VLN9.3)
-ModelDFSLt1_VLN9.5 <- rbind(c(0:0), ModelDFSLt1_VLN9.4)
-ModelDFSLt1_VLN9.6 <- rbind(c(0:0), ModelDFSLt1_VLN9.5)
-ModelDFSLt1_VLN9.7 <- rbind(c(0:0), ModelDFSLt1_VLN9.6)
-ModelDFSLt1_VLN9.8 <- rbind(c(0:0), ModelDFSLt1_VLN9.7)
-ModelDFSLt1_VLN9.9 <- rbind(c(0:0), ModelDFSLt1_VLN9.8)
-ModelDFSLt1_VLN9.10 <- rbind(c(0:0), ModelDFSLt1_VLN9.9)
-ModelDFSLt1_VLN9.11 <- rbind(c(0:0), ModelDFSLt1_VLN9.10)
-ModelDFSLt1_VLN9.12 <- rbind(c(0:0), ModelDFSLt1_VLN9.11)
-ModelDFSLt1_VLN9.13 <- ModelDFSLt1_VLN9.12[-nrow(ModelDFSLt1_VLN9.12),]
-ModelDFSLt1_VLN9.14 <- ModelDFSLt1_VLN9.13[-nrow(ModelDFSLt1_VLN9.13),]
-ModelDFSLt1_VLN9.15 <- ModelDFSLt1_VLN9.14[-nrow(ModelDFSLt1_VLN9.14),]
-ModelDFSLt1_VLN9.16 <- ModelDFSLt1_VLN9.15[-nrow(ModelDFSLt1_VLN9.15),]
-ModelDFSLt1_VLN9.17 <- ModelDFSLt1_VLN9.16[-nrow(ModelDFSLt1_VLN9.16),]
-ModelDFSLt1_VLN9.18 <- ModelDFSLt1_VLN9.17[-nrow(ModelDFSLt1_VLN9.17),]
-ModelDFSLt1_VLN9.19 <- ModelDFSLt1_VLN9.18[-nrow(ModelDFSLt1_VLN9.18),]
-ModelDFSLt1_VLN9.20 <- ModelDFSLt1_VLN9.19[-nrow(ModelDFSLt1_VLN9.19),]
-ModelDFSLt1_VLN9.21 <- ModelDFSLt1_VLN9.20[-nrow(ModelDFSLt1_VLN9.20),]
-ModelDFSLt1_VLN9.22 <- ModelDFSLt1_VLN9.21[-nrow(ModelDFSLt1_VLN9.21),]
-ModelDFSLt1_VLN9.23 <- ModelDFSLt1_VLN9.22[-nrow(ModelDFSLt1_VLN9.22),]
-ModelDFSLt1_VLN9.24 <- ModelDFSLt1_VLN9.23[-nrow(ModelDFSLt1_VLN9.23),]
-
-ModelDFSLt1_VLN9 <- ModelDFSLt1_VLN9.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VLN9 <- rbind(c(0:0), ModelDFSLt1_VLN9)
+  assign(paste0("ModelDFSLt1_VLN9.", i), ModelDFSLt1_VLN9)
+}
+ModelDFSLt1_VLN9 <- head(ModelDFSLt1_VLN9.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLN9 <- ModelDFSLt0_VLN9 - ModelDFSLt1_VLN9
@@ -5834,8 +5256,11 @@ ModelDFSL1y_VLN9 <- ModelDFSLt0_VLN9 - ModelDFSLt1_VLN9
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLN9$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLN_9P because implies a one-off input of C
-ModelDFSL_VLN_9P <- ModelDFSL1y_VLN9
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VLN9_CorrectingPlus1 <- head(ModelDFSL1y_VLN9, -12) #Create model t=x+1
+
+#This model will be called VLN_0P because implies a one-off input of C
+ModelDFSL_VLN_9P <- ModelDFSLt1_VLN9_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VLN_9P,"VXP_Models\\ModelDFSL_R_VLN_9P.xlsx")
@@ -5981,32 +5406,11 @@ write_xlsx(ModelDFSL_VLN10C,"VXC_Models\\ModelDFSL_R_VLN10C.xlsx")
 ModelDFSLt0_VLN10 <- ModelDFSL_VLN10 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VLN10.1 <- rbind(c(0:0), ModelDFSLt0_VLN10)
-ModelDFSLt1_VLN10.2 <- rbind(c(0:0), ModelDFSLt1_VLN10.1)
-ModelDFSLt1_VLN10.3 <- rbind(c(0:0), ModelDFSLt1_VLN10.2)
-ModelDFSLt1_VLN10.4 <- rbind(c(0:0), ModelDFSLt1_VLN10.3)
-ModelDFSLt1_VLN10.5 <- rbind(c(0:0), ModelDFSLt1_VLN10.4)
-ModelDFSLt1_VLN10.6 <- rbind(c(0:0), ModelDFSLt1_VLN10.5)
-ModelDFSLt1_VLN10.7 <- rbind(c(0:0), ModelDFSLt1_VLN10.6)
-ModelDFSLt1_VLN10.8 <- rbind(c(0:0), ModelDFSLt1_VLN10.7)
-ModelDFSLt1_VLN10.9 <- rbind(c(0:0), ModelDFSLt1_VLN10.8)
-ModelDFSLt1_VLN10.10 <- rbind(c(0:0), ModelDFSLt1_VLN10.9)
-ModelDFSLt1_VLN10.11 <- rbind(c(0:0), ModelDFSLt1_VLN10.10)
-ModelDFSLt1_VLN10.12 <- rbind(c(0:0), ModelDFSLt1_VLN10.11)
-ModelDFSLt1_VLN10.13 <- ModelDFSLt1_VLN10.12[-nrow(ModelDFSLt1_VLN10.12),]
-ModelDFSLt1_VLN10.14 <- ModelDFSLt1_VLN10.13[-nrow(ModelDFSLt1_VLN10.13),]
-ModelDFSLt1_VLN10.15 <- ModelDFSLt1_VLN10.14[-nrow(ModelDFSLt1_VLN10.14),]
-ModelDFSLt1_VLN10.16 <- ModelDFSLt1_VLN10.15[-nrow(ModelDFSLt1_VLN10.15),]
-ModelDFSLt1_VLN10.17 <- ModelDFSLt1_VLN10.16[-nrow(ModelDFSLt1_VLN10.16),]
-ModelDFSLt1_VLN10.18 <- ModelDFSLt1_VLN10.17[-nrow(ModelDFSLt1_VLN10.17),]
-ModelDFSLt1_VLN10.19 <- ModelDFSLt1_VLN10.18[-nrow(ModelDFSLt1_VLN10.18),]
-ModelDFSLt1_VLN10.20 <- ModelDFSLt1_VLN10.19[-nrow(ModelDFSLt1_VLN10.19),]
-ModelDFSLt1_VLN10.21 <- ModelDFSLt1_VLN10.20[-nrow(ModelDFSLt1_VLN10.20),]
-ModelDFSLt1_VLN10.22 <- ModelDFSLt1_VLN10.21[-nrow(ModelDFSLt1_VLN10.21),]
-ModelDFSLt1_VLN10.23 <- ModelDFSLt1_VLN10.22[-nrow(ModelDFSLt1_VLN10.22),]
-ModelDFSLt1_VLN10.24 <- ModelDFSLt1_VLN10.23[-nrow(ModelDFSLt1_VLN10.23),]
-
-ModelDFSLt1_VLN10 <- ModelDFSLt1_VLN10.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VLN10 <- rbind(c(0:0), ModelDFSLt1_VLN10)
+  assign(paste0("ModelDFSLt1_VLN10.", i), ModelDFSLt1_VLN10)
+}
+ModelDFSLt1_VLN10 <- head(ModelDFSLt1_VLN10.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLN10 <- ModelDFSLt0_VLN10 - ModelDFSLt1_VLN10
@@ -6014,8 +5418,11 @@ ModelDFSL1y_VLN10 <- ModelDFSLt0_VLN10 - ModelDFSLt1_VLN10
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VLN10$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VLN10P because implies a one-off input of C
-ModelDFSL_VLN10P <- ModelDFSL1y_VLN10
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VLN10_CorrectingPlus1 <- head(ModelDFSL1y_VLN10, -12) #Create model t=x+1
+
+#This model will be called VLN_0P because implies a one-off input of C
+ModelDFSL_VLN10P <- ModelDFSLt1_VLN10_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VLN10P,"VXP_Models\\ModelDFSL_R_VLN10P.xlsx")
@@ -6154,32 +5561,11 @@ write_xlsx(ModelDFSL_VMC0C,"VXC_Models\\ModelDFSL_R_VMC0C.xlsx")
 ModelDFSLt0_VMC0 <- ModelDFSL_VMC0 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VMC0.1 <- rbind(c(0:0), ModelDFSLt0_VMC0)
-ModelDFSLt1_VMC0.2 <- rbind(c(0:0), ModelDFSLt1_VMC0.1)
-ModelDFSLt1_VMC0.3 <- rbind(c(0:0), ModelDFSLt1_VMC0.2)
-ModelDFSLt1_VMC0.4 <- rbind(c(0:0), ModelDFSLt1_VMC0.3)
-ModelDFSLt1_VMC0.5 <- rbind(c(0:0), ModelDFSLt1_VMC0.4)
-ModelDFSLt1_VMC0.6 <- rbind(c(0:0), ModelDFSLt1_VMC0.5)
-ModelDFSLt1_VMC0.7 <- rbind(c(0:0), ModelDFSLt1_VMC0.6)
-ModelDFSLt1_VMC0.8 <- rbind(c(0:0), ModelDFSLt1_VMC0.7)
-ModelDFSLt1_VMC0.9 <- rbind(c(0:0), ModelDFSLt1_VMC0.8)
-ModelDFSLt1_VMC0.10 <- rbind(c(0:0), ModelDFSLt1_VMC0.9)
-ModelDFSLt1_VMC0.11 <- rbind(c(0:0), ModelDFSLt1_VMC0.10)
-ModelDFSLt1_VMC0.12 <- rbind(c(0:0), ModelDFSLt1_VMC0.11)
-ModelDFSLt1_VMC0.13 <- ModelDFSLt1_VMC0.12[-nrow(ModelDFSLt1_VMC0.12),]
-ModelDFSLt1_VMC0.14 <- ModelDFSLt1_VMC0.13[-nrow(ModelDFSLt1_VMC0.13),]
-ModelDFSLt1_VMC0.15 <- ModelDFSLt1_VMC0.14[-nrow(ModelDFSLt1_VMC0.14),]
-ModelDFSLt1_VMC0.16 <- ModelDFSLt1_VMC0.15[-nrow(ModelDFSLt1_VMC0.15),]
-ModelDFSLt1_VMC0.17 <- ModelDFSLt1_VMC0.16[-nrow(ModelDFSLt1_VMC0.16),]
-ModelDFSLt1_VMC0.18 <- ModelDFSLt1_VMC0.17[-nrow(ModelDFSLt1_VMC0.17),]
-ModelDFSLt1_VMC0.19 <- ModelDFSLt1_VMC0.18[-nrow(ModelDFSLt1_VMC0.18),]
-ModelDFSLt1_VMC0.20 <- ModelDFSLt1_VMC0.19[-nrow(ModelDFSLt1_VMC0.19),]
-ModelDFSLt1_VMC0.21 <- ModelDFSLt1_VMC0.20[-nrow(ModelDFSLt1_VMC0.20),]
-ModelDFSLt1_VMC0.22 <- ModelDFSLt1_VMC0.21[-nrow(ModelDFSLt1_VMC0.21),]
-ModelDFSLt1_VMC0.23 <- ModelDFSLt1_VMC0.22[-nrow(ModelDFSLt1_VMC0.22),]
-ModelDFSLt1_VMC0.24 <- ModelDFSLt1_VMC0.23[-nrow(ModelDFSLt1_VMC0.23),]
-
-ModelDFSLt1_VMC0 <- ModelDFSLt1_VMC0.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VMC0 <- rbind(c(0:0), ModelDFSLt1_VMC0)
+  assign(paste0("ModelDFSLt1_VMC0.", i), ModelDFSLt1_VMC0)
+}
+ModelDFSLt1_VMC0 <- head(ModelDFSLt1_VMC0.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMC0 <- ModelDFSLt0_VMC0 - ModelDFSLt1_VMC0
@@ -6187,8 +5573,11 @@ ModelDFSL1y_VMC0 <- ModelDFSLt0_VMC0 - ModelDFSLt1_VMC0
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMC0$MNumber <- seq(from = 1, to = SimulationLength_months)
 
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VMC0_CorrectingPlus1 <- head(ModelDFSL1y_VMC0, -12) #Create model t=x+1
+
 #This model will be called VMC_0P because implies a one-off input of C
-ModelDFSL_VMC_0P <- ModelDFSL1y_VMC0
+ModelDFSL_VMC_0P <- ModelDFSLt1_VMC0_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VMC_0P,"VXP_Models\\ModelDFSL_R_VMC_0P.xlsx")
@@ -6331,32 +5720,11 @@ write_xlsx(ModelDFSL_VMC1C,"VXC_Models\\ModelDFSL_R_VMC1C.xlsx")
 ModelDFSLt0_VMC1 <- ModelDFSL_VMC1 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VMC1.1 <- rbind(c(0:0), ModelDFSLt0_VMC1)
-ModelDFSLt1_VMC1.2 <- rbind(c(0:0), ModelDFSLt1_VMC1.1)
-ModelDFSLt1_VMC1.3 <- rbind(c(0:0), ModelDFSLt1_VMC1.2)
-ModelDFSLt1_VMC1.4 <- rbind(c(0:0), ModelDFSLt1_VMC1.3)
-ModelDFSLt1_VMC1.5 <- rbind(c(0:0), ModelDFSLt1_VMC1.4)
-ModelDFSLt1_VMC1.6 <- rbind(c(0:0), ModelDFSLt1_VMC1.5)
-ModelDFSLt1_VMC1.7 <- rbind(c(0:0), ModelDFSLt1_VMC1.6)
-ModelDFSLt1_VMC1.8 <- rbind(c(0:0), ModelDFSLt1_VMC1.7)
-ModelDFSLt1_VMC1.9 <- rbind(c(0:0), ModelDFSLt1_VMC1.8)
-ModelDFSLt1_VMC1.10 <- rbind(c(0:0), ModelDFSLt1_VMC1.9)
-ModelDFSLt1_VMC1.11 <- rbind(c(0:0), ModelDFSLt1_VMC1.10)
-ModelDFSLt1_VMC1.12 <- rbind(c(0:0), ModelDFSLt1_VMC1.11)
-ModelDFSLt1_VMC1.13 <- ModelDFSLt1_VMC1.12[-nrow(ModelDFSLt1_VMC1.12),]
-ModelDFSLt1_VMC1.14 <- ModelDFSLt1_VMC1.13[-nrow(ModelDFSLt1_VMC1.13),]
-ModelDFSLt1_VMC1.15 <- ModelDFSLt1_VMC1.14[-nrow(ModelDFSLt1_VMC1.14),]
-ModelDFSLt1_VMC1.16 <- ModelDFSLt1_VMC1.15[-nrow(ModelDFSLt1_VMC1.15),]
-ModelDFSLt1_VMC1.17 <- ModelDFSLt1_VMC1.16[-nrow(ModelDFSLt1_VMC1.16),]
-ModelDFSLt1_VMC1.18 <- ModelDFSLt1_VMC1.17[-nrow(ModelDFSLt1_VMC1.17),]
-ModelDFSLt1_VMC1.19 <- ModelDFSLt1_VMC1.18[-nrow(ModelDFSLt1_VMC1.18),]
-ModelDFSLt1_VMC1.20 <- ModelDFSLt1_VMC1.19[-nrow(ModelDFSLt1_VMC1.19),]
-ModelDFSLt1_VMC1.21 <- ModelDFSLt1_VMC1.20[-nrow(ModelDFSLt1_VMC1.20),]
-ModelDFSLt1_VMC1.22 <- ModelDFSLt1_VMC1.21[-nrow(ModelDFSLt1_VMC1.21),]
-ModelDFSLt1_VMC1.23 <- ModelDFSLt1_VMC1.22[-nrow(ModelDFSLt1_VMC1.22),]
-ModelDFSLt1_VMC1.24 <- ModelDFSLt1_VMC1.23[-nrow(ModelDFSLt1_VMC1.23),]
-
-ModelDFSLt1_VMC1 <- ModelDFSLt1_VMC1.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VMC1 <- rbind(c(0:0), ModelDFSLt1_VMC1)
+  assign(paste0("ModelDFSLt1_VMC1.", i), ModelDFSLt1_VMC1)
+}
+ModelDFSLt1_VMC1 <- head(ModelDFSLt1_VMC1.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMC1 <- ModelDFSLt0_VMC1 - ModelDFSLt1_VMC1
@@ -6364,8 +5732,11 @@ ModelDFSL1y_VMC1 <- ModelDFSLt0_VMC1 - ModelDFSLt1_VMC1
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMC1$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMC_1P because implies a one-off input of C
-ModelDFSL_VMC_1P <- ModelDFSL1y_VMC1
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VMC1_CorrectingPlus1 <- head(ModelDFSL1y_VMC1, -12) #Create model t=x+1
+
+#This model will be called VMC_0P because implies a one-off input of C
+ModelDFSL_VMC_1P <- ModelDFSLt1_VMC1_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VMC_1P,"VXP_Models\\ModelDFSL_R_VMC_1P.xlsx")
@@ -6509,32 +5880,11 @@ write_xlsx(ModelDFSL_VMC2C,"VXC_Models\\ModelDFSL_R_VMC2C.xlsx")
 ModelDFSLt0_VMC2 <- ModelDFSL_VMC2 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VMC2.1 <- rbind(c(0:0), ModelDFSLt0_VMC2)
-ModelDFSLt1_VMC2.2 <- rbind(c(0:0), ModelDFSLt1_VMC2.1)
-ModelDFSLt1_VMC2.3 <- rbind(c(0:0), ModelDFSLt1_VMC2.2)
-ModelDFSLt1_VMC2.4 <- rbind(c(0:0), ModelDFSLt1_VMC2.3)
-ModelDFSLt1_VMC2.5 <- rbind(c(0:0), ModelDFSLt1_VMC2.4)
-ModelDFSLt1_VMC2.6 <- rbind(c(0:0), ModelDFSLt1_VMC2.5)
-ModelDFSLt1_VMC2.7 <- rbind(c(0:0), ModelDFSLt1_VMC2.6)
-ModelDFSLt1_VMC2.8 <- rbind(c(0:0), ModelDFSLt1_VMC2.7)
-ModelDFSLt1_VMC2.9 <- rbind(c(0:0), ModelDFSLt1_VMC2.8)
-ModelDFSLt1_VMC2.10 <- rbind(c(0:0), ModelDFSLt1_VMC2.9)
-ModelDFSLt1_VMC2.11 <- rbind(c(0:0), ModelDFSLt1_VMC2.10)
-ModelDFSLt1_VMC2.12 <- rbind(c(0:0), ModelDFSLt1_VMC2.11)
-ModelDFSLt1_VMC2.13 <- ModelDFSLt1_VMC2.12[-nrow(ModelDFSLt1_VMC2.12),]
-ModelDFSLt1_VMC2.14 <- ModelDFSLt1_VMC2.13[-nrow(ModelDFSLt1_VMC2.13),]
-ModelDFSLt1_VMC2.15 <- ModelDFSLt1_VMC2.14[-nrow(ModelDFSLt1_VMC2.14),]
-ModelDFSLt1_VMC2.16 <- ModelDFSLt1_VMC2.15[-nrow(ModelDFSLt1_VMC2.15),]
-ModelDFSLt1_VMC2.17 <- ModelDFSLt1_VMC2.16[-nrow(ModelDFSLt1_VMC2.16),]
-ModelDFSLt1_VMC2.18 <- ModelDFSLt1_VMC2.17[-nrow(ModelDFSLt1_VMC2.17),]
-ModelDFSLt1_VMC2.19 <- ModelDFSLt1_VMC2.18[-nrow(ModelDFSLt1_VMC2.18),]
-ModelDFSLt1_VMC2.20 <- ModelDFSLt1_VMC2.19[-nrow(ModelDFSLt1_VMC2.19),]
-ModelDFSLt1_VMC2.21 <- ModelDFSLt1_VMC2.20[-nrow(ModelDFSLt1_VMC2.20),]
-ModelDFSLt1_VMC2.22 <- ModelDFSLt1_VMC2.21[-nrow(ModelDFSLt1_VMC2.21),]
-ModelDFSLt1_VMC2.23 <- ModelDFSLt1_VMC2.22[-nrow(ModelDFSLt1_VMC2.22),]
-ModelDFSLt1_VMC2.24 <- ModelDFSLt1_VMC2.23[-nrow(ModelDFSLt1_VMC2.23),]
-
-ModelDFSLt1_VMC2 <- ModelDFSLt1_VMC2.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VMC2 <- rbind(c(0:0), ModelDFSLt1_VMC2)
+  assign(paste0("ModelDFSLt1_VMC2.", i), ModelDFSLt1_VMC2)
+}
+ModelDFSLt1_VMC2 <- head(ModelDFSLt1_VMC2.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMC2 <- ModelDFSLt0_VMC2 - ModelDFSLt1_VMC2
@@ -6542,8 +5892,11 @@ ModelDFSL1y_VMC2 <- ModelDFSLt0_VMC2 - ModelDFSLt1_VMC2
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMC2$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMC_2P because implies a one-off input of C
-ModelDFSL_VMC_2P <- ModelDFSL1y_VMC2
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VMC2_CorrectingPlus1 <- head(ModelDFSL1y_VMC2, -12) #Create model t=x+1
+
+#This model will be called VMC_0P because implies a one-off input of C
+ModelDFSL_VMC_2P <- ModelDFSLt1_VMC2_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VMC_2P,"VXP_Models\\ModelDFSL_R_VMC_2P.xlsx")
@@ -6687,32 +6040,11 @@ write_xlsx(ModelDFSL_VMC3C,"VXC_Models\\ModelDFSL_R_VMC3C.xlsx")
 ModelDFSLt0_VMC3 <- ModelDFSL_VMC3 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VMC3.1 <- rbind(c(0:0), ModelDFSLt0_VMC3)
-ModelDFSLt1_VMC3.2 <- rbind(c(0:0), ModelDFSLt1_VMC3.1)
-ModelDFSLt1_VMC3.3 <- rbind(c(0:0), ModelDFSLt1_VMC3.2)
-ModelDFSLt1_VMC3.4 <- rbind(c(0:0), ModelDFSLt1_VMC3.3)
-ModelDFSLt1_VMC3.5 <- rbind(c(0:0), ModelDFSLt1_VMC3.4)
-ModelDFSLt1_VMC3.6 <- rbind(c(0:0), ModelDFSLt1_VMC3.5)
-ModelDFSLt1_VMC3.7 <- rbind(c(0:0), ModelDFSLt1_VMC3.6)
-ModelDFSLt1_VMC3.8 <- rbind(c(0:0), ModelDFSLt1_VMC3.7)
-ModelDFSLt1_VMC3.9 <- rbind(c(0:0), ModelDFSLt1_VMC3.8)
-ModelDFSLt1_VMC3.10 <- rbind(c(0:0), ModelDFSLt1_VMC3.9)
-ModelDFSLt1_VMC3.11 <- rbind(c(0:0), ModelDFSLt1_VMC3.10)
-ModelDFSLt1_VMC3.12 <- rbind(c(0:0), ModelDFSLt1_VMC3.11)
-ModelDFSLt1_VMC3.13 <- ModelDFSLt1_VMC3.12[-nrow(ModelDFSLt1_VMC3.12),]
-ModelDFSLt1_VMC3.14 <- ModelDFSLt1_VMC3.13[-nrow(ModelDFSLt1_VMC3.13),]
-ModelDFSLt1_VMC3.15 <- ModelDFSLt1_VMC3.14[-nrow(ModelDFSLt1_VMC3.14),]
-ModelDFSLt1_VMC3.16 <- ModelDFSLt1_VMC3.15[-nrow(ModelDFSLt1_VMC3.15),]
-ModelDFSLt1_VMC3.17 <- ModelDFSLt1_VMC3.16[-nrow(ModelDFSLt1_VMC3.16),]
-ModelDFSLt1_VMC3.18 <- ModelDFSLt1_VMC3.17[-nrow(ModelDFSLt1_VMC3.17),]
-ModelDFSLt1_VMC3.19 <- ModelDFSLt1_VMC3.18[-nrow(ModelDFSLt1_VMC3.18),]
-ModelDFSLt1_VMC3.20 <- ModelDFSLt1_VMC3.19[-nrow(ModelDFSLt1_VMC3.19),]
-ModelDFSLt1_VMC3.21 <- ModelDFSLt1_VMC3.20[-nrow(ModelDFSLt1_VMC3.20),]
-ModelDFSLt1_VMC3.22 <- ModelDFSLt1_VMC3.21[-nrow(ModelDFSLt1_VMC3.21),]
-ModelDFSLt1_VMC3.23 <- ModelDFSLt1_VMC3.22[-nrow(ModelDFSLt1_VMC3.22),]
-ModelDFSLt1_VMC3.24 <- ModelDFSLt1_VMC3.23[-nrow(ModelDFSLt1_VMC3.23),]
-
-ModelDFSLt1_VMC3 <- ModelDFSLt1_VMC3.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VMC3 <- rbind(c(0:0), ModelDFSLt1_VMC3)
+  assign(paste0("ModelDFSLt1_VMC3.", i), ModelDFSLt1_VMC3)
+}
+ModelDFSLt1_VMC3 <- head(ModelDFSLt1_VMC3.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMC3 <- ModelDFSLt0_VMC3 - ModelDFSLt1_VMC3
@@ -6720,8 +6052,11 @@ ModelDFSL1y_VMC3 <- ModelDFSLt0_VMC3 - ModelDFSLt1_VMC3
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMC3$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMC_3P because implies a one-off input of C
-ModelDFSL_VMC_3P <- ModelDFSL1y_VMC3
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VMC3_CorrectingPlus1 <- head(ModelDFSL1y_VMC3, -12) #Create model t=x+1
+
+#This model will be called VMC_0P because implies a one-off input of C
+ModelDFSL_VMC_3P <- ModelDFSLt1_VMC3_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VMC_3P,"VXP_Models\\ModelDFSL_R_VMC_3P.xlsx")
@@ -6865,32 +6200,11 @@ write_xlsx(ModelDFSL_VMC4C,"VXC_Models\\ModelDFSL_R_VMC4C.xlsx")
 ModelDFSLt0_VMC4 <- ModelDFSL_VMC4 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VMC4.1 <- rbind(c(0:0), ModelDFSLt0_VMC4)
-ModelDFSLt1_VMC4.2 <- rbind(c(0:0), ModelDFSLt1_VMC4.1)
-ModelDFSLt1_VMC4.3 <- rbind(c(0:0), ModelDFSLt1_VMC4.2)
-ModelDFSLt1_VMC4.4 <- rbind(c(0:0), ModelDFSLt1_VMC4.3)
-ModelDFSLt1_VMC4.5 <- rbind(c(0:0), ModelDFSLt1_VMC4.4)
-ModelDFSLt1_VMC4.6 <- rbind(c(0:0), ModelDFSLt1_VMC4.5)
-ModelDFSLt1_VMC4.7 <- rbind(c(0:0), ModelDFSLt1_VMC4.6)
-ModelDFSLt1_VMC4.8 <- rbind(c(0:0), ModelDFSLt1_VMC4.7)
-ModelDFSLt1_VMC4.9 <- rbind(c(0:0), ModelDFSLt1_VMC4.8)
-ModelDFSLt1_VMC4.10 <- rbind(c(0:0), ModelDFSLt1_VMC4.9)
-ModelDFSLt1_VMC4.11 <- rbind(c(0:0), ModelDFSLt1_VMC4.10)
-ModelDFSLt1_VMC4.12 <- rbind(c(0:0), ModelDFSLt1_VMC4.11)
-ModelDFSLt1_VMC4.13 <- ModelDFSLt1_VMC4.12[-nrow(ModelDFSLt1_VMC4.12),]
-ModelDFSLt1_VMC4.14 <- ModelDFSLt1_VMC4.13[-nrow(ModelDFSLt1_VMC4.13),]
-ModelDFSLt1_VMC4.15 <- ModelDFSLt1_VMC4.14[-nrow(ModelDFSLt1_VMC4.14),]
-ModelDFSLt1_VMC4.16 <- ModelDFSLt1_VMC4.15[-nrow(ModelDFSLt1_VMC4.15),]
-ModelDFSLt1_VMC4.17 <- ModelDFSLt1_VMC4.16[-nrow(ModelDFSLt1_VMC4.16),]
-ModelDFSLt1_VMC4.18 <- ModelDFSLt1_VMC4.17[-nrow(ModelDFSLt1_VMC4.17),]
-ModelDFSLt1_VMC4.19 <- ModelDFSLt1_VMC4.18[-nrow(ModelDFSLt1_VMC4.18),]
-ModelDFSLt1_VMC4.20 <- ModelDFSLt1_VMC4.19[-nrow(ModelDFSLt1_VMC4.19),]
-ModelDFSLt1_VMC4.21 <- ModelDFSLt1_VMC4.20[-nrow(ModelDFSLt1_VMC4.20),]
-ModelDFSLt1_VMC4.22 <- ModelDFSLt1_VMC4.21[-nrow(ModelDFSLt1_VMC4.21),]
-ModelDFSLt1_VMC4.23 <- ModelDFSLt1_VMC4.22[-nrow(ModelDFSLt1_VMC4.22),]
-ModelDFSLt1_VMC4.24 <- ModelDFSLt1_VMC4.23[-nrow(ModelDFSLt1_VMC4.23),]
-
-ModelDFSLt1_VMC4 <- ModelDFSLt1_VMC4.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VMC4 <- rbind(c(0:0), ModelDFSLt1_VMC4)
+  assign(paste0("ModelDFSLt1_VMC4.", i), ModelDFSLt1_VMC4)
+}
+ModelDFSLt1_VMC4 <- head(ModelDFSLt1_VMC4.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMC4 <- ModelDFSLt0_VMC4 - ModelDFSLt1_VMC4
@@ -6898,8 +6212,11 @@ ModelDFSL1y_VMC4 <- ModelDFSLt0_VMC4 - ModelDFSLt1_VMC4
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMC4$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMC_4P because implies a one-off input of C
-ModelDFSL_VMC_4P <- ModelDFSL1y_VMC4
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VMC4_CorrectingPlus1 <- head(ModelDFSL1y_VMC4, -12) #Create model t=x+1
+
+#This model will be called VMC_0P because implies a one-off input of C
+ModelDFSL_VMC_4P <- ModelDFSLt1_VMC4_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VMC_4P,"VXP_Models\\ModelDFSL_R_VMC_4P.xlsx")
@@ -7043,32 +6360,11 @@ write_xlsx(ModelDFSL_VMC5C,"VXC_Models\\ModelDFSL_R_VMC5C.xlsx")
 ModelDFSLt0_VMC5 <- ModelDFSL_VMC5 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VMC5.1 <- rbind(c(0:0), ModelDFSLt0_VMC5)
-ModelDFSLt1_VMC5.2 <- rbind(c(0:0), ModelDFSLt1_VMC5.1)
-ModelDFSLt1_VMC5.3 <- rbind(c(0:0), ModelDFSLt1_VMC5.2)
-ModelDFSLt1_VMC5.4 <- rbind(c(0:0), ModelDFSLt1_VMC5.3)
-ModelDFSLt1_VMC5.5 <- rbind(c(0:0), ModelDFSLt1_VMC5.4)
-ModelDFSLt1_VMC5.6 <- rbind(c(0:0), ModelDFSLt1_VMC5.5)
-ModelDFSLt1_VMC5.7 <- rbind(c(0:0), ModelDFSLt1_VMC5.6)
-ModelDFSLt1_VMC5.8 <- rbind(c(0:0), ModelDFSLt1_VMC5.7)
-ModelDFSLt1_VMC5.9 <- rbind(c(0:0), ModelDFSLt1_VMC5.8)
-ModelDFSLt1_VMC5.10 <- rbind(c(0:0), ModelDFSLt1_VMC5.9)
-ModelDFSLt1_VMC5.11 <- rbind(c(0:0), ModelDFSLt1_VMC5.10)
-ModelDFSLt1_VMC5.12 <- rbind(c(0:0), ModelDFSLt1_VMC5.11)
-ModelDFSLt1_VMC5.13 <- ModelDFSLt1_VMC5.12[-nrow(ModelDFSLt1_VMC5.12),]
-ModelDFSLt1_VMC5.14 <- ModelDFSLt1_VMC5.13[-nrow(ModelDFSLt1_VMC5.13),]
-ModelDFSLt1_VMC5.15 <- ModelDFSLt1_VMC5.14[-nrow(ModelDFSLt1_VMC5.14),]
-ModelDFSLt1_VMC5.16 <- ModelDFSLt1_VMC5.15[-nrow(ModelDFSLt1_VMC5.15),]
-ModelDFSLt1_VMC5.17 <- ModelDFSLt1_VMC5.16[-nrow(ModelDFSLt1_VMC5.16),]
-ModelDFSLt1_VMC5.18 <- ModelDFSLt1_VMC5.17[-nrow(ModelDFSLt1_VMC5.17),]
-ModelDFSLt1_VMC5.19 <- ModelDFSLt1_VMC5.18[-nrow(ModelDFSLt1_VMC5.18),]
-ModelDFSLt1_VMC5.20 <- ModelDFSLt1_VMC5.19[-nrow(ModelDFSLt1_VMC5.19),]
-ModelDFSLt1_VMC5.21 <- ModelDFSLt1_VMC5.20[-nrow(ModelDFSLt1_VMC5.20),]
-ModelDFSLt1_VMC5.22 <- ModelDFSLt1_VMC5.21[-nrow(ModelDFSLt1_VMC5.21),]
-ModelDFSLt1_VMC5.23 <- ModelDFSLt1_VMC5.22[-nrow(ModelDFSLt1_VMC5.22),]
-ModelDFSLt1_VMC5.24 <- ModelDFSLt1_VMC5.23[-nrow(ModelDFSLt1_VMC5.23),]
-
-ModelDFSLt1_VMC5 <- ModelDFSLt1_VMC5.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VMC5 <- rbind(c(0:0), ModelDFSLt1_VMC5)
+  assign(paste0("ModelDFSLt1_VMC5.", i), ModelDFSLt1_VMC5)
+}
+ModelDFSLt1_VMC5 <- head(ModelDFSLt1_VMC5.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMC5 <- ModelDFSLt0_VMC5 - ModelDFSLt1_VMC5
@@ -7076,8 +6372,11 @@ ModelDFSL1y_VMC5 <- ModelDFSLt0_VMC5 - ModelDFSLt1_VMC5
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMC5$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMC_5P because implies a one-off input of C
-ModelDFSL_VMC_5P <- ModelDFSL1y_VMC5
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VMC5_CorrectingPlus1 <- head(ModelDFSL1y_VMC5, -12) #Create model t=x+1
+
+#This model will be called VMC_0P because implies a one-off input of C
+ModelDFSL_VMC_5P <- ModelDFSLt1_VMC5_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VMC_5P,"VXP_Models\\ModelDFSL_R_VMC_5P.xlsx")
@@ -7224,32 +6523,11 @@ write_xlsx(ModelDFSL_VMC6C,"VXC_Models\\ModelDFSL_R_VMC6C.xlsx")
 ModelDFSLt0_VMC6 <- ModelDFSL_VMC6 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VMC6.1 <- rbind(c(0:0), ModelDFSLt0_VMC6)
-ModelDFSLt1_VMC6.2 <- rbind(c(0:0), ModelDFSLt1_VMC6.1)
-ModelDFSLt1_VMC6.3 <- rbind(c(0:0), ModelDFSLt1_VMC6.2)
-ModelDFSLt1_VMC6.4 <- rbind(c(0:0), ModelDFSLt1_VMC6.3)
-ModelDFSLt1_VMC6.5 <- rbind(c(0:0), ModelDFSLt1_VMC6.4)
-ModelDFSLt1_VMC6.6 <- rbind(c(0:0), ModelDFSLt1_VMC6.5)
-ModelDFSLt1_VMC6.7 <- rbind(c(0:0), ModelDFSLt1_VMC6.6)
-ModelDFSLt1_VMC6.8 <- rbind(c(0:0), ModelDFSLt1_VMC6.7)
-ModelDFSLt1_VMC6.9 <- rbind(c(0:0), ModelDFSLt1_VMC6.8)
-ModelDFSLt1_VMC6.10 <- rbind(c(0:0), ModelDFSLt1_VMC6.9)
-ModelDFSLt1_VMC6.11 <- rbind(c(0:0), ModelDFSLt1_VMC6.10)
-ModelDFSLt1_VMC6.12 <- rbind(c(0:0), ModelDFSLt1_VMC6.11)
-ModelDFSLt1_VMC6.13 <- ModelDFSLt1_VMC6.12[-nrow(ModelDFSLt1_VMC6.12),]
-ModelDFSLt1_VMC6.14 <- ModelDFSLt1_VMC6.13[-nrow(ModelDFSLt1_VMC6.13),]
-ModelDFSLt1_VMC6.15 <- ModelDFSLt1_VMC6.14[-nrow(ModelDFSLt1_VMC6.14),]
-ModelDFSLt1_VMC6.16 <- ModelDFSLt1_VMC6.15[-nrow(ModelDFSLt1_VMC6.15),]
-ModelDFSLt1_VMC6.17 <- ModelDFSLt1_VMC6.16[-nrow(ModelDFSLt1_VMC6.16),]
-ModelDFSLt1_VMC6.18 <- ModelDFSLt1_VMC6.17[-nrow(ModelDFSLt1_VMC6.17),]
-ModelDFSLt1_VMC6.19 <- ModelDFSLt1_VMC6.18[-nrow(ModelDFSLt1_VMC6.18),]
-ModelDFSLt1_VMC6.20 <- ModelDFSLt1_VMC6.19[-nrow(ModelDFSLt1_VMC6.19),]
-ModelDFSLt1_VMC6.21 <- ModelDFSLt1_VMC6.20[-nrow(ModelDFSLt1_VMC6.20),]
-ModelDFSLt1_VMC6.22 <- ModelDFSLt1_VMC6.21[-nrow(ModelDFSLt1_VMC6.21),]
-ModelDFSLt1_VMC6.23 <- ModelDFSLt1_VMC6.22[-nrow(ModelDFSLt1_VMC6.22),]
-ModelDFSLt1_VMC6.24 <- ModelDFSLt1_VMC6.23[-nrow(ModelDFSLt1_VMC6.23),]
-
-ModelDFSLt1_VMC6 <- ModelDFSLt1_VMC6.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VMC6 <- rbind(c(0:0), ModelDFSLt1_VMC6)
+  assign(paste0("ModelDFSLt1_VMC6.", i), ModelDFSLt1_VMC6)
+}
+ModelDFSLt1_VMC6 <- head(ModelDFSLt1_VMC6.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMC6 <- ModelDFSLt0_VMC6 - ModelDFSLt1_VMC6
@@ -7257,8 +6535,11 @@ ModelDFSL1y_VMC6 <- ModelDFSLt0_VMC6 - ModelDFSLt1_VMC6
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMC6$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMC_6P because implies a one-off input of C
-ModelDFSL_VMC_6P <- ModelDFSL1y_VMC6
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VMC6_CorrectingPlus1 <- head(ModelDFSL1y_VMC6, -12) #Create model t=x+1
+
+#This model will be called VMC_0P because implies a one-off input of C
+ModelDFSL_VMC_6P <- ModelDFSLt1_VMC6_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VMC_6P,"VXP_Models\\ModelDFSL_R_VMC_6P.xlsx")
@@ -7404,32 +6685,11 @@ write_xlsx(ModelDFSL_VMC7C,"VXC_Models\\ModelDFSL_R_VMC7C.xlsx")
 ModelDFSLt0_VMC7 <- ModelDFSL_VMC7 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VMC7.1 <- rbind(c(0:0), ModelDFSLt0_VMC7)
-ModelDFSLt1_VMC7.2 <- rbind(c(0:0), ModelDFSLt1_VMC7.1)
-ModelDFSLt1_VMC7.3 <- rbind(c(0:0), ModelDFSLt1_VMC7.2)
-ModelDFSLt1_VMC7.4 <- rbind(c(0:0), ModelDFSLt1_VMC7.3)
-ModelDFSLt1_VMC7.5 <- rbind(c(0:0), ModelDFSLt1_VMC7.4)
-ModelDFSLt1_VMC7.6 <- rbind(c(0:0), ModelDFSLt1_VMC7.5)
-ModelDFSLt1_VMC7.7 <- rbind(c(0:0), ModelDFSLt1_VMC7.6)
-ModelDFSLt1_VMC7.8 <- rbind(c(0:0), ModelDFSLt1_VMC7.7)
-ModelDFSLt1_VMC7.9 <- rbind(c(0:0), ModelDFSLt1_VMC7.8)
-ModelDFSLt1_VMC7.10 <- rbind(c(0:0), ModelDFSLt1_VMC7.9)
-ModelDFSLt1_VMC7.11 <- rbind(c(0:0), ModelDFSLt1_VMC7.10)
-ModelDFSLt1_VMC7.12 <- rbind(c(0:0), ModelDFSLt1_VMC7.11)
-ModelDFSLt1_VMC7.13 <- ModelDFSLt1_VMC7.12[-nrow(ModelDFSLt1_VMC7.12),]
-ModelDFSLt1_VMC7.14 <- ModelDFSLt1_VMC7.13[-nrow(ModelDFSLt1_VMC7.13),]
-ModelDFSLt1_VMC7.15 <- ModelDFSLt1_VMC7.14[-nrow(ModelDFSLt1_VMC7.14),]
-ModelDFSLt1_VMC7.16 <- ModelDFSLt1_VMC7.15[-nrow(ModelDFSLt1_VMC7.15),]
-ModelDFSLt1_VMC7.17 <- ModelDFSLt1_VMC7.16[-nrow(ModelDFSLt1_VMC7.16),]
-ModelDFSLt1_VMC7.18 <- ModelDFSLt1_VMC7.17[-nrow(ModelDFSLt1_VMC7.17),]
-ModelDFSLt1_VMC7.19 <- ModelDFSLt1_VMC7.18[-nrow(ModelDFSLt1_VMC7.18),]
-ModelDFSLt1_VMC7.20 <- ModelDFSLt1_VMC7.19[-nrow(ModelDFSLt1_VMC7.19),]
-ModelDFSLt1_VMC7.21 <- ModelDFSLt1_VMC7.20[-nrow(ModelDFSLt1_VMC7.20),]
-ModelDFSLt1_VMC7.22 <- ModelDFSLt1_VMC7.21[-nrow(ModelDFSLt1_VMC7.21),]
-ModelDFSLt1_VMC7.23 <- ModelDFSLt1_VMC7.22[-nrow(ModelDFSLt1_VMC7.22),]
-ModelDFSLt1_VMC7.24 <- ModelDFSLt1_VMC7.23[-nrow(ModelDFSLt1_VMC7.23),]
-
-ModelDFSLt1_VMC7 <- ModelDFSLt1_VMC7.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VMC7 <- rbind(c(0:0), ModelDFSLt1_VMC7)
+  assign(paste0("ModelDFSLt1_VMC7.", i), ModelDFSLt1_VMC7)
+}
+ModelDFSLt1_VMC7 <- head(ModelDFSLt1_VMC7.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMC7 <- ModelDFSLt0_VMC7 - ModelDFSLt1_VMC7
@@ -7437,8 +6697,11 @@ ModelDFSL1y_VMC7 <- ModelDFSLt0_VMC7 - ModelDFSLt1_VMC7
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMC7$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMC_7P because implies a one-off input of C
-ModelDFSL_VMC_7P <- ModelDFSL1y_VMC7
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VMC7_CorrectingPlus1 <- head(ModelDFSL1y_VMC7, -12) #Create model t=x+1
+
+#This model will be called VMC_0P because implies a one-off input of C
+ModelDFSL_VMC_7P <- ModelDFSLt1_VMC7_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VMC_7P,"VXP_Models\\ModelDFSL_R_VMC_7P.xlsx")
@@ -7585,32 +6848,11 @@ write_xlsx(ModelDFSL_VMC8C,"VXC_Models\\ModelDFSL_R_VMC8C.xlsx")
 ModelDFSLt0_VMC8 <- ModelDFSL_VMC8 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VMC8.1 <- rbind(c(0:0), ModelDFSLt0_VMC8)
-ModelDFSLt1_VMC8.2 <- rbind(c(0:0), ModelDFSLt1_VMC8.1)
-ModelDFSLt1_VMC8.3 <- rbind(c(0:0), ModelDFSLt1_VMC8.2)
-ModelDFSLt1_VMC8.4 <- rbind(c(0:0), ModelDFSLt1_VMC8.3)
-ModelDFSLt1_VMC8.5 <- rbind(c(0:0), ModelDFSLt1_VMC8.4)
-ModelDFSLt1_VMC8.6 <- rbind(c(0:0), ModelDFSLt1_VMC8.5)
-ModelDFSLt1_VMC8.7 <- rbind(c(0:0), ModelDFSLt1_VMC8.6)
-ModelDFSLt1_VMC8.8 <- rbind(c(0:0), ModelDFSLt1_VMC8.7)
-ModelDFSLt1_VMC8.9 <- rbind(c(0:0), ModelDFSLt1_VMC8.8)
-ModelDFSLt1_VMC8.10 <- rbind(c(0:0), ModelDFSLt1_VMC8.9)
-ModelDFSLt1_VMC8.11 <- rbind(c(0:0), ModelDFSLt1_VMC8.10)
-ModelDFSLt1_VMC8.12 <- rbind(c(0:0), ModelDFSLt1_VMC8.11)
-ModelDFSLt1_VMC8.13 <- ModelDFSLt1_VMC8.12[-nrow(ModelDFSLt1_VMC8.12),]
-ModelDFSLt1_VMC8.14 <- ModelDFSLt1_VMC8.13[-nrow(ModelDFSLt1_VMC8.13),]
-ModelDFSLt1_VMC8.15 <- ModelDFSLt1_VMC8.14[-nrow(ModelDFSLt1_VMC8.14),]
-ModelDFSLt1_VMC8.16 <- ModelDFSLt1_VMC8.15[-nrow(ModelDFSLt1_VMC8.15),]
-ModelDFSLt1_VMC8.17 <- ModelDFSLt1_VMC8.16[-nrow(ModelDFSLt1_VMC8.16),]
-ModelDFSLt1_VMC8.18 <- ModelDFSLt1_VMC8.17[-nrow(ModelDFSLt1_VMC8.17),]
-ModelDFSLt1_VMC8.19 <- ModelDFSLt1_VMC8.18[-nrow(ModelDFSLt1_VMC8.18),]
-ModelDFSLt1_VMC8.20 <- ModelDFSLt1_VMC8.19[-nrow(ModelDFSLt1_VMC8.19),]
-ModelDFSLt1_VMC8.21 <- ModelDFSLt1_VMC8.20[-nrow(ModelDFSLt1_VMC8.20),]
-ModelDFSLt1_VMC8.22 <- ModelDFSLt1_VMC8.21[-nrow(ModelDFSLt1_VMC8.21),]
-ModelDFSLt1_VMC8.23 <- ModelDFSLt1_VMC8.22[-nrow(ModelDFSLt1_VMC8.22),]
-ModelDFSLt1_VMC8.24 <- ModelDFSLt1_VMC8.23[-nrow(ModelDFSLt1_VMC8.23),]
-
-ModelDFSLt1_VMC8 <- ModelDFSLt1_VMC8.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VMC8 <- rbind(c(0:0), ModelDFSLt1_VMC8)
+  assign(paste0("ModelDFSLt1_VMC8.", i), ModelDFSLt1_VMC8)
+}
+ModelDFSLt1_VMC8 <- head(ModelDFSLt1_VMC8.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMC8 <- ModelDFSLt0_VMC8 - ModelDFSLt1_VMC8
@@ -7618,8 +6860,11 @@ ModelDFSL1y_VMC8 <- ModelDFSLt0_VMC8 - ModelDFSLt1_VMC8
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMC8$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMC_8P because implies a one-off input of C
-ModelDFSL_VMC_8P <- ModelDFSL1y_VMC8
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VMC8_CorrectingPlus1 <- head(ModelDFSL1y_VMC8, -12) #Create model t=x+1
+
+#This model will be called VMC_0P because implies a one-off input of C
+ModelDFSL_VMC_8P <- ModelDFSLt1_VMC8_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VMC_8P,"VXP_Models\\ModelDFSL_R_VMC_8P.xlsx")
@@ -7765,32 +7010,11 @@ write_xlsx(ModelDFSL_VMC9C,"VXC_Models\\ModelDFSL_R_VMC9C.xlsx")
 ModelDFSLt0_VMC9 <- ModelDFSL_VMC9 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VMC9.1 <- rbind(c(0:0), ModelDFSLt0_VMC9)
-ModelDFSLt1_VMC9.2 <- rbind(c(0:0), ModelDFSLt1_VMC9.1)
-ModelDFSLt1_VMC9.3 <- rbind(c(0:0), ModelDFSLt1_VMC9.2)
-ModelDFSLt1_VMC9.4 <- rbind(c(0:0), ModelDFSLt1_VMC9.3)
-ModelDFSLt1_VMC9.5 <- rbind(c(0:0), ModelDFSLt1_VMC9.4)
-ModelDFSLt1_VMC9.6 <- rbind(c(0:0), ModelDFSLt1_VMC9.5)
-ModelDFSLt1_VMC9.7 <- rbind(c(0:0), ModelDFSLt1_VMC9.6)
-ModelDFSLt1_VMC9.8 <- rbind(c(0:0), ModelDFSLt1_VMC9.7)
-ModelDFSLt1_VMC9.9 <- rbind(c(0:0), ModelDFSLt1_VMC9.8)
-ModelDFSLt1_VMC9.10 <- rbind(c(0:0), ModelDFSLt1_VMC9.9)
-ModelDFSLt1_VMC9.11 <- rbind(c(0:0), ModelDFSLt1_VMC9.10)
-ModelDFSLt1_VMC9.12 <- rbind(c(0:0), ModelDFSLt1_VMC9.11)
-ModelDFSLt1_VMC9.13 <- ModelDFSLt1_VMC9.12[-nrow(ModelDFSLt1_VMC9.12),]
-ModelDFSLt1_VMC9.14 <- ModelDFSLt1_VMC9.13[-nrow(ModelDFSLt1_VMC9.13),]
-ModelDFSLt1_VMC9.15 <- ModelDFSLt1_VMC9.14[-nrow(ModelDFSLt1_VMC9.14),]
-ModelDFSLt1_VMC9.16 <- ModelDFSLt1_VMC9.15[-nrow(ModelDFSLt1_VMC9.15),]
-ModelDFSLt1_VMC9.17 <- ModelDFSLt1_VMC9.16[-nrow(ModelDFSLt1_VMC9.16),]
-ModelDFSLt1_VMC9.18 <- ModelDFSLt1_VMC9.17[-nrow(ModelDFSLt1_VMC9.17),]
-ModelDFSLt1_VMC9.19 <- ModelDFSLt1_VMC9.18[-nrow(ModelDFSLt1_VMC9.18),]
-ModelDFSLt1_VMC9.20 <- ModelDFSLt1_VMC9.19[-nrow(ModelDFSLt1_VMC9.19),]
-ModelDFSLt1_VMC9.21 <- ModelDFSLt1_VMC9.20[-nrow(ModelDFSLt1_VMC9.20),]
-ModelDFSLt1_VMC9.22 <- ModelDFSLt1_VMC9.21[-nrow(ModelDFSLt1_VMC9.21),]
-ModelDFSLt1_VMC9.23 <- ModelDFSLt1_VMC9.22[-nrow(ModelDFSLt1_VMC9.22),]
-ModelDFSLt1_VMC9.24 <- ModelDFSLt1_VMC9.23[-nrow(ModelDFSLt1_VMC9.23),]
-
-ModelDFSLt1_VMC9 <- ModelDFSLt1_VMC9.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VMC9 <- rbind(c(0:0), ModelDFSLt1_VMC9)
+  assign(paste0("ModelDFSLt1_VMC9.", i), ModelDFSLt1_VMC9)
+}
+ModelDFSLt1_VMC9 <- head(ModelDFSLt1_VMC9.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMC9 <- ModelDFSLt0_VMC9 - ModelDFSLt1_VMC9
@@ -7798,8 +7022,11 @@ ModelDFSL1y_VMC9 <- ModelDFSLt0_VMC9 - ModelDFSLt1_VMC9
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMC9$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMC_9P because implies a one-off input of C
-ModelDFSL_VMC_9P <- ModelDFSL1y_VMC9
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VMC9_CorrectingPlus1 <- head(ModelDFSL1y_VMC9, -12) #Create model t=x+1
+
+#This model will be called VMC_0P because implies a one-off input of C
+ModelDFSL_VMC_9P <- ModelDFSLt1_VMC9_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VMC_9P,"VXP_Models\\ModelDFSL_R_VMC_9P.xlsx")
@@ -7945,32 +7172,11 @@ write_xlsx(ModelDFSL_VMC10C,"VXC_Models\\ModelDFSL_R_VMC10C.xlsx")
 ModelDFSLt0_VMC10 <- ModelDFSL_VMC10 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VMC10.1 <- rbind(c(0:0), ModelDFSLt0_VMC10)
-ModelDFSLt1_VMC10.2 <- rbind(c(0:0), ModelDFSLt1_VMC10.1)
-ModelDFSLt1_VMC10.3 <- rbind(c(0:0), ModelDFSLt1_VMC10.2)
-ModelDFSLt1_VMC10.4 <- rbind(c(0:0), ModelDFSLt1_VMC10.3)
-ModelDFSLt1_VMC10.5 <- rbind(c(0:0), ModelDFSLt1_VMC10.4)
-ModelDFSLt1_VMC10.6 <- rbind(c(0:0), ModelDFSLt1_VMC10.5)
-ModelDFSLt1_VMC10.7 <- rbind(c(0:0), ModelDFSLt1_VMC10.6)
-ModelDFSLt1_VMC10.8 <- rbind(c(0:0), ModelDFSLt1_VMC10.7)
-ModelDFSLt1_VMC10.9 <- rbind(c(0:0), ModelDFSLt1_VMC10.8)
-ModelDFSLt1_VMC10.10 <- rbind(c(0:0), ModelDFSLt1_VMC10.9)
-ModelDFSLt1_VMC10.11 <- rbind(c(0:0), ModelDFSLt1_VMC10.10)
-ModelDFSLt1_VMC10.12 <- rbind(c(0:0), ModelDFSLt1_VMC10.11)
-ModelDFSLt1_VMC10.13 <- ModelDFSLt1_VMC10.12[-nrow(ModelDFSLt1_VMC10.12),]
-ModelDFSLt1_VMC10.14 <- ModelDFSLt1_VMC10.13[-nrow(ModelDFSLt1_VMC10.13),]
-ModelDFSLt1_VMC10.15 <- ModelDFSLt1_VMC10.14[-nrow(ModelDFSLt1_VMC10.14),]
-ModelDFSLt1_VMC10.16 <- ModelDFSLt1_VMC10.15[-nrow(ModelDFSLt1_VMC10.15),]
-ModelDFSLt1_VMC10.17 <- ModelDFSLt1_VMC10.16[-nrow(ModelDFSLt1_VMC10.16),]
-ModelDFSLt1_VMC10.18 <- ModelDFSLt1_VMC10.17[-nrow(ModelDFSLt1_VMC10.17),]
-ModelDFSLt1_VMC10.19 <- ModelDFSLt1_VMC10.18[-nrow(ModelDFSLt1_VMC10.18),]
-ModelDFSLt1_VMC10.20 <- ModelDFSLt1_VMC10.19[-nrow(ModelDFSLt1_VMC10.19),]
-ModelDFSLt1_VMC10.21 <- ModelDFSLt1_VMC10.20[-nrow(ModelDFSLt1_VMC10.20),]
-ModelDFSLt1_VMC10.22 <- ModelDFSLt1_VMC10.21[-nrow(ModelDFSLt1_VMC10.21),]
-ModelDFSLt1_VMC10.23 <- ModelDFSLt1_VMC10.22[-nrow(ModelDFSLt1_VMC10.22),]
-ModelDFSLt1_VMC10.24 <- ModelDFSLt1_VMC10.23[-nrow(ModelDFSLt1_VMC10.23),]
-
-ModelDFSLt1_VMC10 <- ModelDFSLt1_VMC10.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VMC10 <- rbind(c(0:0), ModelDFSLt1_VMC10)
+  assign(paste0("ModelDFSLt1_VMC10.", i), ModelDFSLt1_VMC10)
+}
+ModelDFSLt1_VMC10 <- head(ModelDFSLt1_VMC10.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMC10 <- ModelDFSLt0_VMC10 - ModelDFSLt1_VMC10
@@ -7978,8 +7184,11 @@ ModelDFSL1y_VMC10 <- ModelDFSLt0_VMC10 - ModelDFSLt1_VMC10
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMC10$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMC10P because implies a one-off input of C
-ModelDFSL_VMC10P <- ModelDFSL1y_VMC10
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VMC10_CorrectingPlus1 <- head(ModelDFSL1y_VMC10, -12) #Create model t=x+1
+
+#This model will be called VMC_0P because implies a one-off input of C
+ModelDFSL_VMC10P <- ModelDFSLt1_VMC10_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VMC10P,"VXP_Models\\ModelDFSL_R_VMC10P.xlsx")
@@ -8118,32 +7327,11 @@ write_xlsx(ModelDFSL_VMR0C,"VXC_Models\\ModelDFSL_R_VMR0C.xlsx")
 ModelDFSLt0_VMR0 <- ModelDFSL_VMR0 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VMR0.1 <- rbind(c(0:0), ModelDFSLt0_VMR0)
-ModelDFSLt1_VMR0.2 <- rbind(c(0:0), ModelDFSLt1_VMR0.1)
-ModelDFSLt1_VMR0.3 <- rbind(c(0:0), ModelDFSLt1_VMR0.2)
-ModelDFSLt1_VMR0.4 <- rbind(c(0:0), ModelDFSLt1_VMR0.3)
-ModelDFSLt1_VMR0.5 <- rbind(c(0:0), ModelDFSLt1_VMR0.4)
-ModelDFSLt1_VMR0.6 <- rbind(c(0:0), ModelDFSLt1_VMR0.5)
-ModelDFSLt1_VMR0.7 <- rbind(c(0:0), ModelDFSLt1_VMR0.6)
-ModelDFSLt1_VMR0.8 <- rbind(c(0:0), ModelDFSLt1_VMR0.7)
-ModelDFSLt1_VMR0.9 <- rbind(c(0:0), ModelDFSLt1_VMR0.8)
-ModelDFSLt1_VMR0.10 <- rbind(c(0:0), ModelDFSLt1_VMR0.9)
-ModelDFSLt1_VMR0.11 <- rbind(c(0:0), ModelDFSLt1_VMR0.10)
-ModelDFSLt1_VMR0.12 <- rbind(c(0:0), ModelDFSLt1_VMR0.11)
-ModelDFSLt1_VMR0.13 <- ModelDFSLt1_VMR0.12[-nrow(ModelDFSLt1_VMR0.12),]
-ModelDFSLt1_VMR0.14 <- ModelDFSLt1_VMR0.13[-nrow(ModelDFSLt1_VMR0.13),]
-ModelDFSLt1_VMR0.15 <- ModelDFSLt1_VMR0.14[-nrow(ModelDFSLt1_VMR0.14),]
-ModelDFSLt1_VMR0.16 <- ModelDFSLt1_VMR0.15[-nrow(ModelDFSLt1_VMR0.15),]
-ModelDFSLt1_VMR0.17 <- ModelDFSLt1_VMR0.16[-nrow(ModelDFSLt1_VMR0.16),]
-ModelDFSLt1_VMR0.18 <- ModelDFSLt1_VMR0.17[-nrow(ModelDFSLt1_VMR0.17),]
-ModelDFSLt1_VMR0.19 <- ModelDFSLt1_VMR0.18[-nrow(ModelDFSLt1_VMR0.18),]
-ModelDFSLt1_VMR0.20 <- ModelDFSLt1_VMR0.19[-nrow(ModelDFSLt1_VMR0.19),]
-ModelDFSLt1_VMR0.21 <- ModelDFSLt1_VMR0.20[-nrow(ModelDFSLt1_VMR0.20),]
-ModelDFSLt1_VMR0.22 <- ModelDFSLt1_VMR0.21[-nrow(ModelDFSLt1_VMR0.21),]
-ModelDFSLt1_VMR0.23 <- ModelDFSLt1_VMR0.22[-nrow(ModelDFSLt1_VMR0.22),]
-ModelDFSLt1_VMR0.24 <- ModelDFSLt1_VMR0.23[-nrow(ModelDFSLt1_VMR0.23),]
-
-ModelDFSLt1_VMR0 <- ModelDFSLt1_VMR0.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VMR0 <- rbind(c(0:0), ModelDFSLt1_VMR0)
+  assign(paste0("ModelDFSLt1_VMR0.", i), ModelDFSLt1_VMR0)
+}
+ModelDFSLt1_VMR0 <- head(ModelDFSLt1_VMR0.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMR0 <- ModelDFSLt0_VMR0 - ModelDFSLt1_VMR0
@@ -8151,8 +7339,11 @@ ModelDFSL1y_VMR0 <- ModelDFSLt0_VMR0 - ModelDFSLt1_VMR0
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMR0$MNumber <- seq(from = 1, to = SimulationLength_months)
 
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VMR0_CorrectingPlus1 <- head(ModelDFSL1y_VMR0, -12) #Create model t=x+1
+
 #This model will be called VMR_0P because implies a one-off input of C
-ModelDFSL_VMR_0P <- ModelDFSL1y_VMR0
+ModelDFSL_VMR_0P <- ModelDFSLt1_VMR0_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VMR_0P,"VXP_Models\\ModelDFSL_R_VMR_0P.xlsx")
@@ -8295,32 +7486,11 @@ write_xlsx(ModelDFSL_VMR1C,"VXC_Models\\ModelDFSL_R_VMR1C.xlsx")
 ModelDFSLt0_VMR1 <- ModelDFSL_VMR1 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VMR1.1 <- rbind(c(0:0), ModelDFSLt0_VMR1)
-ModelDFSLt1_VMR1.2 <- rbind(c(0:0), ModelDFSLt1_VMR1.1)
-ModelDFSLt1_VMR1.3 <- rbind(c(0:0), ModelDFSLt1_VMR1.2)
-ModelDFSLt1_VMR1.4 <- rbind(c(0:0), ModelDFSLt1_VMR1.3)
-ModelDFSLt1_VMR1.5 <- rbind(c(0:0), ModelDFSLt1_VMR1.4)
-ModelDFSLt1_VMR1.6 <- rbind(c(0:0), ModelDFSLt1_VMR1.5)
-ModelDFSLt1_VMR1.7 <- rbind(c(0:0), ModelDFSLt1_VMR1.6)
-ModelDFSLt1_VMR1.8 <- rbind(c(0:0), ModelDFSLt1_VMR1.7)
-ModelDFSLt1_VMR1.9 <- rbind(c(0:0), ModelDFSLt1_VMR1.8)
-ModelDFSLt1_VMR1.10 <- rbind(c(0:0), ModelDFSLt1_VMR1.9)
-ModelDFSLt1_VMR1.11 <- rbind(c(0:0), ModelDFSLt1_VMR1.10)
-ModelDFSLt1_VMR1.12 <- rbind(c(0:0), ModelDFSLt1_VMR1.11)
-ModelDFSLt1_VMR1.13 <- ModelDFSLt1_VMR1.12[-nrow(ModelDFSLt1_VMR1.12),]
-ModelDFSLt1_VMR1.14 <- ModelDFSLt1_VMR1.13[-nrow(ModelDFSLt1_VMR1.13),]
-ModelDFSLt1_VMR1.15 <- ModelDFSLt1_VMR1.14[-nrow(ModelDFSLt1_VMR1.14),]
-ModelDFSLt1_VMR1.16 <- ModelDFSLt1_VMR1.15[-nrow(ModelDFSLt1_VMR1.15),]
-ModelDFSLt1_VMR1.17 <- ModelDFSLt1_VMR1.16[-nrow(ModelDFSLt1_VMR1.16),]
-ModelDFSLt1_VMR1.18 <- ModelDFSLt1_VMR1.17[-nrow(ModelDFSLt1_VMR1.17),]
-ModelDFSLt1_VMR1.19 <- ModelDFSLt1_VMR1.18[-nrow(ModelDFSLt1_VMR1.18),]
-ModelDFSLt1_VMR1.20 <- ModelDFSLt1_VMR1.19[-nrow(ModelDFSLt1_VMR1.19),]
-ModelDFSLt1_VMR1.21 <- ModelDFSLt1_VMR1.20[-nrow(ModelDFSLt1_VMR1.20),]
-ModelDFSLt1_VMR1.22 <- ModelDFSLt1_VMR1.21[-nrow(ModelDFSLt1_VMR1.21),]
-ModelDFSLt1_VMR1.23 <- ModelDFSLt1_VMR1.22[-nrow(ModelDFSLt1_VMR1.22),]
-ModelDFSLt1_VMR1.24 <- ModelDFSLt1_VMR1.23[-nrow(ModelDFSLt1_VMR1.23),]
-
-ModelDFSLt1_VMR1 <- ModelDFSLt1_VMR1.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VMR1 <- rbind(c(0:0), ModelDFSLt1_VMR1)
+  assign(paste0("ModelDFSLt1_VMR1.", i), ModelDFSLt1_VMR1)
+}
+ModelDFSLt1_VMR1 <- head(ModelDFSLt1_VMR1.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMR1 <- ModelDFSLt0_VMR1 - ModelDFSLt1_VMR1
@@ -8328,8 +7498,11 @@ ModelDFSL1y_VMR1 <- ModelDFSLt0_VMR1 - ModelDFSLt1_VMR1
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMR1$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMR_1P because implies a one-off input of C
-ModelDFSL_VMR_1P <- ModelDFSL1y_VMR1
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VMR1_CorrectingPlus1 <- head(ModelDFSL1y_VMR1, -12) #Create model t=x+1
+
+#This model will be called VMR_0P because implies a one-off input of C
+ModelDFSL_VMR_1P <- ModelDFSLt1_VMR1_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VMR_1P,"VXP_Models\\ModelDFSL_R_VMR_1P.xlsx")
@@ -8473,32 +7646,11 @@ write_xlsx(ModelDFSL_VMR2C,"VXC_Models\\ModelDFSL_R_VMR2C.xlsx")
 ModelDFSLt0_VMR2 <- ModelDFSL_VMR2 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VMR2.1 <- rbind(c(0:0), ModelDFSLt0_VMR2)
-ModelDFSLt1_VMR2.2 <- rbind(c(0:0), ModelDFSLt1_VMR2.1)
-ModelDFSLt1_VMR2.3 <- rbind(c(0:0), ModelDFSLt1_VMR2.2)
-ModelDFSLt1_VMR2.4 <- rbind(c(0:0), ModelDFSLt1_VMR2.3)
-ModelDFSLt1_VMR2.5 <- rbind(c(0:0), ModelDFSLt1_VMR2.4)
-ModelDFSLt1_VMR2.6 <- rbind(c(0:0), ModelDFSLt1_VMR2.5)
-ModelDFSLt1_VMR2.7 <- rbind(c(0:0), ModelDFSLt1_VMR2.6)
-ModelDFSLt1_VMR2.8 <- rbind(c(0:0), ModelDFSLt1_VMR2.7)
-ModelDFSLt1_VMR2.9 <- rbind(c(0:0), ModelDFSLt1_VMR2.8)
-ModelDFSLt1_VMR2.10 <- rbind(c(0:0), ModelDFSLt1_VMR2.9)
-ModelDFSLt1_VMR2.11 <- rbind(c(0:0), ModelDFSLt1_VMR2.10)
-ModelDFSLt1_VMR2.12 <- rbind(c(0:0), ModelDFSLt1_VMR2.11)
-ModelDFSLt1_VMR2.13 <- ModelDFSLt1_VMR2.12[-nrow(ModelDFSLt1_VMR2.12),]
-ModelDFSLt1_VMR2.14 <- ModelDFSLt1_VMR2.13[-nrow(ModelDFSLt1_VMR2.13),]
-ModelDFSLt1_VMR2.15 <- ModelDFSLt1_VMR2.14[-nrow(ModelDFSLt1_VMR2.14),]
-ModelDFSLt1_VMR2.16 <- ModelDFSLt1_VMR2.15[-nrow(ModelDFSLt1_VMR2.15),]
-ModelDFSLt1_VMR2.17 <- ModelDFSLt1_VMR2.16[-nrow(ModelDFSLt1_VMR2.16),]
-ModelDFSLt1_VMR2.18 <- ModelDFSLt1_VMR2.17[-nrow(ModelDFSLt1_VMR2.17),]
-ModelDFSLt1_VMR2.19 <- ModelDFSLt1_VMR2.18[-nrow(ModelDFSLt1_VMR2.18),]
-ModelDFSLt1_VMR2.20 <- ModelDFSLt1_VMR2.19[-nrow(ModelDFSLt1_VMR2.19),]
-ModelDFSLt1_VMR2.21 <- ModelDFSLt1_VMR2.20[-nrow(ModelDFSLt1_VMR2.20),]
-ModelDFSLt1_VMR2.22 <- ModelDFSLt1_VMR2.21[-nrow(ModelDFSLt1_VMR2.21),]
-ModelDFSLt1_VMR2.23 <- ModelDFSLt1_VMR2.22[-nrow(ModelDFSLt1_VMR2.22),]
-ModelDFSLt1_VMR2.24 <- ModelDFSLt1_VMR2.23[-nrow(ModelDFSLt1_VMR2.23),]
-
-ModelDFSLt1_VMR2 <- ModelDFSLt1_VMR2.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VMR2 <- rbind(c(0:0), ModelDFSLt1_VMR2)
+  assign(paste0("ModelDFSLt1_VMR2.", i), ModelDFSLt1_VMR2)
+}
+ModelDFSLt1_VMR2 <- head(ModelDFSLt1_VMR2.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMR2 <- ModelDFSLt0_VMR2 - ModelDFSLt1_VMR2
@@ -8506,8 +7658,11 @@ ModelDFSL1y_VMR2 <- ModelDFSLt0_VMR2 - ModelDFSLt1_VMR2
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMR2$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMR_2P because implies a one-off input of C
-ModelDFSL_VMR_2P <- ModelDFSL1y_VMR2
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VMR2_CorrectingPlus1 <- head(ModelDFSL1y_VMR2, -12) #Create model t=x+1
+
+#This model will be called VMR_0P because implies a one-off input of C
+ModelDFSL_VMR_2P <- ModelDFSLt1_VMR2_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VMR_2P,"VXP_Models\\ModelDFSL_R_VMR_2P.xlsx")
@@ -8651,32 +7806,11 @@ write_xlsx(ModelDFSL_VMR3C,"VXC_Models\\ModelDFSL_R_VMR3C.xlsx")
 ModelDFSLt0_VMR3 <- ModelDFSL_VMR3 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VMR3.1 <- rbind(c(0:0), ModelDFSLt0_VMR3)
-ModelDFSLt1_VMR3.2 <- rbind(c(0:0), ModelDFSLt1_VMR3.1)
-ModelDFSLt1_VMR3.3 <- rbind(c(0:0), ModelDFSLt1_VMR3.2)
-ModelDFSLt1_VMR3.4 <- rbind(c(0:0), ModelDFSLt1_VMR3.3)
-ModelDFSLt1_VMR3.5 <- rbind(c(0:0), ModelDFSLt1_VMR3.4)
-ModelDFSLt1_VMR3.6 <- rbind(c(0:0), ModelDFSLt1_VMR3.5)
-ModelDFSLt1_VMR3.7 <- rbind(c(0:0), ModelDFSLt1_VMR3.6)
-ModelDFSLt1_VMR3.8 <- rbind(c(0:0), ModelDFSLt1_VMR3.7)
-ModelDFSLt1_VMR3.9 <- rbind(c(0:0), ModelDFSLt1_VMR3.8)
-ModelDFSLt1_VMR3.10 <- rbind(c(0:0), ModelDFSLt1_VMR3.9)
-ModelDFSLt1_VMR3.11 <- rbind(c(0:0), ModelDFSLt1_VMR3.10)
-ModelDFSLt1_VMR3.12 <- rbind(c(0:0), ModelDFSLt1_VMR3.11)
-ModelDFSLt1_VMR3.13 <- ModelDFSLt1_VMR3.12[-nrow(ModelDFSLt1_VMR3.12),]
-ModelDFSLt1_VMR3.14 <- ModelDFSLt1_VMR3.13[-nrow(ModelDFSLt1_VMR3.13),]
-ModelDFSLt1_VMR3.15 <- ModelDFSLt1_VMR3.14[-nrow(ModelDFSLt1_VMR3.14),]
-ModelDFSLt1_VMR3.16 <- ModelDFSLt1_VMR3.15[-nrow(ModelDFSLt1_VMR3.15),]
-ModelDFSLt1_VMR3.17 <- ModelDFSLt1_VMR3.16[-nrow(ModelDFSLt1_VMR3.16),]
-ModelDFSLt1_VMR3.18 <- ModelDFSLt1_VMR3.17[-nrow(ModelDFSLt1_VMR3.17),]
-ModelDFSLt1_VMR3.19 <- ModelDFSLt1_VMR3.18[-nrow(ModelDFSLt1_VMR3.18),]
-ModelDFSLt1_VMR3.20 <- ModelDFSLt1_VMR3.19[-nrow(ModelDFSLt1_VMR3.19),]
-ModelDFSLt1_VMR3.21 <- ModelDFSLt1_VMR3.20[-nrow(ModelDFSLt1_VMR3.20),]
-ModelDFSLt1_VMR3.22 <- ModelDFSLt1_VMR3.21[-nrow(ModelDFSLt1_VMR3.21),]
-ModelDFSLt1_VMR3.23 <- ModelDFSLt1_VMR3.22[-nrow(ModelDFSLt1_VMR3.22),]
-ModelDFSLt1_VMR3.24 <- ModelDFSLt1_VMR3.23[-nrow(ModelDFSLt1_VMR3.23),]
-
-ModelDFSLt1_VMR3 <- ModelDFSLt1_VMR3.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VMR3 <- rbind(c(0:0), ModelDFSLt1_VMR3)
+  assign(paste0("ModelDFSLt1_VMR3.", i), ModelDFSLt1_VMR3)
+}
+ModelDFSLt1_VMR3 <- head(ModelDFSLt1_VMR3.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMR3 <- ModelDFSLt0_VMR3 - ModelDFSLt1_VMR3
@@ -8684,8 +7818,11 @@ ModelDFSL1y_VMR3 <- ModelDFSLt0_VMR3 - ModelDFSLt1_VMR3
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMR3$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMR_3P because implies a one-off input of C
-ModelDFSL_VMR_3P <- ModelDFSL1y_VMR3
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VMR3_CorrectingPlus1 <- head(ModelDFSL1y_VMR3, -12) #Create model t=x+1
+
+#This model will be called VMR_0P because implies a one-off input of C
+ModelDFSL_VMR_3P <- ModelDFSLt1_VMR3_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VMR_3P,"VXP_Models\\ModelDFSL_R_VMR_3P.xlsx")
@@ -8829,32 +7966,11 @@ write_xlsx(ModelDFSL_VMR4C,"VXC_Models\\ModelDFSL_R_VMR4C.xlsx")
 ModelDFSLt0_VMR4 <- ModelDFSL_VMR4 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VMR4.1 <- rbind(c(0:0), ModelDFSLt0_VMR4)
-ModelDFSLt1_VMR4.2 <- rbind(c(0:0), ModelDFSLt1_VMR4.1)
-ModelDFSLt1_VMR4.3 <- rbind(c(0:0), ModelDFSLt1_VMR4.2)
-ModelDFSLt1_VMR4.4 <- rbind(c(0:0), ModelDFSLt1_VMR4.3)
-ModelDFSLt1_VMR4.5 <- rbind(c(0:0), ModelDFSLt1_VMR4.4)
-ModelDFSLt1_VMR4.6 <- rbind(c(0:0), ModelDFSLt1_VMR4.5)
-ModelDFSLt1_VMR4.7 <- rbind(c(0:0), ModelDFSLt1_VMR4.6)
-ModelDFSLt1_VMR4.8 <- rbind(c(0:0), ModelDFSLt1_VMR4.7)
-ModelDFSLt1_VMR4.9 <- rbind(c(0:0), ModelDFSLt1_VMR4.8)
-ModelDFSLt1_VMR4.10 <- rbind(c(0:0), ModelDFSLt1_VMR4.9)
-ModelDFSLt1_VMR4.11 <- rbind(c(0:0), ModelDFSLt1_VMR4.10)
-ModelDFSLt1_VMR4.12 <- rbind(c(0:0), ModelDFSLt1_VMR4.11)
-ModelDFSLt1_VMR4.13 <- ModelDFSLt1_VMR4.12[-nrow(ModelDFSLt1_VMR4.12),]
-ModelDFSLt1_VMR4.14 <- ModelDFSLt1_VMR4.13[-nrow(ModelDFSLt1_VMR4.13),]
-ModelDFSLt1_VMR4.15 <- ModelDFSLt1_VMR4.14[-nrow(ModelDFSLt1_VMR4.14),]
-ModelDFSLt1_VMR4.16 <- ModelDFSLt1_VMR4.15[-nrow(ModelDFSLt1_VMR4.15),]
-ModelDFSLt1_VMR4.17 <- ModelDFSLt1_VMR4.16[-nrow(ModelDFSLt1_VMR4.16),]
-ModelDFSLt1_VMR4.18 <- ModelDFSLt1_VMR4.17[-nrow(ModelDFSLt1_VMR4.17),]
-ModelDFSLt1_VMR4.19 <- ModelDFSLt1_VMR4.18[-nrow(ModelDFSLt1_VMR4.18),]
-ModelDFSLt1_VMR4.20 <- ModelDFSLt1_VMR4.19[-nrow(ModelDFSLt1_VMR4.19),]
-ModelDFSLt1_VMR4.21 <- ModelDFSLt1_VMR4.20[-nrow(ModelDFSLt1_VMR4.20),]
-ModelDFSLt1_VMR4.22 <- ModelDFSLt1_VMR4.21[-nrow(ModelDFSLt1_VMR4.21),]
-ModelDFSLt1_VMR4.23 <- ModelDFSLt1_VMR4.22[-nrow(ModelDFSLt1_VMR4.22),]
-ModelDFSLt1_VMR4.24 <- ModelDFSLt1_VMR4.23[-nrow(ModelDFSLt1_VMR4.23),]
-
-ModelDFSLt1_VMR4 <- ModelDFSLt1_VMR4.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VMR4 <- rbind(c(0:0), ModelDFSLt1_VMR4)
+  assign(paste0("ModelDFSLt1_VMR4.", i), ModelDFSLt1_VMR4)
+}
+ModelDFSLt1_VMR4 <- head(ModelDFSLt1_VMR4.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMR4 <- ModelDFSLt0_VMR4 - ModelDFSLt1_VMR4
@@ -8862,8 +7978,11 @@ ModelDFSL1y_VMR4 <- ModelDFSLt0_VMR4 - ModelDFSLt1_VMR4
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMR4$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMR_4P because implies a one-off input of C
-ModelDFSL_VMR_4P <- ModelDFSL1y_VMR4
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VMR4_CorrectingPlus1 <- head(ModelDFSL1y_VMR4, -12) #Create model t=x+1
+
+#This model will be called VMR_0P because implies a one-off input of C
+ModelDFSL_VMR_4P <- ModelDFSLt1_VMR4_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VMR_4P,"VXP_Models\\ModelDFSL_R_VMR_4P.xlsx")
@@ -9007,32 +8126,11 @@ write_xlsx(ModelDFSL_VMR5C,"VXC_Models\\ModelDFSL_R_VMR5C.xlsx")
 ModelDFSLt0_VMR5 <- ModelDFSL_VMR5 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VMR5.1 <- rbind(c(0:0), ModelDFSLt0_VMR5)
-ModelDFSLt1_VMR5.2 <- rbind(c(0:0), ModelDFSLt1_VMR5.1)
-ModelDFSLt1_VMR5.3 <- rbind(c(0:0), ModelDFSLt1_VMR5.2)
-ModelDFSLt1_VMR5.4 <- rbind(c(0:0), ModelDFSLt1_VMR5.3)
-ModelDFSLt1_VMR5.5 <- rbind(c(0:0), ModelDFSLt1_VMR5.4)
-ModelDFSLt1_VMR5.6 <- rbind(c(0:0), ModelDFSLt1_VMR5.5)
-ModelDFSLt1_VMR5.7 <- rbind(c(0:0), ModelDFSLt1_VMR5.6)
-ModelDFSLt1_VMR5.8 <- rbind(c(0:0), ModelDFSLt1_VMR5.7)
-ModelDFSLt1_VMR5.9 <- rbind(c(0:0), ModelDFSLt1_VMR5.8)
-ModelDFSLt1_VMR5.10 <- rbind(c(0:0), ModelDFSLt1_VMR5.9)
-ModelDFSLt1_VMR5.11 <- rbind(c(0:0), ModelDFSLt1_VMR5.10)
-ModelDFSLt1_VMR5.12 <- rbind(c(0:0), ModelDFSLt1_VMR5.11)
-ModelDFSLt1_VMR5.13 <- ModelDFSLt1_VMR5.12[-nrow(ModelDFSLt1_VMR5.12),]
-ModelDFSLt1_VMR5.14 <- ModelDFSLt1_VMR5.13[-nrow(ModelDFSLt1_VMR5.13),]
-ModelDFSLt1_VMR5.15 <- ModelDFSLt1_VMR5.14[-nrow(ModelDFSLt1_VMR5.14),]
-ModelDFSLt1_VMR5.16 <- ModelDFSLt1_VMR5.15[-nrow(ModelDFSLt1_VMR5.15),]
-ModelDFSLt1_VMR5.17 <- ModelDFSLt1_VMR5.16[-nrow(ModelDFSLt1_VMR5.16),]
-ModelDFSLt1_VMR5.18 <- ModelDFSLt1_VMR5.17[-nrow(ModelDFSLt1_VMR5.17),]
-ModelDFSLt1_VMR5.19 <- ModelDFSLt1_VMR5.18[-nrow(ModelDFSLt1_VMR5.18),]
-ModelDFSLt1_VMR5.20 <- ModelDFSLt1_VMR5.19[-nrow(ModelDFSLt1_VMR5.19),]
-ModelDFSLt1_VMR5.21 <- ModelDFSLt1_VMR5.20[-nrow(ModelDFSLt1_VMR5.20),]
-ModelDFSLt1_VMR5.22 <- ModelDFSLt1_VMR5.21[-nrow(ModelDFSLt1_VMR5.21),]
-ModelDFSLt1_VMR5.23 <- ModelDFSLt1_VMR5.22[-nrow(ModelDFSLt1_VMR5.22),]
-ModelDFSLt1_VMR5.24 <- ModelDFSLt1_VMR5.23[-nrow(ModelDFSLt1_VMR5.23),]
-
-ModelDFSLt1_VMR5 <- ModelDFSLt1_VMR5.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VMR5 <- rbind(c(0:0), ModelDFSLt1_VMR5)
+  assign(paste0("ModelDFSLt1_VMR5.", i), ModelDFSLt1_VMR5)
+}
+ModelDFSLt1_VMR5 <- head(ModelDFSLt1_VMR5.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMR5 <- ModelDFSLt0_VMR5 - ModelDFSLt1_VMR5
@@ -9040,8 +8138,11 @@ ModelDFSL1y_VMR5 <- ModelDFSLt0_VMR5 - ModelDFSLt1_VMR5
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMR5$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMR_5P because implies a one-off input of C
-ModelDFSL_VMR_5P <- ModelDFSL1y_VMR5
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VMR5_CorrectingPlus1 <- head(ModelDFSL1y_VMR5, -12) #Create model t=x+1
+
+#This model will be called VMR_0P because implies a one-off input of C
+ModelDFSL_VMR_5P <- ModelDFSLt1_VMR5_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VMR_5P,"VXP_Models\\ModelDFSL_R_VMR_5P.xlsx")
@@ -9188,32 +8289,11 @@ write_xlsx(ModelDFSL_VMR6C,"VXC_Models\\ModelDFSL_R_VMR6C.xlsx")
 ModelDFSLt0_VMR6 <- ModelDFSL_VMR6 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VMR6.1 <- rbind(c(0:0), ModelDFSLt0_VMR6)
-ModelDFSLt1_VMR6.2 <- rbind(c(0:0), ModelDFSLt1_VMR6.1)
-ModelDFSLt1_VMR6.3 <- rbind(c(0:0), ModelDFSLt1_VMR6.2)
-ModelDFSLt1_VMR6.4 <- rbind(c(0:0), ModelDFSLt1_VMR6.3)
-ModelDFSLt1_VMR6.5 <- rbind(c(0:0), ModelDFSLt1_VMR6.4)
-ModelDFSLt1_VMR6.6 <- rbind(c(0:0), ModelDFSLt1_VMR6.5)
-ModelDFSLt1_VMR6.7 <- rbind(c(0:0), ModelDFSLt1_VMR6.6)
-ModelDFSLt1_VMR6.8 <- rbind(c(0:0), ModelDFSLt1_VMR6.7)
-ModelDFSLt1_VMR6.9 <- rbind(c(0:0), ModelDFSLt1_VMR6.8)
-ModelDFSLt1_VMR6.10 <- rbind(c(0:0), ModelDFSLt1_VMR6.9)
-ModelDFSLt1_VMR6.11 <- rbind(c(0:0), ModelDFSLt1_VMR6.10)
-ModelDFSLt1_VMR6.12 <- rbind(c(0:0), ModelDFSLt1_VMR6.11)
-ModelDFSLt1_VMR6.13 <- ModelDFSLt1_VMR6.12[-nrow(ModelDFSLt1_VMR6.12),]
-ModelDFSLt1_VMR6.14 <- ModelDFSLt1_VMR6.13[-nrow(ModelDFSLt1_VMR6.13),]
-ModelDFSLt1_VMR6.15 <- ModelDFSLt1_VMR6.14[-nrow(ModelDFSLt1_VMR6.14),]
-ModelDFSLt1_VMR6.16 <- ModelDFSLt1_VMR6.15[-nrow(ModelDFSLt1_VMR6.15),]
-ModelDFSLt1_VMR6.17 <- ModelDFSLt1_VMR6.16[-nrow(ModelDFSLt1_VMR6.16),]
-ModelDFSLt1_VMR6.18 <- ModelDFSLt1_VMR6.17[-nrow(ModelDFSLt1_VMR6.17),]
-ModelDFSLt1_VMR6.19 <- ModelDFSLt1_VMR6.18[-nrow(ModelDFSLt1_VMR6.18),]
-ModelDFSLt1_VMR6.20 <- ModelDFSLt1_VMR6.19[-nrow(ModelDFSLt1_VMR6.19),]
-ModelDFSLt1_VMR6.21 <- ModelDFSLt1_VMR6.20[-nrow(ModelDFSLt1_VMR6.20),]
-ModelDFSLt1_VMR6.22 <- ModelDFSLt1_VMR6.21[-nrow(ModelDFSLt1_VMR6.21),]
-ModelDFSLt1_VMR6.23 <- ModelDFSLt1_VMR6.22[-nrow(ModelDFSLt1_VMR6.22),]
-ModelDFSLt1_VMR6.24 <- ModelDFSLt1_VMR6.23[-nrow(ModelDFSLt1_VMR6.23),]
-
-ModelDFSLt1_VMR6 <- ModelDFSLt1_VMR6.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VMR6 <- rbind(c(0:0), ModelDFSLt1_VMR6)
+  assign(paste0("ModelDFSLt1_VMR6.", i), ModelDFSLt1_VMR6)
+}
+ModelDFSLt1_VMR6 <- head(ModelDFSLt1_VMR6.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMR6 <- ModelDFSLt0_VMR6 - ModelDFSLt1_VMR6
@@ -9221,8 +8301,11 @@ ModelDFSL1y_VMR6 <- ModelDFSLt0_VMR6 - ModelDFSLt1_VMR6
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMR6$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMR_6P because implies a one-off input of C
-ModelDFSL_VMR_6P <- ModelDFSL1y_VMR6
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VMR6_CorrectingPlus1 <- head(ModelDFSL1y_VMR6, -12) #Create model t=x+1
+
+#This model will be called VMR_0P because implies a one-off input of C
+ModelDFSL_VMR_6P <- ModelDFSLt1_VMR6_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VMR_6P,"VXP_Models\\ModelDFSL_R_VMR_6P.xlsx")
@@ -9368,32 +8451,11 @@ write_xlsx(ModelDFSL_VMR7C,"VXC_Models\\ModelDFSL_R_VMR7C.xlsx")
 ModelDFSLt0_VMR7 <- ModelDFSL_VMR7 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VMR7.1 <- rbind(c(0:0), ModelDFSLt0_VMR7)
-ModelDFSLt1_VMR7.2 <- rbind(c(0:0), ModelDFSLt1_VMR7.1)
-ModelDFSLt1_VMR7.3 <- rbind(c(0:0), ModelDFSLt1_VMR7.2)
-ModelDFSLt1_VMR7.4 <- rbind(c(0:0), ModelDFSLt1_VMR7.3)
-ModelDFSLt1_VMR7.5 <- rbind(c(0:0), ModelDFSLt1_VMR7.4)
-ModelDFSLt1_VMR7.6 <- rbind(c(0:0), ModelDFSLt1_VMR7.5)
-ModelDFSLt1_VMR7.7 <- rbind(c(0:0), ModelDFSLt1_VMR7.6)
-ModelDFSLt1_VMR7.8 <- rbind(c(0:0), ModelDFSLt1_VMR7.7)
-ModelDFSLt1_VMR7.9 <- rbind(c(0:0), ModelDFSLt1_VMR7.8)
-ModelDFSLt1_VMR7.10 <- rbind(c(0:0), ModelDFSLt1_VMR7.9)
-ModelDFSLt1_VMR7.11 <- rbind(c(0:0), ModelDFSLt1_VMR7.10)
-ModelDFSLt1_VMR7.12 <- rbind(c(0:0), ModelDFSLt1_VMR7.11)
-ModelDFSLt1_VMR7.13 <- ModelDFSLt1_VMR7.12[-nrow(ModelDFSLt1_VMR7.12),]
-ModelDFSLt1_VMR7.14 <- ModelDFSLt1_VMR7.13[-nrow(ModelDFSLt1_VMR7.13),]
-ModelDFSLt1_VMR7.15 <- ModelDFSLt1_VMR7.14[-nrow(ModelDFSLt1_VMR7.14),]
-ModelDFSLt1_VMR7.16 <- ModelDFSLt1_VMR7.15[-nrow(ModelDFSLt1_VMR7.15),]
-ModelDFSLt1_VMR7.17 <- ModelDFSLt1_VMR7.16[-nrow(ModelDFSLt1_VMR7.16),]
-ModelDFSLt1_VMR7.18 <- ModelDFSLt1_VMR7.17[-nrow(ModelDFSLt1_VMR7.17),]
-ModelDFSLt1_VMR7.19 <- ModelDFSLt1_VMR7.18[-nrow(ModelDFSLt1_VMR7.18),]
-ModelDFSLt1_VMR7.20 <- ModelDFSLt1_VMR7.19[-nrow(ModelDFSLt1_VMR7.19),]
-ModelDFSLt1_VMR7.21 <- ModelDFSLt1_VMR7.20[-nrow(ModelDFSLt1_VMR7.20),]
-ModelDFSLt1_VMR7.22 <- ModelDFSLt1_VMR7.21[-nrow(ModelDFSLt1_VMR7.21),]
-ModelDFSLt1_VMR7.23 <- ModelDFSLt1_VMR7.22[-nrow(ModelDFSLt1_VMR7.22),]
-ModelDFSLt1_VMR7.24 <- ModelDFSLt1_VMR7.23[-nrow(ModelDFSLt1_VMR7.23),]
-
-ModelDFSLt1_VMR7 <- ModelDFSLt1_VMR7.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VMR7 <- rbind(c(0:0), ModelDFSLt1_VMR7)
+  assign(paste0("ModelDFSLt1_VMR7.", i), ModelDFSLt1_VMR7)
+}
+ModelDFSLt1_VMR7 <- head(ModelDFSLt1_VMR7.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMR7 <- ModelDFSLt0_VMR7 - ModelDFSLt1_VMR7
@@ -9401,8 +8463,11 @@ ModelDFSL1y_VMR7 <- ModelDFSLt0_VMR7 - ModelDFSLt1_VMR7
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMR7$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMR_7P because implies a one-off input of C
-ModelDFSL_VMR_7P <- ModelDFSL1y_VMR7
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VMR7_CorrectingPlus1 <- head(ModelDFSL1y_VMR7, -12) #Create model t=x+1
+
+#This model will be called VMR_0P because implies a one-off input of C
+ModelDFSL_VMR_7P <- ModelDFSLt1_VMR7_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VMR_7P,"VXP_Models\\ModelDFSL_R_VMR_7P.xlsx")
@@ -9549,32 +8614,11 @@ write_xlsx(ModelDFSL_VMR8C,"VXC_Models\\ModelDFSL_R_VMR8C.xlsx")
 ModelDFSLt0_VMR8 <- ModelDFSL_VMR8 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VMR8.1 <- rbind(c(0:0), ModelDFSLt0_VMR8)
-ModelDFSLt1_VMR8.2 <- rbind(c(0:0), ModelDFSLt1_VMR8.1)
-ModelDFSLt1_VMR8.3 <- rbind(c(0:0), ModelDFSLt1_VMR8.2)
-ModelDFSLt1_VMR8.4 <- rbind(c(0:0), ModelDFSLt1_VMR8.3)
-ModelDFSLt1_VMR8.5 <- rbind(c(0:0), ModelDFSLt1_VMR8.4)
-ModelDFSLt1_VMR8.6 <- rbind(c(0:0), ModelDFSLt1_VMR8.5)
-ModelDFSLt1_VMR8.7 <- rbind(c(0:0), ModelDFSLt1_VMR8.6)
-ModelDFSLt1_VMR8.8 <- rbind(c(0:0), ModelDFSLt1_VMR8.7)
-ModelDFSLt1_VMR8.9 <- rbind(c(0:0), ModelDFSLt1_VMR8.8)
-ModelDFSLt1_VMR8.10 <- rbind(c(0:0), ModelDFSLt1_VMR8.9)
-ModelDFSLt1_VMR8.11 <- rbind(c(0:0), ModelDFSLt1_VMR8.10)
-ModelDFSLt1_VMR8.12 <- rbind(c(0:0), ModelDFSLt1_VMR8.11)
-ModelDFSLt1_VMR8.13 <- ModelDFSLt1_VMR8.12[-nrow(ModelDFSLt1_VMR8.12),]
-ModelDFSLt1_VMR8.14 <- ModelDFSLt1_VMR8.13[-nrow(ModelDFSLt1_VMR8.13),]
-ModelDFSLt1_VMR8.15 <- ModelDFSLt1_VMR8.14[-nrow(ModelDFSLt1_VMR8.14),]
-ModelDFSLt1_VMR8.16 <- ModelDFSLt1_VMR8.15[-nrow(ModelDFSLt1_VMR8.15),]
-ModelDFSLt1_VMR8.17 <- ModelDFSLt1_VMR8.16[-nrow(ModelDFSLt1_VMR8.16),]
-ModelDFSLt1_VMR8.18 <- ModelDFSLt1_VMR8.17[-nrow(ModelDFSLt1_VMR8.17),]
-ModelDFSLt1_VMR8.19 <- ModelDFSLt1_VMR8.18[-nrow(ModelDFSLt1_VMR8.18),]
-ModelDFSLt1_VMR8.20 <- ModelDFSLt1_VMR8.19[-nrow(ModelDFSLt1_VMR8.19),]
-ModelDFSLt1_VMR8.21 <- ModelDFSLt1_VMR8.20[-nrow(ModelDFSLt1_VMR8.20),]
-ModelDFSLt1_VMR8.22 <- ModelDFSLt1_VMR8.21[-nrow(ModelDFSLt1_VMR8.21),]
-ModelDFSLt1_VMR8.23 <- ModelDFSLt1_VMR8.22[-nrow(ModelDFSLt1_VMR8.22),]
-ModelDFSLt1_VMR8.24 <- ModelDFSLt1_VMR8.23[-nrow(ModelDFSLt1_VMR8.23),]
-
-ModelDFSLt1_VMR8 <- ModelDFSLt1_VMR8.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VMR8 <- rbind(c(0:0), ModelDFSLt1_VMR8)
+  assign(paste0("ModelDFSLt1_VMR8.", i), ModelDFSLt1_VMR8)
+}
+ModelDFSLt1_VMR8 <- head(ModelDFSLt1_VMR8.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMR8 <- ModelDFSLt0_VMR8 - ModelDFSLt1_VMR8
@@ -9582,8 +8626,11 @@ ModelDFSL1y_VMR8 <- ModelDFSLt0_VMR8 - ModelDFSLt1_VMR8
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMR8$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMR_8P because implies a one-off input of C
-ModelDFSL_VMR_8P <- ModelDFSL1y_VMR8
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VMR8_CorrectingPlus1 <- head(ModelDFSL1y_VMR8, -12) #Create model t=x+1
+
+#This model will be called VMR_0P because implies a one-off input of C
+ModelDFSL_VMR_8P <- ModelDFSLt1_VMR8_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VMR_8P,"VXP_Models\\ModelDFSL_R_VMR_8P.xlsx")
@@ -9729,32 +8776,11 @@ write_xlsx(ModelDFSL_VMR9C,"VXC_Models\\ModelDFSL_R_VMR9C.xlsx")
 ModelDFSLt0_VMR9 <- ModelDFSL_VMR9 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VMR9.1 <- rbind(c(0:0), ModelDFSLt0_VMR9)
-ModelDFSLt1_VMR9.2 <- rbind(c(0:0), ModelDFSLt1_VMR9.1)
-ModelDFSLt1_VMR9.3 <- rbind(c(0:0), ModelDFSLt1_VMR9.2)
-ModelDFSLt1_VMR9.4 <- rbind(c(0:0), ModelDFSLt1_VMR9.3)
-ModelDFSLt1_VMR9.5 <- rbind(c(0:0), ModelDFSLt1_VMR9.4)
-ModelDFSLt1_VMR9.6 <- rbind(c(0:0), ModelDFSLt1_VMR9.5)
-ModelDFSLt1_VMR9.7 <- rbind(c(0:0), ModelDFSLt1_VMR9.6)
-ModelDFSLt1_VMR9.8 <- rbind(c(0:0), ModelDFSLt1_VMR9.7)
-ModelDFSLt1_VMR9.9 <- rbind(c(0:0), ModelDFSLt1_VMR9.8)
-ModelDFSLt1_VMR9.10 <- rbind(c(0:0), ModelDFSLt1_VMR9.9)
-ModelDFSLt1_VMR9.11 <- rbind(c(0:0), ModelDFSLt1_VMR9.10)
-ModelDFSLt1_VMR9.12 <- rbind(c(0:0), ModelDFSLt1_VMR9.11)
-ModelDFSLt1_VMR9.13 <- ModelDFSLt1_VMR9.12[-nrow(ModelDFSLt1_VMR9.12),]
-ModelDFSLt1_VMR9.14 <- ModelDFSLt1_VMR9.13[-nrow(ModelDFSLt1_VMR9.13),]
-ModelDFSLt1_VMR9.15 <- ModelDFSLt1_VMR9.14[-nrow(ModelDFSLt1_VMR9.14),]
-ModelDFSLt1_VMR9.16 <- ModelDFSLt1_VMR9.15[-nrow(ModelDFSLt1_VMR9.15),]
-ModelDFSLt1_VMR9.17 <- ModelDFSLt1_VMR9.16[-nrow(ModelDFSLt1_VMR9.16),]
-ModelDFSLt1_VMR9.18 <- ModelDFSLt1_VMR9.17[-nrow(ModelDFSLt1_VMR9.17),]
-ModelDFSLt1_VMR9.19 <- ModelDFSLt1_VMR9.18[-nrow(ModelDFSLt1_VMR9.18),]
-ModelDFSLt1_VMR9.20 <- ModelDFSLt1_VMR9.19[-nrow(ModelDFSLt1_VMR9.19),]
-ModelDFSLt1_VMR9.21 <- ModelDFSLt1_VMR9.20[-nrow(ModelDFSLt1_VMR9.20),]
-ModelDFSLt1_VMR9.22 <- ModelDFSLt1_VMR9.21[-nrow(ModelDFSLt1_VMR9.21),]
-ModelDFSLt1_VMR9.23 <- ModelDFSLt1_VMR9.22[-nrow(ModelDFSLt1_VMR9.22),]
-ModelDFSLt1_VMR9.24 <- ModelDFSLt1_VMR9.23[-nrow(ModelDFSLt1_VMR9.23),]
-
-ModelDFSLt1_VMR9 <- ModelDFSLt1_VMR9.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VMR9 <- rbind(c(0:0), ModelDFSLt1_VMR9)
+  assign(paste0("ModelDFSLt1_VMR9.", i), ModelDFSLt1_VMR9)
+}
+ModelDFSLt1_VMR9 <- head(ModelDFSLt1_VMR9.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMR9 <- ModelDFSLt0_VMR9 - ModelDFSLt1_VMR9
@@ -9762,8 +8788,11 @@ ModelDFSL1y_VMR9 <- ModelDFSLt0_VMR9 - ModelDFSLt1_VMR9
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMR9$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMR_9P because implies a one-off input of C
-ModelDFSL_VMR_9P <- ModelDFSL1y_VMR9
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VMR9_CorrectingPlus1 <- head(ModelDFSL1y_VMR9, -12) #Create model t=x+1
+
+#This model will be called VMR_0P because implies a one-off input of C
+ModelDFSL_VMR_9P <- ModelDFSLt1_VMR9_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VMR_9P,"VXP_Models\\ModelDFSL_R_VMR_9P.xlsx")
@@ -9909,32 +8938,11 @@ write_xlsx(ModelDFSL_VMR10C,"VXC_Models\\ModelDFSL_R_VMR10C.xlsx")
 ModelDFSLt0_VMR10 <- ModelDFSL_VMR10 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VMR10.1 <- rbind(c(0:0), ModelDFSLt0_VMR10)
-ModelDFSLt1_VMR10.2 <- rbind(c(0:0), ModelDFSLt1_VMR10.1)
-ModelDFSLt1_VMR10.3 <- rbind(c(0:0), ModelDFSLt1_VMR10.2)
-ModelDFSLt1_VMR10.4 <- rbind(c(0:0), ModelDFSLt1_VMR10.3)
-ModelDFSLt1_VMR10.5 <- rbind(c(0:0), ModelDFSLt1_VMR10.4)
-ModelDFSLt1_VMR10.6 <- rbind(c(0:0), ModelDFSLt1_VMR10.5)
-ModelDFSLt1_VMR10.7 <- rbind(c(0:0), ModelDFSLt1_VMR10.6)
-ModelDFSLt1_VMR10.8 <- rbind(c(0:0), ModelDFSLt1_VMR10.7)
-ModelDFSLt1_VMR10.9 <- rbind(c(0:0), ModelDFSLt1_VMR10.8)
-ModelDFSLt1_VMR10.10 <- rbind(c(0:0), ModelDFSLt1_VMR10.9)
-ModelDFSLt1_VMR10.11 <- rbind(c(0:0), ModelDFSLt1_VMR10.10)
-ModelDFSLt1_VMR10.12 <- rbind(c(0:0), ModelDFSLt1_VMR10.11)
-ModelDFSLt1_VMR10.13 <- ModelDFSLt1_VMR10.12[-nrow(ModelDFSLt1_VMR10.12),]
-ModelDFSLt1_VMR10.14 <- ModelDFSLt1_VMR10.13[-nrow(ModelDFSLt1_VMR10.13),]
-ModelDFSLt1_VMR10.15 <- ModelDFSLt1_VMR10.14[-nrow(ModelDFSLt1_VMR10.14),]
-ModelDFSLt1_VMR10.16 <- ModelDFSLt1_VMR10.15[-nrow(ModelDFSLt1_VMR10.15),]
-ModelDFSLt1_VMR10.17 <- ModelDFSLt1_VMR10.16[-nrow(ModelDFSLt1_VMR10.16),]
-ModelDFSLt1_VMR10.18 <- ModelDFSLt1_VMR10.17[-nrow(ModelDFSLt1_VMR10.17),]
-ModelDFSLt1_VMR10.19 <- ModelDFSLt1_VMR10.18[-nrow(ModelDFSLt1_VMR10.18),]
-ModelDFSLt1_VMR10.20 <- ModelDFSLt1_VMR10.19[-nrow(ModelDFSLt1_VMR10.19),]
-ModelDFSLt1_VMR10.21 <- ModelDFSLt1_VMR10.20[-nrow(ModelDFSLt1_VMR10.20),]
-ModelDFSLt1_VMR10.22 <- ModelDFSLt1_VMR10.21[-nrow(ModelDFSLt1_VMR10.21),]
-ModelDFSLt1_VMR10.23 <- ModelDFSLt1_VMR10.22[-nrow(ModelDFSLt1_VMR10.22),]
-ModelDFSLt1_VMR10.24 <- ModelDFSLt1_VMR10.23[-nrow(ModelDFSLt1_VMR10.23),]
-
-ModelDFSLt1_VMR10 <- ModelDFSLt1_VMR10.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VMR10 <- rbind(c(0:0), ModelDFSLt1_VMR10)
+  assign(paste0("ModelDFSLt1_VMR10.", i), ModelDFSLt1_VMR10)
+}
+ModelDFSLt1_VMR10 <- head(ModelDFSLt1_VMR10.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMR10 <- ModelDFSLt0_VMR10 - ModelDFSLt1_VMR10
@@ -9942,8 +8950,11 @@ ModelDFSL1y_VMR10 <- ModelDFSLt0_VMR10 - ModelDFSLt1_VMR10
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMR10$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMR10P because implies a one-off input of C
-ModelDFSL_VMR10P <- ModelDFSL1y_VMR10
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VMR10_CorrectingPlus1 <- head(ModelDFSL1y_VMR10, -12) #Create model t=x+1
+
+#This model will be called VMR_0P because implies a one-off input of C
+ModelDFSL_VMR10P <- ModelDFSLt1_VMR10_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VMR10P,"VXP_Models\\ModelDFSL_R_VMR10P.xlsx")
@@ -10082,32 +9093,11 @@ write_xlsx(ModelDFSL_VMN0C,"VXC_Models\\ModelDFSL_R_VMN0C.xlsx")
 ModelDFSLt0_VMN0 <- ModelDFSL_VMN0 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VMN0.1 <- rbind(c(0:0), ModelDFSLt0_VMN0)
-ModelDFSLt1_VMN0.2 <- rbind(c(0:0), ModelDFSLt1_VMN0.1)
-ModelDFSLt1_VMN0.3 <- rbind(c(0:0), ModelDFSLt1_VMN0.2)
-ModelDFSLt1_VMN0.4 <- rbind(c(0:0), ModelDFSLt1_VMN0.3)
-ModelDFSLt1_VMN0.5 <- rbind(c(0:0), ModelDFSLt1_VMN0.4)
-ModelDFSLt1_VMN0.6 <- rbind(c(0:0), ModelDFSLt1_VMN0.5)
-ModelDFSLt1_VMN0.7 <- rbind(c(0:0), ModelDFSLt1_VMN0.6)
-ModelDFSLt1_VMN0.8 <- rbind(c(0:0), ModelDFSLt1_VMN0.7)
-ModelDFSLt1_VMN0.9 <- rbind(c(0:0), ModelDFSLt1_VMN0.8)
-ModelDFSLt1_VMN0.10 <- rbind(c(0:0), ModelDFSLt1_VMN0.9)
-ModelDFSLt1_VMN0.11 <- rbind(c(0:0), ModelDFSLt1_VMN0.10)
-ModelDFSLt1_VMN0.12 <- rbind(c(0:0), ModelDFSLt1_VMN0.11)
-ModelDFSLt1_VMN0.13 <- ModelDFSLt1_VMN0.12[-nrow(ModelDFSLt1_VMN0.12),]
-ModelDFSLt1_VMN0.14 <- ModelDFSLt1_VMN0.13[-nrow(ModelDFSLt1_VMN0.13),]
-ModelDFSLt1_VMN0.15 <- ModelDFSLt1_VMN0.14[-nrow(ModelDFSLt1_VMN0.14),]
-ModelDFSLt1_VMN0.16 <- ModelDFSLt1_VMN0.15[-nrow(ModelDFSLt1_VMN0.15),]
-ModelDFSLt1_VMN0.17 <- ModelDFSLt1_VMN0.16[-nrow(ModelDFSLt1_VMN0.16),]
-ModelDFSLt1_VMN0.18 <- ModelDFSLt1_VMN0.17[-nrow(ModelDFSLt1_VMN0.17),]
-ModelDFSLt1_VMN0.19 <- ModelDFSLt1_VMN0.18[-nrow(ModelDFSLt1_VMN0.18),]
-ModelDFSLt1_VMN0.20 <- ModelDFSLt1_VMN0.19[-nrow(ModelDFSLt1_VMN0.19),]
-ModelDFSLt1_VMN0.21 <- ModelDFSLt1_VMN0.20[-nrow(ModelDFSLt1_VMN0.20),]
-ModelDFSLt1_VMN0.22 <- ModelDFSLt1_VMN0.21[-nrow(ModelDFSLt1_VMN0.21),]
-ModelDFSLt1_VMN0.23 <- ModelDFSLt1_VMN0.22[-nrow(ModelDFSLt1_VMN0.22),]
-ModelDFSLt1_VMN0.24 <- ModelDFSLt1_VMN0.23[-nrow(ModelDFSLt1_VMN0.23),]
-
-ModelDFSLt1_VMN0 <- ModelDFSLt1_VMN0.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VMN0 <- rbind(c(0:0), ModelDFSLt1_VMN0)
+  assign(paste0("ModelDFSLt1_VMN0.", i), ModelDFSLt1_VMN0)
+}
+ModelDFSLt1_VMN0 <- head(ModelDFSLt1_VMN0.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMN0 <- ModelDFSLt0_VMN0 - ModelDFSLt1_VMN0
@@ -10115,8 +9105,11 @@ ModelDFSL1y_VMN0 <- ModelDFSLt0_VMN0 - ModelDFSLt1_VMN0
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMN0$MNumber <- seq(from = 1, to = SimulationLength_months)
 
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VMN0_CorrectingPlus1 <- head(ModelDFSL1y_VMN0, -12) #Create model t=x+1
+
 #This model will be called VMN_0P because implies a one-off input of C
-ModelDFSL_VMN_0P <- ModelDFSL1y_VMN0
+ModelDFSL_VMN_0P <- ModelDFSLt1_VMN0_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VMN_0P,"VXP_Models\\ModelDFSL_R_VMN_0P.xlsx")
@@ -10257,34 +9250,12 @@ write_xlsx(ModelDFSL_VMN1C,"VXC_Models\\ModelDFSL_R_VMN1C.xlsx")
 #Create two equal models by using the above general script
 #Create model t=x
 ModelDFSLt0_VMN1 <- ModelDFSL_VMN1 #Create model t=x
-
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VMN1.1 <- rbind(c(0:0), ModelDFSLt0_VMN1)
-ModelDFSLt1_VMN1.2 <- rbind(c(0:0), ModelDFSLt1_VMN1.1)
-ModelDFSLt1_VMN1.3 <- rbind(c(0:0), ModelDFSLt1_VMN1.2)
-ModelDFSLt1_VMN1.4 <- rbind(c(0:0), ModelDFSLt1_VMN1.3)
-ModelDFSLt1_VMN1.5 <- rbind(c(0:0), ModelDFSLt1_VMN1.4)
-ModelDFSLt1_VMN1.6 <- rbind(c(0:0), ModelDFSLt1_VMN1.5)
-ModelDFSLt1_VMN1.7 <- rbind(c(0:0), ModelDFSLt1_VMN1.6)
-ModelDFSLt1_VMN1.8 <- rbind(c(0:0), ModelDFSLt1_VMN1.7)
-ModelDFSLt1_VMN1.9 <- rbind(c(0:0), ModelDFSLt1_VMN1.8)
-ModelDFSLt1_VMN1.10 <- rbind(c(0:0), ModelDFSLt1_VMN1.9)
-ModelDFSLt1_VMN1.11 <- rbind(c(0:0), ModelDFSLt1_VMN1.10)
-ModelDFSLt1_VMN1.12 <- rbind(c(0:0), ModelDFSLt1_VMN1.11)
-ModelDFSLt1_VMN1.13 <- ModelDFSLt1_VMN1.12[-nrow(ModelDFSLt1_VMN1.12),]
-ModelDFSLt1_VMN1.14 <- ModelDFSLt1_VMN1.13[-nrow(ModelDFSLt1_VMN1.13),]
-ModelDFSLt1_VMN1.15 <- ModelDFSLt1_VMN1.14[-nrow(ModelDFSLt1_VMN1.14),]
-ModelDFSLt1_VMN1.16 <- ModelDFSLt1_VMN1.15[-nrow(ModelDFSLt1_VMN1.15),]
-ModelDFSLt1_VMN1.17 <- ModelDFSLt1_VMN1.16[-nrow(ModelDFSLt1_VMN1.16),]
-ModelDFSLt1_VMN1.18 <- ModelDFSLt1_VMN1.17[-nrow(ModelDFSLt1_VMN1.17),]
-ModelDFSLt1_VMN1.19 <- ModelDFSLt1_VMN1.18[-nrow(ModelDFSLt1_VMN1.18),]
-ModelDFSLt1_VMN1.20 <- ModelDFSLt1_VMN1.19[-nrow(ModelDFSLt1_VMN1.19),]
-ModelDFSLt1_VMN1.21 <- ModelDFSLt1_VMN1.20[-nrow(ModelDFSLt1_VMN1.20),]
-ModelDFSLt1_VMN1.22 <- ModelDFSLt1_VMN1.21[-nrow(ModelDFSLt1_VMN1.21),]
-ModelDFSLt1_VMN1.23 <- ModelDFSLt1_VMN1.22[-nrow(ModelDFSLt1_VMN1.22),]
-ModelDFSLt1_VMN1.24 <- ModelDFSLt1_VMN1.23[-nrow(ModelDFSLt1_VMN1.23),]
-
-ModelDFSLt1_VMN1 <- ModelDFSLt1_VMN1.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VMN1 <- rbind(c(0:0), ModelDFSLt1_VMN1)
+  assign(paste0("ModelDFSLt1_VMN1.", i), ModelDFSLt1_VMN1)
+}
+ModelDFSLt1_VMN1 <- head(ModelDFSLt1_VMN1.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMN1 <- ModelDFSLt0_VMN1 - ModelDFSLt1_VMN1
@@ -10292,8 +9263,11 @@ ModelDFSL1y_VMN1 <- ModelDFSLt0_VMN1 - ModelDFSLt1_VMN1
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMN1$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMN_1P because implies a one-off input of C
-ModelDFSL_VMN_1P <- ModelDFSL1y_VMN1
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VMN1_CorrectingPlus1 <- head(ModelDFSL1y_VMN1, -12) #Create model t=x+1
+
+#This model will be called VMN_0P because implies a one-off input of C
+ModelDFSL_VMN_1P <- ModelDFSLt1_VMN1_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VMN_1P,"VXP_Models\\ModelDFSL_R_VMN_1P.xlsx")
@@ -10437,32 +9411,11 @@ write_xlsx(ModelDFSL_VMN2C,"VXC_Models\\ModelDFSL_R_VMN2C.xlsx")
 ModelDFSLt0_VMN2 <- ModelDFSL_VMN2 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VMN2.1 <- rbind(c(0:0), ModelDFSLt0_VMN2)
-ModelDFSLt1_VMN2.2 <- rbind(c(0:0), ModelDFSLt1_VMN2.1)
-ModelDFSLt1_VMN2.3 <- rbind(c(0:0), ModelDFSLt1_VMN2.2)
-ModelDFSLt1_VMN2.4 <- rbind(c(0:0), ModelDFSLt1_VMN2.3)
-ModelDFSLt1_VMN2.5 <- rbind(c(0:0), ModelDFSLt1_VMN2.4)
-ModelDFSLt1_VMN2.6 <- rbind(c(0:0), ModelDFSLt1_VMN2.5)
-ModelDFSLt1_VMN2.7 <- rbind(c(0:0), ModelDFSLt1_VMN2.6)
-ModelDFSLt1_VMN2.8 <- rbind(c(0:0), ModelDFSLt1_VMN2.7)
-ModelDFSLt1_VMN2.9 <- rbind(c(0:0), ModelDFSLt1_VMN2.8)
-ModelDFSLt1_VMN2.10 <- rbind(c(0:0), ModelDFSLt1_VMN2.9)
-ModelDFSLt1_VMN2.11 <- rbind(c(0:0), ModelDFSLt1_VMN2.10)
-ModelDFSLt1_VMN2.12 <- rbind(c(0:0), ModelDFSLt1_VMN2.11)
-ModelDFSLt1_VMN2.13 <- ModelDFSLt1_VMN2.12[-nrow(ModelDFSLt1_VMN2.12),]
-ModelDFSLt1_VMN2.14 <- ModelDFSLt1_VMN2.13[-nrow(ModelDFSLt1_VMN2.13),]
-ModelDFSLt1_VMN2.15 <- ModelDFSLt1_VMN2.14[-nrow(ModelDFSLt1_VMN2.14),]
-ModelDFSLt1_VMN2.16 <- ModelDFSLt1_VMN2.15[-nrow(ModelDFSLt1_VMN2.15),]
-ModelDFSLt1_VMN2.17 <- ModelDFSLt1_VMN2.16[-nrow(ModelDFSLt1_VMN2.16),]
-ModelDFSLt1_VMN2.18 <- ModelDFSLt1_VMN2.17[-nrow(ModelDFSLt1_VMN2.17),]
-ModelDFSLt1_VMN2.19 <- ModelDFSLt1_VMN2.18[-nrow(ModelDFSLt1_VMN2.18),]
-ModelDFSLt1_VMN2.20 <- ModelDFSLt1_VMN2.19[-nrow(ModelDFSLt1_VMN2.19),]
-ModelDFSLt1_VMN2.21 <- ModelDFSLt1_VMN2.20[-nrow(ModelDFSLt1_VMN2.20),]
-ModelDFSLt1_VMN2.22 <- ModelDFSLt1_VMN2.21[-nrow(ModelDFSLt1_VMN2.21),]
-ModelDFSLt1_VMN2.23 <- ModelDFSLt1_VMN2.22[-nrow(ModelDFSLt1_VMN2.22),]
-ModelDFSLt1_VMN2.24 <- ModelDFSLt1_VMN2.23[-nrow(ModelDFSLt1_VMN2.23),]
-
-ModelDFSLt1_VMN2 <- ModelDFSLt1_VMN2.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VMN2 <- rbind(c(0:0), ModelDFSLt1_VMN2)
+  assign(paste0("ModelDFSLt1_VMN2.", i), ModelDFSLt1_VMN2)
+}
+ModelDFSLt1_VMN2 <- head(ModelDFSLt1_VMN2.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMN2 <- ModelDFSLt0_VMN2 - ModelDFSLt1_VMN2
@@ -10470,8 +9423,11 @@ ModelDFSL1y_VMN2 <- ModelDFSLt0_VMN2 - ModelDFSLt1_VMN2
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMN2$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMN_2P because implies a one-off input of C
-ModelDFSL_VMN_2P <- ModelDFSL1y_VMN2
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VMN2_CorrectingPlus1 <- head(ModelDFSL1y_VMN2, -12) #Create model t=x+1
+
+#This model will be called VMN_0P because implies a one-off input of C
+ModelDFSL_VMN_2P <- ModelDFSLt1_VMN2_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VMN_2P,"VXP_Models\\ModelDFSL_R_VMN_2P.xlsx")
@@ -10615,32 +9571,11 @@ write_xlsx(ModelDFSL_VMN3C,"VXC_Models\\ModelDFSL_R_VMN3C.xlsx")
 ModelDFSLt0_VMN3 <- ModelDFSL_VMN3 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VMN3.1 <- rbind(c(0:0), ModelDFSLt0_VMN3)
-ModelDFSLt1_VMN3.2 <- rbind(c(0:0), ModelDFSLt1_VMN3.1)
-ModelDFSLt1_VMN3.3 <- rbind(c(0:0), ModelDFSLt1_VMN3.2)
-ModelDFSLt1_VMN3.4 <- rbind(c(0:0), ModelDFSLt1_VMN3.3)
-ModelDFSLt1_VMN3.5 <- rbind(c(0:0), ModelDFSLt1_VMN3.4)
-ModelDFSLt1_VMN3.6 <- rbind(c(0:0), ModelDFSLt1_VMN3.5)
-ModelDFSLt1_VMN3.7 <- rbind(c(0:0), ModelDFSLt1_VMN3.6)
-ModelDFSLt1_VMN3.8 <- rbind(c(0:0), ModelDFSLt1_VMN3.7)
-ModelDFSLt1_VMN3.9 <- rbind(c(0:0), ModelDFSLt1_VMN3.8)
-ModelDFSLt1_VMN3.10 <- rbind(c(0:0), ModelDFSLt1_VMN3.9)
-ModelDFSLt1_VMN3.11 <- rbind(c(0:0), ModelDFSLt1_VMN3.10)
-ModelDFSLt1_VMN3.12 <- rbind(c(0:0), ModelDFSLt1_VMN3.11)
-ModelDFSLt1_VMN3.13 <- ModelDFSLt1_VMN3.12[-nrow(ModelDFSLt1_VMN3.12),]
-ModelDFSLt1_VMN3.14 <- ModelDFSLt1_VMN3.13[-nrow(ModelDFSLt1_VMN3.13),]
-ModelDFSLt1_VMN3.15 <- ModelDFSLt1_VMN3.14[-nrow(ModelDFSLt1_VMN3.14),]
-ModelDFSLt1_VMN3.16 <- ModelDFSLt1_VMN3.15[-nrow(ModelDFSLt1_VMN3.15),]
-ModelDFSLt1_VMN3.17 <- ModelDFSLt1_VMN3.16[-nrow(ModelDFSLt1_VMN3.16),]
-ModelDFSLt1_VMN3.18 <- ModelDFSLt1_VMN3.17[-nrow(ModelDFSLt1_VMN3.17),]
-ModelDFSLt1_VMN3.19 <- ModelDFSLt1_VMN3.18[-nrow(ModelDFSLt1_VMN3.18),]
-ModelDFSLt1_VMN3.20 <- ModelDFSLt1_VMN3.19[-nrow(ModelDFSLt1_VMN3.19),]
-ModelDFSLt1_VMN3.21 <- ModelDFSLt1_VMN3.20[-nrow(ModelDFSLt1_VMN3.20),]
-ModelDFSLt1_VMN3.22 <- ModelDFSLt1_VMN3.21[-nrow(ModelDFSLt1_VMN3.21),]
-ModelDFSLt1_VMN3.23 <- ModelDFSLt1_VMN3.22[-nrow(ModelDFSLt1_VMN3.22),]
-ModelDFSLt1_VMN3.24 <- ModelDFSLt1_VMN3.23[-nrow(ModelDFSLt1_VMN3.23),]
-
-ModelDFSLt1_VMN3 <- ModelDFSLt1_VMN3.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VMN3 <- rbind(c(0:0), ModelDFSLt1_VMN3)
+  assign(paste0("ModelDFSLt1_VMN3.", i), ModelDFSLt1_VMN3)
+}
+ModelDFSLt1_VMN3 <- head(ModelDFSLt1_VMN3.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMN3 <- ModelDFSLt0_VMN3 - ModelDFSLt1_VMN3
@@ -10648,8 +9583,11 @@ ModelDFSL1y_VMN3 <- ModelDFSLt0_VMN3 - ModelDFSLt1_VMN3
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMN3$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMN_3P because implies a one-off input of C
-ModelDFSL_VMN_3P <- ModelDFSL1y_VMN3
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VMN3_CorrectingPlus1 <- head(ModelDFSL1y_VMN3, -12) #Create model t=x+1
+
+#This model will be called VMN_0P because implies a one-off input of C
+ModelDFSL_VMN_3P <- ModelDFSLt1_VMN3_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VMN_3P,"VXP_Models\\ModelDFSL_R_VMN_3P.xlsx")
@@ -10793,32 +9731,11 @@ write_xlsx(ModelDFSL_VMN4C,"VXC_Models\\ModelDFSL_R_VMN4C.xlsx")
 ModelDFSLt0_VMN4 <- ModelDFSL_VMN4 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VMN4.1 <- rbind(c(0:0), ModelDFSLt0_VMN4)
-ModelDFSLt1_VMN4.2 <- rbind(c(0:0), ModelDFSLt1_VMN4.1)
-ModelDFSLt1_VMN4.3 <- rbind(c(0:0), ModelDFSLt1_VMN4.2)
-ModelDFSLt1_VMN4.4 <- rbind(c(0:0), ModelDFSLt1_VMN4.3)
-ModelDFSLt1_VMN4.5 <- rbind(c(0:0), ModelDFSLt1_VMN4.4)
-ModelDFSLt1_VMN4.6 <- rbind(c(0:0), ModelDFSLt1_VMN4.5)
-ModelDFSLt1_VMN4.7 <- rbind(c(0:0), ModelDFSLt1_VMN4.6)
-ModelDFSLt1_VMN4.8 <- rbind(c(0:0), ModelDFSLt1_VMN4.7)
-ModelDFSLt1_VMN4.9 <- rbind(c(0:0), ModelDFSLt1_VMN4.8)
-ModelDFSLt1_VMN4.10 <- rbind(c(0:0), ModelDFSLt1_VMN4.9)
-ModelDFSLt1_VMN4.11 <- rbind(c(0:0), ModelDFSLt1_VMN4.10)
-ModelDFSLt1_VMN4.12 <- rbind(c(0:0), ModelDFSLt1_VMN4.11)
-ModelDFSLt1_VMN4.13 <- ModelDFSLt1_VMN4.12[-nrow(ModelDFSLt1_VMN4.12),]
-ModelDFSLt1_VMN4.14 <- ModelDFSLt1_VMN4.13[-nrow(ModelDFSLt1_VMN4.13),]
-ModelDFSLt1_VMN4.15 <- ModelDFSLt1_VMN4.14[-nrow(ModelDFSLt1_VMN4.14),]
-ModelDFSLt1_VMN4.16 <- ModelDFSLt1_VMN4.15[-nrow(ModelDFSLt1_VMN4.15),]
-ModelDFSLt1_VMN4.17 <- ModelDFSLt1_VMN4.16[-nrow(ModelDFSLt1_VMN4.16),]
-ModelDFSLt1_VMN4.18 <- ModelDFSLt1_VMN4.17[-nrow(ModelDFSLt1_VMN4.17),]
-ModelDFSLt1_VMN4.19 <- ModelDFSLt1_VMN4.18[-nrow(ModelDFSLt1_VMN4.18),]
-ModelDFSLt1_VMN4.20 <- ModelDFSLt1_VMN4.19[-nrow(ModelDFSLt1_VMN4.19),]
-ModelDFSLt1_VMN4.21 <- ModelDFSLt1_VMN4.20[-nrow(ModelDFSLt1_VMN4.20),]
-ModelDFSLt1_VMN4.22 <- ModelDFSLt1_VMN4.21[-nrow(ModelDFSLt1_VMN4.21),]
-ModelDFSLt1_VMN4.23 <- ModelDFSLt1_VMN4.22[-nrow(ModelDFSLt1_VMN4.22),]
-ModelDFSLt1_VMN4.24 <- ModelDFSLt1_VMN4.23[-nrow(ModelDFSLt1_VMN4.23),]
-
-ModelDFSLt1_VMN4 <- ModelDFSLt1_VMN4.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VMN4 <- rbind(c(0:0), ModelDFSLt1_VMN4)
+  assign(paste0("ModelDFSLt1_VMN4.", i), ModelDFSLt1_VMN4)
+}
+ModelDFSLt1_VMN4 <- head(ModelDFSLt1_VMN4.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMN4 <- ModelDFSLt0_VMN4 - ModelDFSLt1_VMN4
@@ -10826,8 +9743,11 @@ ModelDFSL1y_VMN4 <- ModelDFSLt0_VMN4 - ModelDFSLt1_VMN4
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMN4$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMN_4P because implies a one-off input of C
-ModelDFSL_VMN_4P <- ModelDFSL1y_VMN4
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VMN4_CorrectingPlus1 <- head(ModelDFSL1y_VMN4, -12) #Create model t=x+1
+
+#This model will be called VMN_0P because implies a one-off input of C
+ModelDFSL_VMN_4P <- ModelDFSLt1_VMN4_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VMN_4P,"VXP_Models\\ModelDFSL_R_VMN_4P.xlsx")
@@ -10971,32 +9891,11 @@ write_xlsx(ModelDFSL_VMN5C,"VXC_Models\\ModelDFSL_R_VMN5C.xlsx")
 ModelDFSLt0_VMN5 <- ModelDFSL_VMN5 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VMN5.1 <- rbind(c(0:0), ModelDFSLt0_VMN5)
-ModelDFSLt1_VMN5.2 <- rbind(c(0:0), ModelDFSLt1_VMN5.1)
-ModelDFSLt1_VMN5.3 <- rbind(c(0:0), ModelDFSLt1_VMN5.2)
-ModelDFSLt1_VMN5.4 <- rbind(c(0:0), ModelDFSLt1_VMN5.3)
-ModelDFSLt1_VMN5.5 <- rbind(c(0:0), ModelDFSLt1_VMN5.4)
-ModelDFSLt1_VMN5.6 <- rbind(c(0:0), ModelDFSLt1_VMN5.5)
-ModelDFSLt1_VMN5.7 <- rbind(c(0:0), ModelDFSLt1_VMN5.6)
-ModelDFSLt1_VMN5.8 <- rbind(c(0:0), ModelDFSLt1_VMN5.7)
-ModelDFSLt1_VMN5.9 <- rbind(c(0:0), ModelDFSLt1_VMN5.8)
-ModelDFSLt1_VMN5.10 <- rbind(c(0:0), ModelDFSLt1_VMN5.9)
-ModelDFSLt1_VMN5.11 <- rbind(c(0:0), ModelDFSLt1_VMN5.10)
-ModelDFSLt1_VMN5.12 <- rbind(c(0:0), ModelDFSLt1_VMN5.11)
-ModelDFSLt1_VMN5.13 <- ModelDFSLt1_VMN5.12[-nrow(ModelDFSLt1_VMN5.12),]
-ModelDFSLt1_VMN5.14 <- ModelDFSLt1_VMN5.13[-nrow(ModelDFSLt1_VMN5.13),]
-ModelDFSLt1_VMN5.15 <- ModelDFSLt1_VMN5.14[-nrow(ModelDFSLt1_VMN5.14),]
-ModelDFSLt1_VMN5.16 <- ModelDFSLt1_VMN5.15[-nrow(ModelDFSLt1_VMN5.15),]
-ModelDFSLt1_VMN5.17 <- ModelDFSLt1_VMN5.16[-nrow(ModelDFSLt1_VMN5.16),]
-ModelDFSLt1_VMN5.18 <- ModelDFSLt1_VMN5.17[-nrow(ModelDFSLt1_VMN5.17),]
-ModelDFSLt1_VMN5.19 <- ModelDFSLt1_VMN5.18[-nrow(ModelDFSLt1_VMN5.18),]
-ModelDFSLt1_VMN5.20 <- ModelDFSLt1_VMN5.19[-nrow(ModelDFSLt1_VMN5.19),]
-ModelDFSLt1_VMN5.21 <- ModelDFSLt1_VMN5.20[-nrow(ModelDFSLt1_VMN5.20),]
-ModelDFSLt1_VMN5.22 <- ModelDFSLt1_VMN5.21[-nrow(ModelDFSLt1_VMN5.21),]
-ModelDFSLt1_VMN5.23 <- ModelDFSLt1_VMN5.22[-nrow(ModelDFSLt1_VMN5.22),]
-ModelDFSLt1_VMN5.24 <- ModelDFSLt1_VMN5.23[-nrow(ModelDFSLt1_VMN5.23),]
-
-ModelDFSLt1_VMN5 <- ModelDFSLt1_VMN5.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VMN5 <- rbind(c(0:0), ModelDFSLt1_VMN5)
+  assign(paste0("ModelDFSLt1_VMN5.", i), ModelDFSLt1_VMN5)
+}
+ModelDFSLt1_VMN5 <- head(ModelDFSLt1_VMN5.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMN5 <- ModelDFSLt0_VMN5 - ModelDFSLt1_VMN5
@@ -11004,8 +9903,11 @@ ModelDFSL1y_VMN5 <- ModelDFSLt0_VMN5 - ModelDFSLt1_VMN5
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMN5$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMN_5P because implies a one-off input of C
-ModelDFSL_VMN_5P <- ModelDFSL1y_VMN5
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VMN5_CorrectingPlus1 <- head(ModelDFSL1y_VMN5, -12) #Create model t=x+1
+
+#This model will be called VMN_0P because implies a one-off input of C
+ModelDFSL_VMN_5P <- ModelDFSLt1_VMN5_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VMN_5P,"VXP_Models\\ModelDFSL_R_VMN_5P.xlsx")
@@ -11152,32 +10054,11 @@ write_xlsx(ModelDFSL_VMN6C,"VXC_Models\\ModelDFSL_R_VMN6C.xlsx")
 ModelDFSLt0_VMN6 <- ModelDFSL_VMN6 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VMN6.1 <- rbind(c(0:0), ModelDFSLt0_VMN6)
-ModelDFSLt1_VMN6.2 <- rbind(c(0:0), ModelDFSLt1_VMN6.1)
-ModelDFSLt1_VMN6.3 <- rbind(c(0:0), ModelDFSLt1_VMN6.2)
-ModelDFSLt1_VMN6.4 <- rbind(c(0:0), ModelDFSLt1_VMN6.3)
-ModelDFSLt1_VMN6.5 <- rbind(c(0:0), ModelDFSLt1_VMN6.4)
-ModelDFSLt1_VMN6.6 <- rbind(c(0:0), ModelDFSLt1_VMN6.5)
-ModelDFSLt1_VMN6.7 <- rbind(c(0:0), ModelDFSLt1_VMN6.6)
-ModelDFSLt1_VMN6.8 <- rbind(c(0:0), ModelDFSLt1_VMN6.7)
-ModelDFSLt1_VMN6.9 <- rbind(c(0:0), ModelDFSLt1_VMN6.8)
-ModelDFSLt1_VMN6.10 <- rbind(c(0:0), ModelDFSLt1_VMN6.9)
-ModelDFSLt1_VMN6.11 <- rbind(c(0:0), ModelDFSLt1_VMN6.10)
-ModelDFSLt1_VMN6.12 <- rbind(c(0:0), ModelDFSLt1_VMN6.11)
-ModelDFSLt1_VMN6.13 <- ModelDFSLt1_VMN6.12[-nrow(ModelDFSLt1_VMN6.12),]
-ModelDFSLt1_VMN6.14 <- ModelDFSLt1_VMN6.13[-nrow(ModelDFSLt1_VMN6.13),]
-ModelDFSLt1_VMN6.15 <- ModelDFSLt1_VMN6.14[-nrow(ModelDFSLt1_VMN6.14),]
-ModelDFSLt1_VMN6.16 <- ModelDFSLt1_VMN6.15[-nrow(ModelDFSLt1_VMN6.15),]
-ModelDFSLt1_VMN6.17 <- ModelDFSLt1_VMN6.16[-nrow(ModelDFSLt1_VMN6.16),]
-ModelDFSLt1_VMN6.18 <- ModelDFSLt1_VMN6.17[-nrow(ModelDFSLt1_VMN6.17),]
-ModelDFSLt1_VMN6.19 <- ModelDFSLt1_VMN6.18[-nrow(ModelDFSLt1_VMN6.18),]
-ModelDFSLt1_VMN6.20 <- ModelDFSLt1_VMN6.19[-nrow(ModelDFSLt1_VMN6.19),]
-ModelDFSLt1_VMN6.21 <- ModelDFSLt1_VMN6.20[-nrow(ModelDFSLt1_VMN6.20),]
-ModelDFSLt1_VMN6.22 <- ModelDFSLt1_VMN6.21[-nrow(ModelDFSLt1_VMN6.21),]
-ModelDFSLt1_VMN6.23 <- ModelDFSLt1_VMN6.22[-nrow(ModelDFSLt1_VMN6.22),]
-ModelDFSLt1_VMN6.24 <- ModelDFSLt1_VMN6.23[-nrow(ModelDFSLt1_VMN6.23),]
-
-ModelDFSLt1_VMN6 <- ModelDFSLt1_VMN6.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VMN6 <- rbind(c(0:0), ModelDFSLt1_VMN6)
+  assign(paste0("ModelDFSLt1_VMN6.", i), ModelDFSLt1_VMN6)
+}
+ModelDFSLt1_VMN6 <- head(ModelDFSLt1_VMN6.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMN6 <- ModelDFSLt0_VMN6 - ModelDFSLt1_VMN6
@@ -11185,8 +10066,11 @@ ModelDFSL1y_VMN6 <- ModelDFSLt0_VMN6 - ModelDFSLt1_VMN6
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMN6$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMN_6P because implies a one-off input of C
-ModelDFSL_VMN_6P <- ModelDFSL1y_VMN6
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VMN6_CorrectingPlus1 <- head(ModelDFSL1y_VMN6, -12) #Create model t=x+1
+
+#This model will be called VMN_0P because implies a one-off input of C
+ModelDFSL_VMN_6P <- ModelDFSLt1_VMN6_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VMN_6P,"VXP_Models\\ModelDFSL_R_VMN_6P.xlsx")
@@ -11332,32 +10216,11 @@ write_xlsx(ModelDFSL_VMN7C,"VXC_Models\\ModelDFSL_R_VMN7C.xlsx")
 ModelDFSLt0_VMN7 <- ModelDFSL_VMN7 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VMN7.1 <- rbind(c(0:0), ModelDFSLt0_VMN7)
-ModelDFSLt1_VMN7.2 <- rbind(c(0:0), ModelDFSLt1_VMN7.1)
-ModelDFSLt1_VMN7.3 <- rbind(c(0:0), ModelDFSLt1_VMN7.2)
-ModelDFSLt1_VMN7.4 <- rbind(c(0:0), ModelDFSLt1_VMN7.3)
-ModelDFSLt1_VMN7.5 <- rbind(c(0:0), ModelDFSLt1_VMN7.4)
-ModelDFSLt1_VMN7.6 <- rbind(c(0:0), ModelDFSLt1_VMN7.5)
-ModelDFSLt1_VMN7.7 <- rbind(c(0:0), ModelDFSLt1_VMN7.6)
-ModelDFSLt1_VMN7.8 <- rbind(c(0:0), ModelDFSLt1_VMN7.7)
-ModelDFSLt1_VMN7.9 <- rbind(c(0:0), ModelDFSLt1_VMN7.8)
-ModelDFSLt1_VMN7.10 <- rbind(c(0:0), ModelDFSLt1_VMN7.9)
-ModelDFSLt1_VMN7.11 <- rbind(c(0:0), ModelDFSLt1_VMN7.10)
-ModelDFSLt1_VMN7.12 <- rbind(c(0:0), ModelDFSLt1_VMN7.11)
-ModelDFSLt1_VMN7.13 <- ModelDFSLt1_VMN7.12[-nrow(ModelDFSLt1_VMN7.12),]
-ModelDFSLt1_VMN7.14 <- ModelDFSLt1_VMN7.13[-nrow(ModelDFSLt1_VMN7.13),]
-ModelDFSLt1_VMN7.15 <- ModelDFSLt1_VMN7.14[-nrow(ModelDFSLt1_VMN7.14),]
-ModelDFSLt1_VMN7.16 <- ModelDFSLt1_VMN7.15[-nrow(ModelDFSLt1_VMN7.15),]
-ModelDFSLt1_VMN7.17 <- ModelDFSLt1_VMN7.16[-nrow(ModelDFSLt1_VMN7.16),]
-ModelDFSLt1_VMN7.18 <- ModelDFSLt1_VMN7.17[-nrow(ModelDFSLt1_VMN7.17),]
-ModelDFSLt1_VMN7.19 <- ModelDFSLt1_VMN7.18[-nrow(ModelDFSLt1_VMN7.18),]
-ModelDFSLt1_VMN7.20 <- ModelDFSLt1_VMN7.19[-nrow(ModelDFSLt1_VMN7.19),]
-ModelDFSLt1_VMN7.21 <- ModelDFSLt1_VMN7.20[-nrow(ModelDFSLt1_VMN7.20),]
-ModelDFSLt1_VMN7.22 <- ModelDFSLt1_VMN7.21[-nrow(ModelDFSLt1_VMN7.21),]
-ModelDFSLt1_VMN7.23 <- ModelDFSLt1_VMN7.22[-nrow(ModelDFSLt1_VMN7.22),]
-ModelDFSLt1_VMN7.24 <- ModelDFSLt1_VMN7.23[-nrow(ModelDFSLt1_VMN7.23),]
-
-ModelDFSLt1_VMN7 <- ModelDFSLt1_VMN7.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VMN7 <- rbind(c(0:0), ModelDFSLt1_VMN7)
+  assign(paste0("ModelDFSLt1_VMN7.", i), ModelDFSLt1_VMN7)
+}
+ModelDFSLt1_VMN7 <- head(ModelDFSLt1_VMN7.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMN7 <- ModelDFSLt0_VMN7 - ModelDFSLt1_VMN7
@@ -11365,8 +10228,11 @@ ModelDFSL1y_VMN7 <- ModelDFSLt0_VMN7 - ModelDFSLt1_VMN7
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMN7$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMN_7P because implies a one-off input of C
-ModelDFSL_VMN_7P <- ModelDFSL1y_VMN7
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VMN7_CorrectingPlus1 <- head(ModelDFSL1y_VMN7, -12) #Create model t=x+1
+
+#This model will be called VMN_0P because implies a one-off input of C
+ModelDFSL_VMN_7P <- ModelDFSLt1_VMN7_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VMN_7P,"VXP_Models\\ModelDFSL_R_VMN_7P.xlsx")
@@ -11513,32 +10379,11 @@ write_xlsx(ModelDFSL_VMN8C,"VXC_Models\\ModelDFSL_R_VMN8C.xlsx")
 ModelDFSLt0_VMN8 <- ModelDFSL_VMN8 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VMN8.1 <- rbind(c(0:0), ModelDFSLt0_VMN8)
-ModelDFSLt1_VMN8.2 <- rbind(c(0:0), ModelDFSLt1_VMN8.1)
-ModelDFSLt1_VMN8.3 <- rbind(c(0:0), ModelDFSLt1_VMN8.2)
-ModelDFSLt1_VMN8.4 <- rbind(c(0:0), ModelDFSLt1_VMN8.3)
-ModelDFSLt1_VMN8.5 <- rbind(c(0:0), ModelDFSLt1_VMN8.4)
-ModelDFSLt1_VMN8.6 <- rbind(c(0:0), ModelDFSLt1_VMN8.5)
-ModelDFSLt1_VMN8.7 <- rbind(c(0:0), ModelDFSLt1_VMN8.6)
-ModelDFSLt1_VMN8.8 <- rbind(c(0:0), ModelDFSLt1_VMN8.7)
-ModelDFSLt1_VMN8.9 <- rbind(c(0:0), ModelDFSLt1_VMN8.8)
-ModelDFSLt1_VMN8.10 <- rbind(c(0:0), ModelDFSLt1_VMN8.9)
-ModelDFSLt1_VMN8.11 <- rbind(c(0:0), ModelDFSLt1_VMN8.10)
-ModelDFSLt1_VMN8.12 <- rbind(c(0:0), ModelDFSLt1_VMN8.11)
-ModelDFSLt1_VMN8.13 <- ModelDFSLt1_VMN8.12[-nrow(ModelDFSLt1_VMN8.12),]
-ModelDFSLt1_VMN8.14 <- ModelDFSLt1_VMN8.13[-nrow(ModelDFSLt1_VMN8.13),]
-ModelDFSLt1_VMN8.15 <- ModelDFSLt1_VMN8.14[-nrow(ModelDFSLt1_VMN8.14),]
-ModelDFSLt1_VMN8.16 <- ModelDFSLt1_VMN8.15[-nrow(ModelDFSLt1_VMN8.15),]
-ModelDFSLt1_VMN8.17 <- ModelDFSLt1_VMN8.16[-nrow(ModelDFSLt1_VMN8.16),]
-ModelDFSLt1_VMN8.18 <- ModelDFSLt1_VMN8.17[-nrow(ModelDFSLt1_VMN8.17),]
-ModelDFSLt1_VMN8.19 <- ModelDFSLt1_VMN8.18[-nrow(ModelDFSLt1_VMN8.18),]
-ModelDFSLt1_VMN8.20 <- ModelDFSLt1_VMN8.19[-nrow(ModelDFSLt1_VMN8.19),]
-ModelDFSLt1_VMN8.21 <- ModelDFSLt1_VMN8.20[-nrow(ModelDFSLt1_VMN8.20),]
-ModelDFSLt1_VMN8.22 <- ModelDFSLt1_VMN8.21[-nrow(ModelDFSLt1_VMN8.21),]
-ModelDFSLt1_VMN8.23 <- ModelDFSLt1_VMN8.22[-nrow(ModelDFSLt1_VMN8.22),]
-ModelDFSLt1_VMN8.24 <- ModelDFSLt1_VMN8.23[-nrow(ModelDFSLt1_VMN8.23),]
-
-ModelDFSLt1_VMN8 <- ModelDFSLt1_VMN8.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VMN8 <- rbind(c(0:0), ModelDFSLt1_VMN8)
+  assign(paste0("ModelDFSLt1_VMN8.", i), ModelDFSLt1_VMN8)
+}
+ModelDFSLt1_VMN8 <- head(ModelDFSLt1_VMN8.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMN8 <- ModelDFSLt0_VMN8 - ModelDFSLt1_VMN8
@@ -11546,8 +10391,11 @@ ModelDFSL1y_VMN8 <- ModelDFSLt0_VMN8 - ModelDFSLt1_VMN8
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMN8$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMN_8P because implies a one-off input of C
-ModelDFSL_VMN_8P <- ModelDFSL1y_VMN8
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VMN8_CorrectingPlus1 <- head(ModelDFSL1y_VMN8, -12) #Create model t=x+1
+
+#This model will be called VMN_0P because implies a one-off input of C
+ModelDFSL_VMN_8P <- ModelDFSLt1_VMN8_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VMN_8P,"VXP_Models\\ModelDFSL_R_VMN_8P.xlsx")
@@ -11693,32 +10541,11 @@ write_xlsx(ModelDFSL_VMN9C,"VXC_Models\\ModelDFSL_R_VMN9C.xlsx")
 ModelDFSLt0_VMN9 <- ModelDFSL_VMN9 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VMN9.1 <- rbind(c(0:0), ModelDFSLt0_VMN9)
-ModelDFSLt1_VMN9.2 <- rbind(c(0:0), ModelDFSLt1_VMN9.1)
-ModelDFSLt1_VMN9.3 <- rbind(c(0:0), ModelDFSLt1_VMN9.2)
-ModelDFSLt1_VMN9.4 <- rbind(c(0:0), ModelDFSLt1_VMN9.3)
-ModelDFSLt1_VMN9.5 <- rbind(c(0:0), ModelDFSLt1_VMN9.4)
-ModelDFSLt1_VMN9.6 <- rbind(c(0:0), ModelDFSLt1_VMN9.5)
-ModelDFSLt1_VMN9.7 <- rbind(c(0:0), ModelDFSLt1_VMN9.6)
-ModelDFSLt1_VMN9.8 <- rbind(c(0:0), ModelDFSLt1_VMN9.7)
-ModelDFSLt1_VMN9.9 <- rbind(c(0:0), ModelDFSLt1_VMN9.8)
-ModelDFSLt1_VMN9.10 <- rbind(c(0:0), ModelDFSLt1_VMN9.9)
-ModelDFSLt1_VMN9.11 <- rbind(c(0:0), ModelDFSLt1_VMN9.10)
-ModelDFSLt1_VMN9.12 <- rbind(c(0:0), ModelDFSLt1_VMN9.11)
-ModelDFSLt1_VMN9.13 <- ModelDFSLt1_VMN9.12[-nrow(ModelDFSLt1_VMN9.12),]
-ModelDFSLt1_VMN9.14 <- ModelDFSLt1_VMN9.13[-nrow(ModelDFSLt1_VMN9.13),]
-ModelDFSLt1_VMN9.15 <- ModelDFSLt1_VMN9.14[-nrow(ModelDFSLt1_VMN9.14),]
-ModelDFSLt1_VMN9.16 <- ModelDFSLt1_VMN9.15[-nrow(ModelDFSLt1_VMN9.15),]
-ModelDFSLt1_VMN9.17 <- ModelDFSLt1_VMN9.16[-nrow(ModelDFSLt1_VMN9.16),]
-ModelDFSLt1_VMN9.18 <- ModelDFSLt1_VMN9.17[-nrow(ModelDFSLt1_VMN9.17),]
-ModelDFSLt1_VMN9.19 <- ModelDFSLt1_VMN9.18[-nrow(ModelDFSLt1_VMN9.18),]
-ModelDFSLt1_VMN9.20 <- ModelDFSLt1_VMN9.19[-nrow(ModelDFSLt1_VMN9.19),]
-ModelDFSLt1_VMN9.21 <- ModelDFSLt1_VMN9.20[-nrow(ModelDFSLt1_VMN9.20),]
-ModelDFSLt1_VMN9.22 <- ModelDFSLt1_VMN9.21[-nrow(ModelDFSLt1_VMN9.21),]
-ModelDFSLt1_VMN9.23 <- ModelDFSLt1_VMN9.22[-nrow(ModelDFSLt1_VMN9.22),]
-ModelDFSLt1_VMN9.24 <- ModelDFSLt1_VMN9.23[-nrow(ModelDFSLt1_VMN9.23),]
-
-ModelDFSLt1_VMN9 <- ModelDFSLt1_VMN9.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VMN9 <- rbind(c(0:0), ModelDFSLt1_VMN9)
+  assign(paste0("ModelDFSLt1_VMN9.", i), ModelDFSLt1_VMN9)
+}
+ModelDFSLt1_VMN9 <- head(ModelDFSLt1_VMN9.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMN9 <- ModelDFSLt0_VMN9 - ModelDFSLt1_VMN9
@@ -11726,8 +10553,11 @@ ModelDFSL1y_VMN9 <- ModelDFSLt0_VMN9 - ModelDFSLt1_VMN9
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMN9$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMN_9P because implies a one-off input of C
-ModelDFSL_VMN_9P <- ModelDFSL1y_VMN9
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VMN9_CorrectingPlus1 <- head(ModelDFSL1y_VMN9, -12) #Create model t=x+1
+
+#This model will be called VMN_0P because implies a one-off input of C
+ModelDFSL_VMN_9P <- ModelDFSLt1_VMN9_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VMN_9P,"VXP_Models\\ModelDFSL_R_VMN_9P.xlsx")
@@ -11873,32 +10703,11 @@ write_xlsx(ModelDFSL_VMN10C,"VXC_Models\\ModelDFSL_R_VMN10C.xlsx")
 ModelDFSLt0_VMN10 <- ModelDFSL_VMN10 #Create model t=x
 
 #Create model t=x+1 by adding 12 rows full of zeros at the beginning and deleting the last 12 rows
-ModelDFSLt1_VMN10.1 <- rbind(c(0:0), ModelDFSLt0_VMN10)
-ModelDFSLt1_VMN10.2 <- rbind(c(0:0), ModelDFSLt1_VMN10.1)
-ModelDFSLt1_VMN10.3 <- rbind(c(0:0), ModelDFSLt1_VMN10.2)
-ModelDFSLt1_VMN10.4 <- rbind(c(0:0), ModelDFSLt1_VMN10.3)
-ModelDFSLt1_VMN10.5 <- rbind(c(0:0), ModelDFSLt1_VMN10.4)
-ModelDFSLt1_VMN10.6 <- rbind(c(0:0), ModelDFSLt1_VMN10.5)
-ModelDFSLt1_VMN10.7 <- rbind(c(0:0), ModelDFSLt1_VMN10.6)
-ModelDFSLt1_VMN10.8 <- rbind(c(0:0), ModelDFSLt1_VMN10.7)
-ModelDFSLt1_VMN10.9 <- rbind(c(0:0), ModelDFSLt1_VMN10.8)
-ModelDFSLt1_VMN10.10 <- rbind(c(0:0), ModelDFSLt1_VMN10.9)
-ModelDFSLt1_VMN10.11 <- rbind(c(0:0), ModelDFSLt1_VMN10.10)
-ModelDFSLt1_VMN10.12 <- rbind(c(0:0), ModelDFSLt1_VMN10.11)
-ModelDFSLt1_VMN10.13 <- ModelDFSLt1_VMN10.12[-nrow(ModelDFSLt1_VMN10.12),]
-ModelDFSLt1_VMN10.14 <- ModelDFSLt1_VMN10.13[-nrow(ModelDFSLt1_VMN10.13),]
-ModelDFSLt1_VMN10.15 <- ModelDFSLt1_VMN10.14[-nrow(ModelDFSLt1_VMN10.14),]
-ModelDFSLt1_VMN10.16 <- ModelDFSLt1_VMN10.15[-nrow(ModelDFSLt1_VMN10.15),]
-ModelDFSLt1_VMN10.17 <- ModelDFSLt1_VMN10.16[-nrow(ModelDFSLt1_VMN10.16),]
-ModelDFSLt1_VMN10.18 <- ModelDFSLt1_VMN10.17[-nrow(ModelDFSLt1_VMN10.17),]
-ModelDFSLt1_VMN10.19 <- ModelDFSLt1_VMN10.18[-nrow(ModelDFSLt1_VMN10.18),]
-ModelDFSLt1_VMN10.20 <- ModelDFSLt1_VMN10.19[-nrow(ModelDFSLt1_VMN10.19),]
-ModelDFSLt1_VMN10.21 <- ModelDFSLt1_VMN10.20[-nrow(ModelDFSLt1_VMN10.20),]
-ModelDFSLt1_VMN10.22 <- ModelDFSLt1_VMN10.21[-nrow(ModelDFSLt1_VMN10.21),]
-ModelDFSLt1_VMN10.23 <- ModelDFSLt1_VMN10.22[-nrow(ModelDFSLt1_VMN10.22),]
-ModelDFSLt1_VMN10.24 <- ModelDFSLt1_VMN10.23[-nrow(ModelDFSLt1_VMN10.23),]
-
-ModelDFSLt1_VMN10 <- ModelDFSLt1_VMN10.24 #Create model t=x+1
+for (i in 1:12) {
+  ModelDFSLt1_VMN10 <- rbind(c(0:0), ModelDFSLt1_VMN10)
+  assign(paste0("ModelDFSLt1_VMN10.", i), ModelDFSLt1_VMN10)
+}
+ModelDFSLt1_VMN10 <- head(ModelDFSLt1_VMN10.12, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMN10 <- ModelDFSLt0_VMN10 - ModelDFSLt1_VMN10
@@ -11906,8 +10715,11 @@ ModelDFSL1y_VMN10 <- ModelDFSLt0_VMN10 - ModelDFSLt1_VMN10
 #Re-do Month Number column because the substraction was also applied to it
 ModelDFSL1y_VMN10$MNumber <- seq(from = 1, to = SimulationLength_months)
 
-#This model will be called VMN10P because implies a one-off input of C
-ModelDFSL_VMN10P <- ModelDFSL1y_VMN10
+#Substract 12 rows in the end again to correct the plus 1 that we added to SL_years within the model, which will now give the final model with the correct number of years inputted by the user
+ModelDFSLt1_VMN10_CorrectingPlus1 <- head(ModelDFSL1y_VMN10, -12) #Create model t=x+1
+
+#This model will be called VMN_0P because implies a one-off input of C
+ModelDFSL_VMN10P <- ModelDFSLt1_VMN10_CorrectingPlus1
 
 #Export the dataframe
 write_xlsx(ModelDFSL_VMN10P,"VXP_Models\\ModelDFSL_R_VMN10P.xlsx")
