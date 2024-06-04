@@ -265,7 +265,7 @@ for (i in 1:12) {
   ModelDFSLt1_VLC0 <- rbind(c(0:0), ModelDFSLt0_VLC0)
   assign(paste0("ModelDFSLt1_VLC0.", i), ModelDFSLt1_VLC0)
 }
-ModelDFSLt1_VLC0 <- head(ModelDFSLt1_VLC0.12, -12) #Create model t=x+1
+ModelDFSLt1_VLC0 <- head(ModelDFSLt1_VLC0, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLC0 <- ModelDFSLt0_VLC0 - ModelDFSLt1_VLC0
@@ -424,7 +424,7 @@ for (i in 1:12) {
   ModelDFSLt1_VLC1 <- rbind(c(0:0), ModelDFSLt0_VLC1)
   assign(paste0("ModelDFSLt1_VLC1.", i), ModelDFSLt1_VLC1)
 }
-ModelDFSLt1_VLC1 <- head(ModelDFSLt1_VLC1.12, -12) #Create model t=x+1
+ModelDFSLt1_VLC1 <- head(ModelDFSLt1_VLC1, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLC1 <- ModelDFSLt0_VLC1 - ModelDFSLt1_VLC1
@@ -584,7 +584,7 @@ for (i in 1:12) {
   ModelDFSLt1_VLC2 <- rbind(c(0:0), ModelDFSLt0_VLC2)
   assign(paste0("ModelDFSLt1_VLC2.", i), ModelDFSLt1_VLC2)
 }
-ModelDFSLt1_VLC2 <- head(ModelDFSLt1_VLC2.12, -12) #Create model t=x+1
+ModelDFSLt1_VLC2 <- head(ModelDFSLt1_VLC2, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLC2 <- ModelDFSLt0_VLC2 - ModelDFSLt1_VLC2
@@ -744,7 +744,7 @@ for (i in 1:12) {
   ModelDFSLt1_VLC3 <- rbind(c(0:0), ModelDFSLt0_VLC3)
   assign(paste0("ModelDFSLt1_VLC3.", i), ModelDFSLt1_VLC3)
 }
-ModelDFSLt1_VLC3 <- head(ModelDFSLt1_VLC3.12, -12) #Create model t=x+1
+ModelDFSLt1_VLC3 <- head(ModelDFSLt1_VLC3, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLC3 <- ModelDFSLt0_VLC3 - ModelDFSLt1_VLC3
@@ -904,7 +904,7 @@ for (i in 1:12) {
   ModelDFSLt1_VLC4 <- rbind(c(0:0), ModelDFSLt0_VLC4)
   assign(paste0("ModelDFSLt1_VLC4.", i), ModelDFSLt1_VLC4)
 }
-ModelDFSLt1_VLC4 <- head(ModelDFSLt1_VLC4.12, -12) #Create model t=x+1
+ModelDFSLt1_VLC4 <- head(ModelDFSLt1_VLC4, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLC4 <- ModelDFSLt0_VLC4 - ModelDFSLt1_VLC4
@@ -1064,7 +1064,7 @@ for (i in 1:12) {
   ModelDFSLt1_VLC5 <- rbind(c(0:0), ModelDFSLt0_VLC5)
   assign(paste0("ModelDFSLt1_VLC5.", i), ModelDFSLt1_VLC5)
 }
-ModelDFSLt1_VLC5 <- head(ModelDFSLt1_VLC5.12, -12) #Create model t=x+1
+ModelDFSLt1_VLC5 <- head(ModelDFSLt1_VLC5, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLC5 <- ModelDFSLt0_VLC5 - ModelDFSLt1_VLC5
@@ -1227,7 +1227,7 @@ for (i in 1:12) {
   ModelDFSLt1_VLC6 <- rbind(c(0:0), ModelDFSLt0_VLC6)
   assign(paste0("ModelDFSLt1_VLC6.", i), ModelDFSLt1_VLC6)
 }
-ModelDFSLt1_VLC6 <- head(ModelDFSLt1_VLC6.12, -12) #Create model t=x+1
+ModelDFSLt1_VLC6 <- head(ModelDFSLt1_VLC6, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLC6 <- ModelDFSLt0_VLC6 - ModelDFSLt1_VLC6
@@ -1389,7 +1389,7 @@ for (i in 1:12) {
   ModelDFSLt1_VLC7 <- rbind(c(0:0), ModelDFSLt0_VLC7)
   assign(paste0("ModelDFSLt1_VLC7.", i), ModelDFSLt1_VLC7)
 }
-ModelDFSLt1_VLC7 <- head(ModelDFSLt1_VLC7.12, -12) #Create model t=x+1
+ModelDFSLt1_VLC7 <- head(ModelDFSLt1_VLC7, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLC7 <- ModelDFSLt0_VLC7 - ModelDFSLt1_VLC7
@@ -1552,7 +1552,7 @@ for (i in 1:12) {
   ModelDFSLt1_VLC8 <- rbind(c(0:0), ModelDFSLt0_VLC8)
   assign(paste0("ModelDFSLt1_VLC8.", i), ModelDFSLt1_VLC8)
 }
-ModelDFSLt1_VLC8 <- head(ModelDFSLt1_VLC8.12, -12) #Create model t=x+1
+ModelDFSLt1_VLC8 <- head(ModelDFSLt1_VLC8, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLC8 <- ModelDFSLt0_VLC8 - ModelDFSLt1_VLC8
@@ -1714,7 +1714,7 @@ for (i in 1:12) {
   ModelDFSLt1_VLC9 <- rbind(c(0:0), ModelDFSLt0_VLC9)
   assign(paste0("ModelDFSLt1_VLC9.", i), ModelDFSLt1_VLC9)
 }
-ModelDFSLt1_VLC9 <- head(ModelDFSLt1_VLC9.12, -12) #Create model t=x+1
+ModelDFSLt1_VLC9 <- head(ModelDFSLt1_VLC9, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLC9 <- ModelDFSLt0_VLC9 - ModelDFSLt1_VLC9
@@ -1876,7 +1876,7 @@ for (i in 1:12) {
   ModelDFSLt1_VLC10 <- rbind(c(0:0), ModelDFSLt0_VLC10)
   assign(paste0("ModelDFSLt1_VLC10.", i), ModelDFSLt1_VLC10)
 }
-ModelDFSLt1_VLC10 <- head(ModelDFSLt1_VLC10.12, -12) #Create model t=x+1
+ModelDFSLt1_VLC10 <- head(ModelDFSLt1_VLC10, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLC10 <- ModelDFSLt0_VLC10 - ModelDFSLt1_VLC10
@@ -2031,7 +2031,7 @@ for (i in 1:12) {
   ModelDFSLt1_VLR0 <- rbind(c(0:0), ModelDFSLt0_VLR0)
   assign(paste0("ModelDFSLt1_VLR0.", i), ModelDFSLt1_VLR0)
 }
-ModelDFSLt1_VLR0 <- head(ModelDFSLt1_VLR0.12, -12) #Create model t=x+1
+ModelDFSLt1_VLR0 <- head(ModelDFSLt1_VLR0, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLR0 <- ModelDFSLt0_VLR0 - ModelDFSLt1_VLR0
@@ -2190,7 +2190,7 @@ for (i in 1:12) {
   ModelDFSLt1_VLR1 <- rbind(c(0:0), ModelDFSLt0_VLR1)
   assign(paste0("ModelDFSLt1_VLR1.", i), ModelDFSLt1_VLR1)
 }
-ModelDFSLt1_VLR1 <- head(ModelDFSLt1_VLR1.12, -12) #Create model t=x+1
+ModelDFSLt1_VLR1 <- head(ModelDFSLt1_VLR1, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLR1 <- ModelDFSLt0_VLR1 - ModelDFSLt1_VLR1
@@ -2350,7 +2350,7 @@ for (i in 1:12) {
   ModelDFSLt1_VLR2 <- rbind(c(0:0), ModelDFSLt0_VLR2)
   assign(paste0("ModelDFSLt1_VLR2.", i), ModelDFSLt1_VLR2)
 }
-ModelDFSLt1_VLR2 <- head(ModelDFSLt1_VLR2.12, -12) #Create model t=x+1
+ModelDFSLt1_VLR2 <- head(ModelDFSLt1_VLR2, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLR2 <- ModelDFSLt0_VLR2 - ModelDFSLt1_VLR2
@@ -2510,7 +2510,7 @@ for (i in 1:12) {
   ModelDFSLt1_VLR3 <- rbind(c(0:0), ModelDFSLt0_VLR3)
   assign(paste0("ModelDFSLt1_VLR3.", i), ModelDFSLt1_VLR3)
 }
-ModelDFSLt1_VLR3 <- head(ModelDFSLt1_VLR3.12, -12) #Create model t=x+1
+ModelDFSLt1_VLR3 <- head(ModelDFSLt1_VLR3, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLR3 <- ModelDFSLt0_VLR3 - ModelDFSLt1_VLR3
@@ -2670,7 +2670,7 @@ for (i in 1:12) {
   ModelDFSLt1_VLR4 <- rbind(c(0:0), ModelDFSLt0_VLR4)
   assign(paste0("ModelDFSLt1_VLR4.", i), ModelDFSLt1_VLR4)
 }
-ModelDFSLt1_VLR4 <- head(ModelDFSLt1_VLR4.12, -12) #Create model t=x+1
+ModelDFSLt1_VLR4 <- head(ModelDFSLt1_VLR4, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLR4 <- ModelDFSLt0_VLR4 - ModelDFSLt1_VLR4
@@ -2830,7 +2830,7 @@ for (i in 1:12) {
   ModelDFSLt1_VLR5 <- rbind(c(0:0), ModelDFSLt0_VLR5)
   assign(paste0("ModelDFSLt1_VLR5.", i), ModelDFSLt1_VLR5)
 }
-ModelDFSLt1_VLR5 <- head(ModelDFSLt1_VLR5.12, -12) #Create model t=x+1
+ModelDFSLt1_VLR5 <- head(ModelDFSLt1_VLR5, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLR5 <- ModelDFSLt0_VLR5 - ModelDFSLt1_VLR5
@@ -2993,7 +2993,7 @@ for (i in 1:12) {
   ModelDFSLt1_VLR6 <- rbind(c(0:0), ModelDFSLt0_VLR6)
   assign(paste0("ModelDFSLt1_VLR6.", i), ModelDFSLt1_VLR6)
 }
-ModelDFSLt1_VLR6 <- head(ModelDFSLt1_VLR6.12, -12) #Create model t=x+1
+ModelDFSLt1_VLR6 <- head(ModelDFSLt1_VLR6, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLR6 <- ModelDFSLt0_VLR6 - ModelDFSLt1_VLR6
@@ -3155,7 +3155,7 @@ for (i in 1:12) {
   ModelDFSLt1_VLR7 <- rbind(c(0:0), ModelDFSLt0_VLR7)
   assign(paste0("ModelDFSLt1_VLR7.", i), ModelDFSLt1_VLR7)
 }
-ModelDFSLt1_VLR7 <- head(ModelDFSLt1_VLR7.12, -12) #Create model t=x+1
+ModelDFSLt1_VLR7 <- head(ModelDFSLt1_VLR7, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLR7 <- ModelDFSLt0_VLR7 - ModelDFSLt1_VLR7
@@ -3318,7 +3318,7 @@ for (i in 1:12) {
   ModelDFSLt1_VLR8 <- rbind(c(0:0), ModelDFSLt0_VLR8)
   assign(paste0("ModelDFSLt1_VLR8.", i), ModelDFSLt1_VLR8)
 }
-ModelDFSLt1_VLR8 <- head(ModelDFSLt1_VLR8.12, -12) #Create model t=x+1
+ModelDFSLt1_VLR8 <- head(ModelDFSLt1_VLR8, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLR8 <- ModelDFSLt0_VLR8 - ModelDFSLt1_VLR8
@@ -3480,7 +3480,7 @@ for (i in 1:12) {
   ModelDFSLt1_VLR9 <- rbind(c(0:0), ModelDFSLt0_VLR9)
   assign(paste0("ModelDFSLt1_VLR9.", i), ModelDFSLt1_VLR9)
 }
-ModelDFSLt1_VLR9 <- head(ModelDFSLt1_VLR9.12, -12) #Create model t=x+1
+ModelDFSLt1_VLR9 <- head(ModelDFSLt1_VLR9, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLR9 <- ModelDFSLt0_VLR9 - ModelDFSLt1_VLR9
@@ -3642,7 +3642,7 @@ for (i in 1:12) {
   ModelDFSLt1_VLR10 <- rbind(c(0:0), ModelDFSLt0_VLR10)
   assign(paste0("ModelDFSLt1_VLR10.", i), ModelDFSLt1_VLR10)
 }
-ModelDFSLt1_VLR10 <- head(ModelDFSLt1_VLR10.12, -12) #Create model t=x+1
+ModelDFSLt1_VLR10 <- head(ModelDFSLt1_VLR10, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLR10 <- ModelDFSLt0_VLR10 - ModelDFSLt1_VLR10
@@ -3799,7 +3799,7 @@ for (i in 1:12) {
   ModelDFSLt1_VLN0 <- rbind(c(0:0), ModelDFSLt0_VLN0)
   assign(paste0("ModelDFSLt1_VLN0.", i), ModelDFSLt1_VLN0)
 }
-ModelDFSLt1_VLN0 <- head(ModelDFSLt1_VLN0.12, -12) #Create model t=x+1
+ModelDFSLt1_VLN0 <- head(ModelDFSLt1_VLN0, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLN0 <- ModelDFSLt0_VLN0 - ModelDFSLt1_VLN0
@@ -3958,7 +3958,7 @@ for (i in 1:12) {
   ModelDFSLt1_VLN1 <- rbind(c(0:0), ModelDFSLt0_VLN1)
   assign(paste0("ModelDFSLt1_VLN1.", i), ModelDFSLt1_VLN1)
 }
-ModelDFSLt1_VLN1 <- head(ModelDFSLt1_VLN1.12, -12) #Create model t=x+1
+ModelDFSLt1_VLN1 <- head(ModelDFSLt1_VLN1, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLN1 <- ModelDFSLt0_VLN1 - ModelDFSLt1_VLN1
@@ -4118,7 +4118,7 @@ for (i in 1:12) {
   ModelDFSLt1_VLN2 <- rbind(c(0:0), ModelDFSLt0_VLN2)
   assign(paste0("ModelDFSLt1_VLN2.", i), ModelDFSLt1_VLN2)
 }
-ModelDFSLt1_VLN2 <- head(ModelDFSLt1_VLN2.12, -12) #Create model t=x+1
+ModelDFSLt1_VLN2 <- head(ModelDFSLt1_VLN2, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLN2 <- ModelDFSLt0_VLN2 - ModelDFSLt1_VLN2
@@ -4278,7 +4278,7 @@ for (i in 1:12) {
   ModelDFSLt1_VLN3 <- rbind(c(0:0), ModelDFSLt0_VLN3)
   assign(paste0("ModelDFSLt1_VLN3.", i), ModelDFSLt1_VLN3)
 }
-ModelDFSLt1_VLN3 <- head(ModelDFSLt1_VLN3.12, -12) #Create model t=x+1
+ModelDFSLt1_VLN3 <- head(ModelDFSLt1_VLN3, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLN3 <- ModelDFSLt0_VLN3 - ModelDFSLt1_VLN3
@@ -4438,7 +4438,7 @@ for (i in 1:12) {
   ModelDFSLt1_VLN4 <- rbind(c(0:0), ModelDFSLt0_VLN4)
   assign(paste0("ModelDFSLt1_VLN4.", i), ModelDFSLt1_VLN4)
 }
-ModelDFSLt1_VLN4 <- head(ModelDFSLt1_VLN4.12, -12) #Create model t=x+1
+ModelDFSLt1_VLN4 <- head(ModelDFSLt1_VLN4, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLN4 <- ModelDFSLt0_VLN4 - ModelDFSLt1_VLN4
@@ -4598,7 +4598,7 @@ for (i in 1:12) {
   ModelDFSLt1_VLN5 <- rbind(c(0:0), ModelDFSLt0_VLN5)
   assign(paste0("ModelDFSLt1_VLN5.", i), ModelDFSLt1_VLN5)
 }
-ModelDFSLt1_VLN5 <- head(ModelDFSLt1_VLN5.12, -12) #Create model t=x+1
+ModelDFSLt1_VLN5 <- head(ModelDFSLt1_VLN5, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLN5 <- ModelDFSLt0_VLN5 - ModelDFSLt1_VLN5
@@ -4761,7 +4761,7 @@ for (i in 1:12) {
   ModelDFSLt1_VLN6 <- rbind(c(0:0), ModelDFSLt0_VLN6)
   assign(paste0("ModelDFSLt1_VLN6.", i), ModelDFSLt1_VLN6)
 }
-ModelDFSLt1_VLN6 <- head(ModelDFSLt1_VLN6.12, -12) #Create model t=x+1
+ModelDFSLt1_VLN6 <- head(ModelDFSLt1_VLN6, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLN6 <- ModelDFSLt0_VLN6 - ModelDFSLt1_VLN6
@@ -4923,7 +4923,7 @@ for (i in 1:12) {
   ModelDFSLt1_VLN7 <- rbind(c(0:0), ModelDFSLt0_VLN7)
   assign(paste0("ModelDFSLt1_VLN7.", i), ModelDFSLt1_VLN7)
 }
-ModelDFSLt1_VLN7 <- head(ModelDFSLt1_VLN7.12, -12) #Create model t=x+1
+ModelDFSLt1_VLN7 <- head(ModelDFSLt1_VLN7, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLN7 <- ModelDFSLt0_VLN7 - ModelDFSLt1_VLN7
@@ -5086,7 +5086,7 @@ for (i in 1:12) {
   ModelDFSLt1_VLN8 <- rbind(c(0:0), ModelDFSLt0_VLN8)
   assign(paste0("ModelDFSLt1_VLN8.", i), ModelDFSLt1_VLN8)
 }
-ModelDFSLt1_VLN8 <- head(ModelDFSLt1_VLN8.12, -12) #Create model t=x+1
+ModelDFSLt1_VLN8 <- head(ModelDFSLt1_VLN8, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLN8 <- ModelDFSLt0_VLN8 - ModelDFSLt1_VLN8
@@ -5248,7 +5248,7 @@ for (i in 1:12) {
   ModelDFSLt1_VLN9 <- rbind(c(0:0), ModelDFSLt0_VLN9)
   assign(paste0("ModelDFSLt1_VLN9.", i), ModelDFSLt1_VLN9)
 }
-ModelDFSLt1_VLN9 <- head(ModelDFSLt1_VLN9.12, -12) #Create model t=x+1
+ModelDFSLt1_VLN9 <- head(ModelDFSLt1_VLN9, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLN9 <- ModelDFSLt0_VLN9 - ModelDFSLt1_VLN9
@@ -5410,7 +5410,7 @@ for (i in 1:12) {
   ModelDFSLt1_VLN10 <- rbind(c(0:0), ModelDFSLt0_VLN10)
   assign(paste0("ModelDFSLt1_VLN10.", i), ModelDFSLt1_VLN10)
 }
-ModelDFSLt1_VLN10 <- head(ModelDFSLt1_VLN10.12, -12) #Create model t=x+1
+ModelDFSLt1_VLN10 <- head(ModelDFSLt1_VLN10, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VLN10 <- ModelDFSLt0_VLN10 - ModelDFSLt1_VLN10
@@ -5565,7 +5565,7 @@ for (i in 1:12) {
   ModelDFSLt1_VMC0 <- rbind(c(0:0), ModelDFSLt0_VMC0)
   assign(paste0("ModelDFSLt1_VMC0.", i), ModelDFSLt1_VMC0)
 }
-ModelDFSLt1_VMC0 <- head(ModelDFSLt1_VMC0.12, -12) #Create model t=x+1
+ModelDFSLt1_VMC0 <- head(ModelDFSLt1_VMC0, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMC0 <- ModelDFSLt0_VMC0 - ModelDFSLt1_VMC0
@@ -5724,7 +5724,7 @@ for (i in 1:12) {
   ModelDFSLt1_VMC1 <- rbind(c(0:0), ModelDFSLt0_VMC1)
   assign(paste0("ModelDFSLt1_VMC1.", i), ModelDFSLt1_VMC1)
 }
-ModelDFSLt1_VMC1 <- head(ModelDFSLt1_VMC1.12, -12) #Create model t=x+1
+ModelDFSLt1_VMC1 <- head(ModelDFSLt1_VMC1, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMC1 <- ModelDFSLt0_VMC1 - ModelDFSLt1_VMC1
@@ -5884,7 +5884,7 @@ for (i in 1:12) {
   ModelDFSLt1_VMC2 <- rbind(c(0:0), ModelDFSLt0_VMC2)
   assign(paste0("ModelDFSLt1_VMC2.", i), ModelDFSLt1_VMC2)
 }
-ModelDFSLt1_VMC2 <- head(ModelDFSLt1_VMC2.12, -12) #Create model t=x+1
+ModelDFSLt1_VMC2 <- head(ModelDFSLt1_VMC2, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMC2 <- ModelDFSLt0_VMC2 - ModelDFSLt1_VMC2
@@ -6044,7 +6044,7 @@ for (i in 1:12) {
   ModelDFSLt1_VMC3 <- rbind(c(0:0), ModelDFSLt0_VMC3)
   assign(paste0("ModelDFSLt1_VMC3.", i), ModelDFSLt1_VMC3)
 }
-ModelDFSLt1_VMC3 <- head(ModelDFSLt1_VMC3.12, -12) #Create model t=x+1
+ModelDFSLt1_VMC3 <- head(ModelDFSLt1_VMC3, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMC3 <- ModelDFSLt0_VMC3 - ModelDFSLt1_VMC3
@@ -6204,7 +6204,7 @@ for (i in 1:12) {
   ModelDFSLt1_VMC4 <- rbind(c(0:0), ModelDFSLt0_VMC4)
   assign(paste0("ModelDFSLt1_VMC4.", i), ModelDFSLt1_VMC4)
 }
-ModelDFSLt1_VMC4 <- head(ModelDFSLt1_VMC4.12, -12) #Create model t=x+1
+ModelDFSLt1_VMC4 <- head(ModelDFSLt1_VMC4, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMC4 <- ModelDFSLt0_VMC4 - ModelDFSLt1_VMC4
@@ -6364,7 +6364,7 @@ for (i in 1:12) {
   ModelDFSLt1_VMC5 <- rbind(c(0:0), ModelDFSLt0_VMC5)
   assign(paste0("ModelDFSLt1_VMC5.", i), ModelDFSLt1_VMC5)
 }
-ModelDFSLt1_VMC5 <- head(ModelDFSLt1_VMC5.12, -12) #Create model t=x+1
+ModelDFSLt1_VMC5 <- head(ModelDFSLt1_VMC5, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMC5 <- ModelDFSLt0_VMC5 - ModelDFSLt1_VMC5
@@ -6527,7 +6527,7 @@ for (i in 1:12) {
   ModelDFSLt1_VMC6 <- rbind(c(0:0), ModelDFSLt0_VMC6)
   assign(paste0("ModelDFSLt1_VMC6.", i), ModelDFSLt1_VMC6)
 }
-ModelDFSLt1_VMC6 <- head(ModelDFSLt1_VMC6.12, -12) #Create model t=x+1
+ModelDFSLt1_VMC6 <- head(ModelDFSLt1_VMC6, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMC6 <- ModelDFSLt0_VMC6 - ModelDFSLt1_VMC6
@@ -6689,7 +6689,7 @@ for (i in 1:12) {
   ModelDFSLt1_VMC7 <- rbind(c(0:0), ModelDFSLt0_VMC7)
   assign(paste0("ModelDFSLt1_VMC7.", i), ModelDFSLt1_VMC7)
 }
-ModelDFSLt1_VMC7 <- head(ModelDFSLt1_VMC7.12, -12) #Create model t=x+1
+ModelDFSLt1_VMC7 <- head(ModelDFSLt1_VMC7, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMC7 <- ModelDFSLt0_VMC7 - ModelDFSLt1_VMC7
@@ -6852,7 +6852,7 @@ for (i in 1:12) {
   ModelDFSLt1_VMC8 <- rbind(c(0:0), ModelDFSLt0_VMC8)
   assign(paste0("ModelDFSLt1_VMC8.", i), ModelDFSLt1_VMC8)
 }
-ModelDFSLt1_VMC8 <- head(ModelDFSLt1_VMC8.12, -12) #Create model t=x+1
+ModelDFSLt1_VMC8 <- head(ModelDFSLt1_VMC8, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMC8 <- ModelDFSLt0_VMC8 - ModelDFSLt1_VMC8
@@ -7014,7 +7014,7 @@ for (i in 1:12) {
   ModelDFSLt1_VMC9 <- rbind(c(0:0), ModelDFSLt0_VMC9)
   assign(paste0("ModelDFSLt1_VMC9.", i), ModelDFSLt1_VMC9)
 }
-ModelDFSLt1_VMC9 <- head(ModelDFSLt1_VMC9.12, -12) #Create model t=x+1
+ModelDFSLt1_VMC9 <- head(ModelDFSLt1_VMC9, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMC9 <- ModelDFSLt0_VMC9 - ModelDFSLt1_VMC9
@@ -7176,7 +7176,7 @@ for (i in 1:12) {
   ModelDFSLt1_VMC10 <- rbind(c(0:0), ModelDFSLt0_VMC10)
   assign(paste0("ModelDFSLt1_VMC10.", i), ModelDFSLt1_VMC10)
 }
-ModelDFSLt1_VMC10 <- head(ModelDFSLt1_VMC10.12, -12) #Create model t=x+1
+ModelDFSLt1_VMC10 <- head(ModelDFSLt1_VMC10, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMC10 <- ModelDFSLt0_VMC10 - ModelDFSLt1_VMC10
@@ -7331,7 +7331,7 @@ for (i in 1:12) {
   ModelDFSLt1_VMR0 <- rbind(c(0:0), ModelDFSLt0_VMR0)
   assign(paste0("ModelDFSLt1_VMR0.", i), ModelDFSLt1_VMR0)
 }
-ModelDFSLt1_VMR0 <- head(ModelDFSLt1_VMR0.12, -12) #Create model t=x+1
+ModelDFSLt1_VMR0 <- head(ModelDFSLt1_VMR0, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMR0 <- ModelDFSLt0_VMR0 - ModelDFSLt1_VMR0
@@ -7490,7 +7490,7 @@ for (i in 1:12) {
   ModelDFSLt1_VMR1 <- rbind(c(0:0), ModelDFSLt0_VMR1)
   assign(paste0("ModelDFSLt1_VMR1.", i), ModelDFSLt1_VMR1)
 }
-ModelDFSLt1_VMR1 <- head(ModelDFSLt1_VMR1.12, -12) #Create model t=x+1
+ModelDFSLt1_VMR1 <- head(ModelDFSLt1_VMR1, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMR1 <- ModelDFSLt0_VMR1 - ModelDFSLt1_VMR1
@@ -7650,7 +7650,7 @@ for (i in 1:12) {
   ModelDFSLt1_VMR2 <- rbind(c(0:0), ModelDFSLt0_VMR2)
   assign(paste0("ModelDFSLt1_VMR2.", i), ModelDFSLt1_VMR2)
 }
-ModelDFSLt1_VMR2 <- head(ModelDFSLt1_VMR2.12, -12) #Create model t=x+1
+ModelDFSLt1_VMR2 <- head(ModelDFSLt1_VMR2, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMR2 <- ModelDFSLt0_VMR2 - ModelDFSLt1_VMR2
@@ -7810,7 +7810,7 @@ for (i in 1:12) {
   ModelDFSLt1_VMR3 <- rbind(c(0:0), ModelDFSLt0_VMR3)
   assign(paste0("ModelDFSLt1_VMR3.", i), ModelDFSLt1_VMR3)
 }
-ModelDFSLt1_VMR3 <- head(ModelDFSLt1_VMR3.12, -12) #Create model t=x+1
+ModelDFSLt1_VMR3 <- head(ModelDFSLt1_VMR3, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMR3 <- ModelDFSLt0_VMR3 - ModelDFSLt1_VMR3
@@ -7970,7 +7970,7 @@ for (i in 1:12) {
   ModelDFSLt1_VMR4 <- rbind(c(0:0), ModelDFSLt0_VMR4)
   assign(paste0("ModelDFSLt1_VMR4.", i), ModelDFSLt1_VMR4)
 }
-ModelDFSLt1_VMR4 <- head(ModelDFSLt1_VMR4.12, -12) #Create model t=x+1
+ModelDFSLt1_VMR4 <- head(ModelDFSLt1_VMR4, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMR4 <- ModelDFSLt0_VMR4 - ModelDFSLt1_VMR4
@@ -8130,7 +8130,7 @@ for (i in 1:12) {
   ModelDFSLt1_VMR5 <- rbind(c(0:0), ModelDFSLt0_VMR5)
   assign(paste0("ModelDFSLt1_VMR5.", i), ModelDFSLt1_VMR5)
 }
-ModelDFSLt1_VMR5 <- head(ModelDFSLt1_VMR5.12, -12) #Create model t=x+1
+ModelDFSLt1_VMR5 <- head(ModelDFSLt1_VMR5, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMR5 <- ModelDFSLt0_VMR5 - ModelDFSLt1_VMR5
@@ -8293,7 +8293,7 @@ for (i in 1:12) {
   ModelDFSLt1_VMR6 <- rbind(c(0:0), ModelDFSLt0_VMR6)
   assign(paste0("ModelDFSLt1_VMR6.", i), ModelDFSLt1_VMR6)
 }
-ModelDFSLt1_VMR6 <- head(ModelDFSLt1_VMR6.12, -12) #Create model t=x+1
+ModelDFSLt1_VMR6 <- head(ModelDFSLt1_VMR6, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMR6 <- ModelDFSLt0_VMR6 - ModelDFSLt1_VMR6
@@ -8455,7 +8455,7 @@ for (i in 1:12) {
   ModelDFSLt1_VMR7 <- rbind(c(0:0), ModelDFSLt0_VMR7)
   assign(paste0("ModelDFSLt1_VMR7.", i), ModelDFSLt1_VMR7)
 }
-ModelDFSLt1_VMR7 <- head(ModelDFSLt1_VMR7.12, -12) #Create model t=x+1
+ModelDFSLt1_VMR7 <- head(ModelDFSLt1_VMR7, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMR7 <- ModelDFSLt0_VMR7 - ModelDFSLt1_VMR7
@@ -8618,7 +8618,7 @@ for (i in 1:12) {
   ModelDFSLt1_VMR8 <- rbind(c(0:0), ModelDFSLt0_VMR8)
   assign(paste0("ModelDFSLt1_VMR8.", i), ModelDFSLt1_VMR8)
 }
-ModelDFSLt1_VMR8 <- head(ModelDFSLt1_VMR8.12, -12) #Create model t=x+1
+ModelDFSLt1_VMR8 <- head(ModelDFSLt1_VMR8, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMR8 <- ModelDFSLt0_VMR8 - ModelDFSLt1_VMR8
@@ -8780,7 +8780,7 @@ for (i in 1:12) {
   ModelDFSLt1_VMR9 <- rbind(c(0:0), ModelDFSLt0_VMR9)
   assign(paste0("ModelDFSLt1_VMR9.", i), ModelDFSLt1_VMR9)
 }
-ModelDFSLt1_VMR9 <- head(ModelDFSLt1_VMR9.12, -12) #Create model t=x+1
+ModelDFSLt1_VMR9 <- head(ModelDFSLt1_VMR9, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMR9 <- ModelDFSLt0_VMR9 - ModelDFSLt1_VMR9
@@ -8942,7 +8942,7 @@ for (i in 1:12) {
   ModelDFSLt1_VMR10 <- rbind(c(0:0), ModelDFSLt0_VMR10)
   assign(paste0("ModelDFSLt1_VMR10.", i), ModelDFSLt1_VMR10)
 }
-ModelDFSLt1_VMR10 <- head(ModelDFSLt1_VMR10.12, -12) #Create model t=x+1
+ModelDFSLt1_VMR10 <- head(ModelDFSLt1_VMR10, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMR10 <- ModelDFSLt0_VMR10 - ModelDFSLt1_VMR10
@@ -9097,7 +9097,7 @@ for (i in 1:12) {
   ModelDFSLt1_VMN0 <- rbind(c(0:0), ModelDFSLt0_VMN0)
   assign(paste0("ModelDFSLt1_VMN0.", i), ModelDFSLt1_VMN0)
 }
-ModelDFSLt1_VMN0 <- head(ModelDFSLt1_VMN0.12, -12) #Create model t=x+1
+ModelDFSLt1_VMN0 <- head(ModelDFSLt1_VMN0, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMN0 <- ModelDFSLt0_VMN0 - ModelDFSLt1_VMN0
@@ -9255,7 +9255,7 @@ for (i in 1:12) {
   ModelDFSLt1_VMN1 <- rbind(c(0:0), ModelDFSLt0_VMN1)
   assign(paste0("ModelDFSLt1_VMN1.", i), ModelDFSLt1_VMN1)
 }
-ModelDFSLt1_VMN1 <- head(ModelDFSLt1_VMN1.12, -12) #Create model t=x+1
+ModelDFSLt1_VMN1 <- head(ModelDFSLt1_VMN1, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMN1 <- ModelDFSLt0_VMN1 - ModelDFSLt1_VMN1
@@ -9415,7 +9415,7 @@ for (i in 1:12) {
   ModelDFSLt1_VMN2 <- rbind(c(0:0), ModelDFSLt0_VMN2)
   assign(paste0("ModelDFSLt1_VMN2.", i), ModelDFSLt1_VMN2)
 }
-ModelDFSLt1_VMN2 <- head(ModelDFSLt1_VMN2.12, -12) #Create model t=x+1
+ModelDFSLt1_VMN2 <- head(ModelDFSLt1_VMN2, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMN2 <- ModelDFSLt0_VMN2 - ModelDFSLt1_VMN2
@@ -9575,7 +9575,7 @@ for (i in 1:12) {
   ModelDFSLt1_VMN3 <- rbind(c(0:0), ModelDFSLt0_VMN3)
   assign(paste0("ModelDFSLt1_VMN3.", i), ModelDFSLt1_VMN3)
 }
-ModelDFSLt1_VMN3 <- head(ModelDFSLt1_VMN3.12, -12) #Create model t=x+1
+ModelDFSLt1_VMN3 <- head(ModelDFSLt1_VMN3, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMN3 <- ModelDFSLt0_VMN3 - ModelDFSLt1_VMN3
@@ -9735,7 +9735,7 @@ for (i in 1:12) {
   ModelDFSLt1_VMN4 <- rbind(c(0:0), ModelDFSLt0_VMN4)
   assign(paste0("ModelDFSLt1_VMN4.", i), ModelDFSLt1_VMN4)
 }
-ModelDFSLt1_VMN4 <- head(ModelDFSLt1_VMN4.12, -12) #Create model t=x+1
+ModelDFSLt1_VMN4 <- head(ModelDFSLt1_VMN4, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMN4 <- ModelDFSLt0_VMN4 - ModelDFSLt1_VMN4
@@ -9895,7 +9895,7 @@ for (i in 1:12) {
   ModelDFSLt1_VMN5 <- rbind(c(0:0), ModelDFSLt0_VMN5)
   assign(paste0("ModelDFSLt1_VMN5.", i), ModelDFSLt1_VMN5)
 }
-ModelDFSLt1_VMN5 <- head(ModelDFSLt1_VMN5.12, -12) #Create model t=x+1
+ModelDFSLt1_VMN5 <- head(ModelDFSLt1_VMN5, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMN5 <- ModelDFSLt0_VMN5 - ModelDFSLt1_VMN5
@@ -10058,7 +10058,7 @@ for (i in 1:12) {
   ModelDFSLt1_VMN6 <- rbind(c(0:0), ModelDFSLt0_VMN6)
   assign(paste0("ModelDFSLt1_VMN6.", i), ModelDFSLt1_VMN6)
 }
-ModelDFSLt1_VMN6 <- head(ModelDFSLt1_VMN6.12, -12) #Create model t=x+1
+ModelDFSLt1_VMN6 <- head(ModelDFSLt1_VMN6, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMN6 <- ModelDFSLt0_VMN6 - ModelDFSLt1_VMN6
@@ -10220,7 +10220,7 @@ for (i in 1:12) {
   ModelDFSLt1_VMN7 <- rbind(c(0:0), ModelDFSLt0_VMN7)
   assign(paste0("ModelDFSLt1_VMN7.", i), ModelDFSLt1_VMN7)
 }
-ModelDFSLt1_VMN7 <- head(ModelDFSLt1_VMN7.12, -12) #Create model t=x+1
+ModelDFSLt1_VMN7 <- head(ModelDFSLt1_VMN7, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMN7 <- ModelDFSLt0_VMN7 - ModelDFSLt1_VMN7
@@ -10383,7 +10383,7 @@ for (i in 1:12) {
   ModelDFSLt1_VMN8 <- rbind(c(0:0), ModelDFSLt0_VMN8)
   assign(paste0("ModelDFSLt1_VMN8.", i), ModelDFSLt1_VMN8)
 }
-ModelDFSLt1_VMN8 <- head(ModelDFSLt1_VMN8.12, -12) #Create model t=x+1
+ModelDFSLt1_VMN8 <- head(ModelDFSLt1_VMN8, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMN8 <- ModelDFSLt0_VMN8 - ModelDFSLt1_VMN8
@@ -10545,7 +10545,7 @@ for (i in 1:12) {
   ModelDFSLt1_VMN9 <- rbind(c(0:0), ModelDFSLt0_VMN9)
   assign(paste0("ModelDFSLt1_VMN9.", i), ModelDFSLt1_VMN9)
 }
-ModelDFSLt1_VMN9 <- head(ModelDFSLt1_VMN9.12, -12) #Create model t=x+1
+ModelDFSLt1_VMN9 <- head(ModelDFSLt1_VMN9, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMN9 <- ModelDFSLt0_VMN9 - ModelDFSLt1_VMN9
@@ -10707,7 +10707,7 @@ for (i in 1:12) {
   ModelDFSLt1_VMN10 <- rbind(c(0:0), ModelDFSLt0_VMN10)
   assign(paste0("ModelDFSLt1_VMN10.", i), ModelDFSLt1_VMN10)
 }
-ModelDFSLt1_VMN10 <- head(ModelDFSLt1_VMN10.12, -12) #Create model t=x+1
+ModelDFSLt1_VMN10 <- head(ModelDFSLt1_VMN10, -12) #Create model t=x+1
 
 #Subtract model (t=x) - (t=x+1)
 ModelDFSL1y_VMN10 <- ModelDFSLt0_VMN10 - ModelDFSLt1_VMN10
@@ -10863,7 +10863,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VLC0 <- rbind(c(0:0), ModelDFSLt0_VLC0)
       assign(paste0("ModelDFSLt1_VLC0.", i), ModelDFSLt1_VLC0)
     }
-    ModelDFSLt1_VLC0 <- head(ModelDFSLt1_VLC0.12, -12) #Create model t=x+1
+    ModelDFSLt1_VLC0 <- head(ModelDFSLt1_VLC0, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VLC0 <- ModelDFSLt0_VLC0 - ModelDFSLt1_VLC0
@@ -11022,7 +11022,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VLC1 <- rbind(c(0:0), ModelDFSLt0_VLC1)
       assign(paste0("ModelDFSLt1_VLC1.", i), ModelDFSLt1_VLC1)
     }
-    ModelDFSLt1_VLC1 <- head(ModelDFSLt1_VLC1.12, -12) #Create model t=x+1
+    ModelDFSLt1_VLC1 <- head(ModelDFSLt1_VLC1, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VLC1 <- ModelDFSLt0_VLC1 - ModelDFSLt1_VLC1
@@ -11182,7 +11182,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VLC2 <- rbind(c(0:0), ModelDFSLt0_VLC2)
       assign(paste0("ModelDFSLt1_VLC2.", i), ModelDFSLt1_VLC2)
     }
-    ModelDFSLt1_VLC2 <- head(ModelDFSLt1_VLC2.12, -12) #Create model t=x+1
+    ModelDFSLt1_VLC2 <- head(ModelDFSLt1_VLC2, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VLC2 <- ModelDFSLt0_VLC2 - ModelDFSLt1_VLC2
@@ -11342,7 +11342,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VLC3 <- rbind(c(0:0), ModelDFSLt0_VLC3)
       assign(paste0("ModelDFSLt1_VLC3.", i), ModelDFSLt1_VLC3)
     }
-    ModelDFSLt1_VLC3 <- head(ModelDFSLt1_VLC3.12, -12) #Create model t=x+1
+    ModelDFSLt1_VLC3 <- head(ModelDFSLt1_VLC3, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VLC3 <- ModelDFSLt0_VLC3 - ModelDFSLt1_VLC3
@@ -11502,7 +11502,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VLC4 <- rbind(c(0:0), ModelDFSLt0_VLC4)
       assign(paste0("ModelDFSLt1_VLC4.", i), ModelDFSLt1_VLC4)
     }
-    ModelDFSLt1_VLC4 <- head(ModelDFSLt1_VLC4.12, -12) #Create model t=x+1
+    ModelDFSLt1_VLC4 <- head(ModelDFSLt1_VLC4, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VLC4 <- ModelDFSLt0_VLC4 - ModelDFSLt1_VLC4
@@ -11662,7 +11662,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VLC5 <- rbind(c(0:0), ModelDFSLt0_VLC5)
       assign(paste0("ModelDFSLt1_VLC5.", i), ModelDFSLt1_VLC5)
     }
-    ModelDFSLt1_VLC5 <- head(ModelDFSLt1_VLC5.12, -12) #Create model t=x+1
+    ModelDFSLt1_VLC5 <- head(ModelDFSLt1_VLC5, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VLC5 <- ModelDFSLt0_VLC5 - ModelDFSLt1_VLC5
@@ -11825,7 +11825,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VLC6 <- rbind(c(0:0), ModelDFSLt0_VLC6)
       assign(paste0("ModelDFSLt1_VLC6.", i), ModelDFSLt1_VLC6)
     }
-    ModelDFSLt1_VLC6 <- head(ModelDFSLt1_VLC6.12, -12) #Create model t=x+1
+    ModelDFSLt1_VLC6 <- head(ModelDFSLt1_VLC6, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VLC6 <- ModelDFSLt0_VLC6 - ModelDFSLt1_VLC6
@@ -11987,7 +11987,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VLC7 <- rbind(c(0:0), ModelDFSLt0_VLC7)
       assign(paste0("ModelDFSLt1_VLC7.", i), ModelDFSLt1_VLC7)
     }
-    ModelDFSLt1_VLC7 <- head(ModelDFSLt1_VLC7.12, -12) #Create model t=x+1
+    ModelDFSLt1_VLC7 <- head(ModelDFSLt1_VLC7, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VLC7 <- ModelDFSLt0_VLC7 - ModelDFSLt1_VLC7
@@ -12150,7 +12150,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VLC8 <- rbind(c(0:0), ModelDFSLt0_VLC8)
       assign(paste0("ModelDFSLt1_VLC8.", i), ModelDFSLt1_VLC8)
     }
-    ModelDFSLt1_VLC8 <- head(ModelDFSLt1_VLC8.12, -12) #Create model t=x+1
+    ModelDFSLt1_VLC8 <- head(ModelDFSLt1_VLC8, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VLC8 <- ModelDFSLt0_VLC8 - ModelDFSLt1_VLC8
@@ -12312,7 +12312,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VLC9 <- rbind(c(0:0), ModelDFSLt0_VLC9)
       assign(paste0("ModelDFSLt1_VLC9.", i), ModelDFSLt1_VLC9)
     }
-    ModelDFSLt1_VLC9 <- head(ModelDFSLt1_VLC9.12, -12) #Create model t=x+1
+    ModelDFSLt1_VLC9 <- head(ModelDFSLt1_VLC9, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VLC9 <- ModelDFSLt0_VLC9 - ModelDFSLt1_VLC9
@@ -12474,7 +12474,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VLC10 <- rbind(c(0:0), ModelDFSLt0_VLC10)
       assign(paste0("ModelDFSLt1_VLC10.", i), ModelDFSLt1_VLC10)
     }
-    ModelDFSLt1_VLC10 <- head(ModelDFSLt1_VLC10.12, -12) #Create model t=x+1
+    ModelDFSLt1_VLC10 <- head(ModelDFSLt1_VLC10, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VLC10 <- ModelDFSLt0_VLC10 - ModelDFSLt1_VLC10
@@ -12630,7 +12630,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VLR0 <- rbind(c(0:0), ModelDFSLt0_VLR0)
       assign(paste0("ModelDFSLt1_VLR0.", i), ModelDFSLt1_VLR0)
     }
-    ModelDFSLt1_VLR0 <- head(ModelDFSLt1_VLR0.12, -12) #Create model t=x+1
+    ModelDFSLt1_VLR0 <- head(ModelDFSLt1_VLR0, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VLR0 <- ModelDFSLt0_VLR0 - ModelDFSLt1_VLR0
@@ -12789,7 +12789,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VLR1 <- rbind(c(0:0), ModelDFSLt0_VLR1)
       assign(paste0("ModelDFSLt1_VLR1.", i), ModelDFSLt1_VLR1)
     }
-    ModelDFSLt1_VLR1 <- head(ModelDFSLt1_VLR1.12, -12) #Create model t=x+1
+    ModelDFSLt1_VLR1 <- head(ModelDFSLt1_VLR1, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VLR1 <- ModelDFSLt0_VLR1 - ModelDFSLt1_VLR1
@@ -12949,7 +12949,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VLR2 <- rbind(c(0:0), ModelDFSLt0_VLR2)
       assign(paste0("ModelDFSLt1_VLR2.", i), ModelDFSLt1_VLR2)
     }
-    ModelDFSLt1_VLR2 <- head(ModelDFSLt1_VLR2.12, -12) #Create model t=x+1
+    ModelDFSLt1_VLR2 <- head(ModelDFSLt1_VLR2, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VLR2 <- ModelDFSLt0_VLR2 - ModelDFSLt1_VLR2
@@ -13109,7 +13109,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VLR3 <- rbind(c(0:0), ModelDFSLt0_VLR3)
       assign(paste0("ModelDFSLt1_VLR3.", i), ModelDFSLt1_VLR3)
     }
-    ModelDFSLt1_VLR3 <- head(ModelDFSLt1_VLR3.12, -12) #Create model t=x+1
+    ModelDFSLt1_VLR3 <- head(ModelDFSLt1_VLR3, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VLR3 <- ModelDFSLt0_VLR3 - ModelDFSLt1_VLR3
@@ -13269,7 +13269,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VLR4 <- rbind(c(0:0), ModelDFSLt0_VLR4)
       assign(paste0("ModelDFSLt1_VLR4.", i), ModelDFSLt1_VLR4)
     }
-    ModelDFSLt1_VLR4 <- head(ModelDFSLt1_VLR4.12, -12) #Create model t=x+1
+    ModelDFSLt1_VLR4 <- head(ModelDFSLt1_VLR4, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VLR4 <- ModelDFSLt0_VLR4 - ModelDFSLt1_VLR4
@@ -13429,7 +13429,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VLR5 <- rbind(c(0:0), ModelDFSLt0_VLR5)
       assign(paste0("ModelDFSLt1_VLR5.", i), ModelDFSLt1_VLR5)
     }
-    ModelDFSLt1_VLR5 <- head(ModelDFSLt1_VLR5.12, -12) #Create model t=x+1
+    ModelDFSLt1_VLR5 <- head(ModelDFSLt1_VLR5, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VLR5 <- ModelDFSLt0_VLR5 - ModelDFSLt1_VLR5
@@ -13592,7 +13592,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VLR6 <- rbind(c(0:0), ModelDFSLt0_VLR6)
       assign(paste0("ModelDFSLt1_VLR6.", i), ModelDFSLt1_VLR6)
     }
-    ModelDFSLt1_VLR6 <- head(ModelDFSLt1_VLR6.12, -12) #Create model t=x+1
+    ModelDFSLt1_VLR6 <- head(ModelDFSLt1_VLR6, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VLR6 <- ModelDFSLt0_VLR6 - ModelDFSLt1_VLR6
@@ -13754,7 +13754,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VLR7 <- rbind(c(0:0), ModelDFSLt0_VLR7)
       assign(paste0("ModelDFSLt1_VLR7.", i), ModelDFSLt1_VLR7)
     }
-    ModelDFSLt1_VLR7 <- head(ModelDFSLt1_VLR7.12, -12) #Create model t=x+1
+    ModelDFSLt1_VLR7 <- head(ModelDFSLt1_VLR7, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VLR7 <- ModelDFSLt0_VLR7 - ModelDFSLt1_VLR7
@@ -13917,7 +13917,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VLR8 <- rbind(c(0:0), ModelDFSLt0_VLR8)
       assign(paste0("ModelDFSLt1_VLR8.", i), ModelDFSLt1_VLR8)
     }
-    ModelDFSLt1_VLR8 <- head(ModelDFSLt1_VLR8.12, -12) #Create model t=x+1
+    ModelDFSLt1_VLR8 <- head(ModelDFSLt1_VLR8, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VLR8 <- ModelDFSLt0_VLR8 - ModelDFSLt1_VLR8
@@ -14079,7 +14079,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VLR9 <- rbind(c(0:0), ModelDFSLt0_VLR9)
       assign(paste0("ModelDFSLt1_VLR9.", i), ModelDFSLt1_VLR9)
     }
-    ModelDFSLt1_VLR9 <- head(ModelDFSLt1_VLR9.12, -12) #Create model t=x+1
+    ModelDFSLt1_VLR9 <- head(ModelDFSLt1_VLR9, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VLR9 <- ModelDFSLt0_VLR9 - ModelDFSLt1_VLR9
@@ -14241,7 +14241,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VLR10 <- rbind(c(0:0), ModelDFSLt0_VLR10)
       assign(paste0("ModelDFSLt1_VLR10.", i), ModelDFSLt1_VLR10)
     }
-    ModelDFSLt1_VLR10 <- head(ModelDFSLt1_VLR10.12, -12) #Create model t=x+1
+    ModelDFSLt1_VLR10 <- head(ModelDFSLt1_VLR10, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VLR10 <- ModelDFSLt0_VLR10 - ModelDFSLt1_VLR10
@@ -14399,7 +14399,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VLN0 <- rbind(c(0:0), ModelDFSLt0_VLN0)
       assign(paste0("ModelDFSLt1_VLN0.", i), ModelDFSLt1_VLN0)
     }
-    ModelDFSLt1_VLN0 <- head(ModelDFSLt1_VLN0.12, -12) #Create model t=x+1
+    ModelDFSLt1_VLN0 <- head(ModelDFSLt1_VLN0, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VLN0 <- ModelDFSLt0_VLN0 - ModelDFSLt1_VLN0
@@ -14558,7 +14558,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VLN1 <- rbind(c(0:0), ModelDFSLt0_VLN1)
       assign(paste0("ModelDFSLt1_VLN1.", i), ModelDFSLt1_VLN1)
     }
-    ModelDFSLt1_VLN1 <- head(ModelDFSLt1_VLN1.12, -12) #Create model t=x+1
+    ModelDFSLt1_VLN1 <- head(ModelDFSLt1_VLN1, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VLN1 <- ModelDFSLt0_VLN1 - ModelDFSLt1_VLN1
@@ -14718,7 +14718,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VLN2 <- rbind(c(0:0), ModelDFSLt0_VLN2)
       assign(paste0("ModelDFSLt1_VLN2.", i), ModelDFSLt1_VLN2)
     }
-    ModelDFSLt1_VLN2 <- head(ModelDFSLt1_VLN2.12, -12) #Create model t=x+1
+    ModelDFSLt1_VLN2 <- head(ModelDFSLt1_VLN2, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VLN2 <- ModelDFSLt0_VLN2 - ModelDFSLt1_VLN2
@@ -14878,7 +14878,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VLN3 <- rbind(c(0:0), ModelDFSLt0_VLN3)
       assign(paste0("ModelDFSLt1_VLN3.", i), ModelDFSLt1_VLN3)
     }
-    ModelDFSLt1_VLN3 <- head(ModelDFSLt1_VLN3.12, -12) #Create model t=x+1
+    ModelDFSLt1_VLN3 <- head(ModelDFSLt1_VLN3, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VLN3 <- ModelDFSLt0_VLN3 - ModelDFSLt1_VLN3
@@ -15038,7 +15038,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VLN4 <- rbind(c(0:0), ModelDFSLt0_VLN4)
       assign(paste0("ModelDFSLt1_VLN4.", i), ModelDFSLt1_VLN4)
     }
-    ModelDFSLt1_VLN4 <- head(ModelDFSLt1_VLN4.12, -12) #Create model t=x+1
+    ModelDFSLt1_VLN4 <- head(ModelDFSLt1_VLN4, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VLN4 <- ModelDFSLt0_VLN4 - ModelDFSLt1_VLN4
@@ -15198,7 +15198,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VLN5 <- rbind(c(0:0), ModelDFSLt0_VLN5)
       assign(paste0("ModelDFSLt1_VLN5.", i), ModelDFSLt1_VLN5)
     }
-    ModelDFSLt1_VLN5 <- head(ModelDFSLt1_VLN5.12, -12) #Create model t=x+1
+    ModelDFSLt1_VLN5 <- head(ModelDFSLt1_VLN5, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VLN5 <- ModelDFSLt0_VLN5 - ModelDFSLt1_VLN5
@@ -15361,7 +15361,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VLN6 <- rbind(c(0:0), ModelDFSLt0_VLN6)
       assign(paste0("ModelDFSLt1_VLN6.", i), ModelDFSLt1_VLN6)
     }
-    ModelDFSLt1_VLN6 <- head(ModelDFSLt1_VLN6.12, -12) #Create model t=x+1
+    ModelDFSLt1_VLN6 <- head(ModelDFSLt1_VLN6, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VLN6 <- ModelDFSLt0_VLN6 - ModelDFSLt1_VLN6
@@ -15523,7 +15523,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VLN7 <- rbind(c(0:0), ModelDFSLt0_VLN7)
       assign(paste0("ModelDFSLt1_VLN7.", i), ModelDFSLt1_VLN7)
     }
-    ModelDFSLt1_VLN7 <- head(ModelDFSLt1_VLN7.12, -12) #Create model t=x+1
+    ModelDFSLt1_VLN7 <- head(ModelDFSLt1_VLN7, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VLN7 <- ModelDFSLt0_VLN7 - ModelDFSLt1_VLN7
@@ -15686,7 +15686,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VLN8 <- rbind(c(0:0), ModelDFSLt0_VLN8)
       assign(paste0("ModelDFSLt1_VLN8.", i), ModelDFSLt1_VLN8)
     }
-    ModelDFSLt1_VLN8 <- head(ModelDFSLt1_VLN8.12, -12) #Create model t=x+1
+    ModelDFSLt1_VLN8 <- head(ModelDFSLt1_VLN8, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VLN8 <- ModelDFSLt0_VLN8 - ModelDFSLt1_VLN8
@@ -15848,7 +15848,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VLN9 <- rbind(c(0:0), ModelDFSLt0_VLN9)
       assign(paste0("ModelDFSLt1_VLN9.", i), ModelDFSLt1_VLN9)
     }
-    ModelDFSLt1_VLN9 <- head(ModelDFSLt1_VLN9.12, -12) #Create model t=x+1
+    ModelDFSLt1_VLN9 <- head(ModelDFSLt1_VLN9, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VLN9 <- ModelDFSLt0_VLN9 - ModelDFSLt1_VLN9
@@ -16010,7 +16010,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VLN10 <- rbind(c(0:0), ModelDFSLt0_VLN10)
       assign(paste0("ModelDFSLt1_VLN10.", i), ModelDFSLt1_VLN10)
     }
-    ModelDFSLt1_VLN10 <- head(ModelDFSLt1_VLN10.12, -12) #Create model t=x+1
+    ModelDFSLt1_VLN10 <- head(ModelDFSLt1_VLN10, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VLN10 <- ModelDFSLt0_VLN10 - ModelDFSLt1_VLN10
@@ -16166,7 +16166,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VMC0 <- rbind(c(0:0), ModelDFSLt0_VMC0)
       assign(paste0("ModelDFSLt1_VMC0.", i), ModelDFSLt1_VMC0)
     }
-    ModelDFSLt1_VMC0 <- head(ModelDFSLt1_VMC0.12, -12) #Create model t=x+1
+    ModelDFSLt1_VMC0 <- head(ModelDFSLt1_VMC0, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VMC0 <- ModelDFSLt0_VMC0 - ModelDFSLt1_VMC0
@@ -16325,7 +16325,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VMC1 <- rbind(c(0:0), ModelDFSLt0_VMC1)
       assign(paste0("ModelDFSLt1_VMC1.", i), ModelDFSLt1_VMC1)
     }
-    ModelDFSLt1_VMC1 <- head(ModelDFSLt1_VMC1.12, -12) #Create model t=x+1
+    ModelDFSLt1_VMC1 <- head(ModelDFSLt1_VMC1, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VMC1 <- ModelDFSLt0_VMC1 - ModelDFSLt1_VMC1
@@ -16485,7 +16485,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VMC2 <- rbind(c(0:0), ModelDFSLt0_VMC2)
       assign(paste0("ModelDFSLt1_VMC2.", i), ModelDFSLt1_VMC2)
     }
-    ModelDFSLt1_VMC2 <- head(ModelDFSLt1_VMC2.12, -12) #Create model t=x+1
+    ModelDFSLt1_VMC2 <- head(ModelDFSLt1_VMC2, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VMC2 <- ModelDFSLt0_VMC2 - ModelDFSLt1_VMC2
@@ -16645,7 +16645,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VMC3 <- rbind(c(0:0), ModelDFSLt0_VMC3)
       assign(paste0("ModelDFSLt1_VMC3.", i), ModelDFSLt1_VMC3)
     }
-    ModelDFSLt1_VMC3 <- head(ModelDFSLt1_VMC3.12, -12) #Create model t=x+1
+    ModelDFSLt1_VMC3 <- head(ModelDFSLt1_VMC3, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VMC3 <- ModelDFSLt0_VMC3 - ModelDFSLt1_VMC3
@@ -16805,7 +16805,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VMC4 <- rbind(c(0:0), ModelDFSLt0_VMC4)
       assign(paste0("ModelDFSLt1_VMC4.", i), ModelDFSLt1_VMC4)
     }
-    ModelDFSLt1_VMC4 <- head(ModelDFSLt1_VMC4.12, -12) #Create model t=x+1
+    ModelDFSLt1_VMC4 <- head(ModelDFSLt1_VMC4, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VMC4 <- ModelDFSLt0_VMC4 - ModelDFSLt1_VMC4
@@ -16965,7 +16965,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VMC5 <- rbind(c(0:0), ModelDFSLt0_VMC5)
       assign(paste0("ModelDFSLt1_VMC5.", i), ModelDFSLt1_VMC5)
     }
-    ModelDFSLt1_VMC5 <- head(ModelDFSLt1_VMC5.12, -12) #Create model t=x+1
+    ModelDFSLt1_VMC5 <- head(ModelDFSLt1_VMC5, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VMC5 <- ModelDFSLt0_VMC5 - ModelDFSLt1_VMC5
@@ -17128,7 +17128,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VMC6 <- rbind(c(0:0), ModelDFSLt0_VMC6)
       assign(paste0("ModelDFSLt1_VMC6.", i), ModelDFSLt1_VMC6)
     }
-    ModelDFSLt1_VMC6 <- head(ModelDFSLt1_VMC6.12, -12) #Create model t=x+1
+    ModelDFSLt1_VMC6 <- head(ModelDFSLt1_VMC6, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VMC6 <- ModelDFSLt0_VMC6 - ModelDFSLt1_VMC6
@@ -17290,7 +17290,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VMC7 <- rbind(c(0:0), ModelDFSLt0_VMC7)
       assign(paste0("ModelDFSLt1_VMC7.", i), ModelDFSLt1_VMC7)
     }
-    ModelDFSLt1_VMC7 <- head(ModelDFSLt1_VMC7.12, -12) #Create model t=x+1
+    ModelDFSLt1_VMC7 <- head(ModelDFSLt1_VMC7, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VMC7 <- ModelDFSLt0_VMC7 - ModelDFSLt1_VMC7
@@ -17453,7 +17453,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VMC8 <- rbind(c(0:0), ModelDFSLt0_VMC8)
       assign(paste0("ModelDFSLt1_VMC8.", i), ModelDFSLt1_VMC8)
     }
-    ModelDFSLt1_VMC8 <- head(ModelDFSLt1_VMC8.12, -12) #Create model t=x+1
+    ModelDFSLt1_VMC8 <- head(ModelDFSLt1_VMC8, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VMC8 <- ModelDFSLt0_VMC8 - ModelDFSLt1_VMC8
@@ -17615,7 +17615,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VMC9 <- rbind(c(0:0), ModelDFSLt0_VMC9)
       assign(paste0("ModelDFSLt1_VMC9.", i), ModelDFSLt1_VMC9)
     }
-    ModelDFSLt1_VMC9 <- head(ModelDFSLt1_VMC9.12, -12) #Create model t=x+1
+    ModelDFSLt1_VMC9 <- head(ModelDFSLt1_VMC9, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VMC9 <- ModelDFSLt0_VMC9 - ModelDFSLt1_VMC9
@@ -17777,7 +17777,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VMC10 <- rbind(c(0:0), ModelDFSLt0_VMC10)
       assign(paste0("ModelDFSLt1_VMC10.", i), ModelDFSLt1_VMC10)
     }
-    ModelDFSLt1_VMC10 <- head(ModelDFSLt1_VMC10.12, -12) #Create model t=x+1
+    ModelDFSLt1_VMC10 <- head(ModelDFSLt1_VMC10, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VMC10 <- ModelDFSLt0_VMC10 - ModelDFSLt1_VMC10
@@ -17933,7 +17933,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VMR0 <- rbind(c(0:0), ModelDFSLt0_VMR0)
       assign(paste0("ModelDFSLt1_VMR0.", i), ModelDFSLt1_VMR0)
     }
-    ModelDFSLt1_VMR0 <- head(ModelDFSLt1_VMR0.12, -12) #Create model t=x+1
+    ModelDFSLt1_VMR0 <- head(ModelDFSLt1_VMR0, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VMR0 <- ModelDFSLt0_VMR0 - ModelDFSLt1_VMR0
@@ -18092,7 +18092,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VMR1 <- rbind(c(0:0), ModelDFSLt0_VMR1)
       assign(paste0("ModelDFSLt1_VMR1.", i), ModelDFSLt1_VMR1)
     }
-    ModelDFSLt1_VMR1 <- head(ModelDFSLt1_VMR1.12, -12) #Create model t=x+1
+    ModelDFSLt1_VMR1 <- head(ModelDFSLt1_VMR1, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VMR1 <- ModelDFSLt0_VMR1 - ModelDFSLt1_VMR1
@@ -18252,7 +18252,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VMR2 <- rbind(c(0:0), ModelDFSLt0_VMR2)
       assign(paste0("ModelDFSLt1_VMR2.", i), ModelDFSLt1_VMR2)
     }
-    ModelDFSLt1_VMR2 <- head(ModelDFSLt1_VMR2.12, -12) #Create model t=x+1
+    ModelDFSLt1_VMR2 <- head(ModelDFSLt1_VMR2, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VMR2 <- ModelDFSLt0_VMR2 - ModelDFSLt1_VMR2
@@ -18412,7 +18412,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VMR3 <- rbind(c(0:0), ModelDFSLt0_VMR3)
       assign(paste0("ModelDFSLt1_VMR3.", i), ModelDFSLt1_VMR3)
     }
-    ModelDFSLt1_VMR3 <- head(ModelDFSLt1_VMR3.12, -12) #Create model t=x+1
+    ModelDFSLt1_VMR3 <- head(ModelDFSLt1_VMR3, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VMR3 <- ModelDFSLt0_VMR3 - ModelDFSLt1_VMR3
@@ -18572,7 +18572,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VMR4 <- rbind(c(0:0), ModelDFSLt0_VMR4)
       assign(paste0("ModelDFSLt1_VMR4.", i), ModelDFSLt1_VMR4)
     }
-    ModelDFSLt1_VMR4 <- head(ModelDFSLt1_VMR4.12, -12) #Create model t=x+1
+    ModelDFSLt1_VMR4 <- head(ModelDFSLt1_VMR4, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VMR4 <- ModelDFSLt0_VMR4 - ModelDFSLt1_VMR4
@@ -18732,7 +18732,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VMR5 <- rbind(c(0:0), ModelDFSLt0_VMR5)
       assign(paste0("ModelDFSLt1_VMR5.", i), ModelDFSLt1_VMR5)
     }
-    ModelDFSLt1_VMR5 <- head(ModelDFSLt1_VMR5.12, -12) #Create model t=x+1
+    ModelDFSLt1_VMR5 <- head(ModelDFSLt1_VMR5, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VMR5 <- ModelDFSLt0_VMR5 - ModelDFSLt1_VMR5
@@ -18895,7 +18895,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VMR6 <- rbind(c(0:0), ModelDFSLt0_VMR6)
       assign(paste0("ModelDFSLt1_VMR6.", i), ModelDFSLt1_VMR6)
     }
-    ModelDFSLt1_VMR6 <- head(ModelDFSLt1_VMR6.12, -12) #Create model t=x+1
+    ModelDFSLt1_VMR6 <- head(ModelDFSLt1_VMR6, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VMR6 <- ModelDFSLt0_VMR6 - ModelDFSLt1_VMR6
@@ -19057,7 +19057,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VMR7 <- rbind(c(0:0), ModelDFSLt0_VMR7)
       assign(paste0("ModelDFSLt1_VMR7.", i), ModelDFSLt1_VMR7)
     }
-    ModelDFSLt1_VMR7 <- head(ModelDFSLt1_VMR7.12, -12) #Create model t=x+1
+    ModelDFSLt1_VMR7 <- head(ModelDFSLt1_VMR7, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VMR7 <- ModelDFSLt0_VMR7 - ModelDFSLt1_VMR7
@@ -19220,7 +19220,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VMR8 <- rbind(c(0:0), ModelDFSLt0_VMR8)
       assign(paste0("ModelDFSLt1_VMR8.", i), ModelDFSLt1_VMR8)
     }
-    ModelDFSLt1_VMR8 <- head(ModelDFSLt1_VMR8.12, -12) #Create model t=x+1
+    ModelDFSLt1_VMR8 <- head(ModelDFSLt1_VMR8, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VMR8 <- ModelDFSLt0_VMR8 - ModelDFSLt1_VMR8
@@ -19382,7 +19382,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VMR9 <- rbind(c(0:0), ModelDFSLt0_VMR9)
       assign(paste0("ModelDFSLt1_VMR9.", i), ModelDFSLt1_VMR9)
     }
-    ModelDFSLt1_VMR9 <- head(ModelDFSLt1_VMR9.12, -12) #Create model t=x+1
+    ModelDFSLt1_VMR9 <- head(ModelDFSLt1_VMR9, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VMR9 <- ModelDFSLt0_VMR9 - ModelDFSLt1_VMR9
@@ -19544,7 +19544,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VMR10 <- rbind(c(0:0), ModelDFSLt0_VMR10)
       assign(paste0("ModelDFSLt1_VMR10.", i), ModelDFSLt1_VMR10)
     }
-    ModelDFSLt1_VMR10 <- head(ModelDFSLt1_VMR10.12, -12) #Create model t=x+1
+    ModelDFSLt1_VMR10 <- head(ModelDFSLt1_VMR10, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VMR10 <- ModelDFSLt0_VMR10 - ModelDFSLt1_VMR10
@@ -19700,7 +19700,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VMN0 <- rbind(c(0:0), ModelDFSLt0_VMN0)
       assign(paste0("ModelDFSLt1_VMN0.", i), ModelDFSLt1_VMN0)
     }
-    ModelDFSLt1_VMN0 <- head(ModelDFSLt1_VMN0.12, -12) #Create model t=x+1
+    ModelDFSLt1_VMN0 <- head(ModelDFSLt1_VMN0, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VMN0 <- ModelDFSLt0_VMN0 - ModelDFSLt1_VMN0
@@ -19858,7 +19858,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VMN1 <- rbind(c(0:0), ModelDFSLt0_VMN1)
       assign(paste0("ModelDFSLt1_VMN1.", i), ModelDFSLt1_VMN1)
     }
-    ModelDFSLt1_VMN1 <- head(ModelDFSLt1_VMN1.12, -12) #Create model t=x+1
+    ModelDFSLt1_VMN1 <- head(ModelDFSLt1_VMN1, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VMN1 <- ModelDFSLt0_VMN1 - ModelDFSLt1_VMN1
@@ -20018,7 +20018,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VMN2 <- rbind(c(0:0), ModelDFSLt0_VMN2)
       assign(paste0("ModelDFSLt1_VMN2.", i), ModelDFSLt1_VMN2)
     }
-    ModelDFSLt1_VMN2 <- head(ModelDFSLt1_VMN2.12, -12) #Create model t=x+1
+    ModelDFSLt1_VMN2 <- head(ModelDFSLt1_VMN2, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VMN2 <- ModelDFSLt0_VMN2 - ModelDFSLt1_VMN2
@@ -20178,7 +20178,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VMN3 <- rbind(c(0:0), ModelDFSLt0_VMN3)
       assign(paste0("ModelDFSLt1_VMN3.", i), ModelDFSLt1_VMN3)
     }
-    ModelDFSLt1_VMN3 <- head(ModelDFSLt1_VMN3.12, -12) #Create model t=x+1
+    ModelDFSLt1_VMN3 <- head(ModelDFSLt1_VMN3, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VMN3 <- ModelDFSLt0_VMN3 - ModelDFSLt1_VMN3
@@ -20338,7 +20338,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VMN4 <- rbind(c(0:0), ModelDFSLt0_VMN4)
       assign(paste0("ModelDFSLt1_VMN4.", i), ModelDFSLt1_VMN4)
     }
-    ModelDFSLt1_VMN4 <- head(ModelDFSLt1_VMN4.12, -12) #Create model t=x+1
+    ModelDFSLt1_VMN4 <- head(ModelDFSLt1_VMN4, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VMN4 <- ModelDFSLt0_VMN4 - ModelDFSLt1_VMN4
@@ -20498,7 +20498,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VMN5 <- rbind(c(0:0), ModelDFSLt0_VMN5)
       assign(paste0("ModelDFSLt1_VMN5.", i), ModelDFSLt1_VMN5)
     }
-    ModelDFSLt1_VMN5 <- head(ModelDFSLt1_VMN5.12, -12) #Create model t=x+1
+    ModelDFSLt1_VMN5 <- head(ModelDFSLt1_VMN5, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VMN5 <- ModelDFSLt0_VMN5 - ModelDFSLt1_VMN5
@@ -20661,7 +20661,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VMN6 <- rbind(c(0:0), ModelDFSLt0_VMN6)
       assign(paste0("ModelDFSLt1_VMN6.", i), ModelDFSLt1_VMN6)
     }
-    ModelDFSLt1_VMN6 <- head(ModelDFSLt1_VMN6.12, -12) #Create model t=x+1
+    ModelDFSLt1_VMN6 <- head(ModelDFSLt1_VMN6, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VMN6 <- ModelDFSLt0_VMN6 - ModelDFSLt1_VMN6
@@ -20823,7 +20823,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VMN7 <- rbind(c(0:0), ModelDFSLt0_VMN7)
       assign(paste0("ModelDFSLt1_VMN7.", i), ModelDFSLt1_VMN7)
     }
-    ModelDFSLt1_VMN7 <- head(ModelDFSLt1_VMN7.12, -12) #Create model t=x+1
+    ModelDFSLt1_VMN7 <- head(ModelDFSLt1_VMN7, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VMN7 <- ModelDFSLt0_VMN7 - ModelDFSLt1_VMN7
@@ -20986,7 +20986,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VMN8 <- rbind(c(0:0), ModelDFSLt0_VMN8)
       assign(paste0("ModelDFSLt1_VMN8.", i), ModelDFSLt1_VMN8)
     }
-    ModelDFSLt1_VMN8 <- head(ModelDFSLt1_VMN8.12, -12) #Create model t=x+1
+    ModelDFSLt1_VMN8 <- head(ModelDFSLt1_VMN8, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VMN8 <- ModelDFSLt0_VMN8 - ModelDFSLt1_VMN8
@@ -21148,7 +21148,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VMN9 <- rbind(c(0:0), ModelDFSLt0_VMN9)
       assign(paste0("ModelDFSLt1_VMN9.", i), ModelDFSLt1_VMN9)
     }
-    ModelDFSLt1_VMN9 <- head(ModelDFSLt1_VMN9.12, -12) #Create model t=x+1
+    ModelDFSLt1_VMN9 <- head(ModelDFSLt1_VMN9, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VMN9 <- ModelDFSLt0_VMN9 - ModelDFSLt1_VMN9
@@ -21310,7 +21310,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
       ModelDFSLt1_VMN10 <- rbind(c(0:0), ModelDFSLt0_VMN10)
       assign(paste0("ModelDFSLt1_VMN10.", i), ModelDFSLt1_VMN10)
     }
-    ModelDFSLt1_VMN10 <- head(ModelDFSLt1_VMN10.12, -12) #Create model t=x+1
+    ModelDFSLt1_VMN10 <- head(ModelDFSLt1_VMN10, -12) #Create model t=x+1
 
     #Subtract model (t=x) - (t=x+1)
     ModelDFSL1y_VMN10 <- ModelDFSLt0_VMN10 - ModelDFSLt1_VMN10
