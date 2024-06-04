@@ -14254,7 +14254,7 @@ write_xlsx(ModelDFSL_VMN10P_YCT,"CTails_P\\ModelDFSL_R_CT_VMN10P.xlsx") #Yearly 
     ModelDFSLt1_VLR10_CorrectingPlus1 <- head(ModelDFSL1y_VLR10, -12) #Create model t=x+1
 
     #This model will be called VLR_0P because implies a one-off input of C
-    ModelDFSL_VLR_10P <- ModelDFSLt1_VLR10_CorrectingPlus1
+    ModelDFSL_VLR10P <- ModelDFSLt1_VLR10_CorrectingPlus1
 
     #Export the dataframe
     write_xlsx(ModelDFSL_VLR10P,"VXP_Models\\ModelDFSL_R_VLR10P.xlsx")
