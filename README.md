@@ -1,6 +1,9 @@
 # RothCO2
 Functions to create variations of the RothC Model such as GWP100 with emissions delay or C tails to create dynamic C balances.
-Import to RStudio using: <devtools::install_github("DrRufiSalis/RothCO2", dependencies = T)>
+Import to RStudio using one of three options below: 
+<devtools::install_github("DrRufiSalis/RothCO2", dependencies = T)>
+<pak::pak("DrRufiSalis/RothCO2", dependencies = T)>
+<remotes::install_github("DrRufiSalis/RothCO2", dependencies = TRUE)>
 
 Package Working Scheme:
 
